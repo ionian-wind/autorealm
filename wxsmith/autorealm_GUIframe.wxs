@@ -1,0 +1,1471 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wxsmith>
+	<object class="wxFrame" name="autorealm_GUIFrame">
+		<size>1268,379</size>
+		<id_arg>0</id_arg>
+		<object class="wxAuiManager" variable="AuiManager" member="yes">
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARSHAPE" variable="AuiToolBarShape" member="yes">
+					<pos>68,144</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMFREEHAND" variable="AuiToolBarItemFreeHand" member="yes">
+							<bitmap>png_files/toolbars/shape/tool-freehand.png</bitmap>
+							<shorthelp>FreeHand</shorthelp>
+						</object>
+						<label>FreeHand</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMLINE" variable="AuiToolBarItemLine" member="yes">
+							<bitmap>png_files/toolbars/shape/tool-line.png</bitmap>
+							<shorthelp>Line</shorthelp>
+						</object>
+						<label>Line</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMPOLYLINE" variable="AuiToolBarItemPolyLine" member="yes">
+							<bitmap>png_files/toolbars/shape/tool-polyline.png</bitmap>
+							<shorthelp>PolyLine</shorthelp>
+						</object>
+						<label>PolyLine</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMCURVE" variable="AuiToolBarItemCurve" member="yes">
+							<bitmap>png_files/toolbars/shape/tool-curve.png</bitmap>
+							<shorthelp>Curve</shorthelp>
+						</object>
+						<label>Curve</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMPOLYCURVE" variable="AuiToolBarItemPolyCurve" member="yes">
+							<bitmap>png_files/toolbars/shape/tool-polycurve.png</bitmap>
+							<shorthelp>PolyCurve</shorthelp>
+						</object>
+						<label>PolyCurve</label>
+					</object>
+				</object>
+				<name>PaneShape</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Shape</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<layer>10</layer>
+				<position>1</position>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARTRANSFORM" variable="AuiToolBarTransform" member="yes">
+					<pos>139,271</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMALIGN" variable="AuiToolBarItemAlign" member="yes">
+							<bitmap>png_files/toolbars/transform/tool-align.png</bitmap>
+							<shorthelp>Align</shorthelp>
+						</object>
+						<label>Align</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMFLIP" variable="AuiToolBarItemFlip" member="yes">
+							<bitmap>png_files/toolbars/transform/tool-flip.png</bitmap>
+							<shorthelp>Flip</shorthelp>
+						</object>
+						<label>Flip</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSKEW" variable="AuiToolBarItemSkew" member="yes">
+							<bitmap>png_files/toolbars/transform/tool-skew.png</bitmap>
+							<shorthelp>Skew</shorthelp>
+						</object>
+						<label>Skew</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMROTATE" variable="AuiToolBarItemRotate" member="yes">
+							<bitmap>png_files/toolbars/transform/tool-rotate.png</bitmap>
+							<shorthelp>Rotate</shorthelp>
+						</object>
+						<label>Rotate</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSCALE" variable="AuiToolBarItemScale" member="yes">
+							<bitmap>png_files/toolbars/transform/tool-scale.png</bitmap>
+							<shorthelp>Scale</shorthelp>
+						</object>
+						<label>Scale</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMMOVE" variable="AuiToolBarItemMove" member="yes">
+							<bitmap>png_files/toolbars/transform/tool-move.png</bitmap>
+							<shorthelp>Move</shorthelp>
+						</object>
+						<label>Move</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMROT90" variable="AuiToolBarItemRot90" member="yes">
+							<bitmap>png_files/toolbars/transform/tool-rotate90.png</bitmap>
+							<shorthelp>Rotate 90°</shorthelp>
+						</object>
+						<label>Rotate 90°</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMROT45" variable="AuiToolBarItemRot45" member="yes">
+							<bitmap>png_files/toolbars/transform/tool-rotate45.png</bitmap>
+							<shorthelp>Rotate 45°</shorthelp>
+						</object>
+						<label>Rotate 45°</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarSeparator" />
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMARRAY" variable="AuiToolBarItemArray" member="yes">
+							<bitmap>png_files/toolbars/transform/tool-array.png</bitmap>
+							<shorthelp>Array</shorthelp>
+						</object>
+						<label>Array</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMORDER" variable="AuiToolBarItemOrder" member="yes">
+							<bitmap>png_files/toolbars/transform/tool-order.png</bitmap>
+							<shorthelp>Order</shorthelp>
+						</object>
+						<label>Order</label>
+					</object>
+				</object>
+				<name>Transform</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Transform</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<layer>10</layer>
+				<position>6</position>
+				<dockdirection>Left</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARGRIDSETTINGS" variable="AuiToolBarGridSettings" member="yes">
+					<pos>68,144</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMTOGGLEOVERLAY" variable="AuiToolBarItemToggleOverlay" member="yes">
+							<bitmap>png_files/toolbars/grid_settings/tool-toggle-overlay-tags.png</bitmap>
+							<disabledbitmap>png_files/toolbars/grid_settings/tool-toggle-overlay-tags.png</disabledbitmap>
+							<shorthelp>Toggle Overlay Tags</shorthelp>
+							<itemkind>Check</itemkind>
+						</object>
+						<label>Toggle Overlay Tags</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMGRID" variable="AuiToolBarItemGrid" member="yes">
+							<bitmap>png_files/toolbars/grid_settings/tool-toggle-design-grid.png</bitmap>
+							<disabledbitmap>png_files/toolbars/grid_settings/tool-toggle-design-grid.png</disabledbitmap>
+							<shorthelp>Design Grid</shorthelp>
+							<itemkind>Check</itemkind>
+						</object>
+						<label>Design Grid</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMGRAVITY" variable="AuiToolBarItemGravity" member="yes">
+							<bitmap>png_files/toolbars/grid_settings/tool-toggle-gravity-snap-light.png</bitmap>
+							<disabledbitmap>png_files/toolbars/grid_settings/tool-toggle-gravity-snap-dark.png</disabledbitmap>
+							<shorthelp>Toggle Gravity Snap</shorthelp>
+							<itemkind>Check</itemkind>
+						</object>
+						<label>Toggle Gravity Snap</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMGRIDSNAP" variable="AuiToolBarItemGridSnap" member="yes">
+							<bitmap>png_files/toolbars/grid_settings/tool-toggle-grid-snap-light.png</bitmap>
+							<disabledbitmap>png_files/toolbars/grid_settings/tool-toggle-grid-snap-dark.png</disabledbitmap>
+							<shorthelp>Toggle Grid Snap</shorthelp>
+							<itemkind>Check</itemkind>
+						</object>
+						<label>Toggle Grid Snap</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMLINEGRAVITY" variable="AuiToolBarItemLineGravity" member="yes">
+							<bitmap>png_files/toolbars/grid_settings/tool-toggle-gravity-snap-along-lines-and-curves-light.png</bitmap>
+							<disabledbitmap>png_files/toolbars/grid_settings/tool-toggle-gravity-snap-along-lines-and-curves-dark.png</disabledbitmap>
+							<shorthelp>Toggle Gravity Snap Along Lines And Curves</shorthelp>
+							<itemkind>Check</itemkind>
+						</object>
+						<label>Toggle Gravity Snap Along Lines And Curves</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMROTATESNAP" variable="AuiToolBarItemRotateSnap" member="yes">
+							<bitmap>png_files/toolbars/grid_settings/tool-rotate-snapped-objects.png</bitmap>
+							<disabledbitmap>png_files/toolbars/grid_settings/tool-rotate-snapped-objects.png</disabledbitmap>
+							<shorthelp>Rotate Snapped Objects</shorthelp>
+							<itemkind>Check</itemkind>
+						</object>
+						<label>Rotate Snapped Objects</label>
+					</object>
+				</object>
+				<name>Grid Settings</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>GridSettings</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<layer>10</layer>
+				<position>5</position>
+				<dockdirection>Left</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARCOLOR" variable="AuiToolBarColor" member="yes">
+					<pos>182,101</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMMAINCOLOR" variable="AuiToolBarItemMainColor" member="yes">
+							<shorthelp>Main color</shorthelp>
+						</object>
+						<label>Main color</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMFILLCOLOR" variable="AuiToolBarItemFillColor" member="yes">
+							<shorthelp>Fill Color</shorthelp>
+						</object>
+						<label>Fill Color</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMFILLPATTERN" variable="AuiToolBarItemFillPattern" member="yes">
+							<shorthelp>Fill Pattern</shorthelp>
+						</object>
+						<label>Fill Pattern</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMTEXTOUTLINECOLOR" variable="AuiToolBarItemTextOutlineColor" member="yes">
+							<shorthelp>Text Outline Color</shorthelp>
+						</object>
+						<label>Text Outline Color</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMBACKGROUNDCOLOR" variable="AuiToolBarItemBackgroundColor" member="yes">
+							<shorthelp>Background Color</shorthelp>
+						</object>
+						<label>Background Color</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMGRIDCOLOR" variable="AuiToolBarItemGridColor" member="yes">
+							<shorthelp>Grid Color</shorthelp>
+						</object>
+						<label>Grid Color</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarSeparator" />
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSHOWCOLORMANAGER" variable="AuiToolBarItemShowColorTranslationManager" member="yes">
+							<bitmap>png_files/toolbars/color/tool-show-color-translation-manager.png</bitmap>
+							<shorthelp>Show Color Translation Manager</shorthelp>
+						</object>
+						<label>Show Color Translation Manager</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMTRANSLATECOLOR" variable="AuiToolBarItemTranslateColor" member="yes">
+							<bitmap>png_files/toolbars/color/tool-translate-color.png</bitmap>
+							<shorthelp>Translate Color</shorthelp>
+						</object>
+						<label>Translate Color</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMINVERSETRANSLATECOLOR" variable="AuiToolBarItemInverseTranslateColor" member="yes">
+							<bitmap>png_files/toolbars/color/tool-inverse-translate-color.png</bitmap>
+							<shorthelp>Inverse Translate Color</shorthelp>
+						</object>
+						<label>Inverse Translate Color</label>
+					</object>
+				</object>
+				<name>PaneColor</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Color</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<layer>10</layer>
+				<position>2</position>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARZOOM" variable="AuiToolBarZoom" member="yes">
+					<pos>206,126</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMZOOM" variable="AuiToolBarItemZoom" member="yes">
+							<bitmap>png_files/toolbars/zoom/tool-zoom.png</bitmap>
+							<shorthelp>Zoom</shorthelp>
+						</object>
+						<label>Zoom</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxComboBox" name="ID_COMBOBOXZOOM" variable="ComboBoxZoom" member="yes">
+							<pos>58,22</pos>
+							<size>57,25</size>
+							<tooltip>Zoom Percentage</tooltip>
+						</object>
+						<label>Zoom</label>
+					</object>
+				</object>
+				<name>Zoom</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Zoom</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<layer>5</layer>
+				<position>3</position>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARPAGES" variable="AuiToolBarPages" member="yes">
+					<pos>14,24</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxListBox" name="ID_LISTBOXNAMES" variable="ListBoxNames" member="yes">
+							<default>-1</default>
+							<pos>48,11</pos>
+							<size>142,57</size>
+							<style>wxVSCROLL</style>
+						</object>
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxListView" name="ID_LISTVIEWCONTENT" variable="ListViewContent" member="yes">
+							<pos>156,34</pos>
+						</object>
+						<label>Item label</label>
+					</object>
+				</object>
+				<name>Pages</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Pages</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<layer>10</layer>
+				<position>12</position>
+				<dockdirection>Bottom</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARSIZE" variable="AuiToolBarSize" member="yes">
+					<pos>196,130</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticText" name="ID_STATICTEXTWIDTH" variable="StaticTextWidth" member="yes">
+							<label>X</label>
+							<pos>54,15</pos>
+						</object>
+						<label>X</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxSpinCtrl" name="ID_SPINCTRLWIDTH" variable="SpinCtrlWidth" member="yes">
+							<value>0</value>
+							<pos>83,9</pos>
+							<size>51,25</size>
+						</object>
+						<label>Witdh</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticText" name="ID_STATICTEXTHEIGHT" variable="StaticTextHeight" member="yes">
+							<label>Y</label>
+							<pos>183,11</pos>
+						</object>
+						<label>Y</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxSpinCtrl" name="ID_SPINCTRLHEIGHT" variable="SpinCtrlHeight" member="yes">
+							<value>0</value>
+							<pos>241,12</pos>
+							<size>54,25</size>
+						</object>
+						<label>Height</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxCheckBox" name="ID_CHECKBOXASPECT" variable="CheckBoxAspect" member="yes">
+							<label>Aspect</label>
+							<checked>1</checked>
+							<pos>299,11</pos>
+						</object>
+						<label>Aspect</label>
+					</object>
+				</object>
+				<name>Size</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Size</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<layer>10</layer>
+				<position>11</position>
+				<dockdirection>Bottom</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBAR9GENERAL" variable="AuiToolBarGeneral" member="yes">
+					<pos>187,130</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSELECT" variable="AuiToolBarItemSelect" member="yes">
+							<bitmap>png_files/toolbars/general/tool-select.png</bitmap>
+							<shorthelp>Select</shorthelp>
+						</object>
+						<label>Select</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMOPEN" variable="AuiToolBarItemOpen" member="yes">
+							<bitmap>png_files/toolbars/general/tool-open.png</bitmap>
+							<shorthelp>Open a map</shorthelp>
+						</object>
+						<label>Open a map</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSAVE" variable="AuiToolBarItemSave" member="yes">
+							<bitmap>png_files/toolbars/general/tool-save.png</bitmap>
+							<shorthelp>Save</shorthelp>
+						</object>
+						<label>Save</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarSeparator" />
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMPAN" variable="AuiToolBarItemPan" member="yes">
+							<bitmap>png_files/toolbars/general/tool-pan.png</bitmap>
+							<shorthelp>Pan</shorthelp>
+						</object>
+						<label>Pan</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMRULER" variable="AuiToolBarItemRuler" member="yes">
+							<bitmap>png_files/toolbars/general/tool-ruler.png</bitmap>
+							<shorthelp>Ruler</shorthelp>
+						</object>
+						<label>Ruler</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMMEASUREMENTSTRING" variable="AuiToolBarItemMeasurementString" member="yes">
+							<bitmap>png_files/toolbars/general/tool-measurement-string.png</bitmap>
+							<shorthelp>Measurement string</shorthelp>
+						</object>
+						<label>Measurement string</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMREPAINT" variable="AuiToolBarItemRepaint" member="yes">
+							<bitmap>png_files/toolbars/general/tool-repaint.png</bitmap>
+							<shorthelp>Repaint</shorthelp>
+						</object>
+						<label>Repaint</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarSeparator" />
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMUNDO" variable="AuiToolBarItemUndo" member="yes">
+							<bitmap>png_files/toolbars/general/tool-undo.png</bitmap>
+							<shorthelp>Undo</shorthelp>
+						</object>
+						<label>Undo</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMREDO" variable="AuiToolBarItemRedo" member="yes">
+							<bitmap>png_files/toolbars/general/tool-redo.png</bitmap>
+							<shorthelp>Redo</shorthelp>
+						</object>
+						<label>Redo</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarSeparator" />
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMREADONLY" variable="AuiToolBarItemReadOnly" member="yes">
+							<bitmap>png_files/toolbars/general/tool-read-only.png</bitmap>
+							<shorthelp>Read-Only</shorthelp>
+						</object>
+						<label>Read-Only</label>
+					</object>
+				</object>
+				<name>General</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>General</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<layer>10</layer>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARPLACEMENT" variable="AuiToolBarPlacement" member="yes">
+					<pos>179,134</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSINGLEICON" variable="AuiToolBarItemSingleIcon" member="yes">
+							<bitmap>png_files/toolbars/placement/tool-single-icon.png</bitmap>
+							<shorthelp>Single Icon</shorthelp>
+						</object>
+						<label>Single Icon</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSQUAREPLACEMENT" variable="AuiToolBarItemSquarePlacement" member="yes">
+							<bitmap>png_files/toolbars/placement/tool-square-placement.png</bitmap>
+							<shorthelp>Square Placement</shorthelp>
+						</object>
+						<label>Square Placement</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMDIAMONDPLACEMENT" variable="AuiToolBarItemDiamondPlacement" member="yes">
+							<bitmap>png_files/toolbars/placement/tool-diamond-placement.png</bitmap>
+							<shorthelp>Diamond Placement</shorthelp>
+						</object>
+						<label>Diamong Placement</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMRANDOMPLACEMENT" variable="AuiToolBarItemRandomPlacement" member="yes">
+							<bitmap>png_files/toolbars/placement/tool-random-placement.png</bitmap>
+							<shorthelp>Random Placement</shorthelp>
+						</object>
+						<label>Random Placement</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMDEFINESYMBOL" variable="AuiToolBarItemDefineSymbol" member="yes">
+							<bitmap>png_files/toolbars/placement/tool-define-selection-as-symbol.png</bitmap>
+							<shorthelp>Define Selection as Symbol</shorthelp>
+						</object>
+						<label>Define Selection as symbol</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSYMBOLLIBRARY" variable="AuiToolBarItemSymbolLibrary" member="yes">
+							<bitmap>png_files/toolbars/placement/tool-symbol-library.png</bitmap>
+							<shorthelp>Symbol Library</shorthelp>
+						</object>
+						<label>Symbol Library</label>
+					</object>
+				</object>
+				<name>Placement</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Placement</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<layer>10</layer>
+				<position>10</position>
+				<dockdirection>Left</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARLINESTYLE" variable="AuiToolBarLineStyle" member="yes">
+					<pos>173,138</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxChoice" name="ID_CHOICESTART" variable="ChoiceStart" member="yes">
+							<pos>52,7</pos>
+							<size>31,23</size>
+						</object>
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxChoice" name="ID_CHOICEBODY" variable="ChoiceBody" member="yes">
+							<pos>152,18</pos>
+						</object>
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxChoice" name="ID_CHOICEEND" variable="ChoiceEnd" member="yes">
+							<pos>210,15</pos>
+							<size>23,23</size>
+						</object>
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxSpinCtrl" name="ID_SPINCTRLTHICKNESS" variable="SpinCtrlThickness" member="yes">
+							<value>0</value>
+							<pos>292,10</pos>
+							<size>34,25</size>
+						</object>
+						<label>Item label</label>
+					</object>
+				</object>
+				<name>LineStyle</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>LineStyle</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<layer>5</layer>
+				<position>9</position>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBAREDITING" variable="AuiToolBarEdinting" member="yes">
+					<pos>162,151</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSENDBACK" variable="AuiToolBarItemSendBack" member="yes">
+							<bitmap>png_files/toolbars/editing/tool-send-to-back.png</bitmap>
+							<shorthelp>Send to Back</shorthelp>
+						</object>
+						<label>Send to back</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSENDBACKWARD" variable="AuiToolBarItemSendBackward" member="yes">
+							<bitmap>png_files/toolbars/editing/tool-send-backward.png</bitmap>
+							<shorthelp>Send Backward</shorthelp>
+						</object>
+						<label>Send Backward</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSENDFORWARD" variable="AuiToolBarItemSendForward" member="yes">
+							<bitmap>png_files/toolbars/editing/tool-bring-forward.png</bitmap>
+						</object>
+						<label>Bring Forward</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSENDFRONT" variable="AuiToolBarItemSendFront" member="yes">
+							<bitmap>png_files/toolbars/editing/tool-bring-to-front.png</bitmap>
+							<shorthelp>Send to Front</shorthelp>
+						</object>
+						<label>Send to Front</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarSeparator" />
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMPASTE" variable="AuiToolBarItemPaste" member="yes">
+							<bitmap>png_files/toolbars/editing/tool-paste.png</bitmap>
+							<shorthelp>Paste</shorthelp>
+						</object>
+						<label>Paste</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMCOPY" variable="AuiToolBarItemCopy" member="yes">
+							<bitmap>png_files/toolbars/editing/tool-copy.png</bitmap>
+							<shorthelp>Copy</shorthelp>
+						</object>
+						<label>Copy</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMCUT" variable="AuiToolBarItemCut" member="yes">
+							<bitmap>png_files/toolbars/editing/tool-cut.png</bitmap>
+							<shorthelp>Cut</shorthelp>
+						</object>
+						<label>Cut</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarSeparator" />
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMDELETE" variable="AuiToolBarItemDelete" member="yes">
+							<bitmap>png_files/toolbars/editing/tool-delete.png</bitmap>
+							<shorthelp>Delete</shorthelp>
+						</object>
+						<label>Delete</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSCALPEL" variable="AuiToolBarItemScalpel" member="yes">
+							<bitmap>png_files/toolbars/editing/tool-scalpel.png</bitmap>
+							<shorthelp>Scalpel</shorthelp>
+						</object>
+						<label>Scalpel</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMGLUE" variable="AuiToolBarItemGlue" member="yes">
+							<bitmap>png_files/toolbars/editing/tool-glue.png</bitmap>
+							<shorthelp>Glue</shorthelp>
+						</object>
+						<label>Glue</label>
+					</object>
+				</object>
+				<name>Editing</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Editing</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<layer>10</layer>
+				<position>8</position>
+				<dockdirection>Left</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARFRACTAL" variable="AuiToolBarFractal" member="yes">
+					<pos>156,162</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMFREEHANDFRACTAL" variable="AuiToolBarItemFreeHandFractal" member="yes">
+							<bitmap>png_files/toolbars/fractal/tool-frac-freehand.png</bitmap>
+							<shorthelp>FreeHandFractal</shorthelp>
+						</object>
+						<label>FreeHand</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMLINEFRACTAL" variable="AuiToolBarItemLineFractal" member="yes">
+							<bitmap>png_files/toolbars/fractal/tool-frac-line.png</bitmap>
+							<shorthelp>LineFractal</shorthelp>
+						</object>
+						<label>Line</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMPOLYLINEFRACTAL" variable="AuiToolBarItemPolyLineFractal" member="yes">
+							<bitmap>png_files/toolbars/fractal/tool-frac-polyline.png</bitmap>
+							<shorthelp>PolyLineFractal</shorthelp>
+						</object>
+						<label>PolyLine</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMCURVEFRACTAL" variable="AuiToolBarItemCurveFractal" member="yes">
+							<bitmap>png_files/toolbars/fractal/tool-frac-curve.png</bitmap>
+							<shorthelp>CurveFractal</shorthelp>
+						</object>
+						<label>Curve</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMPOLYCURVEFRACTAL" variable="AuiToolBarItemPolyCurveFractal" member="yes">
+							<bitmap>png_files/toolbars/fractal/tool-frac-polycurve.png</bitmap>
+							<shorthelp>PolyCurveFractal</shorthelp>
+						</object>
+						<label>PolyCurve</label>
+					</object>
+				</object>
+				<name>Fractal</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Pane caption</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<layer>5</layer>
+				<position>1</position>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARDRAWING" variable="AuiToolBarDrawing" member="yes">
+					<pos>68,144</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMRECTANGLE" variable="AuiToolBarItemRectangle" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-rectangle.png</bitmap>
+							<shorthelp>Rectangle</shorthelp>
+						</object>
+						<label>Rectangle</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMCIRCLE" variable="AuiToolBarItemCircle" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-circle.png</bitmap>
+							<shorthelp>Circle</shorthelp>
+						</object>
+						<label>Circle</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMPOLYGON" variable="AuiToolBarItemPolygon" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-polygon.png</bitmap>
+							<shorthelp>Polygon</shorthelp>
+						</object>
+						<label>Polygon</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMARC" variable="AuiToolBarItemArc" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-arc.png</bitmap>
+							<shorthelp>Arc</shorthelp>
+						</object>
+						<label>Arc</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMROSETTECHARTLINES" variable="AuiToolBarItemRosetteChartLines" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-rosette-chart-lines.png</bitmap>
+							<shorthelp>Rosette Chart Lines</shorthelp>
+						</object>
+						<label>RosetteChartLines</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarSeparator" />
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMTEXT" variable="AuiToolBarItemText" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-text.png</bitmap>
+							<shorthelp>Text</shorthelp>
+						</object>
+						<label>Text</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMCURVEDTEXT" variable="AuiToolBarItemCurvedText" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-curved-text.png</bitmap>
+							<shorthelp>Curved Text</shorthelp>
+						</object>
+						<label>Curved Text</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMHYPERLINKPOPUP" variable="AuiToolBarItemHyperlinkPopup" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-hyperlink-popup.png</bitmap>
+							<shorthelp>Hyperlink/Popup</shorthelp>
+						</object>
+						<label>HyperlinkPopup</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarSeparator" />
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMGROUP" variable="AuiToolBarItemGroup" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-group.png</bitmap>
+							<shorthelp>Group</shorthelp>
+						</object>
+						<label>Group</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMUNGROUP" variable="AuiToolBarItemUngroup" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-ungroup.png</bitmap>
+							<shorthelp>Ungroup</shorthelp>
+						</object>
+						<label>Ungroup</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMDECOMPOSE" variable="AuiToolBarItemDecompose" member="yes">
+							<bitmap>png_files/toolbars/drawing/tool-decompose.png</bitmap>
+							<shorthelp>Decompose</shorthelp>
+						</object>
+						<label>Decompose</label>
+					</object>
+				</object>
+				<name>Drawing</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Drawing</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<layer>5</layer>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiNotebook" name="ID_AUINOTEBOOKWORKSPACE" variable="AuiNotebookWorkspace" member="yes">
+					<pos>446,171</pos>
+					<object class="AuiNotebookPage">
+						<object class="wxScrolledWindow" name="ID_SCROLLEDWINDOWMAP1" variable="ScrolledWindowMap1" member="yes">
+							<pos>65,195</pos>
+						</object>
+						<label>Map 1</label>
+						<selected>1</selected>
+					</object>
+				</object>
+				<name>Workspace</name>
+				<caption>Workspace</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<closebutton>0</closebutton>
+				<dockdirection>Center</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARFRACTALSETTINGS" variable="AuiToolBarFractalSettings" member="yes">
+					<pos>58,233</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticBox" name="ID_STATICBOXFRACTALSETTINGS" variable="StaticBoxFractalSettings" member="yes">
+							<label>Fractal Settings</label>
+							<pos>23,5</pos>
+						</object>
+						<label>Fractal Settings</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticBitmap" name="ID_STATICBITMAPROUGHNESS" variable="StaticBitmapRoughness" member="yes">
+							<bitmap>png_files/toolbars/fractals_settings/roughness.png</bitmap>
+							<pos>376,16</pos>
+						</object>
+						<label>Roughness</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxSlider" name="ID_SLIDERROUGHNESS" variable="SliderRoughness" member="yes">
+							<max>10</max>
+							<pos>390,9</pos>
+							<size>70,17</size>
+						</object>
+						<label>Roughness</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticBitmap" name="ID_STATICBITMAPACORN" variable="StaticBitmapAcorn" member="yes">
+							<bitmap>png_files/toolbars/fractals_settings/acorn-main.png</bitmap>
+							<pos>311,10</pos>
+						</object>
+						<label>Acorn</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxSpinCtrl" name="ID_SPINCTRLSEED" variable="SpinCtrlSeed" member="yes">
+							<value>0</value>
+							<pos>224,10</pos>
+							<size>44,25</size>
+						</object>
+						<label>Seed</label>
+					</object>
+				</object>
+				<name>Fractal Settings</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Fractal Settings</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<layer>10</layer>
+				<dockdirection>Right</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARGRAPHPAPER" variable="AuiToolBarGrapPaper" member="yes">
+					<pos>174,260</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticBox" name="ID_STATICBOXGRAPHPAPER" variable="StaticBoxGraphPaper" member="yes">
+							<label>Graph Paper</label>
+							<pos>29,7</pos>
+						</object>
+						<label>Graph Paper</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMNOGRID" variable="AuiToolBarItemNoGrid" member="yes">
+							<bitmap>png_files/toolbars/graph_paper/graph-none.png</bitmap>
+							<itemkind>Check</itemkind>
+						</object>
+						<label>No Grid</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMSQUAREGRID" variable="AuiToolBarItemSquareGrid" member="yes">
+							<bitmap>png_files/toolbars/graph_paper/graph-square.png</bitmap>
+						</object>
+						<label>Square Grid</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMHEXGRID" variable="AuiToolBarItemHexGrid" member="yes">
+							<bitmap>png_files/toolbars/graph_paper/graph-hex.png</bitmap>
+						</object>
+						<label>Hex Grid</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMRHEXGRID" variable="AuiToolBarItemRHexGrid" member="yes">
+							<bitmap>png_files/toolbars/graph_paper/graph-rhex.png</bitmap>
+						</object>
+						<label>Rotated Hex Grid</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMTRIANGLEGRID" variable="AuiToolBarItemTriangleGrid" member="yes">
+							<bitmap>png_files/toolbars/graph_paper/graph-triangle.png</bitmap>
+						</object>
+						<label>Triangle Grid</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMDIAMONDGRID" variable="AuiToolBarItemDiamondGrid" member="yes">
+							<bitmap>png_files/toolbars/graph_paper/graph-diamond.png</bitmap>
+						</object>
+						<label>Diamond Grid</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMHDIAMONDGRID" variable="AuiToolBarItemHDiamondGrid" member="yes">
+							<bitmap>png_files/toolbars/graph_paper/graph-hdiamond.png</bitmap>
+						</object>
+						<label>Half Diamond Grid</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxAuiToolBarItem" name="ID_AUITOOLBARITEMPOLARGRID" variable="AuiToolBarItemPolarGrid" member="yes">
+							<bitmap>png_files/toolbars/graph_paper/graph-circle.png</bitmap>
+						</object>
+						<label>Polar Grid</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxTextCtrl" name="ID_TEXTCTRLGRIDSIZE" variable="TextCtrlGridSize" member="yes">
+							<pos>222,16</pos>
+							<size>49,25</size>
+						</object>
+						<label>Grid Size</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticText" name="ID_STATICTEXTDIMENSION" variable="StaticTextDimension" member="yes">
+							<label>squares/cm</label>
+							<pos>323,13</pos>
+						</object>
+						<label>Squares/cm</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticBitmap" name="ID_STATICBITMAPGRIDSIZE" variable="StaticBitmapGridSize" member="yes">
+							<bitmap>png_files/toolbars/graph_paper/gridsize-image.png</bitmap>
+							<pos>367,12</pos>
+						</object>
+						<label>Grid Size bmp</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxSlider" name="ID_SLIDERGRIDSIZE" variable="SliderGridSize" member="yes">
+							<pos>377,20</pos>
+							<size>86,17</size>
+						</object>
+						<label>Grid Size</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticBitmap" name="ID_STATICBITMAPBOLDGRID" variable="StaticBitmapBoldGrid" member="yes">
+							<bitmap>png_files/toolbars/graph_paper/boldgrid-image.png</bitmap>
+							<pos>368,16</pos>
+						</object>
+						<label>BoldGrid</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxSpinCtrl" name="ID_SPINCTRLSECONDARYGRID" variable="SpinCtrlSecondaryGrid" member="yes">
+							<value>0</value>
+							<pos>365,13</pos>
+							<size>47,25</size>
+						</object>
+						<label>Secondary Grid Size</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxChoice" name="ID_CHOICEPRIMGRIDSTYLE" variable="ChoicePrimGridStyle" member="yes">
+							<pos>535,16</pos>
+							<size>45,23</size>
+						</object>
+						<label>Primary Grid Style</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxChoice" name="ID_CHOICESECGRIDSTYLE" variable="ChoiceSecGridStyle" member="yes">
+							<pos>620,14</pos>
+							<size>34,23</size>
+						</object>
+						<label>Secondary Grid Style</label>
+					</object>
+				</object>
+				<name>Graph Paper</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Graph Paper</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<layer>10</layer>
+				<dockdirection>Right</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARICONSETTINGS" variable="AuiToolBarIconSettings" member="yes">
+					<pos>174,260</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticBox" name="ID_STATICBOXICONSETTINGS" variable="StaticBoxIconSettings" member="yes">
+							<label>Icon Settings</label>
+							<pos>33,7</pos>
+						</object>
+						<label>Icon Settings</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticBitmap" name="ID_STATICBITMAPICONSIZE" variable="StaticBitmapIconSize" member="yes">
+							<bitmap>png_files/toolbars/icon_settings/sizeimage.png</bitmap>
+							<pos>296,5</pos>
+						</object>
+						<label>Size Image</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxSlider" name="ID_SLIDERICONSIZE" variable="SliderIconSize" member="yes">
+							<max>10</max>
+							<pos>317,14</pos>
+							<size>74,17</size>
+							<style>wxSL_AUTOTICKS</style>
+						</object>
+						<label>Icon Size</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxStaticBitmap" name="ID_STATICBITMAPDENSITY" variable="StaticBitmapDensity" member="yes">
+							<bitmap>png_files/toolbars/icon_settings/densityimage.png</bitmap>
+							<pos>352,13</pos>
+						</object>
+						<label>Desity Images</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxSlider" name="ID_SLIDERICONSPREAD" variable="SliderIconSpread" member="yes">
+							<max>10</max>
+							<pos>257,15</pos>
+							<size>68,17</size>
+						</object>
+						<label>Icon Spread</label>
+					</object>
+				</object>
+				<name>Icon Settings</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Icon Settings</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<layer>10</layer>
+				<dockdirection>Right</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBAROVERLAY" variable="AuiToolBarOverlay" member="yes">
+					<pos>174,260</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxComboBox" name="ID_COMBOBOXACTIVE" variable="ComboBoxActive" member="yes">
+							<pos>61,8</pos>
+							<size>79,25</size>
+						</object>
+						<label>Item label</label>
+					</object>
+					<object class="AuiToolBarItem">
+						<object class="wxCheckListBox" name="ID_CHECKLISTBOXLIST" variable="CheckListBoxList" member="yes">
+							<pos>11,40</pos>
+						</object>
+						<label>Item label</label>
+					</object>
+				</object>
+				<name>Overlay</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Overlay</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<layer>10</layer>
+				<dockdirection>Right</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+			<object class="AuiManagerItem">
+				<object class="wxAuiToolBar" name="ID_AUITOOLBARPUSHPINS" variable="AuiToolBarPushPins" member="yes">
+					<pos>174,260</pos>
+					<object class="AuiToolBarItem">
+						<object class="wxCheckListBox" name="ID_CHECKLISTBOXPUSHPINS" variable="CheckListBoxPushPins" member="yes">
+							<pos>49,12</pos>
+						</object>
+						<label>Push Pins</label>
+					</object>
+				</object>
+				<name>Push-Pins</name>
+				<standardpanetype>Toolbar</standardpanetype>
+				<caption>Push__Pins</caption>
+				<captionvisible>0</captionvisible>
+				<minimizebutton>0</minimizebutton>
+				<maximizebutton>0</maximizebutton>
+				<pinbutton>0</pinbutton>
+				<layer>10</layer>
+				<dockdirection>Right</dockdirection>
+				<dockfixed>0</dockfixed>
+				<dockabledirection></dockabledirection>
+				<resizable>0</resizable>
+				<gripper>Default</gripper>
+				<destroyonclose>0</destroyonclose>
+				<firstadd>0</firstadd>
+			</object>
+		</object>
+		<object class="wxMenuBar" variable="MenuBar" member="no">
+			<object class="wxMenu" variable="MenuFile" member="no">
+				<label>&amp;File</label>
+				<object class="wxMenuItem" name="idMenuNew" variable="MenuItemNew" member="yes">
+					<label>&amp;New</label>
+					<accel>Ctrl-n</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuOpen" variable="MenuItemOpen" member="yes">
+					<label>&amp;Open</label>
+					<accel>Ctrl-o</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuReopen" variable="MenuItemReopen" member="yes">
+					<label>&amp;Reopen</label>
+					<accel>Ctrl-Shift-o</accel>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuSave" variable="MenuItemSave" member="yes">
+					<label>&amp;Save</label>
+					<accel>Ctrl-s</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuSaveAs" variable="MenuItemSaveAs" member="yes">
+					<label>Save &amp;As...</label>
+					<accel>Ctrl-Shift-s</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuInsert" variable="MenuItemInsert" member="yes">
+					<label>&amp;Insert...</label>
+					<accel>Ctrl-j</accel>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuPrint" variable="MenuItemPrint" member="yes">
+					<label>&amp;Print...</label>
+					<accel>Ctrl-p</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuPrintSetup" variable="MenuItemPrintSetup" member="yes">
+					<label>P&amp;rint Setup...</label>
+					<accel>Ctrl-Shift-p</accel>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuProperties" variable="MenuItemProperties" member="yes">
+					<label>Proper&amp;ties</label>
+					<accel>Alt-Enter</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuQuit" variable="MenuItemExit" member="no">
+					<label>&amp;Exit</label>
+					<accel>Alt-F4</accel>
+					<help>Quit the application</help>
+					<handler function="OnQuit" entry="EVT_MENU" />
+				</object>
+			</object>
+			<object class="wxMenu" variable="MenuEdit" member="yes">
+				<label>&amp;Edit</label>
+				<object class="wxMenuItem" name="idMenuUndo" variable="MenuItemUndo" member="yes">
+					<label>&amp;Undo</label>
+					<accel>Ctrl-z</accel>
+					<enabled>0</enabled>
+				</object>
+				<object class="wxMenuItem" name="idMenuRedo" variable="MenuItemRedo" member="yes">
+					<label>&amp;Redo</label>
+					<accel>Ctrl-y</accel>
+					<enabled>0</enabled>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuCut" variable="MenuItemCut" member="yes">
+					<label>Cu&amp;t</label>
+					<accel>Ctrl-x</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuCopy" variable="MenuItemCopy" member="yes">
+					<label>&amp;Copy</label>
+					<accel>Ctrl-c</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuPaste" variable="MenuItemPaste" member="yes">
+					<label>&amp;Paste</label>
+					<accel>Ctrl-v</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuDelete" variable="MenuItemDelete" member="yes">
+					<label>&amp;Delete</label>
+					<accel>Ctrl-d</accel>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuSelectAll" variable="MenuItemSelectAll" member="yes">
+					<label>Se&amp;lect All</label>
+					<accel>Ctrl-a</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuSelectNone" variable="MenuItemSelectNone" member="yes">
+					<label>Select &amp;None</label>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuUseSelectionTool" variable="MenuItemSelTool" member="yes">
+					<label>Use Selection/Arro&amp;w Tool</label>
+					<accel>Ctrl-w</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuUsePanningTool" variable="MenuItemPanning" member="yes">
+					<label>Use &amp;Panning Tool</label>
+					<accel>Ctrl-e</accel>
+				</object>
+			</object>
+			<object class="wxMenu" variable="MenuView" member="yes">
+				<label>&amp;View</label>
+				<object class="wxMenuItem" name="idMenuZoomIn" variable="MenuItemZin" member="yes">
+					<label>Zoom &amp;In</label>
+					<accel>Ctrl-+</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuZoomOut" variable="MenuItemZout" member="yes">
+					<label>Zoom &amp;Out</label>
+					<accel>Ctrl--</accel>
+				</object>
+				<object class="wxMenu" name="ID_MENUITEMZOOM" variable="MenuZoom" member="yes">
+					<label>Zoom</label>
+					<object class="wxMenuItem" name="idMenuFit" variable="MenuItemFit" member="yes">
+						<label>Fit</label>
+					</object>
+					<object class="wxMenuItem" name="idMenu10" variable="MenuItemZ10" member="yes">
+						<label>10%</label>
+					</object>
+					<object class="wxMenuItem" name="idMenu25" variable="MenuItemZ25" member="yes">
+						<label>25%</label>
+					</object>
+					<object class="wxMenuItem" name="idMenu50" variable="MenuItemZ50" member="yes">
+						<label>50%</label>
+					</object>
+					<object class="wxMenuItem" name="idMenu75" variable="MenuItemZ75" member="yes">
+						<label>75%</label>
+					</object>
+					<object class="wxMenuItem" name="idMenu100" variable="MenuItemZ100" member="yes">
+						<label>100%</label>
+					</object>
+					<object class="wxMenuItem" name="idMenu150" variable="MenuItemZ150" member="yes">
+						<label>150%</label>
+					</object>
+					<object class="wxMenuItem" name="idMenu200" variable="MenuItemZ200" member="yes">
+						<label>200%</label>
+					</object>
+					<object class="wxMenuItem" name="idMenu300" variable="MenuItemZ300" member="yes">
+						<label>300%</label>
+					</object>
+					<object class="wxMenuItem" name="idMenu400" variable="MenuItemZ400" member="yes">
+						<label>400%</label>
+					</object>
+					<object class="wxMenuItem" name="idMenu500" variable="MenuItemZ500" member="yes">
+						<label>500%</label>
+					</object>
+					<object class="wxMenuItem" name="idMenuCustomZoom" variable="MenuItemZCustom" member="yes">
+						<label>Custom</label>
+					</object>
+				</object>
+				<object class="wxMenuItem" name="idMenuShowAll" variable="MenuItemShowAll" member="yes">
+					<label>Show &amp;All Objects</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEMREADONLY" variable="MenuItemReadOnly" member="yes">
+					<label>&amp;Read Only</label>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="ID_MENUITEMSAVEVIEW" variable="MenuItemSaveView" member="yes">
+					<label>&amp;Save Current View...</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEMDELETEVIEW" variable="MenuItemDeleteView" member="yes">
+					<label>&amp;Delete View...</label>
+					<enabled>0</enabled>
+				</object>
+			</object>
+			<object class="wxMenu" variable="MenuTransform" member="yes">
+				<label>&amp;Transform</label>
+				<object class="wxMenuItem" name="ID_MENUITEMMOVE" variable="MenuItemMove" member="yes">
+					<label>&Move</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEMSCALE" variable="MenuItemScale" member="yes">
+					<label>&Scale</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEMROTATE" variable="MenuItemRotate" member="yes">
+					<label>&Rotate</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEMSKEW" variable="MenuItemSkew" member="yes">
+					<label>&Skew</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEMFLIP" variable="MenuItemFlip" member="yes">
+					<label>&Flip</label>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="ID_MENUITEMALIGN" variable="MenuItemAlign" member="yes">
+					<label>&Align...</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEMCREATEARRAY" variable="MenuItemCreateArray" member="yes">
+					<label>&Create Array...</label>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="ID_MENUITEMORDER" variable="MenuItemOrder" member="yes">
+					<label>&Order...</label>
+				</object>
+				<object class="wxMenu" name="ID_MENUITEMPOSITION" variable="MenuItemPosition" member="yes">
+					<label>Position</label>
+					<object class="wxMenuItem" name="ID_MENUITEMSENDTOBACK" variable="MenuItemSendToBack" member="yes">
+						<label>Send to &Back</label>
+					</object>
+					<object class="wxMenuItem" name="ID_MENUITEMSENDBACKWARD" variable="MenuItemSendBackward" member="yes">
+						<label>Send Backward</label>
+					</object>
+					<object class="wxMenuItem" name="ID_MENUITEMBRINGFORWARD" variable="MenuItemBrindForward" member="yes">
+						<label>Bring Forward</label>
+					</object>
+					<object class="wxMenuItem" name="ID_MENUITEMBRINGTOFRONT" variable="MenuItemBringToFront" member="yes">
+						<label>Bring to &Front</label>
+					</object>
+					<object class="separator" />
+					<object class="wxMenuItem" name="ID_MENUITEMGRIDBACKWARD" variable="MenuItemGridBackward" member="yes">
+						<label>Send Grid Backward</label>
+					</object>
+					<object class="wxMenuItem" name="ID_MENUITEMGRIDFORWARD" variable="MenuItemGridForward" member="yes">
+						<label>Bring Grid Forward</label>
+					</object>
+				</object>
+				<object class="separator" />
+				<object class="wxMenu" name="ID_MENUITEMALTERFRACTAL" variable="MenuItemAlterFractal" member="yes">
+					<label>Alter Frac&tal Lines</label>
+					<object class="wxMenuItem" name="ID_MENUITEMSETNONFRACTAL" variable="MenuItemSetNonFractal" member="yes">
+						<label>Set to Non-fractal Lines</label>
+					</object>
+					<object class="wxMenuItem" name="ID_MENUITEMSETFRACTAL" variable="MenuItemSetFractal" member="yes">
+						<label>Set to Fractal Lines</label>
+					</object>
+					<object class="wxMenuItem" name="ID_MENUITEMTOGGLEFRACTAL" variable="MenuItemToggleFractal" member="yes">
+						<label>Toggle Fractal State</label>
+					</object>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="ID_MENUITEMCLOSEFIG" variable="MenuItemCloseFig" member="yes">
+					<label>CLose Selected Figures</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEMREVERSELINE" variable="MenuItemReverseLine" member="yes">
+					<label>Re&verse Line Direction</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEMFLIPSTYLE" variable="MenuItemFlipStyle" member="yes">
+					<label>Flip Line Style</label>
+				</object>
+			</object>
+		</object>
+	</object>
+</wxsmith>
