@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="autorealm" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/autorealm" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/autorealm" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="`wx-config --cflags`" />
+			<Add directory="$(#wx29.include)" />
+		</Compiler>
+		<Linker>
+			<Add option="`wx-config --libs`" />
+			<Add directory="$(#wx29.lib)" />
+		</Linker>
+		<Unit filename="gui/App.cpp" />
+		<Unit filename="gui/App.h" />
+		<Unit filename="gui/DrawingTool.cpp" />
+		<Unit filename="gui/DrawingTool.h" />
+		<Unit filename="gui/InstantTool.cpp" />
+		<Unit filename="gui/InstantTool.h" />
+		<Unit filename="gui/InteractiveTool.cpp" />
+		<Unit filename="gui/InteractiveTool.h" />
+		<Unit filename="gui/MainFrame.cpp" />
+		<Unit filename="gui/MainFrame.h" />
+		<Unit filename="gui/RenderWindow.cpp" />
+		<Unit filename="gui/RenderWindow.h" />
+		<Unit filename="gui/Setting.cpp" />
+		<Unit filename="gui/Setting.h" />
+		<Unit filename="gui/Tool.cpp" />
+		<Unit filename="gui/Tool.h" />
+		<Unit filename="gui/ToolBar.cpp" />
+		<Unit filename="gui/ToolBar.h" />
+		<Unit filename="gui/ToolbarItem.cpp" />
+		<Unit filename="gui/ToolbarItem.h" />
+		<Unit filename="render/Color.cpp" />
+		<Unit filename="render/Color.h" />
+		<Unit filename="render/Curve.cpp" />
+		<Unit filename="render/Curve.h" />
+		<Unit filename="render/Fractal.cpp" />
+		<Unit filename="render/Fractal.h" />
+		<Unit filename="render/Group.cpp" />
+		<Unit filename="render/Group.h" />
+		<Unit filename="render/Line.cpp" />
+		<Unit filename="render/Line.h" />
+		<Unit filename="render/Object.cpp" />
+		<Unit filename="render/Object.h" />
+		<Unit filename="render/Point.cpp" />
+		<Unit filename="render/Point.h" />
+		<Unit filename="render/Point3D.cpp" />
+		<Unit filename="render/Point3D.h" />
+		<Unit filename="render/Shape.cpp" />
+		<Unit filename="render/Shape.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
