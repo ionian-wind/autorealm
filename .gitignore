@@ -1,3 +1,4 @@
 *.depend
 src/bin
 src/obj
+*.layout

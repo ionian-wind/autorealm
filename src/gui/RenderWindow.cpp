@@ -20,8 +20,23 @@
 
 
 #include "RenderWindow.h"
+#include <wx/frame.h>
 
-void RenderWindow::draw() 
+void RenderWindow::draw()
 {
 }
+
+RenderWindow::RenderWindow(wxFrame* parent, int* args)
+:wxGLCanvas(parent,wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
+{
+}
+
+RenderWindow & RenderWindow::operator=(const RenderWindow & source)
+{
+}
+
+//RenderWindow::RenderWindow(const RenderWindow & source)
+//:wxGLCanvas(parent,wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
+//{
+//}
 

@@ -23,20 +23,31 @@
 
 
 #include "../render/Object.h"
+#include <wx/glcanvas.h>
 #include <vector>
+#include <string>
 
-class RenderWindow : public Object 
+class RenderWindow : public Object, public wxGLCanvas
 {
-  private:
-	std::vector<Object> m_graphics;
-
   public:
     virtual void draw();
-
+    RenderWindow(wxFrame* parent, int* args);
+    RenderWindow & operator=(const RenderWindow & source);
+    void setName(std::string const &str)
+    {
+    	m_winName=str;
+    }
+    std::string getName(void)const
+    {
+    	return m_winName;
+    }
+//    RenderWindow(const RenderWindow & source);
 
   private:
+  	std::string m_winName;
+	std::vector<Object> m_graphics;
 	Object * m_selection;
-
+	wxGLContext * m_context;
 
 };
 #endif

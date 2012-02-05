@@ -34,9 +34,23 @@
 			<Add option="-Wall" />
 			<Add option="`wx-config --cflags`" />
 			<Add directory="$(#wx29.include)" />
+			<Add directory="/usr/local/lib/wx/include/gtk2-unicode-2.9" />
 		</Compiler>
 		<Linker>
-			<Add option="`wx-config --libs`" />
+			<Add library="wx_baseu-2.9" />
+			<Add library="wx_baseu_net-2.9" />
+			<Add library="wx_baseu_xml-2.9" />
+			<Add library="wx_gtk2u_adv-2.9" />
+			<Add library="wx_gtk2u_aui-2.9" />
+			<Add library="wx_gtk2u_core-2.9" />
+			<Add library="wx_gtk2u_gl-2.9" />
+			<Add library="wx_gtk2u_html-2.9" />
+			<Add library="wx_gtk2u_propgrid-2.9" />
+			<Add library="wx_gtk2u_qa-2.9" />
+			<Add library="wx_gtk2u_ribbon-2.9" />
+			<Add library="wx_gtk2u_richtext-2.9" />
+			<Add library="wx_gtk2u_stc-2.9" />
+			<Add library="wx_gtk2u_xrc-2.9" />
 			<Add directory="$(#wx29.lib)" />
 		</Linker>
 		<Unit filename="gui/App.cpp" />

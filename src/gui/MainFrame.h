@@ -22,12 +22,12 @@
 #define _MAINFRAME_H
 
 
-#include <map>
 #include <string>
 #include <vector>
 #include <list>
-//#include <wx/frame.h>
+
 #include <wx/aui/aui.h>
+#include <wx/menu.h>
 
 
 class RenderWindow;
@@ -37,19 +37,22 @@ class ToolBar;
 class MainFrame : public wxFrame
 {
   private:
-	RenderWindow * m_active;
-	std::map<std::string,RenderWindow> m_plans;
+	std::vector<RenderWindow*> m_plans;
+	std::vector<RenderWindow*>::iterator m_active;
 	std::vector<ToolbarItem> m_toolList;
 	ToolbarItem * m_selected;
 	std::list<ToolBar> m_toolbars;
 
 	wxAuiManager* m_AuiManager;
 	wxAuiNotebook* m_AuiNotebookWorkspace;
+    wxMenuBar* m_MenuBar;
 
 	static const long ID_AUINOTEBOOKWORKSPACE;
+	static const long idMenuQuit;
 
   public:
     MainFrame(wxWindow *parent=0,wxWindowID id=-1);
+    ~MainFrame(void);
   protected:
   private:
 	void OnQuit(wxCommandEvent& event);
