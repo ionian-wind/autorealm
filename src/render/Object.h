@@ -24,23 +24,17 @@
 
 #include "Point.h"
 
-class Object 
+class Object
 {
   private:
 	Point m_origin;
 
-
   public:
     void rotate(short angle);
-
     void rotate(float angle);
-
     void move(const Point & distance);
-
     void resize(unsigned char widthPercent, unsigned char heightPercent);
-
     virtual void draw() = 0;
-
 
 };
 #endif

@@ -22,33 +22,12 @@
 #define _POINT_H
 
 
-class Point 
+struct Point
 {
-  protected:
+public:
 	double m_x;
-
 	double m_y;
 
-
-  public:
-    inline const double getx() const;
-
-    void setx(const double value);
-
-    inline const double gety() const;
-
-    void sety(const double value);
-
-
 };
-inline const double Point::getx() const 
-{
-  return m_x;
-}
-
-inline const double Point::gety() const 
-{
-  return m_y;
-}
 
 #endif

@@ -20,14 +20,3 @@
 
 
 #include "Point.h"
-
-void Point::setx(const double value) 
-{
-  m_x = value;
-}
-
-void Point::sety(const double value) 
-{
-  m_y = value;
-}
-

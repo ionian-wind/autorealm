@@ -56,5 +56,7 @@ class MainFrame : public wxFrame
   protected:
   private:
 	void OnQuit(wxCommandEvent& event);
+
+	DECLARE_EVENT_TABLE()
 };
 #endif

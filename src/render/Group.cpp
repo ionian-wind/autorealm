@@ -22,15 +22,17 @@
 #include "Group.h"
 #include "Shape.h"
 
-Group::Group(const std::vector<Shape> & targets) 
+Group::Group(const std::vector<Shape> & targets)
 {
 }
 
-void Group::dismiss() 
+void Group::dismiss()
 {
 }
 
-void Group::draw() 
+void Group::draw()
 {
+	for(std::vector<Object>::iterator it=m_children.begin();it!=m_children.end();it++)
+		it->draw();
 }
 

@@ -22,18 +22,16 @@
 #define _LINE_H
 
 
-#include "Point.h"
+#include "Point3D.h"
 #include "Color.h"
 
-class Line : public Point 
+class Line : public Point3D
 {
   public:
-    virtual void lineDraw(const Point & endLine);
-
+    virtual void lineDraw(const Point3D & endLine,bool ignoreColor=false)const;
 
   private:
 	Color m_color;
-
 
 };
 #endif

@@ -27,6 +27,11 @@
 const long MainFrame::ID_AUINOTEBOOKWORKSPACE = wxNewId();
 const long MainFrame::idMenuQuit = wxNewId();
 
+BEGIN_EVENT_TABLE(MainFrame,wxFrame)
+    //(*EventTable(MainFrame)
+    //*)
+END_EVENT_TABLE()
+
 MainFrame::~MainFrame(void)
 {
 	for(std::vector<RenderWindow*>::iterator it=m_plans.begin();it!=m_plans.end();it++)

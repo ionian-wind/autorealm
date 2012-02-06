@@ -29,30 +29,22 @@
 class Line;
 class Point;
 
-class Shape : public Object 
+class Shape : public Object
 {
   private:
 	std::vector<Line> m_lines;
 	Color m_filler;
-
+	bool m_closed;
 
   public:
     Shape split();
-
     void merge(const Shape & target);
-
     void close(bool close);
-
     void createPoint(const Point & target);
-
     void addPoint(const Point & target);
-
     void removePoint(const Point & target);
-
     Shape(const Point & origin);
-
     virtual void draw();
-
 
 };
 #endif

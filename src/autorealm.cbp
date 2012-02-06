@@ -37,6 +37,7 @@
 			<Add directory="/usr/local/lib/wx/include/gtk2-unicode-2.9" />
 		</Compiler>
 		<Linker>
+			<Add option="`wx-config --gl-libs`" />
 			<Add library="wx_baseu-2.9" />
 			<Add library="wx_baseu_net-2.9" />
 			<Add library="wx_baseu_xml-2.9" />

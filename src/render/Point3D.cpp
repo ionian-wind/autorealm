@@ -21,8 +21,3 @@
 
 #include "Point3D.h"
 
-void Point3D::setz(const double value) 
-{
-  m_z = value;
-}
-

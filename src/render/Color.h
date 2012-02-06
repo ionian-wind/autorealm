@@ -22,9 +22,9 @@
 #define _COLOR_H
 
 
-struct Color 
+struct Color
 {
-  private:
+public:
 	unsigned char m_red;
 
 	unsigned char m_green;

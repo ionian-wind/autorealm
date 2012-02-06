@@ -23,35 +23,55 @@
 #include "Line.h"
 #include "Point.h"
 
-Shape Shape::split() 
+#include <GL/gl.h>
+
+Shape Shape::split()
 {
 }
 
-void Shape::merge(const Shape & target) 
+void Shape::merge(const Shape & tarm_)
 {
 }
 
-void Shape::close(bool close) 
+void Shape::close(bool close)
 {
 }
 
-void Shape::createPoint(const Point & target) 
+void Shape::createPoint(const Point & tarm_)
 {
 }
 
-void Shape::addPoint(const Point & target) 
+void Shape::addPoint(const Point & tarm_)
 {
 }
 
-void Shape::removePoint(const Point & target) 
+void Shape::removePoint(const Point & tarm_)
 {
 }
 
-Shape::Shape(const Point & origin) 
+Shape::Shape(const Point & origin)
 {
 }
 
-void Shape::draw() 
+void Shape::draw()
 {
+	if(m_lines.size()<2)
+		return;
+
+	if(m_closed)
+	{
+		glColor4d(m_filler.m_red,m_filler.m_green,m_filler.m_blue,m_filler.m_alpha);
+		glBegin(GL_POLYGON);
+		for(int i=0;i<m_lines.size()-1;++i) //TODO (berenger#1#) use std::vector<Line>::size_t for better optimization
+			m_lines[i].lineDraw(m_lines[i+1],true);
+		glEnd();
+		glBegin(GL_LINE_LOOP);
+	}
+	else
+		glBegin(GL_LINE_STRIP);
+
+	for(int i=0;i<m_lines.size()-1;++i) //TODO (berenger#1#) use std::vector<Line>::size_t for better optimization
+		m_lines[i].lineDraw(m_lines[i+1]);
+	glEnd();
 }
 

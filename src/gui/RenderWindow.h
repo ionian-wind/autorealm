@@ -27,27 +27,20 @@
 #include <vector>
 #include <string>
 
-class RenderWindow : public Object, public wxGLCanvas
+class RenderWindow : public Object,public wxGLCanvas
 {
   public:
-    virtual void draw();
+    virtual void draw();//const
     RenderWindow(wxFrame* parent, int* args);
-    RenderWindow & operator=(const RenderWindow & source);
-    void setName(std::string const &str)
-    {
-    	m_winName=str;
-    }
-    std::string getName(void)const
-    {
-    	return m_winName;
-    }
-//    RenderWindow(const RenderWindow & source);
+    void setName(std::string const &str);
+    std::string getName(void)const;
+    int getWidth(void)const;
+    int getHeight(void)const;
 
   private:
-  	std::string m_winName;
+  	std::string m_name;
 	std::vector<Object> m_graphics;
 	Object * m_selection;
 	wxGLContext * m_context;
-
 };
 #endif

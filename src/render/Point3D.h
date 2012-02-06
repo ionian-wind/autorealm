@@ -24,22 +24,11 @@
 
 #include "Point.h"
 
-class Point3D : public Point 
+struct Point3D : public Point
 {
-  protected:
+  public:
 	double m_z;
 
-
-  public:
-    inline const double getz() const;
-
-    void setz(const double value);
-
-
 };
-inline const double Point3D::getz() const 
-{
-  return m_z;
-}
 
 #endif
