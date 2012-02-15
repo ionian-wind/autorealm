@@ -27,15 +27,18 @@
 
 class Shape;
 
-class Group : public Object 
+class Group : public Object
 {
-  private:
-	std::vector<Object> m_children;
+private:
+    std::vector<Object> m_children;
 
-  public:
-    Group(const std::vector<Shape> & targets);
-    void dismiss();
-    virtual void draw();
+public:
+    Group(const std::vector<Object> & targets, Group *owner);
+    void dismiss(void);
+    virtual void draw(void);
+protected:
+	void add(Object const &target);
+    void remove(Group *target);
 
 };
 #endif

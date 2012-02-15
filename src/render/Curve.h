@@ -25,14 +25,14 @@
 #include "Line.h"
 #include "Point.h"
 
-class Curve : public Line 
+class Curve : public Line
 {
-  private:
-	//TODO change that dumb name
-	Point m_magnet;
+private:
+    //TODO change that dumb name
+    Point m_magnet;
 
 
-  public:
+public:
     virtual void lineDraw(const Point & endLine);
 
 

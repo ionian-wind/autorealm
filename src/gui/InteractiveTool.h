@@ -26,10 +26,10 @@
 
 class RenderWindow;
 
-class InteractiveTool : public Tool 
+class InteractiveTool : public Tool
 {
-  private:
-	RenderWindow * m_target;
+private:
+    RenderWindow * m_target;
 
 
 };

@@ -24,51 +24,47 @@
 #include "ToolbarItem.h"
 #include "ToolBar.h"
 
-const long MainFrame::ID_AUINOTEBOOKWORKSPACE = wxNewId();
-const long MainFrame::idMenuQuit = wxNewId();
-
-BEGIN_EVENT_TABLE(MainFrame,wxFrame)
-    //(*EventTable(MainFrame)
-    //*)
-END_EVENT_TABLE()
+const long MainFrame::ID_NOTEBOOK = wxNewId();
+const long MainFrame::ID_MENUQUIT = wxNewId();
 
 MainFrame::~MainFrame(void)
 {
-	for(std::vector<RenderWindow*>::iterator it=m_plans.begin();it!=m_plans.end();it++)
-		delete *it;
+	m_auiManager.UnInit();
 }
 
-MainFrame::MainFrame(wxWindow *parent,wxWindowID id)
+MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
+//:wxFrame(parent,id,title)
 {
     wxMenu* MenuFile;
     wxMenuItem* MenuItemExit;
 
     Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-    m_AuiManager = new wxAuiManager(this, wxAUI_MGR_DEFAULT);
-    m_AuiNotebookWorkspace = new wxAuiNotebook(this, ID_AUINOTEBOOKWORKSPACE, wxPoint(446,171), wxDefaultSize, wxAUI_NB_DEFAULT_STYLE);
-    m_AuiManager->AddPane(m_AuiNotebookWorkspace, wxAuiPaneInfo().Name(_T("Workspace")).Caption(_("Workspace")).CaptionVisible(false).CloseButton(false).Center());
-    m_AuiManager->Update();
+    m_auiManager.SetManagedWindow(this);
+    m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
+
+//add first page to notebook
+    int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
+//    RenderWindow *tmp= new RenderWindow((wxFrame*)m_auiNotebookWorkspace,args);
+//    tmp->setName("Map 1");
+//    m_plans.push_back(tmp);
+//    m_active=m_plans.begin();
+    m_auiNotebookWorkspace->AddPage(new RenderWindow((wxFrame*)m_auiNotebookWorkspace,args), "Map 1", true);
+
+    m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Name(_T("Workspace")).Caption(_("Workspace")).CaptionVisible(false).CloseButton(false).Center());
+    m_auiManager.Update();
 
 //add menu entry File->Exit
     m_MenuBar = new wxMenuBar();
     MenuFile = new wxMenu();
-    MenuItemExit = new wxMenuItem(MenuFile, idMenuQuit, _("&Exit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
+    MenuItemExit = new wxMenuItem(MenuFile, ID_MENUQUIT, _("&Exit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
     MenuFile->Append(MenuItemExit);
     m_MenuBar->Append(MenuFile, _("&File"));
     SetMenuBar(m_MenuBar);
 
-    Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainFrame::OnQuit);
-
-//add first page to notebook
-	int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
-	RenderWindow *tmp= new RenderWindow((wxFrame*)m_AuiNotebookWorkspace,args);
-	tmp->setName("Map 1");
-	m_plans.push_back(tmp);
-	m_active=m_plans.begin();
-	m_AuiNotebookWorkspace->AddPage(*m_active, (*m_active)->getName(), true);
+	Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onQuit, this, ID_MENUQUIT);
 }
 
-void MainFrame::OnQuit(wxCommandEvent& event)
+void MainFrame::onQuit(wxCommandEvent& event)
 {
     Close();
 }

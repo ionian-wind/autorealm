@@ -27,14 +27,14 @@
 #include <wx/menuitem.h>
 
 
-class Tool : public ToolbarItem, public wxMenuItem 
+class Tool : public ToolbarItem, public wxMenuItem
 {
-  private:
-	std::string m_activeBitmap;
+private:
+    std::string m_activeBitmap;
 
-	std::string m_disableBitmap;
+    std::string m_disableBitmap;
 
-	unsigned short m_kind;
+    unsigned short m_kind;
 
 
 };

@@ -28,13 +28,13 @@
 
 class MainFrame;
 
-class App : public wxApp 
+class App : public wxApp
 {
-  private:
-	MainFrame * m_app;
+private:
+    MainFrame * m_app;
 
 
-  public:
+public:
     virtual bool OnInit();
 
 

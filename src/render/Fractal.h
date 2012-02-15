@@ -26,14 +26,14 @@
 
 class Point;
 
-class Fractal : public Line 
+class Fractal : public Line
 {
-  public:
+public:
     virtual void lineDraw(const Point & endLine);
 
 
-  private:
-	unsigned char m_seed;
+private:
+    unsigned char m_seed;
 
 
 };

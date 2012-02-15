@@ -27,11 +27,11 @@
 
 class Line : public Point3D
 {
-  public:
+public:
     virtual void lineDraw(const Point3D & endLine,bool ignoreColor=false)const;
 
-  private:
-	Color m_color;
+private:
+    Color m_color;
 
 };
 #endif

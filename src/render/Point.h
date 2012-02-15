@@ -25,9 +25,9 @@
 struct Point
 {
 public:
-	double m_x;
-	double m_y;
-
+    double m_x;
+    double m_y;
+    double m_z;
 };
 
 #endif

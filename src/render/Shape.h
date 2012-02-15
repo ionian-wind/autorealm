@@ -31,12 +31,14 @@ class Point;
 
 class Shape : public Object
 {
-  private:
-	std::vector<Line> m_lines;
-	Color m_filler;
-	bool m_closed;
+public:
+    bool m_closed;
 
-  public:
+private:
+    std::vector<Line> m_lines;
+    Color m_filler;
+
+public:
     Shape split();
     void merge(const Shape & target);
     void close(bool close);

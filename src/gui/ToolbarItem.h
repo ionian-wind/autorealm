@@ -31,19 +31,19 @@
 
 class ToolBar;
 
-class ToolbarItem 
+class ToolbarItem
 {
-  private:
-	std::string m_name;
+private:
+    std::string m_name;
 
-	unsigned short m_id;
+    unsigned short m_id;
 
-	ToolBar * m_container;
+    ToolBar * m_container;
 
-	wxAuiToolBarItem m_wxData;
+    wxAuiToolBarItem m_wxData;
 
 
-  public:
+public:
     void registerIn(const ToolBar & tb);
 
 

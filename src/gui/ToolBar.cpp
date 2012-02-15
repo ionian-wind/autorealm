@@ -22,7 +22,7 @@
 #include "ToolBar.h"
 
 ToolBar::ToolBar(wxWindow* & parent, const wxWindowID & id, const wxPoint & position, const wxSize & size, long style)
-:wxAuiToolBar(parent,id,position,size,style) 
+    :wxAuiToolBar(parent,id,position,size,style)
 {
 }
 

@@ -22,17 +22,30 @@
 #include "Group.h"
 #include "Shape.h"
 
-Group::Group(const std::vector<Shape> & targets)
+Group::Group(const std::vector<Object> & targets, Group *owner)
+:Object(owner)
 {
 }
 
-void Group::dismiss()
+void Group::dismiss(void)
+{
+    //WARNING (berenger#1#) risk of sigsev due to the owner->remove(this) trick
+    for(std::vector<Object>::iterator it=m_children.begin(); it!=m_children.end(); it++)
+        m_owner->add(*it);
+    m_owner->remove(this);
+}
+
+void Group::draw(void)
+{
+    for(std::vector<Object>::iterator it=m_children.begin(); it!=m_children.end(); it++)
+        it->draw();
+}
+
+void Group::add(Object const &target)
 {
 }
 
-void Group::draw()
+void Group::remove(Group *target)
 {
-	for(std::vector<Object>::iterator it=m_children.begin();it!=m_children.end();it++)
-		it->draw();
-}
 
+}

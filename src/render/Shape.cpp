@@ -55,23 +55,23 @@ Shape::Shape(const Point & origin)
 
 void Shape::draw()
 {
-	if(m_lines.size()<2)
-		return;
+    if(m_lines.size()<2)
+        return;
 
-	if(m_closed)
-	{
-		glColor4d(m_filler.m_red,m_filler.m_green,m_filler.m_blue,m_filler.m_alpha);
-		glBegin(GL_POLYGON);
-		for(int i=0;i<m_lines.size()-1;++i) //TODO (berenger#1#) use std::vector<Line>::size_t for better optimization
-			m_lines[i].lineDraw(m_lines[i+1],true);
-		glEnd();
-		glBegin(GL_LINE_LOOP);
-	}
-	else
-		glBegin(GL_LINE_STRIP);
+    if(m_closed)
+    {
+        glColor4d(m_filler.m_red,m_filler.m_green,m_filler.m_blue,m_filler.m_alpha);
+        glBegin(GL_POLYGON);
+        for(std::vector<Line>::size_type i=0; i<m_lines.size()-1; ++i)
+            m_lines[i].lineDraw(m_lines[i+1],true);
+        glEnd();
+        glBegin(GL_LINE_LOOP);
+    }
+    else
+        glBegin(GL_LINE_STRIP);
 
-	for(int i=0;i<m_lines.size()-1;++i) //TODO (berenger#1#) use std::vector<Line>::size_t for better optimization
-		m_lines[i].lineDraw(m_lines[i+1]);
-	glEnd();
+    for(std::vector<Line>::size_type i=0; i<m_lines.size()-1; ++i)
+        m_lines[i].lineDraw(m_lines[i+1]);
+    glEnd();
 }
 

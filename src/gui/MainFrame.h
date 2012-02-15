@@ -26,8 +26,8 @@
 #include <vector>
 #include <list>
 
+#include <wx/wx.h>
 #include <wx/aui/aui.h>
-#include <wx/menu.h>
 
 
 class RenderWindow;
@@ -36,27 +36,25 @@ class ToolBar;
 
 class MainFrame : public wxFrame
 {
-  private:
-	std::vector<RenderWindow*> m_plans;
-	std::vector<RenderWindow*>::iterator m_active;
-	std::vector<ToolbarItem> m_toolList;
-	ToolbarItem * m_selected;
-	std::list<ToolBar> m_toolbars;
+private:
+//    std::vector<RenderWindow*> m_plans;
+//    std::vector<RenderWindow*>::iterator m_active;
+    std::vector<ToolbarItem> m_toolList;
+    std::vector<ToolbarItem>::iterator m_selected;
+    std::list<ToolBar> m_toolbars;
 
-	wxAuiManager* m_AuiManager;
-	wxAuiNotebook* m_AuiNotebookWorkspace;
+    wxAuiManager m_auiManager;
+    wxAuiNotebook* m_auiNotebookWorkspace;
     wxMenuBar* m_MenuBar;
 
-	static const long ID_AUINOTEBOOKWORKSPACE;
-	static const long idMenuQuit;
+    static const long ID_NOTEBOOK;
+    static const long ID_MENUQUIT;
 
-  public:
-    MainFrame(wxWindow *parent=0,wxWindowID id=-1);
+public:
+    MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");
     ~MainFrame(void);
-  protected:
-  private:
-	void OnQuit(wxCommandEvent& event);
-
-	DECLARE_EVENT_TABLE()
+protected:
+private:
+    void onQuit(wxCommandEvent& event);
 };
 #endif

@@ -27,16 +27,16 @@ IMPLEMENT_APP(App);
 
 bool App::OnInit()
 {
-	//(*AppInitialize
-	bool wxsOK = true;
-	wxInitAllImageHandlers();
-	if ( wxsOK )
-	{
-		m_app= new MainFrame (0);
-		m_app->Show();
-		SetTopWindow(m_app);
-	}
-	//*)
-	return wxsOK;
+    //(*AppInitialize
+    bool wxsOK = true;
+    wxInitAllImageHandlers();
+    if ( wxsOK )
+    {
+        m_app= new MainFrame (0);
+        m_app->Show();
+        SetTopWindow(m_app);
+    }
+    //*)
+    return wxsOK;
 }
 

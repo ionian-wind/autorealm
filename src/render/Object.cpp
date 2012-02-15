@@ -21,19 +21,29 @@
 
 #include "Object.h"
 
-void Object::rotate(short angle) 
+
+Object::Object(void)
+    :m_owner(0)
 {
 }
 
-void Object::rotate(float angle) 
+Object::Object(Group *owner)
+:m_owner(owner)
 {
 }
 
-void Object::move(const Point & distance) 
+void Object::rotate(short angle)
 {
 }
 
-void Object::resize(unsigned char widthPercent, unsigned char heightPercent) 
+void Object::rotate(float angle)
 {
 }
 
+void Object::move(const Point & distance)
+{
+}
+
+void Object::resize(unsigned char widthPercent, unsigned char heightPercent)
+{
+}

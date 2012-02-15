@@ -26,59 +26,59 @@
 
 void RenderWindow::draw()//const
 {
-	if(!IsShown())
-		return;
+    if(!IsShown())
+        return;
 
-	SetCurrent(*m_context);
-	wxPaintDC(this); // only to be used in paint events. use wxClientDC to paint outside the paint event
+    SetCurrent(*m_context);
+    wxPaintDC(this); // only to be used in paint events. use wxClientDC to paint outside the paint event
 
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // White Background
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // White Background
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-	glEnable(GL_TEXTURE_2D);   // textures
-	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_TEXTURE_2D);   // textures
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-	glViewport(0, 0, getWidth(), getHeight());
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+    glViewport(0, 0, getWidth(), getHeight());
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
 
-	gluOrtho2D(0, getWidth(), getHeight(), 0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+    gluOrtho2D(0, getWidth(), getHeight(), 0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
-	for(std::vector<Object>::iterator it=m_graphics.begin();it!=m_graphics.end();it++)
-		it->draw();
+    for(std::vector<Object>::iterator it=m_graphics.begin(); it!=m_graphics.end(); it++)
+        it->draw();
 
-	glFlush();
-	SwapBuffers();
+    glFlush();
+    SwapBuffers();
 }
 
 void RenderWindow::setName(std::string const &str)
 {
-	m_name=str;
+    m_name=str;
 }
 
 std::string RenderWindow::getName(void)const
 {
-	return m_name;
+    return m_name;
 }
 
 int RenderWindow::getWidth(void)const
 {
-	return GetSize().x;
+    return GetSize().x;
 }
 
 int RenderWindow::getHeight(void)const
 {
-	return GetSize().y;
+    return GetSize().y;
 }
 
 RenderWindow::RenderWindow(wxFrame* parent, int* args)
-:wxGLCanvas(parent,wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
+    :wxGLCanvas(parent,wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
 {
 }

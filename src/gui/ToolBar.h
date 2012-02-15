@@ -28,9 +28,9 @@
 #include <wx/aui/auibar.h>
 
 
-class ToolBar : public wxAuiToolBar 
+class ToolBar : public wxAuiToolBar
 {
-  public:
+public:
     ToolBar(wxWindow* & parent, const wxWindowID & id, const wxPoint & position, const wxSize & size, long style = wxAUI_TB_DEFAULT_STYLE);
 
 

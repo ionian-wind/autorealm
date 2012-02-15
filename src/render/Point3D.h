@@ -27,7 +27,6 @@
 struct Point3D : public Point
 {
   public:
-	double m_z;
 
 };
 

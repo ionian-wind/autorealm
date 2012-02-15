@@ -29,7 +29,7 @@
 
 class RenderWindow : public Object,public wxGLCanvas
 {
-  public:
+public:
     virtual void draw();//const
     RenderWindow(wxFrame* parent, int* args);
     void setName(std::string const &str);
@@ -37,10 +37,10 @@ class RenderWindow : public Object,public wxGLCanvas
     int getWidth(void)const;
     int getHeight(void)const;
 
-  private:
-  	std::string m_name;
-	std::vector<Object> m_graphics;
-	Object * m_selection;
-	wxGLContext * m_context;
+private:
+    std::string m_name;
+    std::vector<Object> m_graphics;
+    Object * m_selection;
+    wxGLContext * m_context;
 };
 #endif

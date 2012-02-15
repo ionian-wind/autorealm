@@ -23,18 +23,25 @@
 
 
 #include "Point.h"
+class Group;
 
 class Object
 {
-  private:
-	Point m_origin;
+public:
+protected:
+    Group *m_owner;
+private:
+    Point m_origin;
 
-  public:
+public:
+    Object(Group *owner);
     void rotate(short angle);
     void rotate(float angle);
     void move(const Point & distance);
     void resize(unsigned char widthPercent, unsigned char heightPercent);
     virtual void draw() = 0;
+protected:
+    Object(void);
 
 };
 #endif
