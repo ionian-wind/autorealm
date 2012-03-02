@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -17,52 +17,69 @@
  *    You should have received a copy of the GNU General Public License           *
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
+#ifndef ITEM_H
+#define ITEM_H
 
-#ifndef _MAINFRAME_H
-#define _MAINFRAME_H
-
-
+#include <set>
 #include <string>
-#include <vector>
-#include <list>
 
-#include <wx/wx.h>
-#include <wx/aui/aui.h>
+#include <Pluma/Pluma.hpp>
 
-#include "plugins/interface/item.h"
+#include <wx/dataobj.h>
+#include <wx/bitmap.h>
+#include <wx/defs.h>
+#include <wx/frame.h>
 
-class RenderWindow;
-class ToolbarItem;
-class ToolBar;
+class wxAuiManager;
+class wxMenuItem;
+class Container;
 
-class MainFrame : public wxFrame
+struct MenuData
 {
+	MenuData(std::string const &nAME, std::string const& hELP, wxItemKind const kIND)
+	:kind(kIND),help(hELP),name(nAME){}
+
+	MenuData(void)
+	:kind(),help(),name(){}
+
+	wxItemKind kind;
+	std::string help;
+	std::string name;
+};
+
+class Item
+{
+public:
+protected:
+//	typedef void (Item::CallBack)(wxCommandEvent&);
 private:
-//    std::vector<RenderWindow*> m_plans;
-//    std::vector<RenderWindow*>::iterator m_active;
-    std::vector<ToolbarItem> m_toolList;
-    std::vector<ToolbarItem>::iterator m_selected;
-    std::list<ToolBar> m_toolbars;
-
-    wxAuiManager m_auiManager;
-    wxAuiNotebook* m_auiNotebookWorkspace;
-    wxMenuBar* m_MenuBar;
-
-    static const long ID_NOTEBOOK;
-    static const long ID_MENUQUIT;
-
-	std::vector<ItemProvider * > m_actionProviders;
-	std::vector<Item* > m_items;
-	pluma::Pluma m_actionPlugIn;
-	std::map<std::string,Container > m_containers;
-
-
 
 public:
-    MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");
-    ~MainFrame(void);
+	Item(void);
+	void registerIn(wxFrame *parent,std::map<std::string,Container>&);
+
+	void enable(wxCommandEvent &ev);
+	virtual void readConfig(void)=0;
+	void createMenu(wxFrame *parent);
+	void createToolbarItem(std::map<std::string,Container>&containers,wxWindow*parent);
 protected:
 private:
-    void onQuit(wxCommandEvent& event);
+
+public:///common parameters
+	MenuData m_entry;
+	long m_id;
+
+///menu parameters
+	std::vector<MenuData> m_path;
+
+///toolbar parameters
+	std::string m_longDoc;
+	wxBitmap m_disabled,m_enabled;
+	wxObject *m_unused;
+	void (*m_callback)(Item*,wxCommandEvent&);
+private:
 };
+
+PLUMA_PROVIDER_HEADER(Item)
+
 #endif

@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,51 +18,12 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _MAINFRAME_H
-#define _MAINFRAME_H
+#ifndef CONTAINER_H
+#define CONTAINER_H
 
-
-#include <string>
-#include <vector>
-#include <list>
-
-#include <wx/wx.h>
 #include <wx/aui/aui.h>
 
-#include "plugins/interface/item.h"
+class Container : public std::pair<wxAuiToolBar* ,wxAuiPaneInfo>
+{};
 
-class RenderWindow;
-class ToolbarItem;
-class ToolBar;
-
-class MainFrame : public wxFrame
-{
-private:
-//    std::vector<RenderWindow*> m_plans;
-//    std::vector<RenderWindow*>::iterator m_active;
-    std::vector<ToolbarItem> m_toolList;
-    std::vector<ToolbarItem>::iterator m_selected;
-    std::list<ToolBar> m_toolbars;
-
-    wxAuiManager m_auiManager;
-    wxAuiNotebook* m_auiNotebookWorkspace;
-    wxMenuBar* m_MenuBar;
-
-    static const long ID_NOTEBOOK;
-    static const long ID_MENUQUIT;
-
-	std::vector<ItemProvider * > m_actionProviders;
-	std::vector<Item* > m_items;
-	pluma::Pluma m_actionPlugIn;
-	std::map<std::string,Container > m_containers;
-
-
-
-public:
-    MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");
-    ~MainFrame(void);
-protected:
-private:
-    void onQuit(wxCommandEvent& event);
-};
 #endif

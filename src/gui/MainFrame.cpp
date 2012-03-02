@@ -18,11 +18,11 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-
 #include "MainFrame.h"
 #include "RenderWindow.h"
 #include "ToolbarItem.h"
 #include "ToolBar.h"
+#include "plugins/interface/container.h"
 
 const long MainFrame::ID_NOTEBOOK = wxNewId();
 const long MainFrame::ID_MENUQUIT = wxNewId();
@@ -59,9 +59,29 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
     MenuItemExit = new wxMenuItem(MenuFile, ID_MENUQUIT, _("&Exit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
     MenuFile->Append(MenuItemExit);
     m_MenuBar->Append(MenuFile, _("&File"));
-    SetMenuBar(m_MenuBar);
 
 	Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onQuit, this, ID_MENUQUIT);
+
+
+	m_actionPlugIn.acceptProviderType<ItemProvider>();
+	m_actionPlugIn.loadFromFolder("/home/berenger/prj/autorealm/src/gui/plugins/core/bin/Debug");
+	m_actionPlugIn.getProviders(m_actionProviders);
+
+	std::vector<ItemProvider*>::iterator ita;
+	for(ita=m_actionProviders.begin();ita!=m_actionProviders.end();++ita)
+	{
+		m_items.push_back((*ita)->create());
+		(*m_items.rbegin())->registerIn(this,m_containers);
+	}
+	for(std::map<std::string,Container>::iterator it=m_containers.begin();it!=m_containers.end();++it)
+	{
+		it->second.first->Realize();
+		m_auiManager.AddPane(
+								it->second.first,
+								it->second.second);
+	}
+	m_auiManager.Update();
+	SetMenuBar(m_MenuBar);
 }
 
 void MainFrame::onQuit(wxCommandEvent& event)
