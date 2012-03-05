@@ -30,13 +30,13 @@ Shape Shape::split(Point<> const &beginBreak,Point<> const &endBreak)
 {
 //	insert(beginBreak);
 //	insert(endBreak);
-//	std::vector<Line>::iterator itBegin=
+//	Children::iterator itBegin=
 //		std::find(
 //					m_children.begin(),
 //					m_children.end(),
 //					beginBreak);
 //
-//	std::vector<Line>::iterator itEnd=
+//	Children::iterator itEnd=
 //		std::find(
 //					m_children.begin(),
 //					m_children.end(),
@@ -46,12 +46,13 @@ Shape Shape::split(Point<> const &beginBreak,Point<> const &endBreak)
 //	Shape future(itBegin,itEnd);
 //	m_children.erase(itBegin,itEnd);
 //	return future;
+	UNIMPLEMENTED;
 }
 
-void Shape::merge(Shape const & target)
+void Shape::merge(Shape *target)
 {
-//	m_children.insert(m_children.end(),target.m_children.begin(),target.m_children.end());
-//	target.m_owner->erase(target);
+	m_children.insert(m_children.end(),target->m_children.begin(),target->m_children.end());
+	target->m_owner->erase(target);
 }
 
 void Shape::close(bool close)
@@ -59,32 +60,34 @@ void Shape::close(bool close)
 	m_closed=close;
 }
 
-void Shape::insert(Line const & target)
+void Shape::insert(Line const& target)
 {
-	std::vector<Line>::iterator it=m_children.begin();
-	while(!it->find(target) && it!=m_children.end())
+	Children::iterator it=m_children.begin();
+	while(!static_cast<Line*>(*it)->find(target) && it!=m_children.end())
 		++it;
 	if(it==m_children.end())
 		throw std::runtime_error("Position not found in given Shape.");
-	it->split(target);
+	static_cast<Line*>(*it)->split(target);
 }
 
-void Shape::push_back(Line const & target)
+void Shape::push_back(Line const& target)
 {
-	m_children.push_back(target);
+	m_children.push_back(new Line(target));
 }
 
-void Shape::erase(Line const & target)
+void Shape::erase(Line const& target)
 {
-//	std::vector<Line>::iterator it=std::find(m_children.begin(),m_children.end(),target);
+//	Children::iterator it=std::find(m_children.begin(),m_children.end(),target);
 //	if(it==m_children.end())
 //		throw std::runtime_error("Position not found in given Shape.");
 //	m_children.erase(it);
+	UNIMPLEMENTED;
 }
 
-Shape::Shape(std::vector<Line>::iterator const &begin,std::vector<Line>::iterator const &end)
+Shape::Shape(std::vector<Line*>::iterator const &begin,std::vector<Line*>::iterator const &end)
 //:m_children(begin,end)
 {
+	UNIMPLEMENTED;
 }
 
 void Shape::draw()
@@ -105,18 +108,21 @@ void Shape::draw()
 	drawShape();
 }
 
-void Shape::move(const Point<> & distance)
-{
-	m_position+=distance;
-}
-
 void Shape::drawShape(bool ignoreColor)
 {
 //	glVertex3d(m_position.m_x,m_position.m_y,m_position.m_z);
-//	for_each(m_children.begin(),
-//			m_children.end(),
-//			std::mem_fun(std::bind1st(Line::lineDraw,ignoreColor)));
+////	for_each(m_children.begin(),
+////			m_children.end(),
+////			std::mem_fun(std::bind1st(Line::lineDraw,ignoreColor)));
+//	for(Children::iterator it=m_children.begin();it!=m_children.end();++it)
+//		static_cast<Line>(*it).lineDraw(ignoreColor);
 //	glEnd();
+	UNIMPLEMENTED;
+}
+
+void Shape::move(const Point<> & distance)
+{
+	m_position+=distance;
 }
 
 #warning untested implementation

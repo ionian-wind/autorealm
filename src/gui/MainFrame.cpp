@@ -20,8 +20,7 @@
 
 #include "MainFrame.h"
 #include "RenderWindow.h"
-#include "ToolbarItem.h"
-#include "ToolBar.h"
+
 #include "plugins/interface/container.h"
 
 const long MainFrame::ID_NOTEBOOK = wxNewId();
@@ -66,7 +65,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 
 
 	m_actionPlugIn.acceptProviderType<ItemProvider>();
-	m_actionPlugIn.loadFromFolder("/home/berenger/prj/autorealm/src/gui/plugins/core/bin/Debug");
+	m_actionPlugIn.loadFromFolder("plugin");
 	m_actionPlugIn.getProviders(m_actionProviders);
 
 	std::vector<ItemProvider*>::iterator ita;

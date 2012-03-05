@@ -39,4 +39,29 @@ bool Line::find(Point<> const&point)
 	UNIMPLEMENTED;
 }
 
+void Line::rotate(short degree)
+{
+	UNIMPLEMENTED;
+}
+
+void Line::rotate(float radian)
+{
+	UNIMPLEMENTED;
+}
+
+void Line::move(const Point<>& distance)
+{
+	UNIMPLEMENTED;
+}
+
+void Line::resize(unsigned char widthPercent, unsigned char heightPercent)
+{
+	UNIMPLEMENTED;
+}
+
+void Line::draw(void)
+{
+	UNIMPLEMENTED;
+}
+
 #warning untested implementation

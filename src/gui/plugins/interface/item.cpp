@@ -35,16 +35,18 @@ Item::Item(void)
 
 void Item::registerIn(wxFrame *parent,std::map<std::string,Container>&containers,AppConfig const& appConfig)
 {
+	m_parent=parent;
 	readConfig(appConfig.m_graphicalResources);
 
-	createMenu(parent);
-	createToolbarItem(containers,parent);
+	createMenu();
+	createToolbarItem(containers);
+	enable();
 }
 
-void Item::createMenu(wxFrame *parent)
+void Item::createMenu(void)
 {
 	wxMenu *target=NULL;
-	wxMenuBar *menubar=parent->GetMenuBar();
+	wxMenuBar *menubar=m_parent->GetMenuBar();
 	int targetIndex;
 
 //ensure the existency of the menu path
@@ -86,26 +88,31 @@ void Item::createMenu(wxFrame *parent)
 		target=menubar->GetMenu(targetIndex);
 	}
 	//create menu item
-	wxMenuItem *tmp=new wxMenuItem(target,m_id,m_entry.name,m_entry.help,m_entry.kind,0);
+	wxMenuItem *tmp=new wxMenuItem(target,0,m_entry.name,m_entry.help,m_entry.kind,0);
 	target->Append(tmp);
 }
 
-void Item::createToolbarItem(std::map<std::string,Container>&containers,wxWindow *parent)
+void Item::createToolbarItem(std::map<std::string,Container>&containers)
 {
 	std::map<std::string,Container>::iterator it=containers.find(m_entry.name);
 	if(it==containers.end())
 	{
 		//create & register container
 		Container c;
-		c.first=new wxAuiToolBar(parent);
+		c.first=new wxAuiToolBar(m_parent);
 		c.second=wxAuiPaneInfo().Name(m_path.rbegin()->name).ToolbarPane().Caption(m_path.rbegin()->name).Layer(10).Top().Gripper();
 		containers[m_entry.name]=c;
 	}
 	//create the item
-	containers[m_entry.name].first->AddTool(wxNewId(), m_entry.name, m_enabled, m_disabled, m_entry.kind, m_entry.name, m_longDoc, m_unused);
+	containers[m_entry.name].first->AddTool(m_id, m_entry.name, m_enabled, m_disabled, m_entry.kind, m_entry.name, m_longDoc, m_unused);
 
 	//insert the item inside the container
-	wxAuiManager::GetManager(parent)->AddPane(containers[m_entry.name].first,containers[m_entry.name].second);
+	wxAuiManager::GetManager(m_parent)->AddPane(containers[m_entry.name].first,containers[m_entry.name].second);
+}
+
+void Item::enable(void)
+{
+	Bind(wxEVT_COMMAND_MENU_SELECTED, m_callback, this, m_id);
 }
 
 PLUMA_PROVIDER_SOURCE(Item,1,1)

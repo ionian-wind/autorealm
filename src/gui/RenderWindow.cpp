@@ -51,7 +51,7 @@ void RenderWindow::draw()//const
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    for(std::vector<Object>::iterator it=m_graphics.begin(); it!=m_graphics.end(); it++)
+    for(std::vector<Group>::iterator it=m_graphics.begin(); it!=m_graphics.end(); ++it)
         it->draw();
 
     glFlush();

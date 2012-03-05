@@ -6,8 +6,9 @@
 class PolyLineTool : public Item
 {
 	public:
-		void callback(wxCommandEvent& event);
 		void readConfig(std::string const &graphicalResources);
+
+void onClick(wxCommandEvent& event);
 	protected:
 	private:
 };

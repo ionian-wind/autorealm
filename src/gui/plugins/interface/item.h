@@ -25,9 +25,9 @@
 
 #include <Pluma/Pluma.hpp>
 
-#include <wx/dataobj.h>
-#include <wx/bitmap.h>
-#include <wx/defs.h>
+//#include <wx/dataobj.h>
+//#include <wx/bitmap.h>
+//#include <wx/defs.h>
 #include <wx/frame.h>
 
 class wxAuiManager;
@@ -48,7 +48,7 @@ struct MenuData
 	std::string name;
 };
 
-class Item
+class Item: public wxEvtHandler
 {
 public:
 protected:
@@ -59,14 +59,16 @@ public:
 	Item(void);
 	void registerIn(wxFrame *parent,std::map<std::string,Container>&,AppConfig const& appConfig);
 
-	void enable(wxCommandEvent &ev);
+	void enable(void);
 	virtual void readConfig(std::string const &graphicalResources)=0;
-	void createMenu(wxFrame *parent);
-	void createToolbarItem(std::map<std::string,Container>&containers,wxWindow*parent);
+	void createMenu(void);
+	void createToolbarItem(std::map<std::string,Container>&containers);
 protected:
 private:
 
-public:///common parameters
+public:
+	wxFrame * m_parent;
+///common parameters
 	MenuData m_entry;
 	long m_id;
 
@@ -75,9 +77,9 @@ public:///common parameters
 
 ///toolbar parameters
 	std::string m_longDoc;
-	wxBitmap m_disabled,m_enabled;
 	wxObject *m_unused;
-	void (*m_callback)(Item*,wxCommandEvent&);
+	void (Item::*m_callback)(wxCommandEvent&);
+	wxBitmap m_disabled,m_enabled;
 private:
 };
 

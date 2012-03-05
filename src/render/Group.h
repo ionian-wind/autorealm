@@ -21,23 +21,25 @@
 #ifndef _GROUP_H
 #define _GROUP_H
 
-
-#include "Object.h"
 #include <vector>
+#include <tr1/memory>
+
+#include "object.h"
 
 class Group //! Object which contain other objects and allow to manipulate the whole set in one action
-: public Object<Group>
+: public Object
 {
 private:
+	typedef std::vector<Object*> Children;
 
 public:
     /** \brief Contructor.
      * Avoid creation of empty groups or groups without container.
      * Take the ownership of the targets
-     * \param targets std::vector<Object>& objects the group will take as it's parts
+     * \param targets std::vector<Object&>& objects the group will take as it's parts
      * \param owner Group* container of the group
      */
-    Group(std::vector<Object> & targets, Group *owner);
+    Group(Children & targets, Group *owner);
 
     /** \brief change the ownership of all children to the object's owner
      * This method have as primary goal to remove a group without deleting what
@@ -48,16 +50,41 @@ public:
 	 * \warning risk of sigsev due to the owner->erase(this) trick
      */
     void draw(void);
-protected:
-    /** \brief add a single object to the group.
-     * The group take the ownership of the object.
-     * \param target Object &
-     */
-	void push(Object &target);
     /** \brief delete a Group
      * \warning If the deleted group is not empty, it's content is deleted, too.
      * \param target Group &
      */
-    void erase(Group &target);
+    void erase(Object *target);
+    /** \brief add a single object to the group.
+     * The group take the ownership of the object.
+     * \param target Object &
+     */
+	void push(Object *target);
+
+    /** \brief apply a rotation on an object
+     * \param angle short angle in degree
+     */
+//    virtual void rotate(short degree);
+//    /** \brief apply a rotation on an object
+//     * \param radian float angle in radian
+//     */
+//    virtual void rotate(float radian);
+//    /** \brief translate an object
+//     * \param distance const Point& distance to add to the current position of the object
+//     */
+//    virtual void move(const Point<> & distance);
+//    /** \brief
+//     * \param widthPercent unsigned char
+//     * \param heightPercent unsigned char
+//     */
+//    virtual void resize(unsigned char widthPercent, unsigned char heightPercent);
+protected:
+    /** \brief Default Ctor.
+     * This Ctor is protected because the plan itself is considered as a Group,
+     * so groups will very rarely need default Ctor.
+     * The probably only exception on that is the renderWindow.
+     */
+    Group(void);
+public:
 };
 #endif

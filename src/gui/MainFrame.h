@@ -44,10 +44,6 @@ protected:
 private:
 //    std::vector<RenderWindow*> m_plans;
 //    std::vector<RenderWindow*>::iterator m_active;
-    std::vector<ToolbarItem> m_toolList;
-    std::vector<ToolbarItem>::iterator m_selected;
-    std::list<ToolBar> m_toolbars;
-
     wxAuiManager m_auiManager;
     wxAuiNotebook* m_auiNotebookWorkspace;
     wxMenuBar* m_MenuBar;
@@ -57,11 +53,9 @@ private:
 
 	std::vector<ItemProvider * > m_actionProviders;
 	std::vector<Item* > m_items;
+    std::vector<Item* >::iterator m_selected;
 	pluma::Pluma m_actionPlugIn;
 	std::map<std::string,Container > m_containers;
-
-
-
 
 public:
     MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");

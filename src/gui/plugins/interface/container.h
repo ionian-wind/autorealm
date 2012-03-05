@@ -24,6 +24,7 @@
 #include <wx/aui/aui.h>
 
 class Container : public std::pair<wxAuiToolBar* ,wxAuiPaneInfo>
-{};
+{
+};
 
 #endif

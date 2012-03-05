@@ -21,13 +21,14 @@
 #ifndef _RENDERWINDOW_H
 #define _RENDERWINDOW_H
 
-
-#include "../render/Object.h"
-#include <wx/glcanvas.h>
 #include <vector>
 #include <string>
 
-class RenderWindow : public Object<RenderWindow>,public wxGLCanvas
+#include <wx/glcanvas.h>
+
+#include "../render/Group.h"
+
+class RenderWindow : public Group,public wxGLCanvas
 {
 public:
     virtual void draw();//const
@@ -39,8 +40,8 @@ public:
 
 private:
     std::string m_name;
-    std::vector<Object> m_graphics;
-    Object * m_selection;
+    std::vector<Group> m_graphics;
+    Group * m_selection;
     wxGLContext * m_context;
 };
 #endif

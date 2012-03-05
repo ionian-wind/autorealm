@@ -26,14 +26,18 @@
 #include "Point.h"
 class Group;
 
-template<typename KIND>
 class Object //! abstract class which implement common transformations and impose the name of drawing method
 {
+public:
+protected:
+	typedef std::vector<Object*> Children;
+private:
 	friend class Group;
+
 public:
 protected:
     Group *m_owner;
-    std::vector<KIND> m_children;
+    std::vector<Object*> m_children;
 private:
 
 public:
@@ -45,15 +49,15 @@ public:
     /** \brief apply a rotation on an object
      * \param angle short angle in degree
      */
-    void rotate(short degree);
+    virtual void rotate(short degree);
     /** \brief apply a rotation on an object
      * \param radian float angle in radian
      */
-    void rotate(float radian);
+    virtual void rotate(float radian);
     /** \brief translate an object
      * \param distance const Point& distance to add to the current position of the object
      */
-    void move(const Point<> & distance);
+    virtual void move(const Point<> & distance);
     /** \brief
      * \param widthPercent unsigned char
      * \param heightPercent unsigned char
@@ -61,7 +65,7 @@ public:
     virtual void resize(unsigned char widthPercent, unsigned char heightPercent);
     /** \brief draw the object on the plan
      */
-    virtual void draw() = 0;
+    virtual void draw()=0;
 protected:
     /** \brief Default Ctor.
      * This Ctor is protected because the plan itself is considered as a Group,
@@ -71,5 +75,4 @@ protected:
     Object(void);
 };
 
-#include "Object.inl"
 #endif

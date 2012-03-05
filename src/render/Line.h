@@ -21,12 +21,13 @@
 #ifndef _LINE_H
 #define _LINE_H
 
-
+#include "object.h"
 #include "Point.h"
 #include "Color.h"
 
 class Line //! Simple lines act as drawable vector, so they need only one coordinates.
-: public Point<> //! last point of the line.
+: public Object
+, public Point<> //! last point of the line.
 {
 public:
 	Line(void):Point<>(),m_color(){}
@@ -40,7 +41,33 @@ public:
      * \param cutPoint Point const&
      */
 	virtual void split(Point<> const &cutPoint);
+
+    /** \brief say if a given point is on the line
+     * \param point Point<> const&
+     * \return virtual bool
+     *
+     */
     virtual bool find(Point<> const &point);
+
+    /** \brief apply a rotation on an object
+     * \param angle short angle in degree
+     */
+    void rotate(short degree);
+    /** \brief apply a rotation on an object
+     * \param radian float angle in radian
+     */
+    void rotate(float radian);
+    /** \brief translate an object
+     * \param distance const Point& distance to add to the current position of the object
+     */
+    void move(const Point<> & distance);
+    /** \brief
+     * \param widthPercent unsigned char
+     * \param heightPercent unsigned char
+     */
+    virtual void resize(unsigned char widthPercent, unsigned char heightPercent);
+
+    virtual void draw(void);
 private:
     Color m_color;
 

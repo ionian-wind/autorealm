@@ -42,6 +42,14 @@ public:
 		m_x+=target.m_x;
 		m_y+=target.m_y;
 		m_z+=target.m_z;
+		return *this;
+	}
+
+	bool operator==(Point const& target)
+	{
+		if(m_x==target.m_x&&m_y==target.m_y&&m_z==target.m_z)
+			return true;
+		return false;
 	}
 
 };

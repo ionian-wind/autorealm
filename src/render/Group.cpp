@@ -18,23 +18,24 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
+#include <algorithm>
 
 #include "Group.h"
 #include "Shape.h"
 
-Group::Group(std::vector<Object> & targets, Group *owner)
+Group::Group(Children &targets, Group *owner)
 :Object(owner)
 {
-//	m_children.assign(targets.begin(),targets.end());
-//	for(std::vector<Object>::iterator it=targets.begin();it!=targets.end();++it)
-//		it->m_owner->erase(*it);
+	m_children.assign(targets.begin(),targets.end());
+	for(Children::iterator it=targets.begin();it!=targets.end();++it)
+		(*it)->m_owner->erase(*it);
 }
 
 void Group::dismiss(void)
 {
-//    for(std::vector<Object>::iterator it=m_children.begin(); it!=m_children.end(); ++it)
-//        m_owner->push(*it);
-//    m_owner->erase(this);
+    for(Children::iterator it=m_children.begin(); it!=m_children.end(); ++it)
+        m_owner->push(*it);
+    m_owner->erase(this);
 }
 
 void Group::draw(void)
@@ -42,17 +43,24 @@ void Group::draw(void)
 //	for_each(m_children.begin(),
 //			m_children.end(),
 //			std::mem_fun(draw));
+	for(Children::iterator it=m_children.begin();it!=m_children.end();++it)
+		(*it)->draw();
 }
 
-void Group::push(Object &target)
+void Group::push(Object *target)
 {
-//	target.m_owner=this;
-//	m_children.push_back(target);
+	target->m_owner=this;
+	m_children.push_back(target);
+	target=0;
 }
 
-void Group::erase(Group &target)
+void Group::erase(Object *target)
 {
-//	m_children.erase(std::find(m_children.begin(),m_children.end(),target));
+	m_children.erase(std::find(m_children.begin(),m_children.end(),target));
+}
+
+Group::Group(void)
+{
 }
 
 #warning untested implementation

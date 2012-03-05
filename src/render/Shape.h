@@ -21,16 +21,18 @@
 #ifndef _SHAPE_H
 #define _SHAPE_H
 
-
-#include "Object.h"
 #include <vector>
+#include <tr1/memory>
+
+#include "object.h"
 #include "Color.h"
 
 class Line;
 
 class Shape //! Shape are Groups composed by a point followed by lines
-: public Object<Line>
+: public Object
 {
+	typedef std::vector<Line*> LineChildren;
 public:
 protected:
     bool m_closed;
@@ -51,7 +53,7 @@ public:
      * the target shape is removed.
      * \param target const Shape&
      */
-    void merge(Shape const & target);
+    void merge(Shape *target);
     /** \brief make the shape a closed figure
      * \param close bool
      */
@@ -70,10 +72,10 @@ public:
      */
     void erase(const Line & target);
     /** \brief Create a shape with given lines.
-     * \param begin std::vector<Line>::iterator const&
-     * \param end std::vector<Line>::iterator const&
+     * \param begin LineChildren::iterator const&
+     * \param end LineChildren::iterator const&
      */
-    Shape(std::vector<Line>::iterator const &begin,std::vector<Line>::iterator const &end);
+    Shape(std::vector<Line*>::iterator const &begin,std::vector<Line*>::iterator const &end);
     /** \brief Create a single ligne shape
      *
      * \param position Point const&
@@ -84,8 +86,10 @@ public:
     /** \brief draw the shape */
     void draw();
 
-    /** \brief see Object::move */
-    void move(const Point<> & distance);
+    /** \brief translate an object
+     * \param distance const Point& distance to add to the current position of the object
+     */
+    virtual void move(const Point<> & distance);
 protected:
 	void drawShape(bool ignoreColor=false);
 };
