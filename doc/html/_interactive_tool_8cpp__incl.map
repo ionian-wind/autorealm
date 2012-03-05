@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$_interactive_tool_8h.html" title="InteractiveTool.h" alt="" coords="387,83,504,112"/>
-<area shape="rect" id="node22" href="$_render_window_8h.html" title="RenderWindow.h" alt="" coords="543,83,665,112"/>
-<area shape="rect" id="node5" href="$_tool_8h.html" title="Tool.h" alt="" coords="401,160,460,189"/>
-<area shape="rect" id="node9" href="$_toolbar_item_8h.html" title="ToolbarItem.h" alt="" coords="212,237,313,267"/>
-<area shape="rect" id="node24" href="$_object_8h.html" title="../render/Object.h" alt="" coords="543,160,665,189"/>
-<area shape="rect" id="node28" href="$_point_8h.html" title="Point.h" alt="" coords="604,237,665,267"/>
-<area shape="rect" id="node30" href="$_object_8inl.html" title="Object.inl" alt="" coords="689,237,767,267"/>
-</map>

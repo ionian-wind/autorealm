@@ -57,7 +57,7 @@ void Item::createMenu(void)
 		menubar->Append(new wxMenu(),it->name);
 		targetIndex=menubar->FindMenu(it->name);
 		if(wxNOT_FOUND==targetIndex)
-			throw std::runtime_error(wxString("unable to create menu: ")+it->name);
+			throw std::runtime_error(std::string("unable to create menu: ")+it->name);
 	}
 	target=menubar->GetMenu(targetIndex);
 	++it;
@@ -81,7 +81,7 @@ void Item::createMenu(void)
 								);
 				targetIndex=target->FindItem(it->name);
 				if(wxNOT_FOUND==targetIndex)
-					throw std::runtime_error(wxString("unable to create menu: ")+it->name);
+					throw std::runtime_error(std::string("unable to create menu: ")+it->name);
 				target=menubar->GetMenu(targetIndex);
 			}
 		}

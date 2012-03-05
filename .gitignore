@@ -3,3 +3,7 @@ src/bin
 src/obj
 *.layout
 autorealm_build_log.html
+src/.cccc
+dependencies
+bin
+obj
