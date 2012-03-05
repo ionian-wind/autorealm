@@ -21,27 +21,55 @@
 #ifndef _OBJECT_H
 #define _OBJECT_H
 
+#include <vector>
 
 #include "Point.h"
 class Group;
 
-class Object
+template<typename KIND>
+class Object //! abstract class which implement common transformations and impose the name of drawing method
 {
+	friend class Group;
 public:
 protected:
     Group *m_owner;
+    std::vector<KIND> m_children;
 private:
-    Point m_origin;
 
 public:
+    /** \brief Contructor. The owner is mandatory, except for the render window (which is itself considered as an object)
+     * \param owner Group* group which own the future object
+     */
     Object(Group *owner);
-    void rotate(short angle);
-    void rotate(float angle);
-    void move(const Point & distance);
-    void resize(unsigned char widthPercent, unsigned char heightPercent);
+
+    /** \brief apply a rotation on an object
+     * \param angle short angle in degree
+     */
+    void rotate(short degree);
+    /** \brief apply a rotation on an object
+     * \param radian float angle in radian
+     */
+    void rotate(float radian);
+    /** \brief translate an object
+     * \param distance const Point& distance to add to the current position of the object
+     */
+    void move(const Point<> & distance);
+    /** \brief
+     * \param widthPercent unsigned char
+     * \param heightPercent unsigned char
+     */
+    virtual void resize(unsigned char widthPercent, unsigned char heightPercent);
+    /** \brief draw the object on the plan
+     */
     virtual void draw() = 0;
 protected:
+    /** \brief Default Ctor.
+     * This Ctor is protected because the plan itself is considered as a Group,
+     * so groups will very rarely need default Ctor.
+     * The probably only exception on that is the renderWindow.
+     */
     Object(void);
-
 };
+
+#include "Object.inl"
 #endif

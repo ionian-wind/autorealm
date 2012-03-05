@@ -27,7 +27,7 @@
 #include <vector>
 #include <string>
 
-class RenderWindow : public Object,public wxGLCanvas
+class RenderWindow : public Object<RenderWindow>,public wxGLCanvas
 {
 public:
     virtual void draw();//const

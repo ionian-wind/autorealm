@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
-		<Project filename="../../devel/autorealm/autorealm/dependencies/Pluma-1.0/build/mingw/pluma.cbp" />
 		<Project filename="../../devel/autorealm/autorealm/src/autorealm.cbp" active="1">
-			<Depends filename="../../devel/autorealm/autorealm/dependencies/Pluma-1.0/build/mingw/pluma.cbp" />
+			<Depends filename="../../devel/autorealm/autorealm/src/gui/plugins/core/PolyLine.cbp" />
 		</Project>
 		<Project filename="../../devel/autorealm/autorealm/src/gui/plugins/core/PolyLine.cbp" />
 	</Workspace>

@@ -27,13 +27,15 @@
 #include <wx/aui/auibar.h>
 #include <wx/menu.h>
 
+#include "../../appconfig.h"
+
 Item::Item(void)
 :m_id(wxNewId())
 {}
 
-void Item::registerIn(wxFrame *parent,std::map<std::string,Container>&containers)
+void Item::registerIn(wxFrame *parent,std::map<std::string,Container>&containers,AppConfig const& appConfig)
 {
-	readConfig();
+	readConfig(appConfig.m_graphicalResources);
 
 	createMenu(parent);
 	createToolbarItem(containers,parent);
@@ -41,12 +43,24 @@ void Item::registerIn(wxFrame *parent,std::map<std::string,Container>&containers
 
 void Item::createMenu(wxFrame *parent)
 {
-	wxMenu *target;
+	wxMenu *target=NULL;
 	wxMenuBar *menubar=parent->GetMenuBar();
 	int targetIndex;
 
 //ensure the existency of the menu path
-	for(std::vector<MenuData>::iterator it=m_path.begin();it!=m_path.end();++it)
+//FIXME initialize target before searching or the appli will crash!!!
+	std::vector<MenuData>::iterator it=m_path.begin();
+	if(wxNOT_FOUND==(targetIndex=menubar->FindMenu(it->name)))
+	{
+		menubar->Append(new wxMenu(),it->name);
+		targetIndex=menubar->FindMenu(it->name);
+		if(wxNOT_FOUND==targetIndex)
+			throw std::runtime_error(wxString("unable to create menu: ")+it->name);
+	}
+	target=menubar->GetMenu(targetIndex);
+	++it;
+
+	for(;it!=m_path.end();++it)
 	{
 		if(wxNOT_FOUND==(targetIndex=target->FindItem(it->name)))
 		{
@@ -64,13 +78,16 @@ void Item::createMenu(wxFrame *parent)
 												)
 								);
 				targetIndex=target->FindItem(it->name);
+				if(wxNOT_FOUND==targetIndex)
+					throw std::runtime_error(wxString("unable to create menu: ")+it->name);
 				target=menubar->GetMenu(targetIndex);
 			}
 		}
 		target=menubar->GetMenu(targetIndex);
 	}
 	//create menu item
-	target->Append(new wxMenuItem(target,m_id,m_entry.name,m_entry.help,m_entry.kind,0));
+	wxMenuItem *tmp=new wxMenuItem(target,m_id,m_entry.name,m_entry.help,m_entry.kind,0);
+	target->Append(tmp);
 }
 
 void Item::createToolbarItem(std::map<std::string,Container>&containers,wxWindow *parent)
@@ -81,7 +98,7 @@ void Item::createToolbarItem(std::map<std::string,Container>&containers,wxWindow
 		//create & register container
 		Container c;
 		c.first=new wxAuiToolBar(parent);
-		c.second=wxAuiPaneInfo().Name(_T("Test menu")).ToolbarPane().Caption(_("Test menu")).Layer(10).Top().Gripper();
+		c.second=wxAuiPaneInfo().Name(m_path.rbegin()->name).ToolbarPane().Caption(m_path.rbegin()->name).Layer(10).Top().Gripper();
 		containers[m_entry.name]=c;
 	}
 	//create the item

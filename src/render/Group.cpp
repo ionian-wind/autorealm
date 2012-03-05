@@ -22,30 +22,37 @@
 #include "Group.h"
 #include "Shape.h"
 
-Group::Group(const std::vector<Object> & targets, Group *owner)
+Group::Group(std::vector<Object> & targets, Group *owner)
 :Object(owner)
 {
+//	m_children.assign(targets.begin(),targets.end());
+//	for(std::vector<Object>::iterator it=targets.begin();it!=targets.end();++it)
+//		it->m_owner->erase(*it);
 }
 
 void Group::dismiss(void)
 {
-    //WARNING (berenger#1#) risk of sigsev due to the owner->remove(this) trick
-    for(std::vector<Object>::iterator it=m_children.begin(); it!=m_children.end(); it++)
-        m_owner->add(*it);
-    m_owner->remove(this);
+//    for(std::vector<Object>::iterator it=m_children.begin(); it!=m_children.end(); ++it)
+//        m_owner->push(*it);
+//    m_owner->erase(this);
 }
 
 void Group::draw(void)
 {
-    for(std::vector<Object>::iterator it=m_children.begin(); it!=m_children.end(); it++)
-        it->draw();
+//	for_each(m_children.begin(),
+//			m_children.end(),
+//			std::mem_fun(draw));
 }
 
-void Group::add(Object const &target)
+void Group::push(Object &target)
 {
+//	target.m_owner=this;
+//	m_children.push_back(target);
 }
 
-void Group::remove(Group *target)
+void Group::erase(Group &target)
 {
-
+//	m_children.erase(std::find(m_children.begin(),m_children.end(),target));
 }
+
+#warning untested implementation

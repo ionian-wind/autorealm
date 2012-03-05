@@ -25,20 +25,39 @@
 #include "Object.h"
 #include <vector>
 
-class Shape;
-
-class Group : public Object
+class Group //! Object which contain other objects and allow to manipulate the whole set in one action
+: public Object<Group>
 {
 private:
-    std::vector<Object> m_children;
 
 public:
-    Group(const std::vector<Object> & targets, Group *owner);
-    void dismiss(void);
-    virtual void draw(void);
-protected:
-	void add(Object const &target);
-    void remove(Group *target);
+    /** \brief Contructor.
+     * Avoid creation of empty groups or groups without container.
+     * Take the ownership of the targets
+     * \param targets std::vector<Object>& objects the group will take as it's parts
+     * \param owner Group* container of the group
+     */
+    Group(std::vector<Object> & targets, Group *owner);
 
+    /** \brief change the ownership of all children to the object's owner
+     * This method have as primary goal to remove a group without deleting what
+	 * it contains.
+     */
+    void dismiss(void);
+    /** \brief draw children of the group.
+	 * \warning risk of sigsev due to the owner->erase(this) trick
+     */
+    void draw(void);
+protected:
+    /** \brief add a single object to the group.
+     * The group take the ownership of the object.
+     * \param target Object &
+     */
+	void push(Object &target);
+    /** \brief delete a Group
+     * \warning If the deleted group is not empty, it's content is deleted, too.
+     * \param target Group &
+     */
+    void erase(Group &target);
 };
 #endif

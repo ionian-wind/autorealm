@@ -24,17 +24,15 @@
 
 #include "Line.h"
 
-class Point;
-
-class Fractal : public Line
+class Fractal //! Fractal line. Fractal lines are lines which seem to be multiple contiguous lines.
+: public Line
 {
 public:
-    virtual void lineDraw(const Point & endLine);
-
-
+	Fractal(void);
+    void lineDraw(bool ignoreColor=false)const;
+    void split(Point const &cutPoint);
+    bool find(Point const &point);
 private:
     unsigned char m_seed;
-
-
 };
 #endif

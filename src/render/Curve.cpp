@@ -21,7 +21,22 @@
 
 #include "Curve.h"
 
-void Curve::lineDraw(const Point & endLine) 
+Curve::Curve(void)
 {
+	UNIMPLEMENTED;
 }
 
+void Curve::lineDraw(bool ignoreColor)const
+{
+	UNIMPLEMENTED;
+}
+
+void Curve::split(Point<> const &cutPoint)
+{
+	UNIMPLEMENTED;
+}
+
+bool Curve::find(Point<> const &cutPoint)
+{
+	UNIMPLEMENTED;
+}

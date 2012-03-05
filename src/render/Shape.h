@@ -27,26 +27,66 @@
 #include "Color.h"
 
 class Line;
-class Point;
 
-class Shape : public Object
+class Shape //! Shape are Groups composed by a point followed by lines
+: public Object<Line>
 {
 public:
+protected:
     bool m_closed;
 
 private:
-    std::vector<Line> m_lines;
     Color m_filler;
+    Point<> m_position;
 
 public:
-    Shape split();
-    void merge(const Shape & target);
+    /** \brief send a part of the shape into another one, and return the resulting shape.
+     * Original shape and created one share the same owner.
+     * \param beginBreak Point const& first point of the future shape
+     * \param endBreak Point const& last point of the future shape
+     * \return Shape
+     */
+    Shape split(Point<> const &beginBreak,Point<> const &endBreak);
+    /** \brief merge the shape with another one.
+     * the target shape is removed.
+     * \param target const Shape&
+     */
+    void merge(Shape const & target);
+    /** \brief make the shape a closed figure
+     * \param close bool
+     */
     void close(bool close);
-    void createPoint(const Point & target);
-    void addPoint(const Point & target);
-    void removePoint(const Point & target);
-    Shape(const Point & origin);
-    virtual void draw();
+    /** \brief split a line into two lines
+     * \param target const Line& new line's starting position
+     */
+    void insert(Line const & target);
+    /** \brief add a line at the end of the shape
+     * \param target const Line& coordinate where the new line will ends.
+     */
+    void push_back(const Line & target);
+    /** \brief remove a line from the shape
+     * \note Removing a line will make the previous one ending at the position of the next one, exactly if lines were a chained list
+     * \param target const Line&
+     */
+    void erase(const Line & target);
+    /** \brief Create a shape with given lines.
+     * \param begin std::vector<Line>::iterator const&
+     * \param end std::vector<Line>::iterator const&
+     */
+    Shape(std::vector<Line>::iterator const &begin,std::vector<Line>::iterator const &end);
+    /** \brief Create a single ligne shape
+     *
+     * \param position Point const&
+     * \param end Line const&
+     *
+     */
+    Shape(Point<> const &position,Line const &end);
+    /** \brief draw the shape */
+    void draw();
 
+    /** \brief see Object::move */
+    void move(const Point<> & distance);
+protected:
+	void drawShape(bool ignoreColor=false);
 };
 #endif

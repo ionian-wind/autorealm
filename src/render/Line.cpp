@@ -22,10 +22,21 @@
 #include "Line.h"
 #include <GL/gl.h>
 
-void Line::lineDraw(const Point3D & endLine,bool ignoreColor) const
+void Line::lineDraw(bool ignoreColor) const
 {
-    glColor4d(m_color.m_red,m_color.m_green,m_color.m_blue,m_color.m_alpha);
-    //TODO(berenger#1#) merge Point3D with Point. We need 3D at least to manage planes (send to fore/back_ground by example)
+	if(!ignoreColor)
+		glColor4d(m_color.m_red,m_color.m_green,m_color.m_blue,m_color.m_alpha);
     glVertex3d(m_x,m_y,m_z);
-    glVertex3d(endLine.m_x,endLine.m_y,endLine.m_z);
 }
+
+void Line::split(Point<> const&cutPoint)
+{
+	UNIMPLEMENTED;
+}
+
+bool Line::find(Point<> const&point)
+{
+	UNIMPLEMENTED;
+}
+
+#warning untested implementation

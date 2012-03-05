@@ -13,9 +13,11 @@
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
+					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
+					<Add option="-pg" />
 					<Add library="pluma-d" />
 				</Linker>
 			</Target>
@@ -35,16 +37,17 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="`wx-config --cxxflags`" />
+			<Add option='-include &quot;unimplemented.h&quot;' />
 			<Add directory="$(#wx29.include)" />
-			<Add directory="../dependencies/Pluma-1.0/include" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs --gl-libs`" />
 			<Add library="GL" />
+			<Add library="pluma" />
 			<Add directory="$(#wx29.lib)" />
-			<Add directory="../dependencies/Pluma-1.0/lib" />
 		</Linker>
 		<Unit filename="gui/App.cpp" />
 		<Unit filename="gui/App.h" />
@@ -66,10 +69,11 @@
 		<Unit filename="gui/ToolBar.h" />
 		<Unit filename="gui/ToolbarItem.cpp" />
 		<Unit filename="gui/ToolbarItem.h" />
+		<Unit filename="gui/appconfig.cpp" />
+		<Unit filename="gui/appconfig.h" />
 		<Unit filename="gui/plugins/interface/container.h" />
 		<Unit filename="gui/plugins/interface/item.cpp" />
 		<Unit filename="gui/plugins/interface/item.h" />
-		<Unit filename="render/Color.cpp" />
 		<Unit filename="render/Color.h" />
 		<Unit filename="render/Curve.cpp" />
 		<Unit filename="render/Curve.h" />
@@ -79,11 +83,12 @@
 		<Unit filename="render/Group.h" />
 		<Unit filename="render/Line.cpp" />
 		<Unit filename="render/Line.h" />
-		<Unit filename="render/Object.cpp" />
 		<Unit filename="render/Object.h" />
+		<Unit filename="render/Object.inl" />
 		<Unit filename="render/Point.h" />
 		<Unit filename="render/Shape.cpp" />
 		<Unit filename="render/Shape.h" />
+		<Unit filename="unimplemented.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />

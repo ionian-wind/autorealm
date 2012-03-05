@@ -18,21 +18,15 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _COLOR_H
-#define _COLOR_H
-
+#ifndef COLOR_H
+#define COLOR_H
 
 struct Color
 {
 public:
     unsigned char m_red;
-
     unsigned char m_green;
-
     unsigned char m_blue;
-
     unsigned char m_alpha;
-
-
 };
 #endif

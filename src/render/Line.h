@@ -22,14 +22,25 @@
 #define _LINE_H
 
 
-#include "Point3D.h"
+#include "Point.h"
 #include "Color.h"
 
-class Line : public Point3D
+class Line //! Simple lines act as drawable vector, so they need only one coordinates.
+: public Point<> //! last point of the line.
 {
 public:
-    virtual void lineDraw(const Point3D & endLine,bool ignoreColor=false)const;
+	Line(void):Point<>(),m_color(){}
+	Line(Point<> const &pt):Point<>(pt),m_color(){}
 
+    /** \brief draw the line
+     * \param ignoreColor=false bool /!\ currently unused /!\ if true, do not draw the line
+     */
+    virtual void lineDraw(bool ignoreColor=false)const;
+    /** \brief split a line into two identical ones
+     * \param cutPoint Point const&
+     */
+	virtual void split(Point<> const &cutPoint);
+    virtual bool find(Point<> const &point);
 private:
     Color m_color;
 

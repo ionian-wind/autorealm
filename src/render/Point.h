@@ -21,13 +21,29 @@
 #ifndef _POINT_H
 #define _POINT_H
 
-
+template <typename T=double>
+/** \brief structure to manipulate positions
+ * \note The template parameter can allow type optimizations, like changing double for float.
+ * \note This structure is more a vector in mathematical point of vue than a true point.
+ */
 struct Point
 {
 public:
-    double m_x;
-    double m_y;
-    double m_z;
+    T m_x, m_y, m_z;
+
+	Point(void)
+	:m_x(),m_y(),m_z(){}
+
+	Point(T x,T y,T z)
+	:m_x(x),m_y(y),m_z(z){}
+
+	Point& operator+=(Point const& target)
+	{
+		m_x+=target.m_x;
+		m_y+=target.m_y;
+		m_z+=target.m_z;
+	}
+
 };
 
 #endif

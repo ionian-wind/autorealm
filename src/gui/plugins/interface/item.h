@@ -33,6 +33,7 @@
 class wxAuiManager;
 class wxMenuItem;
 class Container;
+class AppConfig;
 
 struct MenuData
 {
@@ -56,10 +57,10 @@ private:
 
 public:
 	Item(void);
-	void registerIn(wxFrame *parent,std::map<std::string,Container>&);
+	void registerIn(wxFrame *parent,std::map<std::string,Container>&,AppConfig const& appConfig);
 
 	void enable(wxCommandEvent &ev);
-	virtual void readConfig(void)=0;
+	virtual void readConfig(std::string const &graphicalResources)=0;
 	void createMenu(wxFrame *parent);
 	void createToolbarItem(std::map<std::string,Container>&containers,wxWindow*parent);
 protected:

@@ -21,20 +21,18 @@
 #ifndef _CURVE_H
 #define _CURVE_H
 
-
 #include "Line.h"
-#include "Point.h"
 
-class Curve : public Line
+class Curve //! curved line
+: public Line
 {
 private:
     //TODO change that dumb name
-    Point m_magnet;
-
-
+    Point m_magnet;//! external point which pull the line to make it curve
 public:
-    virtual void lineDraw(const Point & endLine);
-
-
+	Curve(void);
+    void lineDraw(bool ignoreColor=false)const;
+    void split(Point<> const &cutPoint);
+    bool find(Point<> const &point);
 };
 #endif

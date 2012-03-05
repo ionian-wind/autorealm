@@ -30,6 +30,7 @@
 #include <wx/aui/aui.h>
 
 #include "plugins/interface/item.h"
+#include "appconfig.h"
 
 class RenderWindow;
 class ToolbarItem;
@@ -37,6 +38,9 @@ class ToolBar;
 
 class MainFrame : public wxFrame
 {
+public:
+	const AppConfig m_appConfig;
+protected:
 private:
 //    std::vector<RenderWindow*> m_plans;
 //    std::vector<RenderWindow*>::iterator m_active;
@@ -55,6 +59,7 @@ private:
 	std::vector<Item* > m_items;
 	pluma::Pluma m_actionPlugIn;
 	std::map<std::string,Container > m_containers;
+
 
 
 

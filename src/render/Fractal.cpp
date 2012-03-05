@@ -22,7 +22,22 @@
 #include "Fractal.h"
 #include "Point.h"
 
-void Fractal::lineDraw(const Point & endLine) 
+Fractal::Fractal(void)
 {
+	UNIMPLEMENTED;
 }
 
+void Fractal::lineDraw(bool ignoreColor)const
+{
+	UNIMPLEMENTED;
+}
+
+void Fractal::split(Point<> const &cutPoint)
+{
+	UNIMPLEMENTED;
+}
+
+bool Fractal::find(Point<> const &cutPoint)
+{
+	UNIMPLEMENTED;
+}
