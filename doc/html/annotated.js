@@ -1,0 +1,26 @@
+var annotated =
+[
+    [ "App", "class_app.html", "class_app" ],
+    [ "AppConfig", "class_app_config.html", "class_app_config" ],
+    [ "Color", "struct_color.html", "struct_color" ],
+    [ "Container", "class_container.html", null ],
+    [ "Curve", "class_curve.html", "class_curve" ],
+    [ "DrawingTool", "class_drawing_tool.html", null ],
+    [ "Fractal", "class_fractal.html", "class_fractal" ],
+    [ "Group", "class_group.html", "class_group" ],
+    [ "InstantTool", "class_instant_tool.html", null ],
+    [ "InteractiveTool", "class_interactive_tool.html", null ],
+    [ "Item", "class_item.html", "class_item" ],
+    [ "Line", "class_line.html", "class_line" ],
+    [ "MainFrame", "class_main_frame.html", "class_main_frame" ],
+    [ "MenuData", "struct_menu_data.html", "struct_menu_data" ],
+    [ "Object< KIND >", "class_object.html", "class_object" ],
+    [ "Point< T >", "struct_point.html", "struct_point" ],
+    [ "PolyLineTool", "class_poly_line_tool.html", "class_poly_line_tool" ],
+    [ "RenderWindow", "class_render_window.html", "class_render_window" ],
+    [ "Setting", "class_setting.html", null ],
+    [ "Shape", "class_shape.html", "class_shape" ],
+    [ "Tool", "class_tool.html", null ],
+    [ "ToolBar", "class_tool_bar.html", "class_tool_bar" ],
+    [ "ToolbarItem", "class_toolbar_item.html", "class_toolbar_item" ]
+];

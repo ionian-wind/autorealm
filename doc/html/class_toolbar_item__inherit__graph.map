@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_setting.html" title="Setting" alt="" coords="5,83,67,112"/>
+<area shape="rect" id="node5" href="$class_tool.html" title="Tool" alt="" coords="91,83,136,112"/>
+<area shape="rect" id="node7" href="$class_instant_tool.html" title="InstantTool" alt="" coords="11,160,96,189"/>
+<area shape="rect" id="node9" href="$class_interactive_tool.html" title="InteractiveTool" alt="" coords="120,160,227,189"/>
+<area shape="rect" id="node11" href="$class_drawing_tool.html" title="DrawingTool" alt="" coords="127,237,220,267"/>
+</map>
