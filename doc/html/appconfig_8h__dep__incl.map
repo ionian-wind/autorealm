@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$_main_frame_8h.html" title="gui/MainFrame.h" alt="" coords="60,83,177,112"/>
-<area shape="rect" id="node9" href="$appconfig_8cpp.html" title="gui/appconfig.cpp" alt="" coords="201,83,324,112"/>
-<area shape="rect" id="node11" href="$item_8cpp.html" title="gui/plugins/interface/item.cpp" alt="" coords="348,83,540,112"/>
-<area shape="rect" id="node5" href="$_app_8cpp.html" title="gui/App.cpp" alt="" coords="5,160,96,189"/>
-<area shape="rect" id="node7" href="$_main_frame_8cpp.html" title="gui/MainFrame.cpp" alt="" coords="120,160,253,189"/>
-</map>

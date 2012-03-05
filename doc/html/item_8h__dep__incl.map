@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$_main_frame_8h.html" title="gui/MainFrame.h" alt="" coords="128,83,245,112"/>
-<area shape="rect" id="node9" href="$polylinetool_8h.html" title="gui/plugins/core/PolyLine/polylinetool.h" alt="" coords="283,83,528,112"/>
-<area shape="rect" id="node15" href="$item_8cpp.html" title="gui/plugins/interface/item.cpp" alt="" coords="552,83,744,112"/>
-<area shape="rect" id="node5" href="$_app_8cpp.html" title="gui/App.cpp" alt="" coords="5,160,96,189"/>
-<area shape="rect" id="node7" href="$_main_frame_8cpp.html" title="gui/MainFrame.cpp" alt="" coords="120,160,253,189"/>
-<area shape="rect" id="node11" href="$_connector_8cpp.html" title="gui/plugins/core/PolyLine/Connector.cpp" alt="" coords="277,160,533,189"/>
-<area shape="rect" id="node13" href="$polylinetool_8cpp.html" title="gui/plugins/core/PolyLine/polylinetool.cpp" alt="" coords="557,160,819,189"/>
-</map>
