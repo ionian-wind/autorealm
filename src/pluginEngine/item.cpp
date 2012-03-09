@@ -103,9 +103,9 @@ void Item::createToolbarItem(std::map<std::string,Container>&containers)
 	wxAuiManager::GetManager(m_parent)->AddPane(containers[m_entry.name].first,containers[m_entry.name].second);
 }
 
-void Item::enable(void)
-{
-	Bind(wxEVT_COMMAND_MENU_SELECTED, m_callback, this, m_id);
-}
+//void Item::enable(void)
+//{
+//	Bind(wxEVT_COMMAND_MENU_SELECTED, m_callback, this, m_id);
+//}
 
 PLUMA_PROVIDER_SOURCE(Item,1,1)

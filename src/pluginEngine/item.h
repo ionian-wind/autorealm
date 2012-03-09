@@ -20,38 +20,22 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include <set>
 #include <string>
+#include <vector>
+#include <map>
 
 #include <Pluma/Pluma.hpp>
 
-#include <wx/frame.h>
+#include "menudata.h"
 
-
-class wxAuiManager;
-class wxMenuItem;
 class Container;
 class AppConfig;
 class MainFrame;
 
-struct MenuData
-{
-	MenuData(std::string const &nAME, std::string const& hELP, wxItemKind const kIND)
-	:kind(kIND),help(hELP),name(nAME){}
-
-	MenuData(void)
-	:kind(),help(),name(){}
-
-	wxItemKind kind;
-	std::string help;
-	std::string name;
-};
-
-class Item: public wxEvtHandler
+class Item
 {
 public:
 protected:
-//	typedef void (Item::CallBack)(wxCommandEvent&);
 private:
 
 public:
@@ -66,6 +50,7 @@ protected:
 private:
 
 public:
+protected:
 	wxFrame * m_parent;
 ///common parameters
 	MenuData m_entry;

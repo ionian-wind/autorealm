@@ -46,6 +46,7 @@
 		<Unit filename="pluginEngine/container.h" />
 		<Unit filename="pluginEngine/item.cpp" />
 		<Unit filename="pluginEngine/item.h" />
+		<Unit filename="pluginEngine/menudata.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
