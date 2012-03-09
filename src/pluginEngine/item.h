@@ -47,6 +47,8 @@ public:
 	void createMenu(void);
 	void createToolbarItem(std::map<std::string,Container>&containers);
 protected:
+	wxMenu* findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it);
+	wxMenu* createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it);
 private:
 
 public:

@@ -28,7 +28,6 @@
 #include <wx/menu.h>
 
 #include "../gui/appconfig.h"
-
 #include "../gui/MainFrame.h"
 
 Item::Item(void)
@@ -44,45 +43,7 @@ void Item::registerIn(MainFrame *parent,std::map<std::string,Container>&containe
 	createToolbarItem(containers);
 	//enable();
 
-	parent->Bind(wxEVT_COMMAND_MENU_SELECTED,m_callback,this,m_id);
-}
-
-void Item::createMenu(void)
-{
-	wxMenu *target=NULL;
-	wxMenuBar *menubar=m_parent->GetMenuBar();
-	int targetIndex;
-	wxMenuItem *menuitem=0;
-
-//ensure the existency of the menu path
-//FIXME initialize target before searching or the appli will crash!!!
-	std::vector<MenuData>::iterator it=m_path.begin();
-	if(wxNOT_FOUND==(targetIndex=menubar->FindMenu(it->name)))
-	{
-		target=new wxMenu();
-		menubar->Append(target,it->name);
-		targetIndex=menubar->FindMenu(it->name);
-		if(wxNOT_FOUND==targetIndex)
-			throw std::runtime_error(std::string("unable to create menu: ")+it->name);
-	}
-	target=menubar->GetMenu(targetIndex);
-	++it;
-
-	for(;it!=m_path.end();++it)
-	{
-		if(wxNOT_FOUND==(targetIndex=target->FindItem(it->name)))
-		{
-			menuitem=new wxMenuItem(target,wxNewId(),it->name,it->help,it->kind,target);
-			target->Append(menuitem);
-			targetIndex=target->FindItem(it->name);
-			if(wxNOT_FOUND==targetIndex)
-				throw std::runtime_error(std::string("unable to create menu: ")+it->name);
-		}
-		target=menubar->GetMenu(targetIndex);
-	}
-	//create menu item
-	menuitem=new wxMenuItem(target,0,m_entry.name,m_entry.help,m_entry.kind,0);
-	target->Append(menuitem);
+//	parent->Bind(wxEVT_COMMAND_MENU_SELECTED,m_callback,this,m_id);
 }
 
 void Item::createToolbarItem(std::map<std::string,Container>&containers)
@@ -103,6 +64,78 @@ void Item::createToolbarItem(std::map<std::string,Container>&containers)
 	wxAuiManager::GetManager(m_parent)->AddPane(containers[m_entry.name].first,containers[m_entry.name].second);
 }
 
+void Item::createMenu(void)
+{
+	wxMenuBar *menubar=m_parent->GetMenuBar();
+	wxMenu *menuitem;
+	wxMenu *menu;
+	std::vector<MenuData>::iterator it=m_path.begin();
+	int id;
+
+	//retrive the id of the first menu if existing
+	id=menubar->FindMenu(it->name);
+	if(wxNOT_FOUND!=id) // found it? Find the last correspond child
+	{
+		menuitem=menubar->GetMenu(id);
+		if(NULL==menuitem)
+			throw std::runtime_error("what the fuck happened?");
+		menuitem=findLastMenu(menuitem,it);
+	}
+	else // not found? Create it and get the new menu
+	{
+		menubar->Append(new wxMenu(),it->name);
+		id=menubar->FindMenu(it->name);
+		if(wxNOT_FOUND==id)
+			throw std::runtime_error("what the fuck happened?");
+		menuitem=menubar->GetMenu(id);
+		if(NULL==menuitem)
+			throw std::runtime_error("what the fuck happened?");
+	}
+	// now create all submenus
+	menu=createMenuPath(menuitem,it);
+	// finish by creating the menuitem itself
+	menu->Append(new wxMenuItem(menu,0,m_entry.name,m_entry.help,m_entry.kind,0));
+}
+
+wxMenu* Item::findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it)
+{
+	{
+		//wxMenu *submenu, *actual;
+
+wxMenu *submenu;
+wxMenuBar *menubar=m_parent->GetMenuBar();
+long id;
+id=menubar->FindMenu(it->name);
+if(wxNOT_FOUND==id)
+	return parent;
+submenu=menubar->GetMenu(id);
+if(NULL==submenu)
+	throw std::logic_error("wtf?");
+parent=submenu;
+//		submenu=parent->GetSubMenu();
+//		if(NULL==submenu)
+//			return parent;
+//		int id=submenu->FindItem(it->name);
+//		if(wxNOT_FOUND==id)
+//			return parent;
+//		actual=submenu->FindItem(id);
+//		if(NULL==actual)
+//			throw std::runtime_error("what the fuck happened???");
+//		parent=actual;
+	}
+	++it;
+	return findLastMenu(parent,it);
+}
+
+wxMenu *Item::createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it)
+{
+	wxMenu *newMenu=new wxMenu(it->name);
+	++it;
+	parent->AppendSubMenu(newMenu,it->name);
+	if(m_path.end()!=it)
+		return createMenuPath(newMenu,it);
+	return newMenu;
+}
 //void Item::enable(void)
 //{
 //	Bind(wxEVT_COMMAND_MENU_SELECTED, m_callback, this, m_id);
