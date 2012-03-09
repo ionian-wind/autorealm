@@ -21,6 +21,9 @@
 				<Linker>
 					<Add option="-pg" />
 					<Add library="pluma-d" />
+					<Add library="renderEngine-d" />
+					<Add library="pluginEngine-d" />
+					<Add directory="../bin/debug" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -37,21 +40,22 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="pluma" />
+					<Add library="renderEngine" />
+					<Add library="pluginEngine" />
+					<Add directory="../bin/release" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
-			<Add option="`wx-config --cxxflags`" />
+			<Add option="`wx-config --cppflags`" />
 			<Add option='-include &quot;unimplemented.h&quot;' />
 			<Add directory="$(#wx29.include)" />
 		</Compiler>
 		<Linker>
-			<Add option="`wx-config --libs --gl-libs`" />
+			<Add option="`wx-config --libs aui gl adv core base `" />
 			<Add library="GL" />
-			<Add library="pluma" />
-			<Add directory="$(#wx29.lib)" />
 		</Linker>
 		<Unit filename="gui/App.cpp" />
 		<Unit filename="gui/App.h" />
@@ -61,23 +65,6 @@
 		<Unit filename="gui/RenderWindow.h" />
 		<Unit filename="gui/appconfig.cpp" />
 		<Unit filename="gui/appconfig.h" />
-		<Unit filename="gui/plugins/interface/container.h" />
-		<Unit filename="gui/plugins/interface/item.cpp" />
-		<Unit filename="gui/plugins/interface/item.h" />
-		<Unit filename="render/Color.h" />
-		<Unit filename="render/Curve.cpp" />
-		<Unit filename="render/Curve.h" />
-		<Unit filename="render/Fractal.cpp" />
-		<Unit filename="render/Fractal.h" />
-		<Unit filename="render/Group.cpp" />
-		<Unit filename="render/Group.h" />
-		<Unit filename="render/Line.cpp" />
-		<Unit filename="render/Line.h" />
-		<Unit filename="render/Point.h" />
-		<Unit filename="render/Shape.cpp" />
-		<Unit filename="render/Shape.h" />
-		<Unit filename="render/object.cpp" />
-		<Unit filename="render/object.h" />
 		<Unit filename="unimplemented.h" />
 		<Extensions>
 			<envvars />

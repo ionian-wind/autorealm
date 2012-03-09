@@ -29,7 +29,7 @@
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 
-#include "plugins/interface/item.h"
+#include "pluginEngine/item.h"
 #include "appconfig.h"
 
 class RenderWindow;
@@ -53,7 +53,7 @@ private:
 
 	std::vector<ItemProvider * > m_actionProviders;
 	std::vector<Item* > m_items;
-    std::vector<Item* >::iterator m_selected;
+     std::vector<Item* >::iterator m_selected;
 	pluma::Pluma m_actionPlugIn;
 	std::map<std::string,Container > m_containers;
 

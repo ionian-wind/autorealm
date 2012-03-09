@@ -25,15 +25,14 @@
 
 #include <Pluma/Pluma.hpp>
 
-//#include <wx/dataobj.h>
-//#include <wx/bitmap.h>
-//#include <wx/defs.h>
 #include <wx/frame.h>
+
 
 class wxAuiManager;
 class wxMenuItem;
 class Container;
 class AppConfig;
+class MainFrame;
 
 struct MenuData
 {
@@ -57,7 +56,7 @@ private:
 
 public:
 	Item(void);
-	void registerIn(wxFrame *parent,std::map<std::string,Container>&,AppConfig const& appConfig);
+	void registerIn(MainFrame *parent,std::map<std::string,Container>&,AppConfig const& appConfig);
 
 	void enable(void);
 	virtual void readConfig(std::string const &graphicalResources)=0;

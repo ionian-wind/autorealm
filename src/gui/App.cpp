@@ -23,7 +23,7 @@
 #include "MainFrame.h"
 
 
-IMPLEMENT_APP(App);
+IMPLEMENT_APP(App)
 
 bool App::OnInit()
 {

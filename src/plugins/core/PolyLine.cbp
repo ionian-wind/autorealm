@@ -8,7 +8,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../../../../bin/debug/plugin/PolyLine" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../../bin/debug/plugin/PolyLine-d" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../../../../bin/debug/plugin" />
 				<Option object_output="../../../../obj/debug/plugin" />
 				<Option type="3" />
@@ -48,10 +48,9 @@
 			<Add option="-fexceptions" />
 			<Add option="`wx-config --cxxflags`" />
 			<Add option="-fPIC" />
+			<Add directory="$(#wx29.include)" />
+			<Add directory="$(#wx29.setup)" />
 		</Compiler>
-		<Unit filename="../interface/container.h" />
-		<Unit filename="../interface/item.cpp" />
-		<Unit filename="../interface/item.h" />
 		<Unit filename="PolyLine/Connector.cpp" />
 		<Unit filename="PolyLine/polylinetool.cpp" />
 		<Unit filename="PolyLine/polylinetool.h" />

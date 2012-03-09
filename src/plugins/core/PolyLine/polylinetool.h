@@ -1,7 +1,7 @@
 #ifndef POLYLINETOOL_H
 #define POLYLINETOOL_H
 
-#include "../../interface/item.h"
+#include "../../pluginEngine/item.h"
 
 class PolyLineTool : public Item
 {
@@ -13,5 +13,5 @@ void onClick(wxCommandEvent& event);
 	private:
 };
 
-PLUMA_INHERIT_PROVIDER(PolyLineTool,Item);
+PLUMA_INHERIT_PROVIDER(PolyLineTool,Item)
 #endif // POLYLINETOOL_H

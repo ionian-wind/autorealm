@@ -21,7 +21,7 @@
 #include "MainFrame.h"
 #include "RenderWindow.h"
 
-#include "plugins/interface/container.h"
+#include "pluginEngine/container.h"
 
 const long MainFrame::ID_NOTEBOOK = wxNewId();
 const long MainFrame::ID_MENUQUIT = wxNewId();
