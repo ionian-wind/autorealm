@@ -72,13 +72,16 @@ void Item::createMenu(void)
 	std::vector<MenuData>::iterator it=m_path.begin();
 	int id;
 
+	if(m_path.empty())
+		throw std::runtime_error("Empty path are not allowed");
+
 	//retrive the id of the first menu if existing
 	id=menubar->FindMenu(it->name);
-	if(wxNOT_FOUND!=id) // found it? Find the last correspond child
+	if(wxNOT_FOUND!=id) // found it? Find the last corresponding child
 	{
 		menuitem=menubar->GetMenu(id);
 		if(NULL==menuitem)
-			throw std::runtime_error("what the fuck happened?");
+			throw std::runtime_error("FindMenu gives something but GetMenu failed!");
 		menuitem=findLastMenu(menuitem,it);
 	}
 	else // not found? Create it and get the new menu
@@ -86,10 +89,10 @@ void Item::createMenu(void)
 		menubar->Append(new wxMenu(),it->name);
 		id=menubar->FindMenu(it->name);
 		if(wxNOT_FOUND==id)
-			throw std::runtime_error("what the fuck happened?");
+			throw std::runtime_error("Can not find the menu with FindMenu, but we just create it!");
 		menuitem=menubar->GetMenu(id);
 		if(NULL==menuitem)
-			throw std::runtime_error("what the fuck happened?");
+			throw std::runtime_error("FindMenu gives something but GetMenu failed!");
 	}
 	// now create all submenus
 	menu=createMenuPath(menuitem,it);
@@ -110,7 +113,7 @@ if(wxNOT_FOUND==id)
 	return parent;
 submenu=menubar->GetMenu(id);
 if(NULL==submenu)
-	throw std::logic_error("wtf?");
+	throw std::logic_error("what?");
 parent=submenu;
 //		submenu=parent->GetSubMenu();
 //		if(NULL==submenu)
@@ -120,7 +123,7 @@ parent=submenu;
 //			return parent;
 //		actual=submenu->FindItem(id);
 //		if(NULL==actual)
-//			throw std::runtime_error("what the fuck happened???");
+//			throw std::runtime_error("what happened???");
 //		parent=actual;
 	}
 	++it;
@@ -131,10 +134,11 @@ wxMenu *Item::createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it)
 {
 	wxMenu *newMenu=new wxMenu(it->name);
 	++it;
+	if(m_path.end()==it)
+		return newMenu;
+
 	parent->AppendSubMenu(newMenu,it->name);
-	if(m_path.end()!=it)
-		return createMenuPath(newMenu,it);
-	return newMenu;
+	return createMenuPath(newMenu,it);
 }
 //void Item::enable(void)
 //{

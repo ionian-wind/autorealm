@@ -74,6 +74,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 		m_items.push_back((*ita)->create());
 		(*m_items.rbegin())->registerIn(this,m_containers,m_appConfig);
 	}
+
 	for(std::map<std::string,Container>::iterator it=m_containers.begin();it!=m_containers.end();++it)
 		it->second.first->Realize();
 	m_auiManager.Update();

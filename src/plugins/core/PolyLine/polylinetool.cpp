@@ -12,8 +12,8 @@ void PolyLineTool::readConfig(std::string const &graphicalResources)
 	m_id=wxNewId();
 
 	m_path.push_back(MenuData("Tool","tool menu",wxITEM_NORMAL));
-//	m_path.push_back(MenuData("azerty","lkjhgfsdfghjkl",wxITEM_NORMAL));
-//	m_path.push_back(MenuData("hgfdsq","wxcvbn,;;bcx",wxITEM_NORMAL));
+	m_path.push_back(MenuData("azerty","lkjhgfsdfghjkl",wxITEM_NORMAL));
+	m_path.push_back(MenuData("hgfdsq","wxcvbn,;;bcx",wxITEM_NORMAL));
 
 	m_longDoc="long doc about polylinetool";
 	m_disabled=wxNullBitmap;
