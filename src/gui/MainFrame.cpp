@@ -28,6 +28,10 @@ const long MainFrame::ID_MENUQUIT = wxNewId();
 
 MainFrame::~MainFrame(void)
 {
+	std::vector<Item*>::iterator ita;
+	for(ita=m_items.begin();ita!=m_items.end();++ita)
+		delete *ita;
+
 	m_auiManager.UnInit();
 }
 
@@ -72,7 +76,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 	for(ita=m_actionProviders.begin();ita!=m_actionProviders.end();++ita)
 	{
 		m_items.push_back((*ita)->create());
-		(*m_items.rbegin())->registerIn(this,m_containers,m_appConfig);
+		m_items.back()->registerIn(this,m_containers,m_appConfig);
 	}
 
 	for(std::map<std::string,Container>::iterator it=m_containers.begin();it!=m_containers.end();++it)

@@ -31,19 +31,48 @@
 #include "../gui/MainFrame.h"
 
 Item::Item(void)
-:m_id(wxNewId())
-{}
+:m_id(wxNewId()),m_callback(NULL)
+{
+}
+
+void Item::readConfig(std::string const & graphicalResources)
+{
+	m_entry.help="help about polylinetool";
+	m_entry.kind=wxITEM_NORMAL;
+	m_entry.name="polylinetool";
+	m_id=wxNewId();
+
+	m_path.push_back(MenuData("Tool","tool menu",wxITEM_NORMAL));
+	m_path.push_back(MenuData("azerty","lkjhgfsdfghjkl",wxITEM_NORMAL));
+	m_path.push_back(MenuData("hgfdsq","wxcvbn,;;bcx",wxITEM_NORMAL));
+
+	m_longDoc="long doc about polylinetool";
+	m_disabled=wxNullBitmap;
+	m_enabled=wxImage(graphicalResources+"png_files/toolbars/shape/tool-polycurve.png");
+
+}
 
 void Item::registerIn(MainFrame *parent,std::map<std::string,Container>&containers,AppConfig const& appConfig)
 {
 	m_parent=(wxFrame*)parent;
-	readConfig(appConfig.m_graphicalResources);
+//	readConfig(appConfig.m_graphicalResources);
+	m_entry.help="help about polylinetool";
+	m_entry.kind=wxITEM_NORMAL;
+	m_entry.name="polylinetool";
+	m_id=wxNewId();
+
+	m_path.push_back(MenuData("Tool","tool menu",wxITEM_NORMAL));
+	m_path.push_back(MenuData("azerty","lkjhgfsdfghjkl",wxITEM_NORMAL));
+	m_path.push_back(MenuData("hgfdsq","wxcvbn,;;bcx",wxITEM_NORMAL));
+
+	m_longDoc="long doc about polylinetool";
+	m_disabled=wxNullBitmap;
+	m_enabled=wxImage(appConfig.m_graphicalResources+"png_files/toolbars/shape/tool-polycurve.png");
+
 
 	createMenu();
 	createToolbarItem(containers);
-	//enable();
-
-//	parent->Bind(wxEVT_COMMAND_MENU_SELECTED,m_callback,this,m_id);
+	enable();
 }
 
 void Item::createToolbarItem(std::map<std::string,Container>&containers)
@@ -75,7 +104,7 @@ void Item::createMenu(void)
 	if(m_path.empty())
 		throw std::runtime_error("Empty path are not allowed");
 
-	//retrive the id of the first menu if existing
+	//retrieve the id of the first menu if existing
 	id=menubar->FindMenu(it->name);
 	if(wxNOT_FOUND!=id) // found it? Find the last corresponding child
 	{
@@ -94,37 +123,25 @@ void Item::createMenu(void)
 		if(NULL==menuitem)
 			throw std::runtime_error("FindMenu gives something but GetMenu failed!");
 	}
-	// now create all submenus
+	// now create all sub-menus
 	menu=createMenuPath(menuitem,it);
-	// finish by creating the menuitem itself
-	menu->Append(new wxMenuItem(menu,0,m_entry.name,m_entry.help,m_entry.kind,0));
+	// finish by creating the menu item itself
+	menu->Append(new wxMenuItem(0,m_id,m_entry.name,m_entry.help,m_entry.kind,0));
 }
 
 wxMenu* Item::findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it)
 {
 	{
-		//wxMenu *submenu, *actual;
-
-wxMenu *submenu;
-wxMenuBar *menubar=m_parent->GetMenuBar();
-long id;
-id=menubar->FindMenu(it->name);
-if(wxNOT_FOUND==id)
-	return parent;
-submenu=menubar->GetMenu(id);
-if(NULL==submenu)
-	throw std::logic_error("what?");
-parent=submenu;
-//		submenu=parent->GetSubMenu();
-//		if(NULL==submenu)
-//			return parent;
-//		int id=submenu->FindItem(it->name);
-//		if(wxNOT_FOUND==id)
-//			return parent;
-//		actual=submenu->FindItem(id);
-//		if(NULL==actual)
-//			throw std::runtime_error("what happened???");
-//		parent=actual;
+		wxMenu *submenu;
+		wxMenuBar *menubar=m_parent->GetMenuBar();
+		long id;
+		id=menubar->FindMenu(it->name);
+		if(wxNOT_FOUND==id)
+			return parent;
+		submenu=menubar->GetMenu(id);
+		if(NULL==submenu)
+			throw std::logic_error("error when trying to get the menu (which was found)");
+		parent=submenu;
 	}
 	++it;
 	return findLastMenu(parent,it);
@@ -132,7 +149,7 @@ parent=submenu;
 
 wxMenu *Item::createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it)
 {
-	wxMenu *newMenu=new wxMenu(it->name);
+	wxMenu *newMenu=new wxMenu();
 	++it;
 	if(m_path.end()==it)
 		return newMenu;
@@ -140,9 +157,14 @@ wxMenu *Item::createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it)
 	parent->AppendSubMenu(newMenu,it->name);
 	return createMenuPath(newMenu,it);
 }
-//void Item::enable(void)
-//{
-//	Bind(wxEVT_COMMAND_MENU_SELECTED, m_callback, this, m_id);
-//}
 
+void Item::enable(void)
+{
+	m_parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &Item::DumbMethod, this, m_id);
+}
+
+void Item::DumbMethod(wxCommandEvent& event)
+{
+	wxMessageBox("hello world","hello caption");
+}
 PLUMA_PROVIDER_SOURCE(Item,1,1)

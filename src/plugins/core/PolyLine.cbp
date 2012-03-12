@@ -22,6 +22,7 @@
 				<Linker>
 					<Add option="-pg" />
 					<Add library="pluginEngine-d" />
+					<Add library="pluma-d" />
 					<Add directory="../../../bin/debug" />
 				</Linker>
 			</Target>
@@ -41,6 +42,7 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="pluginEngine" />
+					<Add library="pluma" />
 					<Add directory="../../../bin/release" />
 				</Linker>
 			</Target>

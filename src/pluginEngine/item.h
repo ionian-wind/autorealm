@@ -43,13 +43,14 @@ public:
 	void registerIn(MainFrame *parent,std::map<std::string,Container>&,AppConfig const& appConfig);
 
 	void enable(void);
-	virtual void readConfig(std::string const &graphicalResources)=0;
+	void readConfig(std::string const &graphicalResources);
 	void createMenu(void);
 	void createToolbarItem(std::map<std::string,Container>&containers);
 protected:
 	wxMenu* findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it);
 	wxMenu* createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it);
 private:
+	void DumbMethod(wxCommandEvent& event);
 
 public:
 protected:
