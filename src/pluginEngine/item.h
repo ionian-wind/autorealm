@@ -30,7 +30,6 @@
 
 class Container;
 class AppConfig;
-class MainFrame;
 
 class Item
 {
@@ -39,18 +38,76 @@ protected:
 private:
 
 public:
+    /** \brief Default Ctor
+     *	assign an id to m_id and initialize m_callback to make it easy to detect lack of initialization
+     */
 	Item(void);
-	void registerIn(MainFrame *parent,std::map<std::string,Container>&,AppConfig const& appConfig);
 
+    /** \brief create controls to use a plug-in and bind it's action
+     * The plug-in add it's controls to it's parent's lists.
+     * The location of several things will be given by the AppConfig object
+     *
+     * \param parent wxFrame* container which will own the plug-in controls
+     * \param containers std::map<std::string,Container>& list of parent's plug-in
+     * \param appConfig AppConfig const& configuration of the application
+     * \return void
+     *
+     */
+	void registerIn(wxFrame *parent,std::map<std::string,Container>&,AppConfig const& appConfig);
+
+    /** \brief enable the plug-ins controls
+     *	\throw std::logic_error if the m_callback member was not initialized
+     */
 	void enable(void);
-	void readConfig(std::string const &graphicalResources);
+
+    /** \brief read the plug-in's configuration
+     * \param graphicalResources std::string const& path where data will be searched
+     */
+	void readConfig(AppConfig const& config);
+
+    /** \brief create the plug-in's menu item entry
+     *	The menu path will be created if it does not exist
+     *	\throw std::runtime_error if the path is empty (probably a configuration's problem)
+     *	\throw std::runtime_error if the just created menu is not found (should never happen, but I prefer to check the most thing possible from wxWidgets)
+     */
 	void createMenu(void);
+
+    /** \brief create the plug-in's toolbar item and bind it to the corresponding toolbar
+	 *	\note the toolbar is created if it does not exists
+     *
+     * \param containers std::map<std::string, Container>& list of existing toolbars
+     */
 	void createToolbarItem(std::map<std::string,Container>&containers);
+
 protected:
+    /** \brief follow the menu tree to find the last sub-menu corresponding with the plug-in path
+     * \note this method is recursive
+     * \param parent wxMenu* menu in which the next corresponding child will be searched
+     * \param it std::vector<MenuData>::iterator& iterator to the plug-in's searched entry
+     * \return wxMenu* found item
+     */
 	wxMenu* findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it);
+
+    /** \brief create the absent tree where to insert the menu item which will represent the plug-in
+     * \note this method is recursive
+     * \param parent wxMenu* menu in which the next corresponding child will be created
+     * \param it std::vector<MenuData>::iterator& iterator to the plug-in's created entry
+     * \return wxMenu* made item
+     */
 	wxMenu* createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it);
+
 private:
+    /** \brief Dumb, Stupid, and Useless method made for testing, while the plug-in architecture does not work
+     *	\todo Remove me
+     */
 	void DumbMethod(wxCommandEvent& event);
+
+    /** \brief encapsulate the wxWidgets wxMenu* wxMenu::GetMenu(int) and add some error checking
+     * \throw std::runtime_error if the menu found is null
+     * \param id int id of the menu to retrieve
+     * \return wxMenu* address of the retrieved menu
+     */
+	wxMenu *GetMenu(int id);
 
 public:
 protected:

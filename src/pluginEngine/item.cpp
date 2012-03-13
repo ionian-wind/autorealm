@@ -35,7 +35,7 @@ Item::Item(void)
 {
 }
 
-void Item::readConfig(std::string const & graphicalResources)
+void Item::readConfig(AppConfig const& config)
 {
 	m_entry.help="help about polylinetool";
 	m_entry.kind=wxITEM_NORMAL;
@@ -48,28 +48,16 @@ void Item::readConfig(std::string const & graphicalResources)
 
 	m_longDoc="long doc about polylinetool";
 	m_disabled=wxNullBitmap;
-	m_enabled=wxImage(graphicalResources+"png_files/toolbars/shape/tool-polycurve.png");
+	m_enabled=wxImage(config.m_graphicalResources+"png_files/toolbars/shape/tool-polycurve.png");
 
+	m_callback=&Item::DumbMethod;
 }
 
-void Item::registerIn(MainFrame *parent,std::map<std::string,Container>&containers,AppConfig const& appConfig)
+void Item::registerIn(wxFrame *parent,std::map<std::string,Container>&containers,AppConfig const& appConfig)
 {
-	m_parent=(wxFrame*)parent;
-//	readConfig(appConfig.m_graphicalResources);
-	m_entry.help="help about polylinetool";
-	m_entry.kind=wxITEM_NORMAL;
-	m_entry.name="polylinetool";
-	m_id=wxNewId();
+	m_parent=parent;
 
-	m_path.push_back(MenuData("Tool","tool menu",wxITEM_NORMAL));
-	m_path.push_back(MenuData("azerty","lkjhgfsdfghjkl",wxITEM_NORMAL));
-	m_path.push_back(MenuData("hgfdsq","wxcvbn,;;bcx",wxITEM_NORMAL));
-
-	m_longDoc="long doc about polylinetool";
-	m_disabled=wxNullBitmap;
-	m_enabled=wxImage(appConfig.m_graphicalResources+"png_files/toolbars/shape/tool-polycurve.png");
-
-
+	readConfig(appConfig);
 	createMenu();
 	createToolbarItem(containers);
 	enable();
@@ -97,7 +85,6 @@ void Item::createMenu(void)
 {
 	wxMenuBar *menubar=m_parent->GetMenuBar();
 	wxMenu *menuitem;
-	wxMenu *menu;
 	std::vector<MenuData>::iterator it=m_path.begin();
 	int id;
 
@@ -108,9 +95,7 @@ void Item::createMenu(void)
 	id=menubar->FindMenu(it->name);
 	if(wxNOT_FOUND!=id) // found it? Find the last corresponding child
 	{
-		menuitem=menubar->GetMenu(id);
-		if(NULL==menuitem)
-			throw std::runtime_error("FindMenu gives something but GetMenu failed!");
+		menuitem=GetMenu(id);
 		menuitem=findLastMenu(menuitem,it);
 	}
 	else // not found? Create it and get the new menu
@@ -119,29 +104,31 @@ void Item::createMenu(void)
 		id=menubar->FindMenu(it->name);
 		if(wxNOT_FOUND==id)
 			throw std::runtime_error("Can not find the menu with FindMenu, but we just create it!");
-		menuitem=menubar->GetMenu(id);
-		if(NULL==menuitem)
-			throw std::runtime_error("FindMenu gives something but GetMenu failed!");
+		menuitem=GetMenu(id);
 	}
 	// now create all sub-menus
-	menu=createMenuPath(menuitem,it);
+	menuitem=createMenuPath(menuitem,it);
 	// finish by creating the menu item itself
-	menu->Append(new wxMenuItem(0,m_id,m_entry.name,m_entry.help,m_entry.kind,0));
+	menuitem->Append(new wxMenuItem(menuitem,m_id,m_entry.name,m_entry.help,m_entry.kind));
+}
+
+wxMenu *Item::GetMenu(int id)
+{
+	wxMenu *menu=m_parent->GetMenuBar()->GetMenu(id);
+	if(NULL==menu)
+		throw std::runtime_error("FindMenu gives something but GetMenu failed!");
+	return menu;
 }
 
 wxMenu* Item::findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it)
 {
 	{
-		wxMenu *submenu;
 		wxMenuBar *menubar=m_parent->GetMenuBar();
 		long id;
 		id=menubar->FindMenu(it->name);
 		if(wxNOT_FOUND==id)
 			return parent;
-		submenu=menubar->GetMenu(id);
-		if(NULL==submenu)
-			throw std::logic_error("error when trying to get the menu (which was found)");
-		parent=submenu;
+		parent=GetMenu(id);
 	}
 	++it;
 	return findLastMenu(parent,it);
@@ -149,18 +136,20 @@ wxMenu* Item::findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it)
 
 wxMenu *Item::createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it)
 {
-	wxMenu *newMenu=new wxMenu();
 	++it;
 	if(m_path.end()==it)
-		return newMenu;
+		return parent;
 
+	wxMenu *newMenu=new wxMenu();
 	parent->AppendSubMenu(newMenu,it->name);
 	return createMenuPath(newMenu,it);
 }
 
 void Item::enable(void)
 {
-	m_parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &Item::DumbMethod, this, m_id);
+	if(!m_callback)
+		throw std::logic_error("Unable to bind null callback");
+	m_parent->Bind(wxEVT_COMMAND_MENU_SELECTED, m_callback, this, m_id);
 }
 
 void Item::DumbMethod(wxCommandEvent& event)
