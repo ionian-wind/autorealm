@@ -1,5 +1,5 @@
 #include <Pluma/Connector.hpp>
-#include "polylinetool.h"
+#include "linetool.h"
 
 PLUMA_CONNECTOR
 bool connect(pluma::Host& host){
