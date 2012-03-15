@@ -163,7 +163,11 @@ wxMenu* Item::findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it)
 	--it;
 	long id=parent->FindItem(it->name);
 	if(wxNOT_FOUND!=id)
+	{
+		++it;
 		parent=parent->FindItem(id)->GetSubMenu();
+	}
+	--it;
 	return parent;
 }
 
