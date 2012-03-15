@@ -1,7 +1,11 @@
 #include "appconfig.h"
 
 AppConfig::AppConfig()
-:m_graphicalResources("/home/berenger/prj/autorealm/")
 {
-	//ctor
+	//!\todo retrieve those informations from a configuration file
+	std::string root="/home/berenger/prj/autorealm/";
+
+	m_configfiles=root+"config/";
+	m_graphicalResources=root;
+	m_pluginsConfig="plugins/";
 }

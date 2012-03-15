@@ -30,27 +30,60 @@
 #include "../gui/appconfig.h"
 #include "../gui/MainFrame.h"
 
-Item::Item(void)
-:m_id(wxNewId()),m_callback(NULL)
+Item::Item(std::string const& cfgFileName)
+:m_configFileName(cfgFileName),m_id(wxNewId()),m_callback(NULL)
 {
 }
 
 void Item::readConfig(AppConfig const& config)
 {
-	m_entry.help="help about polylinetool";
-	m_entry.kind=wxITEM_NORMAL;
-	m_entry.name="polylinetool";
-	m_id=wxNewId();
+//!\todo check the portability of this method
+//!\todo think about a configuration written in a pseudo file-system. Something like Menu<=>directory and Item<=>file
+	FILE *input=0;
+	std::string configFileFullPath=config.m_configfiles+config.m_pluginsConfig+m_configFileName;
+	input=fopen(configFileFullPath.c_str(),"r");
+	if(!input)
+		throw std::runtime_error("can not open the file "+configFileFullPath);//!\todo write config and retry to read configuration before leaving
 
-	m_path.push_back(MenuData("Tool","tool menu",wxITEM_NORMAL));
-	m_path.push_back(MenuData("azerty","lkjhgfsdfghjkl",wxITEM_NORMAL));
-	m_path.push_back(MenuData("hgfdsq","wxcvbn,;;bcx",wxITEM_NORMAL));
+	readConfig(config,input);
 
-	m_longDoc="long doc about polylinetool";
-	m_disabled=wxNullBitmap;
-	m_enabled=wxImage(config.m_graphicalResources+"png_files/toolbars/shape/tool-polycurve.png");
+//retrieve tool-bar item's informations
+	m_longDoc=readline(input);
+	std::string enabledPath(readline(input));
+	std::string disabledPath(readline(input));
 
-	m_callback=&Item::DumbMethod;
+	//!\todo check for errors while opening bitmap files
+
+	if(disabledPath.empty())
+		m_disabled=wxNullBitmap;
+	else
+		m_disabled=wxImage(config.m_graphicalResources+disabledPath);
+
+	if(enabledPath.empty())
+		m_enabled=wxNullBitmap;
+	else
+		m_enabled=wxImage(config.m_graphicalResources+enabledPath);
+
+	//retrieve all path entries
+	MenuData entry;
+	do
+	{
+		try
+		{
+			entry.readFromFile(input);
+		}catch(std::runtime_error &e)
+		{
+			throw e;
+		}
+		m_path.push_back(entry);
+	}while(!eofReached(input));
+
+	//take the last entry to put it in m_entry, and remove it from the path
+	m_entry=m_path.back();
+	m_path.pop_back();
+	if(m_path.empty())
+		throw std::runtime_error("configuration file corrupted");
+	fclose(input);
 }
 
 void Item::registerIn(wxFrame *parent,std::map<std::string,Container>&containers,AppConfig const& appConfig)
@@ -65,20 +98,22 @@ void Item::registerIn(wxFrame *parent,std::map<std::string,Container>&containers
 
 void Item::createToolbarItem(std::map<std::string,Container>&containers)
 {
-	std::map<std::string,Container>::iterator it=containers.find(m_entry.name);
+	std::map<std::string,Container>::iterator it=containers.find(m_path.back().name);
 	if(it==containers.end())
 	{
 		//create & register container
 		Container c;
 		c.first=new wxAuiToolBar(m_parent);
 		c.second=wxAuiPaneInfo().Name(m_path.rbegin()->name).ToolbarPane().Caption(m_path.rbegin()->name).Layer(10).Top().Gripper();
-		containers[m_entry.name]=c;
-	}
-	//create the item
-	containers[m_entry.name].first->AddTool(m_id, m_entry.name, m_enabled, m_disabled, m_entry.kind, m_entry.name, m_longDoc, m_unused);
+		containers[m_path.back().name]=c;
 
-	//insert the item inside the container
-	wxAuiManager::GetManager(m_parent)->AddPane(containers[m_entry.name].first,containers[m_entry.name].second);
+	}
+
+	wxAuiToolBar* toolbar=containers[m_path.back().name].first;
+	wxAuiPaneInfo paneInfo=containers[m_path.back().name].second;
+
+	//create the item
+	toolbar->AddTool(m_id, m_entry.name, m_enabled, m_disabled, m_entry.kind, m_entry.name, m_longDoc, m_unused);
 }
 
 void Item::createMenu(void)
@@ -122,16 +157,13 @@ wxMenu *Item::GetMenu(int id)
 
 wxMenu* Item::findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it)
 {
+	while(parent->FindItem((++it)->name)&&it!=m_path.end())
 	{
-		wxMenuBar *menubar=m_parent->GetMenuBar();
-		long id;
-		id=menubar->FindMenu(it->name);
-		if(wxNOT_FOUND==id)
-			return parent;
-		parent=GetMenu(id);
 	}
-	++it;
-	return findLastMenu(parent,it);
+	--it;
+	long id=parent->FindItem(it->name);
+	parent=parent->FindItem(id)->GetSubMenu();
+	return parent;
 }
 
 wxMenu *Item::createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it)
@@ -152,8 +184,4 @@ void Item::enable(void)
 	m_parent->Bind(wxEVT_COMMAND_MENU_SELECTED, m_callback, this, m_id);
 }
 
-void Item::DumbMethod(wxCommandEvent& event)
-{
-	wxMessageBox("hello world","hello caption");
-}
 PLUMA_PROVIDER_SOURCE(Item,1,1)

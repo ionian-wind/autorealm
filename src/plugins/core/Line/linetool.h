@@ -3,7 +3,7 @@
 
 #include "../../pluginEngine/item.h"
 
-class PolyLineTool : public Item
+class LineTool : public Item
 {
 	public:
 		/** \brief Dumb, Stupid, and Useless method made for testing, while the plug-in architecture does not work
@@ -11,7 +11,7 @@ class PolyLineTool : public Item
 		 */
 		void DumbMethod(wxCommandEvent& event);
 
-		PolyLineTool(void);
+		LineTool(void);
 		virtual void readConfig(AppConfig const& config, FILE *file);
 
 void onClick(wxCommandEvent& event);
@@ -19,5 +19,5 @@ void onClick(wxCommandEvent& event);
 	private:
 };
 
-PLUMA_INHERIT_PROVIDER(PolyLineTool,Item)
+PLUMA_INHERIT_PROVIDER(LineTool,Item)
 #endif // POLYLINETOOL_H

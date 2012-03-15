@@ -27,6 +27,7 @@
 #include <Pluma/Pluma.hpp>
 
 #include "menudata.h"
+#include "../utils/utils.h"
 
 class Container;
 class AppConfig;
@@ -41,7 +42,7 @@ public:
     /** \brief Default Ctor
      *	assign an id to m_id and initialize m_callback to make it easy to detect lack of initialization
      */
-	Item(void);
+	Item(std::string const &);
 
     /** \brief create controls to use a plug-in and bind it's action
      * The plug-in add it's controls to it's parent's lists.
@@ -61,7 +62,9 @@ public:
 	void enable(void);
 
     /** \brief read the plug-in's configuration
-     * \param graphicalResources std::string const& path where data will be searched
+	 *	\note the plug-in should read it's specific data before asking to Item to read common data
+	//!\todo send the callback initialization in a pure virtual method, implemented by the plug-in
+     *	\param graphicalResources std::string const& path where data will be searched
      */
 	void readConfig(AppConfig const& config);
 
@@ -80,11 +83,14 @@ public:
 	void createToolbarItem(std::map<std::string,Container>&containers);
 
 protected:
+	virtual void readConfig(AppConfig const& config, FILE *file)=0;
+
     /** \brief follow the menu tree to find the last sub-menu corresponding with the plug-in path
      * \note this method is recursive
      * \param parent wxMenu* menu in which the next corresponding child will be searched
      * \param it std::vector<MenuData>::iterator& iterator to the plug-in's searched entry
      * \return wxMenu* found item
+     * \warning if a name is present at different levels (foo/bar/foobar/foofoobar and foo/foobar by example) the found menu will be the first
      */
 	wxMenu* findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it);
 
@@ -97,11 +103,6 @@ protected:
 	wxMenu* createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it);
 
 private:
-    /** \brief Dumb, Stupid, and Useless method made for testing, while the plug-in architecture does not work
-     *	\todo Remove me
-     */
-	void DumbMethod(wxCommandEvent& event);
-
     /** \brief encapsulate the wxWidgets wxMenu* wxMenu::GetMenu(int) and add some error checking
      * \throw std::runtime_error if the menu found is null
      * \param id int id of the menu to retrieve
@@ -111,6 +112,7 @@ private:
 
 public:
 protected:
+	const std::string m_configFileName; //!< name of the configuration file
 	wxFrame * m_parent;
 ///common parameters
 	MenuData m_entry;

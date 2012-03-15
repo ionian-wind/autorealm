@@ -2,13 +2,13 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="PolyLine" />
+		<Option title="Line" />
 		<Option pch_mode="2" />
 		<Option default_target="Release" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../../../bin/debug/plugin/PolyLine-d" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../bin/debug/plugin/Line-d" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../../../../bin/debug/plugin" />
 				<Option object_output="../../../../obj/debug/plugin" />
 				<Option type="3" />
@@ -27,7 +27,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../../../../bin/release/plugin/PolyLine" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../../bin/release/plugin/Line" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../../../../bin/release/plugin" />
 				<Option object_output="../../../../obj/release/plugin" />
 				<Option type="3" />
@@ -55,9 +55,9 @@
 			<Add directory="$(#wx29.include)" />
 			<Add directory="$(#wx29.setup)" />
 		</Compiler>
-		<Unit filename="PolyLine/Connector.cpp" />
-		<Unit filename="PolyLine/polylinetool.cpp" />
-		<Unit filename="PolyLine/polylinetool.h" />
+		<Unit filename="Line/Connector.cpp" />
+		<Unit filename="Line/linetool.cpp" />
+		<Unit filename="Line/linetool.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />

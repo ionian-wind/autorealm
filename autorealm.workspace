@@ -5,11 +5,13 @@
 			<Depends filename="../../devel/autorealm/autorealm/src/renderEngine.cbp" />
 			<Depends filename="../../devel/autorealm/autorealm/src/pluginEngine.cbp" />
 			<Depends filename="../../devel/autorealm/autorealm/src/plugins/core/PolyLine.cbp" />
+			<Depends filename="../../devel/autorealm/autorealm/src/plugins/core/Line.cbp" />
 		</Project>
 		<Project filename="../../devel/autorealm/autorealm/src/renderEngine.cbp" />
 		<Project filename="../../devel/autorealm/autorealm/src/pluginEngine.cbp" />
 		<Project filename="../../devel/autorealm/autorealm/src/plugins/core/PolyLine.cbp">
 			<Depends filename="../../devel/autorealm/autorealm/src/pluginEngine.cbp" />
 		</Project>
+		<Project filename="../../devel/autorealm/autorealm/src/plugins/core/Line.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

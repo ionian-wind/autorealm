@@ -58,12 +58,13 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 
 //add menu entry File->Exit
     m_MenuBar = new wxMenuBar();
+	SetMenuBar(m_MenuBar);
+
     MenuFile = new wxMenu();
+    m_MenuBar->Append(MenuFile, _("&File"));
     MenuItemExit = new wxMenuItem(MenuFile, ID_MENUQUIT, _("&Exit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
     MenuFile->Append(MenuItemExit);
-    m_MenuBar->Append(MenuFile, _("&File"));
 
-	SetMenuBar(m_MenuBar);
 
 	Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onQuit, this, ID_MENUQUIT);
 
@@ -80,7 +81,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 	}
 
 	for(std::map<std::string,Container>::iterator it=m_containers.begin();it!=m_containers.end();++it)
-		it->second.first->Realize();
+		m_auiManager.AddPane(it->second.first,it->second.second);
 	m_auiManager.Update();
 }
 
