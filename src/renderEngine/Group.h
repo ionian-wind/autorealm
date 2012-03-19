@@ -30,6 +30,7 @@ class Group //! Object which contain other objects and allow to manipulate the w
 : public Object
 {
 private:
+protected:
 	typedef std::vector<Object*> Children;
 
 public:
@@ -64,20 +65,20 @@ public:
     /** \brief apply a rotation on an object
      * \param angle short angle in degree
      */
-//    virtual void rotate(short degree);
-//    /** \brief apply a rotation on an object
-//     * \param radian float angle in radian
-//     */
-//    virtual void rotate(float radian);
-//    /** \brief translate an object
-//     * \param distance const Point& distance to add to the current position of the object
-//     */
-//    virtual void move(const Point<> & distance);
-//    /** \brief
-//     * \param widthPercent unsigned char
-//     * \param heightPercent unsigned char
-//     */
-//    virtual void resize(unsigned char widthPercent, unsigned char heightPercent);
+    virtual void rotate(short degree);
+    /** \brief apply a rotation on an object
+     * \param radian float angle in radian
+     */
+    virtual void rotate(float radian);
+    /** \brief translate an object
+     * \param distance const Point& distance to add to the current position of the object
+     */
+    virtual void move(const Point<> & distance);
+    /** \brief
+     * \param widthPercent unsigned char
+     * \param heightPercent unsigned char
+     */
+    virtual void resize(unsigned char widthPercent, unsigned char heightPercent);
 protected:
     /** \brief Default Ctor.
      * This Ctor is protected because the plan itself is considered as a Group,
@@ -86,5 +87,8 @@ protected:
      */
     Group(void);
 public:
+protected:
+    std::vector<Object*> m_children;
+private:
 };
 #endif

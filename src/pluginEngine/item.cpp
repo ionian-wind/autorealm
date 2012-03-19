@@ -86,14 +86,13 @@ void Item::readConfig(AppConfig const& config)
 	fclose(input);
 }
 
-void Item::registerIn(wxFrame *parent,std::map<std::string,Container>&containers,AppConfig const& appConfig)
+void Item::registerIn(MainFrame *parent,std::map<std::string,Container>&containers,AppConfig const& appConfig)
 {
 	m_parent=parent;
 
 	readConfig(appConfig);
 	createMenu();
 	createToolbarItem(containers);
-	enable();
 }
 
 void Item::createToolbarItem(std::map<std::string,Container>&containers)
@@ -106,7 +105,6 @@ void Item::createToolbarItem(std::map<std::string,Container>&containers)
 		c.first=new wxAuiToolBar(m_parent);
 		c.second=wxAuiPaneInfo().Name(m_path.rbegin()->name).ToolbarPane().Caption(m_path.rbegin()->name).Layer(10).Top().Gripper();
 		containers[m_path.back().name]=c;
-
 	}
 
 	wxAuiToolBar* toolbar=containers[m_path.back().name].first;
@@ -180,13 +178,6 @@ wxMenu *Item::createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it)
 	wxMenu *newMenu=new wxMenu();
 	parent->AppendSubMenu(newMenu,it->name);
 	return createMenuPath(newMenu,it);
-}
-
-void Item::enable(void)
-{
-	if(!m_callback)
-		throw std::logic_error("Unable to bind null callback");
-	m_parent->Bind(wxEVT_COMMAND_MENU_SELECTED, m_callback, this, m_id);
 }
 
 PLUMA_PROVIDER_SOURCE(Item,1,1)

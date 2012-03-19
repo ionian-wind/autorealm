@@ -24,40 +24,6 @@
 #include <GL/glu.h>
 #include <wx/dcclient.h>
 
-void RenderWindow::draw()//const
-{
-    if(!IsShown())
-        return;
-
-    SetCurrent(*m_context);
-    wxPaintDC(this); // only to be used in paint events. use wxClientDC to paint outside the paint event
-
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // White Background
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-    glEnable(GL_TEXTURE_2D);   // textures
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_BLEND);
-    glEnable(GL_DEPTH_TEST);
-    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-
-    glViewport(0, 0, getWidth(), getHeight());
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    gluOrtho2D(0, getWidth(), getHeight(), 0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    for(std::vector<Group>::iterator it=m_graphics.begin(); it!=m_graphics.end(); ++it)
-        it->draw();
-
-    glFlush();
-    SwapBuffers();
-}
-
 void RenderWindow::setName(std::string const &str)
 {
     m_name=str;
@@ -81,4 +47,67 @@ int RenderWindow::getHeight(void)const
 RenderWindow::RenderWindow(wxFrame* parent, int* args)
     :wxGLCanvas(parent,wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
 {
+	m_context = new wxGLContext(this);
+    // To avoid flashing on MSW
+    SetBackgroundStyle(wxBG_STYLE_CUSTOM);
+
+	Bind(wxEVT_PAINT, &RenderWindow::onDraw, this);
 }
+
+void RenderWindow::onDraw(wxEvent&ev)
+{
+	draw();
+}
+
+RenderWindow::~RenderWindow(void)
+{
+	delete m_context;
+}
+
+void RenderWindow::draw()//const
+{
+    if(!IsShown())
+        return;
+
+    SetCurrent(*m_context);
+	wxClientDC(this);
+
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // White Background
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+    glEnable(GL_TEXTURE_2D);   // textures
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
+    glViewport(0, 0, getWidth(), getHeight());
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    gluOrtho2D(0, getWidth(), getHeight(), 0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    for(Children::iterator it=Group::m_children.begin(); it!=Group::m_children.end(); ++it)
+        (*it)->draw();
+
+    glFlush();
+    SwapBuffers();
+}
+
+Object *RenderWindow::getSelection(void)
+{
+	return m_selection;
+}
+
+//void appendPoint(Point const & coordinates)
+//{
+//	m_children.back()->push_back(
+//}
+//
+//void newShape(Shape const & shape)
+//{
+//}

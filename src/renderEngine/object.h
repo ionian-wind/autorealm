@@ -37,7 +37,6 @@ private:
 public:
 protected:
     Group *m_owner;
-    std::vector<Object*> m_children;
 private:
 
 public:
@@ -49,20 +48,20 @@ public:
     /** \brief apply a rotation on an object
      * \param angle short angle in degree
      */
-    virtual void rotate(short degree);
+    virtual void rotate(short degree)=0;
     /** \brief apply a rotation on an object
      * \param radian float angle in radian
      */
-    virtual void rotate(float radian);
+    virtual void rotate(float radian)=0;
     /** \brief translate an object
      * \param distance const Point& distance to add to the current position of the object
      */
-    virtual void move(const Point<> & distance);
+    virtual void move(const Point<> & distance)=0;
     /** \brief
      * \param widthPercent unsigned char
      * \param heightPercent unsigned char
      */
-    virtual void resize(unsigned char widthPercent, unsigned char heightPercent);
+    virtual void resize(unsigned char widthPercent, unsigned char heightPercent)=0;
     /** \brief draw the object on the plan
      */
     virtual void draw()=0;

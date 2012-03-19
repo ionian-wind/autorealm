@@ -39,11 +39,13 @@ class ToolBar;
 class MainFrame : public wxFrame
 {
 public:
+
+public:
 	const AppConfig m_appConfig;
 protected:
 private:
-//    std::vector<RenderWindow*> m_plans;
-//    std::vector<RenderWindow*>::iterator m_active;
+    std::vector<RenderWindow*> m_plans;
+    std::vector<RenderWindow*>::iterator m_active;
     wxAuiManager m_auiManager;
     wxAuiNotebook* m_auiNotebookWorkspace;
     wxMenuBar* m_MenuBar;
@@ -58,10 +60,29 @@ private:
 	std::map<std::string,Container > m_containers;
 
 public:
+    /** \brief build the window and load plug-ins
+     *
+     * \param parent=0 wxWindow*
+     * \param id=-1 wxWindowID
+     * \param title="" std::string const&
+     *
+     */
     MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");
+    /** \brief Change the action taken when a the left button of the mouse is pressed on the active RenderWindow
+     *
+     * \param ev wxCommandEvent& event containing the item which were pushed
+     */
+	void changeLeftAction(wxCommandEvent& ev);
+    /** \brief clean datas
+     */
     ~MainFrame(void);
+    Object *getSelectedObject(void);
+
 protected:
 private:
+    /** \brief Exit the application
+     * \param event wxCommandEvent&
+     */
     void onQuit(wxCommandEvent& event);
 };
 #endif

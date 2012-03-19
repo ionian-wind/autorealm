@@ -31,17 +31,21 @@
 class RenderWindow : public Group,public wxGLCanvas
 {
 public:
-    virtual void draw();//const
+    virtual void draw();
+    void onDraw(wxEvent&ev);
     RenderWindow(wxFrame* parent, int* args);
+    ~RenderWindow(void);
     void setName(std::string const &str);
     std::string getName(void)const;
     int getWidth(void)const;
     int getHeight(void)const;
+    Object *getSelection(void);
+//    void appendPoint(Point const & coordinates);
+//    void newShape(Shape const & shape);
 
 private:
     std::string m_name;
-    std::vector<Group> m_graphics;
-    Group * m_selection;
+    Object *m_selection;
     wxGLContext * m_context;
 };
 #endif

@@ -1,6 +1,7 @@
 #include "polylinetool.h"
 
 #include <wx/image.h>
+#include "gui/MainFrame.h"
 
 PolyLineTool::PolyLineTool(void)
 :Item("polyline.cfg")
@@ -9,12 +10,10 @@ PolyLineTool::PolyLineTool(void)
 
 void PolyLineTool::readConfig(AppConfig const& config, FILE *file)
 {
-	m_callback=static_cast<void(Item::*)(wxCommandEvent&)>(&PolyLineTool::DumbMethod);
+	m_callback=static_cast<ITEM_CALLBACK>(&PolyLineTool::action);
 }
 
-#include <wx/msgdlg.h>
-void PolyLineTool::DumbMethod(wxCommandEvent& event)
+void PolyLineTool::action(wxEvent&ev)
 {
 	wxMessageBox("hello world","hello caption");
 }
-

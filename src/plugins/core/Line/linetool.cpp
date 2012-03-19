@@ -9,11 +9,11 @@ LineTool::LineTool(void)
 
 void LineTool::readConfig(AppConfig const& config, FILE *file)
 {
-	m_callback=static_cast<void(Item::*)(wxCommandEvent&)>(&LineTool::DumbMethod);
+	m_callback=static_cast<ITEM_CALLBACK>(&LineTool::action);
 }
 
 #include <wx/msgdlg.h>
-void LineTool::DumbMethod(wxCommandEvent& event)
+void LineTool::action(wxEvent& event)
 {
 	wxMessageBox("hello Line","hello caption");
 }

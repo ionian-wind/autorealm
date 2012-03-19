@@ -32,12 +32,13 @@ class Line;
 class Shape //! Shape are Groups composed by a point followed by lines
 : public Object
 {
-	typedef std::vector<Line*> LineChildren;
+	typedef std::vector<Line*> Children;
 public:
 protected:
     bool m_closed;
 
 private:
+	Children m_children;
     Color m_filler;
     Point<> m_position;
 
@@ -83,6 +84,11 @@ public:
      *
      */
     Shape(Point<> const &position,Line const &end);
+
+    virtual void rotate(short degree);
+    virtual void rotate(float radian);
+    virtual void resize(uint8_t width, uint8_t height);
+
     /** \brief draw the shape */
     void draw();
 

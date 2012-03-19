@@ -19,8 +19,10 @@
  **********************************************************************************/
 
 #include "MainFrame.h"
-#include "RenderWindow.h"
 
+#include <functional>
+
+#include "RenderWindow.h"
 #include "pluginEngine/container.h"
 
 const long MainFrame::ID_NOTEBOOK = wxNewId();
@@ -36,22 +38,20 @@ MainFrame::~MainFrame(void)
 }
 
 MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
-//:wxFrame(parent,id,title)
+:wxFrame(parent,id,title)
 {
     wxMenu* MenuFile;
     wxMenuItem* MenuItemExit;
 
-    Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
     m_auiManager.SetManagedWindow(this);
     m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
 
 //add first page to notebook
     int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
-//    RenderWindow *tmp= new RenderWindow((wxFrame*)m_auiNotebookWorkspace,args);
-//    tmp->setName("Map 1");
-//    m_plans.push_back(tmp);
-//    m_active=m_plans.begin();
-    m_auiNotebookWorkspace->AddPage(new RenderWindow((wxFrame*)m_auiNotebookWorkspace,args), "Map 1", true);
+	RenderWindow *first=new RenderWindow((wxFrame*)m_auiNotebookWorkspace,args);
+    m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
+    m_plans.push_back(first);
+    m_active=m_plans.begin();
 
     m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Name(_T("Workspace")).Caption(_("Workspace")).CaptionVisible(false).CloseButton(false).Center());
     m_auiManager.Update();
@@ -64,11 +64,9 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
     m_MenuBar->Append(MenuFile, _("&File"));
     MenuItemExit = new wxMenuItem(MenuFile, ID_MENUQUIT, _("&Exit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
     MenuFile->Append(MenuItemExit);
-
-
 	Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onQuit, this, ID_MENUQUIT);
 
-
+//add all plug-ins entries
 	m_actionPlugIn.acceptProviderType<ItemProvider>();
 	m_actionPlugIn.loadFromFolder("plugin");
 	m_actionPlugIn.getProviders(m_actionProviders);
@@ -78,6 +76,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 	{
 		m_items.push_back((*ita)->create());
 		m_items.back()->registerIn(this,m_containers,m_appConfig);
+		Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::changeLeftAction,this,m_items.back()->m_id,m_items.back()->m_id);
 	}
 
 	for(std::map<std::string,Container>::iterator it=m_containers.begin();it!=m_containers.end();++it)
@@ -88,4 +87,30 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 void MainFrame::onQuit(wxCommandEvent& event)
 {
     Close();
+}
+
+void MainFrame::changeLeftAction(wxCommandEvent& ev)
+{
+	static ITEM_CALLBACK s_actualCallback=0;
+	static Item *s_actualItem=0;
+
+	if(s_actualCallback)
+		(*m_active)->Unbind(wxEVT_LEFT_DOWN, s_actualCallback, s_actualItem);
+
+	std::vector<Item*>::iterator it;
+	for(it=m_items.begin();it!=m_items.end();++it)
+		if((*it)->m_id==ev.GetId())
+		{
+			s_actualItem=*it;
+			s_actualCallback=s_actualItem->m_callback;
+			break;
+		}
+	if(it==m_items.end())
+		throw std::runtime_error("item not found");
+	(*m_active)->Bind(wxEVT_LEFT_DOWN, s_actualCallback, s_actualItem);
+}
+
+Object *MainFrame::getSelectedObject(void)
+{
+	return (*m_active)->getSelection();
 }

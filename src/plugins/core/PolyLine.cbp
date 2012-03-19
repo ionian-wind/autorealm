@@ -54,6 +54,7 @@
 			<Add option="-fPIC" />
 			<Add directory="$(#wx29.include)" />
 			<Add directory="$(#wx29.setup)" />
+			<Add directory="../../../src" />
 		</Compiler>
 		<Unit filename="PolyLine/Connector.cpp" />
 		<Unit filename="PolyLine/polylinetool.cpp" />

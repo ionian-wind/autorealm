@@ -63,4 +63,20 @@ Group::Group(void)
 {
 }
 
+void Group::rotate(short degree)
+{
+}
+
+void Group::rotate(float radian)
+{
+}
+
+void Group::move(const Point<> & distance)
+{
+}
+
+void Group::resize(unsigned char widthPercent, unsigned char heightPercent)
+{
+}
+
 #warning untested implementation

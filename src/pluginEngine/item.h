@@ -31,10 +31,16 @@
 
 class Container;
 class AppConfig;
+class MainFrame;
+
+class Item;
+typedef void(Item::*ITEM_CALLBACK)(wxEvent&);
+
 
 class Item
 {
 public:
+	friend class MainFrame;
 protected:
 private:
 
@@ -54,12 +60,7 @@ public:
      * \return void
      *
      */
-	void registerIn(wxFrame *parent,std::map<std::string,Container>&,AppConfig const& appConfig);
-
-    /** \brief enable the plug-ins controls
-     *	\throw std::logic_error if the m_callback member was not initialized
-     */
-	void enable(void);
+	void registerIn(MainFrame *parent,std::map<std::string,Container>&,AppConfig const& appConfig);
 
     /** \brief read the plug-in's configuration
 	 *	\note the plug-in should read it's specific data before asking to Item to read common data
@@ -81,6 +82,9 @@ public:
      * \param containers std::map<std::string, Container>& list of existing toolbars
      */
 	void createToolbarItem(std::map<std::string,Container>&containers);
+
+
+	virtual void action(wxEvent&ev)=0;
 
 protected:
 	virtual void readConfig(AppConfig const& config, FILE *file)=0;
@@ -113,7 +117,7 @@ private:
 public:
 protected:
 	const std::string m_configFileName; //!< name of the configuration file
-	wxFrame * m_parent;
+	MainFrame * m_parent;
 ///common parameters
 	MenuData m_entry;
 	long m_id;
@@ -124,7 +128,7 @@ protected:
 ///toolbar parameters
 	std::string m_longDoc;
 	wxObject *m_unused;
-	void (Item::*m_callback)(wxCommandEvent&);
+	ITEM_CALLBACK m_callback;
 	wxBitmap m_disabled,m_enabled;
 private:
 };

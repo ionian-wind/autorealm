@@ -125,4 +125,16 @@ void Shape::move(const Point<> & distance)
 	m_position+=distance;
 }
 
+void Shape::rotate(short degree)
+{
+}
+
+void Shape::rotate(float radian)
+{
+}
+
+void Shape::resize(uint8_t width, uint8_t height)
+{
+}
+
 #warning untested implementation

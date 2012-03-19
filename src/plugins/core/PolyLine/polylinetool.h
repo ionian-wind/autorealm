@@ -6,15 +6,9 @@
 class PolyLineTool : public Item
 {
 	public:
-		/** \brief Dumb, Stupid, and Useless method made for testing, while the plug-in architecture does not work
-		 *	\todo Remove me
-		 */
-		void DumbMethod(wxCommandEvent& event);
-
 		PolyLineTool(void);
 		virtual void readConfig(AppConfig const& config, FILE *file);
-
-void onClick(wxCommandEvent& event);
+		virtual void action(wxEvent&ev);
 	protected:
 	private:
 };
