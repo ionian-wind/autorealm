@@ -14,6 +14,11 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
+					<Add option="-Weffc++" />
+					<Add option="-pedantic" />
+					<Add option="-std=c++0x" />
+					<Add option="-Wextra" />
+					<Add option="-ansi" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
@@ -38,20 +43,27 @@
 			<Add option='-include &quot;unimplemented.h&quot;' />
 			<Add option="-fPIC" />
 		</Compiler>
-		<Unit filename="renderEngine/Color.h" />
-		<Unit filename="renderEngine/Curve.cpp" />
-		<Unit filename="renderEngine/Curve.h" />
-		<Unit filename="renderEngine/Fractal.cpp" />
-		<Unit filename="renderEngine/Fractal.h" />
-		<Unit filename="renderEngine/Group.cpp" />
-		<Unit filename="renderEngine/Group.h" />
-		<Unit filename="renderEngine/Line.cpp" />
-		<Unit filename="renderEngine/Line.h" />
-		<Unit filename="renderEngine/Point.h" />
-		<Unit filename="renderEngine/Shape.cpp" />
-		<Unit filename="renderEngine/Shape.h" />
+		<Linker>
+			<Add library="GL" />
+		</Linker>
+		<Unit filename="renderEngine/color.cpp" />
+		<Unit filename="renderEngine/color.h" />
+		<Unit filename="renderEngine/drawer.cpp" />
+		<Unit filename="renderEngine/drawer.h" />
+		<Unit filename="renderEngine/group.cpp" />
+		<Unit filename="renderEngine/group.h" />
+		<Unit filename="renderEngine/line.cpp" />
+		<Unit filename="renderEngine/line.h" />
 		<Unit filename="renderEngine/object.cpp" />
 		<Unit filename="renderEngine/object.h" />
+		<Unit filename="renderEngine/point.cpp" />
+		<Unit filename="renderEngine/point.h" />
+		<Unit filename="renderEngine/shape.cpp" />
+		<Unit filename="renderEngine/shape.h" />
+		<Unit filename="renderEngine/visited.cpp" />
+		<Unit filename="renderEngine/visited.h" />
+		<Unit filename="renderEngine/visitor.cpp" />
+		<Unit filename="renderEngine/visitor.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

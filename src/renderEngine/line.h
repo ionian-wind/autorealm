@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,26 +18,28 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
+#ifndef LINE_H
+#define LINE_H
 
-#include "Fractal.h"
-#include "Point.h"
+#include "visited.h"
 
-Fractal::Fractal(void)
+#include "point.h"
+#include "color.h"
+
+class Line : public Visited
 {
-	UNIMPLEMENTED;
-}
+	public:
+		Line(void);
+		Line(Point const &end, Color const &color);
+		Line(Line const&other);
 
-void Fractal::lineDraw(bool ignoreColor)const
-{
-	UNIMPLEMENTED;
-}
+		virtual void accept(Visitor &v);
+		Color getColor(void);
+		Point getEnd(void);
+	protected:
+		Color m_color;
+		Point m_end;
+	private:
+};
 
-void Fractal::split(Point<> const &cutPoint)
-{
-	UNIMPLEMENTED;
-}
-
-bool Fractal::find(Point<> const &cutPoint)
-{
-	UNIMPLEMENTED;
-}
+#endif // LINE_H

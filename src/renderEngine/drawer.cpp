@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,32 +18,24 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _RENDERWINDOW_H
-#define _RENDERWINDOW_H
+#include "drawer.h"
 
-#include <vector>
-#include <string>
+#include "line.h"
+#include "shape.h"
+#include "group.h"
 
-#include <wx/glcanvas.h>
-
-#include "renderEngine/group.h"
-
-class RenderWindow : public Group,public wxGLCanvas
+void Drawer::visit(Group& v)
 {
-public:
-    virtual void draw();
-    void onDraw(wxEvent&ev);
-    RenderWindow(wxFrame* parent, int* args);
-    ~RenderWindow(void);
-    void setName(std::string const &str);
-    std::string getName(void)const;
-    int getWidth(void)const;
-    int getHeight(void)const;
-    Object* getSelection(void);
+}
 
-private:
-    std::string m_name;
-    Object *m_selection;
-    wxGLContext * m_context;
-};
-#endif
+void Drawer::visit(Shape& v)
+{
+//	v.getFiller().apply();
+	v.getStart().createVertice();
+}
+
+void Drawer::visit(Line& v)
+{
+	v.getColor().apply();
+	v.getEnd().createVertice();
+}

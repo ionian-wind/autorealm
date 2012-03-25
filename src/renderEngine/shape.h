@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,21 +18,34 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _FRACTAL_H
-#define _FRACTAL_H
+#ifndef SHAPE_H
+#define SHAPE_H
 
+#include "object.h"
 
-#include "Line.h"
+#include <vector>
+#include <memory>
 
-class Fractal //! Fractal line. Fractal lines are lines which seem to be multiple contiguous lines.
-: public Line
+#include "point.h"
+#include "color.h"
+
+class Line;
+
+class Shape : public Object
 {
-public:
-	Fractal(void);
-    void lineDraw(bool ignoreColor=false)const;
-    void split(Point const &cutPoint);
-    bool find(Point const &point);
-private:
-    unsigned char m_seed;
+	typedef std::vector<std::unique_ptr<Line>> CHILDLIST;
+	public:
+		Shape(void);
+		virtual void accept(Visitor &v);
+		Point getStart(void);
+		Color getFiller(void);
+		bool isClosed(void);
+		void push_back(std::unique_ptr<Line>& target);
+	protected:
+		Color m_filler;
+		Point m_start;
+	private:
+		CHILDLIST m_children;
 };
-#endif
+
+#endif // SHAPE_H

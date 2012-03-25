@@ -76,7 +76,6 @@ public:
     /** \brief clean datas
      */
     ~MainFrame(void);
-    Object *getSelectedObject(void);
 
 protected:
 private:

@@ -109,8 +109,3 @@ void MainFrame::changeLeftAction(wxCommandEvent& ev)
 		throw std::runtime_error("item not found");
 	(*m_active)->Bind(wxEVT_LEFT_DOWN, s_actualCallback, s_actualItem);
 }
-
-Object *MainFrame::getSelectedObject(void)
-{
-	return (*m_active)->getSelection();
-}

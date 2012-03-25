@@ -1,52 +1,21 @@
+/**********************************************************************************
+ *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
+ *Copyright (C) 2012 Morel Bérenger                                               *
+ *                                                                                *
+ *This file is part of autorealm.                                                 *
+ *                                                                                *
+ *    autorealm is free software: you can redistribute it and/or modify           *
+ *    it under the terms of the GNU General Public License as published by        *
+ *    the Free Software Foundation, either version 3 of the License, or           *
+ *    (at your option) any later version.                                         *
+ *                                                                                *
+ *    autorealm is distributed in the hope that it will be useful,                *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of              *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
+ *    GNU General Public License for more details.                                *
+ *                                                                                *
+ *    You should have received a copy of the GNU General Public License           *
+ *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
+ **********************************************************************************/
+
 #include "object.h"
-
-Object::Object(void)
-:m_owner(NULL)
-{
-}
-
-Object::Object(Group *owner)
-:m_owner(owner)
-{
-}
-//
-//void Object::move(const Point<> & distance)
-//{
-////	for_each(m_children.begin(),
-////			m_children.end(),
-////			std::mem_fun(std::bind1st(Object::move,distance)));
-//	for(Children::iterator it=m_children.begin();it!=m_children.end();++it)
-//		(*it)->move(distance);
-//}
-//
-//void Object::rotate(short degree)
-//{
-////	for_each(m_children.begin(),
-////			m_children.end(),
-////			std::mem_fun(std::bind1st(Object::rotate,degree)));
-//	for(Children::iterator it=m_children.begin();it!=m_children.end();++it)
-//		(*it)->rotate(degree);
-//}
-//
-//void Object::rotate(float radian)
-//{
-////	for_each(m_children.begin(),
-////			m_children.end(),
-////			std::mem_fun(std::bind1st(Object::rotate,radian)));
-//	for(Children::iterator it=m_children.begin();it!=m_children.end();++it)
-//		(*it)->rotate(radian);
-//}
-//
-//void Object::resize(unsigned char widthPercent, unsigned char heightPercent)
-//{
-//	for(typename Children::iterator it=m_children.begin();it!=m_children.end();++it)
-//		(*it)->resize(widthPercent,heightPercent);
-////	for_each(m_children.begin(),
-////			m_children.end(),
-////			std::mem_fun(
-////				std::bind1st(
-////					std::bind1st(resize,
-////									widthPercent),
-////								heightPercent))
-////			);
-//}

@@ -24,6 +24,11 @@
 #include <GL/glu.h>
 #include <wx/dcclient.h>
 
+#include "../renderEngine/drawer.h"
+//!\todo remove test includes
+#include "../renderEngine/shape.h"
+#include "../renderEngine/line.h"
+
 void RenderWindow::setName(std::string const &str)
 {
     m_name=str;
@@ -52,6 +57,15 @@ RenderWindow::RenderWindow(wxFrame* parent, int* args)
     SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 
 	Bind(wxEVT_PAINT, &RenderWindow::onDraw, this);
+
+
+	//!\todo remove testing code
+	std::unique_ptr<Shape> s(new Shape());
+	std::unique_ptr<Line> l1(new Line(Point(10,10,10),Color(1,0.5,0,0)));
+	std::unique_ptr<Line> l2(new Line(Point(50,100,10),Color(0,0.5,1,0)));
+	s->push_back(l1);
+	s->push_back(l2);
+	Group::m_children.push_back(std::move(s));
 }
 
 void RenderWindow::onDraw(wxEvent&ev)
@@ -91,8 +105,10 @@ void RenderWindow::draw()//const
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    for(Children::iterator it=Group::m_children.begin(); it!=Group::m_children.end(); ++it)
-        (*it)->draw();
+	Drawer d;
+	this->accept((d));
+//    for(Children::iterator it=Group::m_children.begin(); it!=Group::m_children.end(); ++it)
+//        (*it)->draw();
 
     glFlush();
     SwapBuffers();
@@ -102,12 +118,3 @@ Object *RenderWindow::getSelection(void)
 {
 	return m_selection;
 }
-
-//void appendPoint(Point const & coordinates)
-//{
-//	m_children.back()->push_back(
-//}
-//
-//void newShape(Shape const & shape)
-//{
-//}

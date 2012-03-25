@@ -1,0 +1,4 @@
+check if it is possible to use std::move more often
+use lambda function with for_each constructs when possible
+use unique_ptr<Object> instead of Object*
+same for Line

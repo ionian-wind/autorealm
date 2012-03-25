@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,15 +18,18 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef COLOR_H
-#define COLOR_H
+#ifndef POINT_H
+#define POINT_H
 
-struct Color
+class Point
 {
-public:
-    unsigned char m_red;
-    unsigned char m_green;
-    unsigned char m_blue;
-    unsigned char m_alpha;
+	public:
+		double m_x,m_y,m_z;
+		Point();
+		Point(double x, double y, double z);
+		void createVertice(void);
+	protected:
+	private:
 };
-#endif
+
+#endif // POINT_H

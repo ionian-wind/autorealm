@@ -1,0 +1,76 @@
+Warning: document for developers, contain only a brain storm about how to use RenderWindow class.
+
+=== Design ===
+Which classes are evident:
+* Object => give a "tree", thanks to the composite pattern
+* Group => "branches" of the "tree" : can handle all objects and give an easy way to manipulate big quantities of them in only one manipulation. It is not a drawable thing.
+* Shape => "leaves" of the "tree" : they are the only drawable things, they contain all coordinates of lines which compose them, and also the kind of line (aka: straight, curves, fractals)
+* Line (or vector, or another name, I do not know which name to use to avoid confusion against std::vector) => primitive of shapes. They only contain ONE coordinate, because shape own it's starting point. Line is just the draw between last registered coordinate and the one it owns.
+* Point (or coordinate, or another name) => coordinates. It is not drawable, because it does not have height, width, or depth. It's role is to give functions to manipulate coordinates, like rotations, translations, and maybe one day 3D->2D transformations. Another uses are to give glue between openGL and wxWidgets plus some abstraction for that stuff.
+* Color => color of a drawable object (so, Lines and Shapes). It's goal is to give glue between openGL and WxWidgets, plus some abstraction.
+* RenderWindow => the WxWidget's frame where stuff will be effectively drawn
+* FractalLines => Lines with fractal representation
+* CurvedLines => Lines with curved representation
+
+==== Object ====
+Should not inherit from another class.
+Should contain functions common to Group, RenderWindow and Shape at least, so:
+* draw
+* move
+* resize
+* rotate
+_ note that most functions are not mandatory and should be added only when basic stuff will work
+
+==== Group ====
+Inherit from Object
+Own Objects (with pointers, to allow cast: std::vector<Object *>)
+
+==== RenderWindow ====
+Inherit from Group
+* manage the rendering scene (openGL)
+* manage the events (WxWidgets)
+
+==== Shape ====
+Inherit from Object
+Own Lines (with pointers, to allow cast: std::vector<Lines *>)
+Contain an origin point
+May contain a filling color
+Can be closed or open
+
+==== Line ====
+This is the true vector.
+Own a final point
+Own a drawing color
+Have a "draw" method to say how to draw itself
+Can be resized (by moving it's last point)
+Can be rotated (by moving it's last point)
+Can be translated (by moving it's last point)
+
+==== Fractal Line ====
+Overload the Line::draw method to represent itself as a fractal
+Own fractal parameters (seed and ?frequency? in original autorealm)
+
+==== Curved Line ====
+Overload the Line::draw method to represent itself as a curve
+Own curve parameters (at least two other coordinates in original autorealm)
+
+==== Point ====
+Simple coordinate. Allow to transform 2D, 3D or every other coordinate system (angle and distance couple, often used with vectors) in something unique and usable with openGL.
+Can be translated.
+
+==== Color ====
+"Front-end" to color system.
+
+=== Problematics ===
+Lines and Shapes seem to be a bit more complex than that.
+With more thinking, I thought that Shapes behave like Group of Lines:
+* they contain a vector of Lines
+* Lines can be manipulated in the same way as Shapes:
+** rotation
+** translation
+** resizing
+
+But the basic object can not be used in the same way: for Groups, the basic is a Shape, and for Shape, the basic is a Line.
+Using templates is not so easy, because it break inheritance casts.
+
+

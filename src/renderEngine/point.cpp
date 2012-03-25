@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,25 +18,22 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
+#include "point.h"
 
-#include "Curve.h"
+#include <GL/gl.h>
 
-Curve::Curve(void)
+Point::Point()
+:m_x(),m_y(),m_z()
 {
-	UNIMPLEMENTED;
+	//ctor
 }
 
-void Curve::lineDraw(bool ignoreColor)const
+Point::Point(double x, double y, double z)
+:m_x(x),m_y(y),m_z(z)
 {
-	UNIMPLEMENTED;
 }
 
-void Curve::split(Point<> const &cutPoint)
+void Point::createVertice(void)
 {
-	UNIMPLEMENTED;
-}
-
-bool Curve::find(Point<> const &cutPoint)
-{
-	UNIMPLEMENTED;
+	glVertex3d(m_x,m_y,m_z);
 }

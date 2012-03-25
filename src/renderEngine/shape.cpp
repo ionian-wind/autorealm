@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,32 +18,42 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _RENDERWINDOW_H
-#define _RENDERWINDOW_H
+#include "shape.h"
 
-#include <vector>
-#include <string>
+#include <algorithm>
 
-#include <wx/glcanvas.h>
+#include "line.h"
+#include "visitor.h"
 
-#include "renderEngine/group.h"
-
-class RenderWindow : public Group,public wxGLCanvas
+Shape::Shape(void)
+:Object(),m_filler(),m_start(),m_children()
 {
-public:
-    virtual void draw();
-    void onDraw(wxEvent&ev);
-    RenderWindow(wxFrame* parent, int* args);
-    ~RenderWindow(void);
-    void setName(std::string const &str);
-    std::string getName(void)const;
-    int getWidth(void)const;
-    int getHeight(void)const;
-    Object* getSelection(void);
+}
 
-private:
-    std::string m_name;
-    Object *m_selection;
-    wxGLContext * m_context;
-};
-#endif
+void Shape::accept(Visitor &v)
+{
+	v.visit(*this);
+	for(CHILDLIST::iterator it=m_children.begin();it!=m_children.end();++it)
+		(*it)->accept(v);
+	//!\todo find a solution to use std::for_each
+}
+
+Point Shape::getStart(void)
+{
+	return m_start;
+}
+
+Color Shape::getFiller(void)
+{
+	return m_filler;
+}
+
+bool Shape::isClosed(void)
+{
+	return m_children.front()==m_children.back();
+}
+
+void Shape::push_back(std::unique_ptr<Line>& target)
+{
+	m_children.push_back(std::move(target));
+}

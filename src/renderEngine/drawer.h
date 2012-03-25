@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,21 +18,19 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _CURVE_H
-#define _CURVE_H
+#ifndef DRAWER_H
+#define DRAWER_H
 
-#include "Line.h"
+#include "visitor.h"
 
-class Curve //! curved line
-: public Line
+class Drawer : public Visitor
 {
-private:
-    //TODO change that dumb name
-    Point m_magnet;//! external point which pull the line to make it curve
-public:
-	Curve(void);
-    void lineDraw(bool ignoreColor=false)const;
-    void split(Point<> const &cutPoint);
-    bool find(Point<> const &point);
+	public:
+		virtual void visit(Group& v);
+		virtual void visit(Shape& v);
+		virtual void visit(Line& v);
+	protected:
+	private:
 };
-#endif
+
+#endif // DRAWER_H

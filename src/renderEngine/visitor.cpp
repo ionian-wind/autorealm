@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,32 +18,8 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _RENDERWINDOW_H
-#define _RENDERWINDOW_H
+#include "visitor.h"
 
-#include <vector>
-#include <string>
-
-#include <wx/glcanvas.h>
-
-#include "renderEngine/group.h"
-
-class RenderWindow : public Group,public wxGLCanvas
+Visitor::~Visitor(void)
 {
-public:
-    virtual void draw();
-    void onDraw(wxEvent&ev);
-    RenderWindow(wxFrame* parent, int* args);
-    ~RenderWindow(void);
-    void setName(std::string const &str);
-    std::string getName(void)const;
-    int getWidth(void)const;
-    int getHeight(void)const;
-    Object* getSelection(void);
-
-private:
-    std::string m_name;
-    Object *m_selection;
-    wxGLContext * m_context;
-};
-#endif
+}

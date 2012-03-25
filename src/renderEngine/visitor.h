@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,50 +18,23 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
+#ifndef VISITOR_H
+#define VISITOR_H
 
-#include "Line.h"
-#include <GL/gl.h>
+class Visited;
+class Group;
+class Shape;
+class Line;
 
-void Line::lineDraw(bool ignoreColor) const
+class Visitor
 {
-	if(!ignoreColor)
-		glColor4d(m_color.m_red,m_color.m_green,m_color.m_blue,m_color.m_alpha);
-    glVertex3d(m_x,m_y,m_z);
-}
+	public:
+		virtual void visit(Group& v)=0;
+		virtual void visit(Shape& v)=0;
+		virtual void visit(Line& v)=0;
+		virtual ~Visitor(void);
+	protected:
+	private:
+};
 
-void Line::split(Point<> const&cutPoint)
-{
-	UNIMPLEMENTED;
-}
-
-bool Line::find(Point<> const&point)
-{
-	UNIMPLEMENTED;
-}
-
-void Line::rotate(short degree)
-{
-	UNIMPLEMENTED;
-}
-
-void Line::rotate(float radian)
-{
-	UNIMPLEMENTED;
-}
-
-void Line::move(const Point<>& distance)
-{
-	UNIMPLEMENTED;
-}
-
-void Line::resize(unsigned char widthPercent, unsigned char heightPercent)
-{
-	UNIMPLEMENTED;
-}
-
-void Line::draw(void)
-{
-	UNIMPLEMENTED;
-}
-
-#warning untested implementation
+#endif // VISITOR_H

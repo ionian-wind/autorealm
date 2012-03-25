@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,40 +18,24 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _POINT_H
-#define _POINT_H
+#ifndef GROUP_H
+#define GROUP_H
 
-template <typename T=double>
-/** \brief structure to manipulate positions
- * \note The template parameter can allow type optimizations, like changing double for float.
- * \note This structure is more a vector in mathematical point of vue than a true point.
- */
-struct Point
+#include "object.h"
+
+#include <vector>
+#include <memory>
+
+class Group : public Object
 {
-public:
-    T m_x, m_y, m_z;
-
-	Point(void)
-	:m_x(),m_y(),m_z(){}
-
-	Point(T x,T y,T z)
-	:m_x(x),m_y(y),m_z(z){}
-
-	Point& operator+=(Point const& target)
-	{
-		m_x+=target.m_x;
-		m_y+=target.m_y;
-		m_z+=target.m_z;
-		return *this;
-	}
-
-	bool operator==(Point const& target)
-	{
-		if(m_x==target.m_x&&m_y==target.m_y&&m_z==target.m_z)
-			return true;
-		return false;
-	}
-
+	typedef std::vector<std::unique_ptr<Object>> CHILDLIST;
+	public:
+		Group(void);
+		void accept(Visitor &v);
+		void push_back(std::unique_ptr<Object>& target);
+	protected:
+		CHILDLIST m_children;
+	private:
 };
 
-#endif
+#endif // GROUP_H

@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -18,32 +18,22 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _RENDERWINDOW_H
-#define _RENDERWINDOW_H
+#include "color.h"
 
-#include <vector>
-#include <string>
+#include <GL/gl.h>
 
-#include <wx/glcanvas.h>
-
-#include "renderEngine/group.h"
-
-class RenderWindow : public Group,public wxGLCanvas
+Color::Color()
+:m_red(),m_green(),m_blue(),m_alpha()
 {
-public:
-    virtual void draw();
-    void onDraw(wxEvent&ev);
-    RenderWindow(wxFrame* parent, int* args);
-    ~RenderWindow(void);
-    void setName(std::string const &str);
-    std::string getName(void)const;
-    int getWidth(void)const;
-    int getHeight(void)const;
-    Object* getSelection(void);
+	//ctor
+}
 
-private:
-    std::string m_name;
-    Object *m_selection;
-    wxGLContext * m_context;
-};
-#endif
+Color::Color(double red, double green, double blue, double alpha)
+:m_red(red), m_green(green), m_blue(blue), m_alpha(alpha)
+{
+}
+
+void Color::apply(void)
+{
+	glColor4d(m_red,m_green,m_blue,m_alpha);
+}
