@@ -32,7 +32,10 @@ Shape::Shape(void)
 {
 }
 
-//void Shape::accept(Visitor &v)
+void Shape::accept(Visitor &v)
+{
+}
+
 void Shape::draw(void)const
 {
 	glBegin(GL_LINE_LOOP);
@@ -43,12 +46,12 @@ void Shape::draw(void)const
 	glEnd();
 }
 
-Point Shape::getStart(void)
+Point Shape::getStart(void)const
 {
 	return m_start;
 }
 
-Color Shape::getFiller(void)
+Color Shape::getFiller(void)const
 {
 	return m_filler;
 }
@@ -63,7 +66,7 @@ void Shape::setFiller(Color &c)
 	m_filler=c;
 }
 
-bool Shape::isClosed(void)
+bool Shape::isClosed(void)const
 {
 	return m_children.front()==m_children.back();
 }

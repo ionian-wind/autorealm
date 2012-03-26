@@ -33,7 +33,7 @@ Color::Color(double red, double green, double blue, double alpha)
 {
 }
 
-void Color::apply(void)
+void Color::apply(void)const
 {
 	glColor4d(m_red,m_green,m_blue,m_alpha);
 }

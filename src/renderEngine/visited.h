@@ -26,7 +26,7 @@ class Visitor;
 class Visited
 {
 	public:
-//		virtual void accept(Visitor &v)=0;
+		virtual void accept(Visitor &v)=0;
 		virtual ~Visited(void);
 	protected:
 	private:

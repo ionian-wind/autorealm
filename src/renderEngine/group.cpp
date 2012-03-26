@@ -28,7 +28,6 @@ Group::Group(void)
 {
 }
 
-/*
 void Group::accept(Visitor &v)
 {
 	//!\todo find a solution to use std::for_each
@@ -36,7 +35,6 @@ void Group::accept(Visitor &v)
 		(*it)->accept(v);
 	v.visit(*this);
 }
-*/
 
 void Group::draw(void)const
 {

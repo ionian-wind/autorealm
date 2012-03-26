@@ -26,7 +26,7 @@ class Color
 	public:
 		Color();
 		Color(double red, double green, double blue, double alpha);
-		void apply(void);
+		void apply(void)const;
 		double m_red, m_green, m_blue, m_alpha;
 	protected:
 	private:

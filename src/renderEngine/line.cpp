@@ -39,21 +39,22 @@ Line::Line(Line const&other)
 	m_end=other.m_end;
 }
 
-//void Line::accept(Visitor &v)
-//{
-//	v.visit(*this);
-//}
+void Line::accept(Visitor &v)
+{
+	v.visit(*this);
+}
+
 void Line::draw(void)const
 {
 	m_end.createVertice();
 }
 
-Color Line::getColor(void)
+Color Line::getColor(void)const
 {
 	return m_color;
 }
 
-Point Line::getEnd(void)
+Point Line::getEnd(void)const
 {
 	return m_end;
 }
