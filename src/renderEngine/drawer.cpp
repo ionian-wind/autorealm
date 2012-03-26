@@ -20,6 +20,8 @@
 
 #include "drawer.h"
 
+#include <GL/gl.h>
+
 #include "line.h"
 #include "shape.h"
 #include "group.h"

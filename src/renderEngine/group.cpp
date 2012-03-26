@@ -28,12 +28,20 @@ Group::Group(void)
 {
 }
 
+/*
 void Group::accept(Visitor &v)
 {
 	//!\todo find a solution to use std::for_each
 	for(CHILDLIST::iterator it=m_children.begin();it!=m_children.end();++it)
 		(*it)->accept(v);
 	v.visit(*this);
+}
+*/
+
+void Group::draw(void)const
+{
+	for(CHILDLIST::const_iterator it = m_children.begin();it!=m_children.end();++it)
+		(*it)->draw();
 }
 
 void Group::push_back(std::unique_ptr<Object>& target)

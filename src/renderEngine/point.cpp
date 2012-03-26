@@ -33,7 +33,7 @@ Point::Point(double x, double y, double z)
 {
 }
 
-void Point::createVertice(void)
+void Point::createVertice(void)const
 {
 	glVertex3d(m_x,m_y,m_z);
 }

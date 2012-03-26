@@ -36,11 +36,14 @@ class Shape : public Object
 	typedef std::vector<std::unique_ptr<Line>> CHILDLIST;
 	public:
 		Shape(void);
-		virtual void accept(Visitor &v);
-		Point getStart(void);
-		Color getFiller(void);
+		//virtual void accept(Visitor &v);
+		virtual void draw(void)const;
 		bool isClosed(void);
 		void push_back(std::unique_ptr<Line>& target);
+		void setFiller(Color &c);
+		Color getFiller(void);
+		void setStart(Point &c);
+		Point getStart(void);
 	protected:
 		Color m_filler;
 		Point m_start;

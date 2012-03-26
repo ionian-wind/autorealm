@@ -27,7 +27,7 @@ class Point
 		double m_x,m_y,m_z;
 		Point();
 		Point(double x, double y, double z);
-		void createVertice(void);
+		void createVertice(void)const;
 	protected:
 	private:
 };

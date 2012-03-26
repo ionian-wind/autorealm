@@ -26,6 +26,7 @@
 class Object : public Visited
 {
 	public:
+		virtual void draw(void)const=0;
 	protected:
 	private:
 };

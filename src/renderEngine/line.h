@@ -33,9 +33,12 @@ class Line : public Visited
 		Line(Point const &end, Color const &color);
 		Line(Line const&other);
 
-		virtual void accept(Visitor &v);
+		//virtual void accept(Visitor &v);
+		void draw(void)const;
 		Color getColor(void);
+		void setColor(Color &c);
 		Point getEnd(void);
+		void setEnd(Point &p);
 	protected:
 		Color m_color;
 		Point m_end;

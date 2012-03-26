@@ -22,6 +22,8 @@
 
 #include <algorithm>
 
+#include <GL/gl.h>
+
 #include "line.h"
 #include "visitor.h"
 
@@ -30,12 +32,15 @@ Shape::Shape(void)
 {
 }
 
-void Shape::accept(Visitor &v)
+//void Shape::accept(Visitor &v)
+void Shape::draw(void)const
 {
-	v.visit(*this);
-	for(CHILDLIST::iterator it=m_children.begin();it!=m_children.end();++it)
-		(*it)->accept(v);
+	glBegin(GL_LINE_LOOP);
+	m_start.createVertice();
+	for(CHILDLIST::const_iterator it = m_children.begin();it!=m_children.end();++it)
+		(*it)->draw();
 	//!\todo find a solution to use std::for_each
+	glEnd();
 }
 
 Point Shape::getStart(void)
@@ -46,6 +51,16 @@ Point Shape::getStart(void)
 Color Shape::getFiller(void)
 {
 	return m_filler;
+}
+
+void Shape::setStart(Point &p)
+{
+	m_start=p;
+}
+
+void Shape::setFiller(Color &c)
+{
+	m_filler=c;
 }
 
 bool Shape::isClosed(void)

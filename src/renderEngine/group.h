@@ -31,7 +31,8 @@ class Group : public Object
 	typedef std::vector<std::unique_ptr<Object>> CHILDLIST;
 	public:
 		Group(void);
-		void accept(Visitor &v);
+		//void accept(Visitor &v);
+		void draw(void)const;
 		void push_back(std::unique_ptr<Object>& target);
 	protected:
 		CHILDLIST m_children;
