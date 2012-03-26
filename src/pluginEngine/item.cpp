@@ -35,6 +35,13 @@ Item::Item(std::string const& cfgFileName)
 {
 }
 
+wxImage Item::loadImage(std::string const & fileName,AppConfig const& config)const
+{
+	if(fileName.empty())
+		return wxNullBitmap;
+	return config.m_graphicalResources+disabledPath;
+}
+
 void Item::readConfig(AppConfig const& config)
 {
 //!\todo check the portability of this method
@@ -54,15 +61,8 @@ void Item::readConfig(AppConfig const& config)
 
 	//!\todo check for errors while opening bitmap files
 
-	if(disabledPath.empty())
-		m_disabled=wxNullBitmap;
-	else
-		m_disabled=wxImage(config.m_graphicalResources+disabledPath);
-
-	if(enabledPath.empty())
-		m_enabled=wxNullBitmap;
-	else
-		m_enabled=wxImage(config.m_graphicalResources+enabledPath);
+	m_disabled=loadImage(disabledPath,config);
+	m_enabled=loadImage(enabledPath,config);
 
 	//retrieve all path entries
 	MenuData entry;

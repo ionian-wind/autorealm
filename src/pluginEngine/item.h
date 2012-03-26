@@ -87,6 +87,15 @@ public:
 	virtual void action(wxEvent&ev)=0;
 
 protected:
+    /** \brief open an image from disk if it exists
+     *
+     * \param fileName std::string const&
+     * \param config AppConfig const&
+     * \return wxImage
+     * \todo move it out from the class scope (it have no use to class data)
+     */
+	wxImage loadImage(std::string const & fileName,AppConfig const& config)const;
+
 	virtual void readConfig(AppConfig const& config, FILE *file)=0;
 
     /** \brief follow the menu tree to find the last sub-menu corresponding with the plug-in path
