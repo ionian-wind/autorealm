@@ -31,9 +31,9 @@ Group::Group(void)
 void Group::accept(Visitor &v)
 {
 	//!\todo find a solution to use std::for_each
+	v.visit(*this);
 	for(CHILDLIST::iterator it=m_children.begin();it!=m_children.end();++it)
 		(*it)->accept(v);
-	v.visit(*this);
 }
 
 void Group::draw(void)const
@@ -45,4 +45,9 @@ void Group::draw(void)const
 void Group::push_back(std::unique_ptr<Object>& target)
 {
 	m_children.push_back(std::move(target));
+}
+
+Group::CHILDLIST& Group::children(void)
+{
+	return m_children;
 }

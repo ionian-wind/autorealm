@@ -28,12 +28,18 @@
 
 void Drawer::visit(Group& v)
 {
+//	for(Group::CHILDLIST::iterator it=v.children().begin();it!=v.children().end();++it)
+//		(*it)->accept(*this);
 }
 
 void Drawer::visit(Shape& v)
 {
-//	v.getFiller().apply();
+	glBegin(GL_LINE_LOOP);
+	v.getFiller().apply();
 	v.getStart().createVertice();
+	for(Shape::CHILDLIST::iterator it=v.children().begin();it!=v.children().end();++it)
+		(*it)->accept(*this);
+	glEnd();
 }
 
 void Drawer::visit(Line& v)

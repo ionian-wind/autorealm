@@ -34,6 +34,8 @@ Shape::Shape(void)
 
 void Shape::accept(Visitor &v)
 {
+	//!\todo find a solution to use std::for_each
+	v.visit(*this);
 }
 
 void Shape::draw(void)const
@@ -74,4 +76,9 @@ bool Shape::isClosed(void)const
 void Shape::push_back(std::unique_ptr<Line>& target)
 {
 	m_children.push_back(std::move(target));
+}
+
+Shape::CHILDLIST& Shape::children(void)
+{
+	return m_children;
 }

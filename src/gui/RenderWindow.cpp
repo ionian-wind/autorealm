@@ -62,12 +62,12 @@ RenderWindow::RenderWindow(wxFrame* parent, int* args)
 	//!\todo remove testing code
 	std::unique_ptr<Shape> s(new Shape());
 
-	Point p(0,0,0);
+	Point p(100,85,0);
 	Color c(0,1,0,1);
 	s->setFiller(c);
 	s->setStart(p);
-	std::unique_ptr<Line> l1(new Line(Point(10,10,10),Color(1,0.5,0,0)));
-	std::unique_ptr<Line> l2(new Line(Point(50,100,10),Color(0,0.5,1,0)));
+	std::unique_ptr<Line> l1(new Line(Point(10,70,0),Color(1,0.5,0,1)));
+	std::unique_ptr<Line> l2(new Line(Point(50,100,0),Color(0,0.5,1,1)));
 	s->push_back(l1);
 	s->push_back(l2);
 	Group::m_children.push_back(std::move(s));
@@ -110,9 +110,8 @@ void RenderWindow::draw()//const
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-//	Drawer d;
-//	this->accept((d));
-	Group::draw();
+	Drawer d;this->accept((d));
+	//Group::draw();
 
     glFlush();
     SwapBuffers();

@@ -33,7 +33,9 @@ class Line;
 
 class Shape : public Object
 {
-	typedef std::vector<std::unique_ptr<Line>> CHILDLIST;
+	public:
+		typedef std::vector<std::unique_ptr<Line>> CHILDLIST;
+
 	public:
 		Shape(void);
 		virtual void accept(Visitor &v);
@@ -44,6 +46,7 @@ class Shape : public Object
 		Color getFiller(void)const;
 		void setStart(Point &c);
 		Point getStart(void)const;
+		Shape::CHILDLIST& children(void);
 	protected:
 		Color m_filler;
 		Point m_start;
