@@ -72,6 +72,10 @@
 		<Unit filename="gui/drawingtests.cpp" />
 		<Unit filename="gui/drawingtests.h" />
 		<Unit filename="gui/singleton.h" />
+		<Unit filename="plugins/core/linemonocolor.cpp" />
+		<Unit filename="plugins/core/linemonocolor.h" />
+		<Unit filename="plugins/core/mover.cpp" />
+		<Unit filename="plugins/core/mover.h" />
 		<Unit filename="unimplemented.h" />
 		<Extensions>
 			<envvars />

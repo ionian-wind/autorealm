@@ -47,10 +47,12 @@
 		</Linker>
 		<Unit filename="pluginEngine/container.cpp" />
 		<Unit filename="pluginEngine/container.h" />
+		<Unit filename="pluginEngine/drawer.h" />
 		<Unit filename="pluginEngine/item.cpp" />
 		<Unit filename="pluginEngine/item.h" />
 		<Unit filename="pluginEngine/menudata.cpp" />
 		<Unit filename="pluginEngine/menudata.h" />
+		<Unit filename="pluginEngine/mutator.h" />
 		<Unit filename="pluginEngine/plugin.cpp" />
 		<Unit filename="pluginEngine/plugin.h" />
 		<Unit filename="pluginEngine/toolbardata.cpp" />

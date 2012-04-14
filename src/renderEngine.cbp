@@ -45,20 +45,15 @@
 			<Add option="-fexceptions" />
 			<Add option='-include &quot;unimplemented.h&quot;' />
 			<Add option="-fPIC" />
-			<Add directory="../" />
+			<Add directory="../src" />
 		</Compiler>
 		<Linker>
 			<Add library="GL" />
 		</Linker>
 		<Unit filename="renderEngine/color.cpp" />
 		<Unit filename="renderEngine/color.h" />
-		<Unit filename="renderEngine/drawer.h" />
 		<Unit filename="renderEngine/group.cpp" />
 		<Unit filename="renderEngine/group.h" />
-		<Unit filename="renderEngine/linemonocolor.cpp" />
-		<Unit filename="renderEngine/linemonocolor.h" />
-		<Unit filename="renderEngine/mover.cpp" />
-		<Unit filename="renderEngine/mover.h" />
 		<Unit filename="renderEngine/object.h" />
 		<Unit filename="renderEngine/point.cpp" />
 		<Unit filename="renderEngine/point.h" />
@@ -66,7 +61,6 @@
 		<Unit filename="renderEngine/shape.h" />
 		<Unit filename="renderEngine/vertex.cpp" />
 		<Unit filename="renderEngine/vertex.h" />
-		<Unit filename="renderEngine/visitor.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
