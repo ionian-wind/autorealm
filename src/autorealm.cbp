@@ -51,7 +51,6 @@
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="`wx-config --cppflags`" />
-			<Add option='-include &quot;unimplemented.h&quot;' />
 			<Add directory="$(#wx29.include)" />
 			<Add directory="../src" />
 			<Add directory="/usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-2.9" />
@@ -106,9 +105,6 @@
 		</Unit>
 		<Unit filename="plugins/core/mover.h">
 			<Option virtualFolder="plugins/" />
-		</Unit>
-		<Unit filename="unimplemented.h">
-			<Option virtualFolder="headers/" />
 		</Unit>
 		<Extensions>
 			<envvars />

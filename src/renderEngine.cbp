@@ -44,7 +44,6 @@
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add option='-include &quot;unimplemented.h&quot;' />
 			<Add option="-fPIC" />
 			<Add directory="../src" />
 		</Compiler>
