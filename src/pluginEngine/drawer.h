@@ -3,9 +3,11 @@
 
 #include <memory>
 
+#include "plugin.h"
+
 class Vertex;
 
-class Drawer
+class Drawer : public Plugin
 {
 	public:
 		virtual ~Drawer(){};

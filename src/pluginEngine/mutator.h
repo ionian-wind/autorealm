@@ -21,10 +21,12 @@
 #ifndef VISITOR_H
 #define VISITOR_H
 
+#include "plugin.h"
+
 class Group;
 class Shape;
 
-class Mutator
+class Mutator: public Plugin
 {
 	public:
 		virtual void visit(Group& v)=0;
