@@ -21,9 +21,10 @@
 #ifndef DRAWINGTESTS_H
 #define DRAWINGTESTS_H
 
+#include <memory>
 #include <renderEngine/group.h>
+#include "../plugins/core/mover.h"
 
-#include <mover.h>
 class Shape;
 
 class DrawingTests

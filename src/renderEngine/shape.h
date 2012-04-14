@@ -27,8 +27,8 @@
 #include "object.h"
 #include "color.h"
 
-class Point;
 class Vertex;
+class Point;
 
 class Shape : public Object
 {

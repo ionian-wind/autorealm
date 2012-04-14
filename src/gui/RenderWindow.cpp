@@ -24,14 +24,10 @@
 #include <GL/glu.h>
 #include <wx/dcclient.h>
 
-#include "../renderEngine/drawer.h"
 //!\todo remove test includes
 #include "drawingtests.h"
 #include <renderEngine/shape.h>
-#include <renderEngine/point.h>
-#include <renderEngine/color.h>
 #include <renderEngine/vertex.h>
-#include <renderEngine/linemonocolor.h>
 
 void RenderWindow::setName(std::string const &str)
 {

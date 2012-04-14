@@ -19,11 +19,12 @@
  **********************************************************************************/
 
 #include "drawingtests.h"
+
 #include <renderEngine/shape.h>
 #include <renderEngine/point.h>
 #include <renderEngine/color.h>
 #include <renderEngine/vertex.h>
-#include <renderEngine/linemonocolor.h>
+#include "../plugins/core/linemonocolor.h"
 
 DrawingTests::DrawingTests()
 {

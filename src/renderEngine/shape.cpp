@@ -21,7 +21,6 @@
 #include "shape.h"
 
 #include <algorithm>
-
 #include <GL/gl.h>
 
 #include "vertex.h"
