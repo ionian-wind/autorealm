@@ -5,6 +5,7 @@
 		<Option title="autorealm" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="plugins/;source/;headers/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="../bin/debug/autorealm" prefix_auto="1" extension_auto="1" />
@@ -61,22 +62,54 @@
 			<Add library="GL" />
 			<Add library="GLU" />
 		</Linker>
-		<Unit filename="gui/App.cpp" />
-		<Unit filename="gui/App.h" />
-		<Unit filename="gui/MainFrame.cpp" />
-		<Unit filename="gui/MainFrame.h" />
-		<Unit filename="gui/RenderWindow.cpp" />
-		<Unit filename="gui/RenderWindow.h" />
-		<Unit filename="gui/appconfig.cpp" />
-		<Unit filename="gui/appconfig.h" />
-		<Unit filename="gui/drawingtests.cpp" />
-		<Unit filename="gui/drawingtests.h" />
-		<Unit filename="gui/singleton.h" />
-		<Unit filename="plugins/core/linemonocolor.cpp" />
-		<Unit filename="plugins/core/linemonocolor.h" />
-		<Unit filename="plugins/core/mover.cpp" />
-		<Unit filename="plugins/core/mover.h" />
-		<Unit filename="unimplemented.h" />
+		<Unit filename="gui/App.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/App.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="gui/MainFrame.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/MainFrame.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="gui/RenderWindow.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/RenderWindow.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="gui/appconfig.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/appconfig.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="gui/drawingtests.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/drawingtests.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="gui/singleton.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="plugins/core/linemonocolor.cpp">
+			<Option virtualFolder="plugins/" />
+		</Unit>
+		<Unit filename="plugins/core/linemonocolor.h">
+			<Option virtualFolder="plugins/" />
+		</Unit>
+		<Unit filename="plugins/core/mover.cpp">
+			<Option virtualFolder="plugins/" />
+		</Unit>
+		<Unit filename="plugins/core/mover.h">
+			<Option virtualFolder="plugins/" />
+		</Unit>
+		<Unit filename="unimplemented.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
 		<Extensions>
 			<envvars />
 			<code_completion />

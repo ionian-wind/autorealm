@@ -5,6 +5,7 @@
 		<Option title="renderEngine" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="sources/;headers/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="../bin/debug/renderEngine-d" prefix_auto="1" extension_auto="1" />
@@ -50,17 +51,39 @@
 		<Linker>
 			<Add library="GL" />
 		</Linker>
-		<Unit filename="renderEngine/color.cpp" />
-		<Unit filename="renderEngine/color.h" />
-		<Unit filename="renderEngine/group.cpp" />
-		<Unit filename="renderEngine/group.h" />
-		<Unit filename="renderEngine/object.h" />
-		<Unit filename="renderEngine/point.cpp" />
-		<Unit filename="renderEngine/point.h" />
-		<Unit filename="renderEngine/shape.cpp" />
-		<Unit filename="renderEngine/shape.h" />
-		<Unit filename="renderEngine/vertex.cpp" />
-		<Unit filename="renderEngine/vertex.h" />
+		<Unit filename="renderEngine/color.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="renderEngine/color.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="renderEngine/group.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="renderEngine/group.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="renderEngine/object.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="renderEngine/point.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="renderEngine/point.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="renderEngine/shape.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="renderEngine/shape.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="renderEngine/vertex.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="renderEngine/vertex.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />

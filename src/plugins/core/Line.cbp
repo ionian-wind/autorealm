@@ -6,6 +6,7 @@
 		<Option pch_mode="2" />
 		<Option default_target="Release" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="sources/;headers/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="../../../bin/debug/plugin/Line-d" prefix_auto="1" extension_auto="1" />
@@ -57,9 +58,15 @@
 			<Add directory="../../" />
 			<Add directory="/usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-2.9" />
 		</Compiler>
-		<Unit filename="Line/Connector.cpp" />
-		<Unit filename="Line/linetool.cpp" />
-		<Unit filename="Line/linetool.h" />
+		<Unit filename="Line/Connector.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="Line/linetool.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="Line/linetool.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
 		<Extensions>
 			<envvars />
 			<code_completion />
