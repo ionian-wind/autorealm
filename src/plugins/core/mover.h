@@ -1,13 +1,12 @@
 #ifndef MOVER_H
 #define MOVER_H
 
-#include "visitor.h"
-
-#include "point.h"
+#include <pluginEngine/mutator.h>
+#include <renderEngine/point.h>
 
 class Vertex;
 
-class Mover : public Visitor
+class Mover : public Mutator
 {
 	public:
 		void visit(Group& v);

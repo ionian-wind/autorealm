@@ -30,7 +30,7 @@ class Group : public Object
 {
 	public:
 		Group(void);
-		virtual void accept(Visitor &v);
+		virtual void accept(Mutator &v);
 		void draw(void)const;
 		void push_back(std::unique_ptr<Object> target);
 	protected:

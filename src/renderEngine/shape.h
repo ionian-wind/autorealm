@@ -33,7 +33,7 @@ class Vertex;
 class Shape : public Object
 {
 	public:
-		void accept(Visitor &v);
+		void accept(Mutator &v);
 		void draw(void)const;
 
 		bool isClosed(void)const throw();

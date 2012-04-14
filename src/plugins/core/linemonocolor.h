@@ -1,8 +1,7 @@
 #ifndef VertexMONOCOLOR_H
 #define VertexMONOCOLOR_H
 
-#include "drawer.h"
-
+#include <pluginEngine/drawer.h>
 
 class LineMonoColor : public Drawer
 {

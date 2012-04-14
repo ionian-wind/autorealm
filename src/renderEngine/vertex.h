@@ -23,9 +23,10 @@
 
 #include <memory>
 
+#include <pluginEngine/drawer.h>
+
 #include "point.h"
 #include "color.h"
-#include "drawer.h"
 
 class Vertex
 {

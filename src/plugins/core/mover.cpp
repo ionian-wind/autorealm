@@ -2,19 +2,16 @@
 
 #include <algorithm>
 
-#include "group.h"
-#include "shape.h"
-#include "vertex.h"
+#include <renderEngine/group.h>
+#include <renderEngine/shape.h>
+#include <renderEngine/vertex.h>
 
 void Mover::visit(Group& v)
 {
-
 }
 
 void Mover::visit(Shape& v)
 {
-//	for(auto it=;it!=;++it)
-//		it->setEnd(it->getEnd()+m_distance);
 	std::transform(
 					v.getFirstChild(),
 					v.getLastChild(),

@@ -24,12 +24,12 @@
 class Group;
 class Shape;
 
-class Visitor
+class Mutator
 {
 	public:
 		virtual void visit(Group& v)=0;
 		virtual void visit(Shape& v)=0;
-		virtual ~Visitor(void){};
+		virtual ~Mutator(void){};
 	protected:
 	private:
 };

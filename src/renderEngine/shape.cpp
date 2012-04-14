@@ -25,10 +25,8 @@
 #include <GL/gl.h>
 
 #include "vertex.h"
-#include "visitor.h"
-#include "drawer.h"
 
-void Shape::accept(Visitor &v)
+void Shape::accept(Mutator &v)
 {
 	//!\todo find a solution to use std::for_each
 	v.visit(*this);

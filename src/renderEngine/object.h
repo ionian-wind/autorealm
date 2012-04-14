@@ -21,12 +21,13 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-class Visitor;
+#include <pluginEngine/mutator.h>
+#include <pluginEngine/drawer.h>
 
 class Object
 {
 	public:
-		virtual void accept(Visitor &v)=0;
+		virtual void accept(Mutator &v)=0;
 		virtual void draw(void)const=0;
 		virtual ~Object(void){};
 	protected:

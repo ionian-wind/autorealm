@@ -1,6 +1,6 @@
 #include "linemonocolor.h"
 
-#include "vertex.h"
+#include <renderEngine/vertex.h>
 
 LineMonoColor::LineMonoColor()
 {
