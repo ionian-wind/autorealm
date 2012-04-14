@@ -9,8 +9,8 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="../../../bin/debug/plugin/Line-d" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../../../../bin/debug/plugin" />
-				<Option object_output="../../../../obj/debug/plugin" />
+				<Option working_dir="../../../bin/debug/plugin" />
+				<Option object_output="../../../obj/debug/plugin" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -48,12 +48,14 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="`wx-config --cxxflags`" />
 			<Add option="-fPIC" />
 			<Add directory="$(#wx29.include)" />
-			<Add directory="$(#wx29.setup)" />
+			<Add directory="../../" />
+			<Add directory="/usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-2.9" />
 		</Compiler>
 		<Unit filename="Line/Connector.cpp" />
 		<Unit filename="Line/linetool.cpp" />

@@ -28,8 +28,12 @@ class Point
 		Point();
 		Point(double x, double y, double z);
 		void createVertice(void)const;
+		bool operator==(Point const&p)const;
+		Point& operator+=(Point const&p1);
 	protected:
 	private:
 };
+
+Point operator+(Point const&p1, Point const&p2);
 
 #endif // POINT_H

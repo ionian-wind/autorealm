@@ -1,13 +1,13 @@
 #ifndef POLYLINETOOL_H
 #define POLYLINETOOL_H
 
-#include "../../pluginEngine/item.h"
+#include <pluginEngine/item.h>
 
 class PolyLineTool : public Item
 {
 	public:
-		PolyLineTool(void);
-		virtual void readConfig(AppConfig const& config, FILE *file);
+		PolyLineTool (void);
+		virtual void readConfig(FILE *file);
 		virtual void action(wxEvent&ev);
 	protected:
 	private:

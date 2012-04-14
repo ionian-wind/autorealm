@@ -3,7 +3,9 @@
 
 #include <string>
 
-class AppConfig
+#include "singleton.h"
+
+class AppConfig:public Singleton<AppConfig>
 {
 	public:
         /** \brief

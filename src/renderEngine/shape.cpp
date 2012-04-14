@@ -24,13 +24,9 @@
 
 #include <GL/gl.h>
 
-#include "line.h"
+#include "vertex.h"
 #include "visitor.h"
-
-Shape::Shape(void)
-:Object(),m_filler(),m_start(),m_children()
-{
-}
+#include "drawer.h"
 
 void Shape::accept(Visitor &v)
 {
@@ -40,17 +36,35 @@ void Shape::accept(Visitor &v)
 
 void Shape::draw(void)const
 {
-	glBegin(GL_LINE_LOOP);
-	m_start.createVertice();
-	for(CHILDLIST::const_iterator it = m_children.begin();it!=m_children.end();++it)
-		(*it)->draw();
-	//!\todo find a solution to use std::for_each
+	glBegin(GL_LINE_STRIP);
+	for(auto &i:m_children)
+		i.render();
 	glEnd();
+	if(isClosed())
+	{
+		glBegin(GL_POLYGON);
+		m_filler.apply();
+		for(auto &i:m_children)
+			i.render(&m_filler);
+		glEnd();
+	}
 }
 
-Point Shape::getStart(void)const
+bool Shape::isClosed(void)const throw()
 {
-	return m_start;
+	if(m_children.empty())
+		return false;
+	return m_children.front()==m_children.back();
+}
+
+void Shape::push_back(Vertex const&target)
+{
+	m_children.push_back(target);
+}
+
+void Shape::setFiller(Color const&c)
+{
+	m_filler=c;
 }
 
 Color Shape::getFiller(void)const
@@ -58,27 +72,12 @@ Color Shape::getFiller(void)const
 	return m_filler;
 }
 
-void Shape::setStart(Point &p)
+std::vector<Vertex>::iterator Shape::getFirstChild(void)
 {
-	m_start=p;
+	return m_children.begin();
 }
 
-void Shape::setFiller(Color &c)
+std::vector<Vertex>::iterator Shape::getLastChild(void)
 {
-	m_filler=c;
-}
-
-bool Shape::isClosed(void)const
-{
-	return m_children.front()==m_children.back();
-}
-
-void Shape::push_back(std::unique_ptr<Line>& target)
-{
-	m_children.push_back(std::move(target));
-}
-
-Shape::CHILDLIST& Shape::children(void)
-{
-	return m_children;
+	return m_children.end();
 }

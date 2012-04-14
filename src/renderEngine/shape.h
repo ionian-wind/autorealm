@@ -21,37 +21,35 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-#include "object.h"
-
 #include <vector>
 #include <memory>
 
-#include "point.h"
+#include "object.h"
 #include "color.h"
 
-class Line;
+class Point;
+class Vertex;
 
 class Shape : public Object
 {
 	public:
-		typedef std::vector<std::unique_ptr<Line>> CHILDLIST;
+		void accept(Visitor &v);
+		void draw(void)const;
 
-	public:
-		Shape(void);
-		virtual void accept(Visitor &v);
-		virtual void draw(void)const;
-		bool isClosed(void)const;
-		void push_back(std::unique_ptr<Line>& target);
-		void setFiller(Color &c);
+		bool isClosed(void)const throw();
+		void push_back(Vertex const&target);
+
+		void setFiller(Color const&c);
 		Color getFiller(void)const;
-		void setStart(Point &c);
-		Point getStart(void)const;
-		Shape::CHILDLIST& children(void);
+
+		std::vector<Vertex>::iterator getFirstChild(void);
+		std::vector<Vertex>::iterator getLastChild(void);
+	protected:
+	private:
 	protected:
 		Color m_filler;
-		Point m_start;
 	private:
-		CHILDLIST m_children;
+		std::vector<Vertex> m_children;
 };
 
 #endif // SHAPE_H

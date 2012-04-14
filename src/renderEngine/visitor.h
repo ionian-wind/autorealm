@@ -21,18 +21,15 @@
 #ifndef VISITOR_H
 #define VISITOR_H
 
-class Visited;
 class Group;
 class Shape;
-class Line;
 
 class Visitor
 {
 	public:
 		virtual void visit(Group& v)=0;
 		virtual void visit(Shape& v)=0;
-		virtual void visit(Line& v)=0;
-		virtual ~Visitor(void);
+		virtual ~Visitor(void){};
 	protected:
 	private:
 };

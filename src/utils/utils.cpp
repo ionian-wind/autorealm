@@ -1,5 +1,10 @@
 #include "utils.h"
 
+#include <wx/image.h>
+
+#include "../pluginEngine/container.h"
+#include "../gui/MainFrame.h"
+
 /** \brief retrieve a line from a text file
  * \todo use locales?
  * \todo use wide characters? (aka unicode)
@@ -32,4 +37,11 @@ bool eofReached(FILE *source)
 	result=current_pos==ftell(source);
 	fseek(source,current_pos,SEEK_SET);
 	return result;
+}
+
+wxBitmap loadImage(std::string const & fileName)
+{
+	if(fileName.empty())
+		return wxNullBitmap;
+	return wxBitmap(wxImage(AppConfig::GetInstance().m_graphicalResources+fileName));
 }

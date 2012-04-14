@@ -23,8 +23,14 @@
 
 #include <wx/aui/aui.h>
 
+class ToolbarData;
+class wxFrame;
+
 class Container : public std::pair<wxAuiToolBar* ,wxAuiPaneInfo>
 {
+public:
+	void createToolbar(std::string const & name, wxFrame* parent);
+	void createItem(ToolbarData &toolbar, long id);
 };
 
 #endif

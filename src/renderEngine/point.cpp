@@ -33,7 +33,27 @@ Point::Point(double x, double y, double z)
 {
 }
 
+Point& Point::operator+=(Point const&p)
+{
+	m_x+=p.m_x;
+	m_y+=p.m_y;
+	m_z+=p.m_z;
+	return *this;
+}
+
+bool Point::operator==(Point const&p)const
+{
+	return m_x==p.m_x && m_y==p.m_y && m_z==p.m_z;
+}
+
 void Point::createVertice(void)const
 {
 	glVertex3d(m_x,m_y,m_z);
+}
+
+Point operator+(Point const& p1, Point const& p2)
+{
+	Point p(p1);
+	p+=p2;
+	return p;
 }

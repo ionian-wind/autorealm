@@ -19,9 +19,10 @@
  **********************************************************************************/
 
 #include "group.h"
-#include "visitor.h"
 
 #include <algorithm>
+
+#include "visitor.h"
 
 Group::Group(void)
 :m_children()
@@ -32,22 +33,17 @@ void Group::accept(Visitor &v)
 {
 	//!\todo find a solution to use std::for_each
 	v.visit(*this);
-	for(CHILDLIST::iterator it=m_children.begin();it!=m_children.end();++it)
-		(*it)->accept(v);
+	for(auto &i:m_children)
+		i->accept(v);
 }
 
-void Group::draw(void)const
-{
-	for(CHILDLIST::const_iterator it = m_children.begin();it!=m_children.end();++it)
-		(*it)->draw();
-}
-
-void Group::push_back(std::unique_ptr<Object>& target)
+void Group::push_back(std::unique_ptr<Object> target)
 {
 	m_children.push_back(std::move(target));
 }
 
-Group::CHILDLIST& Group::children(void)
+void Group::draw(void)const
 {
-	return m_children;
+	for(auto &i:m_children)
+		i->draw();
 }

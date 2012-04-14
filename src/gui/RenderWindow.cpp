@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -26,8 +26,12 @@
 
 #include "../renderEngine/drawer.h"
 //!\todo remove test includes
-#include "../renderEngine/shape.h"
-#include "../renderEngine/line.h"
+#include "drawingtests.h"
+#include <renderEngine/shape.h>
+#include <renderEngine/point.h>
+#include <renderEngine/color.h>
+#include <renderEngine/vertex.h>
+#include <renderEngine/linemonocolor.h>
 
 void RenderWindow::setName(std::string const &str)
 {
@@ -60,17 +64,9 @@ RenderWindow::RenderWindow(wxFrame* parent, int* args)
 
 
 	//!\todo remove testing code
-	std::unique_ptr<Shape> s(new Shape());
-
-	Point p(100,85,0);
-	Color c(0,1,0,1);
-	s->setFiller(c);
-	s->setStart(p);
-	std::unique_ptr<Line> l1(new Line(Point(10,70,0),Color(1,0.5,0,1)));
-	std::unique_ptr<Line> l2(new Line(Point(50,100,0),Color(0,0.5,1,1)));
-	s->push_back(l1);
-	s->push_back(l2);
-	Group::m_children.push_back(std::move(s));
+	Group::m_children.push_back(std::move(DrawingTests::create()));
+	Mover m(DrawingTests::move());
+	accept(m);
 }
 
 void RenderWindow::onDraw(wxEvent&ev)
@@ -95,7 +91,6 @@ void RenderWindow::draw()//const
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
     glEnable(GL_TEXTURE_2D);   // textures
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_BLEND);
@@ -110,7 +105,8 @@ void RenderWindow::draw()//const
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-	Drawer d;this->accept((d));
+//	Drawer d;this->accept((d));
+	Group::draw();
 	//Group::draw();
 
     glFlush();

@@ -7,7 +7,7 @@ LineTool::LineTool(void)
 {
 }
 
-void LineTool::readConfig(AppConfig const& config, FILE *file)
+void LineTool::readConfig(FILE *file)
 {
 	m_callback=static_cast<ITEM_CALLBACK>(&LineTool::action);
 }
@@ -15,6 +15,6 @@ void LineTool::readConfig(AppConfig const& config, FILE *file)
 #include <wx/msgdlg.h>
 void LineTool::action(wxEvent& event)
 {
-	wxMessageBox("hello Line","hello caption");
+	wxMessageBox("hello Vertex","hello caption");
 }
 

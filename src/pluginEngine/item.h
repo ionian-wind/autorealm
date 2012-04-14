@@ -27,11 +27,12 @@
 #include <Pluma/Pluma.hpp>
 
 #include "menudata.h"
+#include "toolbardata.h"
 #include "../utils/utils.h"
 
 class Container;
 class AppConfig;
-class MainFrame;
+class wxFrame;
 
 class Item;
 typedef void(Item::*ITEM_CALLBACK)(wxEvent&);
@@ -49,54 +50,39 @@ public:
      *	assign an id to m_id and initialize m_callback to make it easy to detect lack of initialization
      */
 	Item(std::string const &);
+	virtual ~Item(void);
 
-    /** \brief create controls to use a plug-in and bind it's action
-     * The plug-in add it's controls to it's parent's lists.
-     * The location of several things will be given by the AppConfig object
-     *
-     * \param parent wxFrame* container which will own the plug-in controls
-     * \param containers std::map<std::string,Container>& list of parent's plug-in
-     * \param appConfig AppConfig const& configuration of the application
-     * \return void
-     *
-     */
-	void registerIn(MainFrame *parent,std::map<std::string,Container>&,AppConfig const& appConfig);
+//    /** \brief create controls to use a plug-in and bind it's action
+//     * The plug-in add it's controls to it's parent's lists.
+//     * The location of several things will be given by the AppConfig object
+//     *
+//     * \param parent wxFrame* container which will own the plug-in controls
+//     * \param containers std::map<std::string,Container>& list of parent's plug-in
+//     * \param appConfig AppConfig const& configuration of the application
+//     * \return void
+//     *
+//     */
+//	void registerIn(wxFrame *parent,std::map<std::string,Container>&);
 
     /** \brief read the plug-in's configuration
 	 *	\note the plug-in should read it's specific data before asking to Item to read common data
 	//!\todo send the callback initialization in a pure virtual method, implemented by the plug-in
      *	\param graphicalResources std::string const& path where data will be searched
      */
-	void readConfig(AppConfig const& config);
+	void readConfig(void);
 
     /** \brief create the plug-in's menu item entry
      *	The menu path will be created if it does not exist
      *	\throw std::runtime_error if the path is empty (probably a configuration's problem)
      *	\throw std::runtime_error if the just created menu is not found (should never happen, but I prefer to check the most thing possible from wxWidgets)
      */
-	void createMenu(void);
-
-    /** \brief create the plug-in's toolbar item and bind it to the corresponding toolbar
-	 *	\note the toolbar is created if it does not exists
-     *
-     * \param containers std::map<std::string, Container>& list of existing toolbars
-     */
-	void createToolbarItem(std::map<std::string,Container>&containers);
-
+	wxMenu* createMenu(wxFrame *parent)const;
 
 	virtual void action(wxEvent&ev)=0;
 
 protected:
-    /** \brief open an image from disk if it exists
-     *
-     * \param fileName std::string const&
-     * \param config AppConfig const&
-     * \return wxImage
-     * \todo move it out from the class scope (it have no use to class data)
-     */
-	wxImage loadImage(std::string const & fileName,AppConfig const& config)const;
 
-	virtual void readConfig(AppConfig const& config, FILE *file)=0;
+	virtual void readConfig(FILE *file)=0;
 
     /** \brief follow the menu tree to find the last sub-menu corresponding with the plug-in path
      * \note this method is recursive
@@ -105,7 +91,7 @@ protected:
      * \return wxMenu* found item
      * \warning if a name is present at different levels (foo/bar/foobar/foofoobar and foo/foobar by example) the found menu will be the first
      */
-	wxMenu* findLastMenu(wxMenu *parent,std::vector<MenuData>::iterator &it);
+	wxMenu* findLastMenu(wxMenu *parent,std::vector<MenuData>::const_iterator &it)const;
 
     /** \brief create the absent tree where to insert the menu item which will represent the plug-in
      * \note this method is recursive
@@ -113,32 +99,16 @@ protected:
      * \param it std::vector<MenuData>::iterator& iterator to the plug-in's created entry
      * \return wxMenu* made item
      */
-	wxMenu* createMenuPath(wxMenu *parent,std::vector<MenuData>::iterator &it);
-
+	wxMenu* createMenuPath(wxMenu *parent,std::vector<MenuData>::const_iterator &it)const;
 private:
-    /** \brief encapsulate the wxWidgets wxMenu* wxMenu::GetMenu(int) and add some error checking
-     * \throw std::runtime_error if the menu found is null
-     * \param id int id of the menu to retrieve
-     * \return wxMenu* address of the retrieved menu
-     */
-	wxMenu *GetMenu(int id);
 
 public:
-protected:
+//protected:
 	const std::string m_configFileName; //!< name of the configuration file
-	MainFrame * m_parent;
-///common parameters
-	MenuData m_entry;
 	long m_id;
-
-///menu parameters
-	std::vector<MenuData> m_path;
-
-///toolbar parameters
-	std::string m_longDoc;
-	wxObject *m_unused;
 	ITEM_CALLBACK m_callback;
-	wxBitmap m_disabled,m_enabled;
+	std::vector<MenuData> m_path;
+	ToolbarData m_toolbarItem;
 private:
 };
 

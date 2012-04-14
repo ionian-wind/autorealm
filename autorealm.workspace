@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
-		<Project filename="../../devel/autorealm/autorealm/src/autorealm.cbp" active="1">
-			<Depends filename="../../devel/autorealm/autorealm/src/renderEngine.cbp" />
-			<Depends filename="../../devel/autorealm/autorealm/src/pluginEngine.cbp" />
-			<Depends filename="../../devel/autorealm/autorealm/src/plugins/core/PolyLine.cbp" />
-			<Depends filename="../../devel/autorealm/autorealm/src/plugins/core/Line.cbp" />
+		<Project filename="src/autorealm.cbp" active="1">
+			<Depends filename="src/pluginEngine.cbp" />
+			<Depends filename="src/renderEngine.cbp" />
+			<Depends filename="src/plugins/core/PolyLine.cbp" />
+			<Depends filename="src/plugins/core/Line.cbp" />
 		</Project>
-		<Project filename="../../devel/autorealm/autorealm/src/pluginEngine.cbp" />
-		<Project filename="../../devel/autorealm/autorealm/src/renderEngine.cbp" />
-		<Project filename="../../devel/autorealm/autorealm/src/plugins/core/PolyLine.cbp">
-			<Depends filename="../../devel/autorealm/autorealm/src/pluginEngine.cbp" />
+		<Project filename="src/pluginEngine.cbp" />
+		<Project filename="src/renderEngine.cbp" />
+		<Project filename="src/plugins/core/PolyLine.cbp">
+			<Depends filename="src/pluginEngine.cbp" />
 		</Project>
-		<Project filename="../../devel/autorealm/autorealm/src/plugins/core/Line.cbp" />
+		<Project filename="src/plugins/core/Line.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

@@ -29,16 +29,12 @@
 class Group : public Object
 {
 	public:
-		typedef std::vector<std::unique_ptr<Object>> CHILDLIST;
-
-	public:
 		Group(void);
 		virtual void accept(Visitor &v);
 		void draw(void)const;
-		void push_back(std::unique_ptr<Object>& target);
-		Group::CHILDLIST& children(void);
+		void push_back(std::unique_ptr<Object> target);
 	protected:
-		CHILDLIST m_children;
+		std::vector<std::unique_ptr<Object>> m_children;
 	private:
 };
 

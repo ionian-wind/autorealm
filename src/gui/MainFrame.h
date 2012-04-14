@@ -25,11 +25,12 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <memory>
 
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 
-#include "pluginEngine/item.h"
+#include "../pluginEngine/item.h"
 #include "appconfig.h"
 
 class RenderWindow;
@@ -41,7 +42,6 @@ class MainFrame : public wxFrame
 public:
 
 public:
-	const AppConfig m_appConfig;
 protected:
 private:
     std::vector<RenderWindow*> m_plans;
@@ -54,8 +54,8 @@ private:
     static const long ID_MENUQUIT;
 
 	std::vector<ItemProvider * > m_actionProviders;
-	std::vector<Item* > m_items;
-    std::vector<Item* >::iterator m_selected;
+	std::vector<std::unique_ptr<Item>> m_items;
+    std::vector<std::unique_ptr<Item>>::iterator m_selected;
 	pluma::Pluma m_actionPlugIn;
 	std::map<std::string,Container > m_containers;
 
@@ -78,6 +78,7 @@ public:
     ~MainFrame(void);
 
 protected:
+	void registerItem(std::unique_ptr<Item> &item);
 private:
     /** \brief Exit the application
      * \param event wxCommandEvent&

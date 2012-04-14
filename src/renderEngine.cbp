@@ -12,6 +12,8 @@
 				<Option object_output="../obj/debug" />
 				<Option type="3" />
 				<Option compiler="gcc" />
+				<Option host_application="../../bin/debug/autorealm" />
+				<Option run_host_application_in_terminal="0" />
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-Weffc++" />
@@ -38,31 +40,32 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option='-include &quot;unimplemented.h&quot;' />
 			<Add option="-fPIC" />
+			<Add directory="../" />
 		</Compiler>
 		<Linker>
 			<Add library="GL" />
 		</Linker>
 		<Unit filename="renderEngine/color.cpp" />
 		<Unit filename="renderEngine/color.h" />
-		<Unit filename="renderEngine/drawer.cpp" />
 		<Unit filename="renderEngine/drawer.h" />
 		<Unit filename="renderEngine/group.cpp" />
 		<Unit filename="renderEngine/group.h" />
-		<Unit filename="renderEngine/line.cpp" />
-		<Unit filename="renderEngine/line.h" />
-		<Unit filename="renderEngine/object.cpp" />
+		<Unit filename="renderEngine/linemonocolor.cpp" />
+		<Unit filename="renderEngine/linemonocolor.h" />
+		<Unit filename="renderEngine/mover.cpp" />
+		<Unit filename="renderEngine/mover.h" />
 		<Unit filename="renderEngine/object.h" />
 		<Unit filename="renderEngine/point.cpp" />
 		<Unit filename="renderEngine/point.h" />
 		<Unit filename="renderEngine/shape.cpp" />
 		<Unit filename="renderEngine/shape.h" />
-		<Unit filename="renderEngine/visited.cpp" />
-		<Unit filename="renderEngine/visited.h" />
-		<Unit filename="renderEngine/visitor.cpp" />
+		<Unit filename="renderEngine/vertex.cpp" />
+		<Unit filename="renderEngine/vertex.h" />
 		<Unit filename="renderEngine/visitor.h" />
 		<Extensions>
 			<code_completion />

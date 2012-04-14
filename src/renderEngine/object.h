@@ -21,12 +21,14 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include "visited.h"
+class Visitor;
 
-class Object : public Visited
+class Object
 {
 	public:
+		virtual void accept(Visitor &v)=0;
 		virtual void draw(void)const=0;
+		virtual ~Object(void){};
 	protected:
 	private:
 };
