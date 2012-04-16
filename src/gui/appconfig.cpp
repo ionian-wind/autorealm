@@ -27,20 +27,17 @@ AppConfig::AppConfig()
 	// guess the directory where configuration is stored
 	//!\todo use freedesktop.org recommmandations for linux, and fallback on system variables if they are not supported on client computer
 	std::unique_ptr<TextFile> rootConfigFile;
-	if(boost::filesystem::exists("/home/berenger/.autorealm"))
-		m_rootconfig=boost::filesystem::path("/home/berenger/.autorealm/");
-	else if(boost::filesystem::exists("/home/berenger/.config/autorealm"))
-		m_rootconfig=boost::filesystem::path("/home/berenger/.config/autorealm/");
+	std::string homepath("/home/berenger/");
+	if(boost::filesystem::exists(homepath+"/.autorealm"))
+		m_rootconfig=boost::filesystem::path(homepath+".autorealm/");
+	else if(boost::filesystem::exists(homepath+".config/autorealm"))
+		m_rootconfig=boost::filesystem::path(homepath+".config/autorealm/");
 
 	// read global configuration
 	rootConfigFile=TextFile::OpenFile(boost::filesystem::path(m_rootconfig.string()+"config"));
 
-	m_graphicalResources=rootConfigFile->readLine();
-	m_pluginsConfig=rootConfigFile->readLine();
-	if(!(boost::filesystem::exists(m_rootconfig.string()+m_graphicalResources) && boost::filesystem::exists(m_rootconfig.string()+m_pluginsConfig)))
-//		|| !boost::filesystem::exists(m_splashImage)
-//		|| !boost::filesystem::exists(m_pluginsConfig))
-		throw std::runtime_error("Configuration file invalid");
+	AppConfig::GetInstance().readLine(rootConfigFile);
+	AppConfig::GetInstance().readLine(rootConfigFile);
 }
 
 std::string AppConfig::buildPath(INFO info)
@@ -49,10 +46,17 @@ std::string AppConfig::buildPath(INFO info)
 	switch(info)
 	{
 	case GRP_RES:
-		return result+GetInstance().m_graphicalResources;
+		return result+GetInstance().m_datas[GRP_RES];
 	case PLUGINS:
-		return result+GetInstance().m_pluginsConfig;
+		return result+GetInstance().m_datas[PLUGINS];
 	default:
 		return "";
 	}
+}
+
+void AppConfig::readLine(std::unique_ptr<TextFile> &file)
+{
+	m_datas.push_back(file->readLine());
+	if(!boost::filesystem::exists(m_rootconfig.string()+m_datas.back()))
+		throw std::runtime_error("Entry "+m_datas.back()+"specified in configuration file does not exists.");
 }

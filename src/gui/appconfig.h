@@ -26,20 +26,23 @@
 #include <boost/filesystem.hpp>
 
 #include "singleton.h"
+#include <utils/textfile.h>
 
 class AppConfig:public Singleton<AppConfig>
 {
 public:
-	enum INFO{GRP_RES, PLUGINS};
+	enum INFO{GRP_RES=0, PLUGINS=1};
 	/** \brief
 	 * \todo retrieve data from a configuration file
 	 */
 	AppConfig();
 	static std::string buildPath(INFO info);
 protected:
+	void readLine(std::unique_ptr<TextFile> &file);
 private:
-	std::string m_graphicalResources;
-	std::string m_pluginsConfig;
+	std::vector<std::string> m_datas;
+//	std::string m_graphicalResources;
+//	std::string m_pluginsConfig;
 
 	boost::filesystem::path m_rootconfig; //directory which contain configuration files and dir
 };
