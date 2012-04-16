@@ -63,5 +63,5 @@ wxBitmap loadImage(std::string const & fileName)
 {
 	if(fileName.empty())
 		return wxNullBitmap;
-	return wxBitmap(wxImage(AppConfig::GetInstance().m_graphicalResources+fileName));
+	return wxBitmap(wxImage(AppConfig::buildPath(AppConfig::INFO::GRP_RES)+fileName));
 }

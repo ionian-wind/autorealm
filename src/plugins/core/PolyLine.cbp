@@ -54,9 +54,7 @@
 			<Add option="-fexceptions" />
 			<Add option="`wx-config --cxxflags`" />
 			<Add option="-fPIC" />
-			<Add directory="$(#wx29.include)" />
 			<Add directory="../../" />
-			<Add directory="/usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-2.9" />
 		</Compiler>
 		<Unit filename="PolyLine/Connector.cpp">
 			<Option virtualFolder="sources/" />

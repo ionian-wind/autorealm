@@ -5,7 +5,7 @@
 		<Option title="autorealm" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="plugins/;source/;headers/;" />
+		<Option virtualFolders="rag-bag/plugins/;rag-bag/;headers/;source/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="../bin/debug/autorealm" prefix_auto="1" extension_auto="1" />
@@ -51,9 +51,7 @@
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="`wx-config --cppflags`" />
-			<Add directory="$(#wx29.include)" />
 			<Add directory="../src" />
-			<Add directory="/usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-2.9" />
 			<Add directory="renderEngine" />
 		</Compiler>
 		<Linker>
@@ -86,25 +84,25 @@
 			<Option virtualFolder="headers/" />
 		</Unit>
 		<Unit filename="gui/drawingtests.cpp">
-			<Option virtualFolder="source/" />
+			<Option virtualFolder="rag-bag/" />
 		</Unit>
 		<Unit filename="gui/drawingtests.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="rag-bag/" />
 		</Unit>
 		<Unit filename="gui/singleton.h">
 			<Option virtualFolder="headers/" />
 		</Unit>
 		<Unit filename="plugins/core/linemonocolor.cpp">
-			<Option virtualFolder="plugins/" />
+			<Option virtualFolder="rag-bag/plugins/" />
 		</Unit>
 		<Unit filename="plugins/core/linemonocolor.h">
-			<Option virtualFolder="plugins/" />
+			<Option virtualFolder="rag-bag/plugins/" />
 		</Unit>
 		<Unit filename="plugins/core/mover.cpp">
-			<Option virtualFolder="plugins/" />
+			<Option virtualFolder="rag-bag/plugins/" />
 		</Unit>
 		<Unit filename="plugins/core/mover.h">
-			<Option virtualFolder="plugins/" />
+			<Option virtualFolder="rag-bag/plugins/" />
 		</Unit>
 		<Extensions>
 			<envvars />

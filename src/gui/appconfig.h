@@ -28,15 +28,17 @@
 class AppConfig:public Singleton<AppConfig>
 {
 	public:
+		enum INFO{GRP_RES, CONFIG, PLUGINS};
         /** \brief
          * \todo retrieve data from a configuration file
          */
 		AppConfig();
+		static std::string buildPath(INFO info);
+	protected:
+	private:
 		std::string m_graphicalResources;
 		std::string m_configfiles;
 		std::string m_pluginsConfig;
-	protected:
-	private:
 };
 
 #endif // APPCONFIG_H

@@ -23,9 +23,24 @@
 AppConfig::AppConfig()
 {
 	//!\todo retrieve those informations from a configuration file
-	std::string root="/home/berenger/prj/diff/autorealm/";
+	std::string root="/home/berenger/autorealm/";
 
 	m_configfiles=root+"config/";
 	m_graphicalResources=root;
 	m_pluginsConfig="plugins/";
+}
+
+std::string AppConfig::buildPath(INFO info)
+{
+	switch(info)
+	{
+	case GRP_RES:
+		return GetInstance().m_graphicalResources;
+	case CONFIG:
+		return GetInstance().m_configfiles;
+	case PLUGINS:
+		return GetInstance().m_pluginsConfig;
+	default:
+		return "";
+	}
 }
