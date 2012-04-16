@@ -36,8 +36,8 @@ AppConfig::AppConfig()
 	// read global configuration
 	rootConfigFile=TextFile::OpenFile(boost::filesystem::path(m_rootconfig.string()+"config"));
 
-	readLine(rootConfigFile);
-	readLine(rootConfigFile);
+	for(uint8_t i=GRP_RES;i<LASTINDEX;++i)
+		readLine(rootConfigFile);
 }
 
 std::string AppConfig::buildPath(INFO info)
@@ -49,6 +49,7 @@ std::string AppConfig::buildPath(INFO info)
 void AppConfig::readLine(std::unique_ptr<TextFile> &file)
 {
 	m_datas.push_back(file->readLine());
-	if(!boost::filesystem::exists(m_rootconfig.string()+m_datas.back()))
-		throw std::runtime_error("Entry "+m_datas.back()+"specified in configuration file does not exists.");
+//!\todo find a way to control that files in configuration truly exists
+//	if(!boost::filesystem::exists(m_rootconfig.string()+m_datas.back()))
+//		throw std::runtime_error("Entry "+m_datas.back()+"specified in configuration file does not exists.");
 }
