@@ -30,8 +30,8 @@
 class MainFrame;
 class Container;
 
-std::string readline(FILE *source);
-bool eofReached(FILE *source);
+//std::string readline(FILE *source);
+//bool eofReached(FILE *source);
 /** \brief open an image from disk if it exists
  *
  * \param fileName std::string const&

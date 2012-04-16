@@ -82,7 +82,7 @@ public:
 
 protected:
 
-	virtual void readConfig(FILE *file)=0;
+	virtual void readConfig(std::unique_ptr<TextFile> &file)=0;
 
     /** \brief follow the menu tree to find the last sub-menu corresponding with the plug-in path
      * \note this method is recursive

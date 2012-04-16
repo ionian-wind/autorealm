@@ -39,7 +39,7 @@
 			<Add option="-fexceptions" />
 			<Add option="`wx-config --cxxflags`" />
 			<Add option="-fPIC" />
-			<Add directory="../" />
+			<Add directory="../src" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs`" />

@@ -42,7 +42,7 @@ public:
 	std::string const &getName(void)const{return name;}
 	MenuData(std::string const &nAME, std::string const& hELP, wxItemKind const kIND);
 	MenuData(void);
-	virtual void readFromFile(FILE * source);
+	virtual void readFromFile(std::unique_ptr<TextFile> &source);
 	long findIn(wxMenu *parent)const;
 	long findIn(wxMenuBar *parent)const;
 	bool exist(wxMenu *parent)const;

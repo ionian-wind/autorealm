@@ -35,7 +35,7 @@ protected:
 
 public:
 	ToolbarData();
-	virtual void readFromFile(FILE * source);
+	virtual void readFromFile(std::unique_ptr<TextFile> &source);
 	void addTo(wxAuiToolBar* toolbar, long id);
 protected:
 private:

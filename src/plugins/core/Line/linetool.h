@@ -27,7 +27,7 @@ class LineTool : public Item
 {
 	public:
 		LineTool(void);
-		virtual void readConfig(FILE *file);
+		virtual void readConfig(std::unique_ptr<TextFile> &file);
 		virtual void action(wxEvent &);
 	protected:
 	private:

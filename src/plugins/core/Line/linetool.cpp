@@ -27,7 +27,7 @@ LineTool::LineTool(void)
 {
 }
 
-void LineTool::readConfig(FILE *file)
+void LineTool::readConfig(std::unique_ptr<TextFile> &file)
 {
 	m_callback=static_cast<ITEM_CALLBACK>(&LineTool::action);
 }

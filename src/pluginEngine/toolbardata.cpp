@@ -21,20 +21,19 @@
 #include "toolbardata.h"
 
 #include <wx/aui/auibar.h>
-
-#include "../gui/appconfig.h"
+#include <gui/appconfig.h>
 
 ToolbarData::ToolbarData()
 {
 	//ctor
 }
 
-void ToolbarData::readFromFile(FILE * source)
+void ToolbarData::readFromFile(std::unique_ptr<TextFile> &source)
 {
 //retrieve tool-bar item's informations
-	m_longDoc=readline(source);
-	std::string enabledPath(readline(source));
-	std::string disabledPath(readline(source));
+	m_longDoc=source->readLine();
+	std::string enabledPath(source->readLine());
+	std::string disabledPath(source->readLine());
 
 	//!\todo check for errors while opening bitmap files
 

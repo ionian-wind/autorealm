@@ -28,7 +28,7 @@ PolyLineTool ::PolyLineTool (void)
 {
 }
 
-void PolyLineTool ::readConfig(FILE *file)
+void PolyLineTool ::readConfig(std::unique_ptr<TextFile> &file)
 {
 	m_callback=static_cast<ITEM_CALLBACK>(&PolyLineTool ::action);
 }

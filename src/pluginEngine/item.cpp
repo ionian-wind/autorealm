@@ -35,35 +35,48 @@ Item::Item(std::string const& cfgFileName)
 
 void Item::readConfig(void)
 {
-//!\todo check the portability of this method
-//!\todo think about a configuration written in a pseudo file-system. Something like Menu<=>directory and Item<=>file
-	FILE *input=0;
 	std::string configFileFullPath=AppConfig::buildPath(AppConfig::INFO::PLUGINS)+m_configFileName;
-	input=fopen(configFileFullPath.c_str(),"r");
-	if(!input)
-		throw std::runtime_error("can not open the file "+configFileFullPath);//!\todo write config and retry to read configuration before leaving
+	std::unique_ptr<TextFile> config(TextFile::OpenFile(boost::filesystem::path(configFileFullPath)));
 
-	readConfig(input);
-
-	m_toolbarItem.readFromFile(input);
-
-	//retrieve all path entries
-	MenuData entry;
-	do
+	readConfig(config);
+	m_toolbarItem.readFromFile(config);
+	while(!config->eofReached())
 	{
-		try
-		{
-			entry.readFromFile(input);
-		}catch(std::runtime_error &e)
-		{
-			throw e;
-		}
-		m_path.push_back(entry);
-	}while(!eofReached(input));
+		m_path.push_back(MenuData());
+		m_path.back().readFromFile(config);
+	}
 
 	if(m_path.empty())
 		throw std::runtime_error("configuration file corrupted");
-	fclose(input);
+
+//!\todo check the portability of this method
+//!\todo think about a configuration written in a pseudo file-system. Something like Menu<=>directory and Item<=>file
+//	FILE *input=0;
+//	input=fopen(configFileFullPath.c_str(),"r");
+//	if(!input)
+//		throw std::runtime_error("can not open the file "+configFileFullPath);//!\todo write config and retry to read configuration before leaving
+//
+//	readConfig(input);
+//
+//	m_toolbarItem.readFromFile(input);
+//
+//	//retrieve all path entries
+//	MenuData entry;
+//	do
+//	{
+//		try
+//		{
+//			entry.readFromFile(input);
+//		}catch(std::runtime_error &e)
+//		{
+//			throw e;
+//		}
+//		m_path.push_back(entry);
+//	}while(!eofReached(input));
+//
+//	if(m_path.empty())
+//		throw std::runtime_error("configuration file corrupted");
+//	fclose(input);
 }
 
 Item::~Item(void)

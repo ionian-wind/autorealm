@@ -35,13 +35,13 @@ MenuData::MenuData(void)
 	m_corruptedFile=("configuration file corrupted\n");
 }
 
-void MenuData::readFromFile(FILE * source)
+void MenuData::readFromFile(std::unique_ptr<TextFile> &source)
 {
 	try
 	{
-		name=readline(source);
-		help=readline(source);
-		std::string tmp(readline(source));
+		name=source->readLine();
+		help=source->readLine();
+		std::string tmp(source->readLine());
 		sscanf(tmp.c_str(),"%d",(int*)(&kind));
 	}
 	catch(std::runtime_error &e)

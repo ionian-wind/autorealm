@@ -36,22 +36,14 @@ AppConfig::AppConfig()
 	// read global configuration
 	rootConfigFile=TextFile::OpenFile(boost::filesystem::path(m_rootconfig.string()+"config"));
 
-	AppConfig::GetInstance().readLine(rootConfigFile);
-	AppConfig::GetInstance().readLine(rootConfigFile);
+	readLine(rootConfigFile);
+	readLine(rootConfigFile);
 }
 
 std::string AppConfig::buildPath(INFO info)
 {
 	std::string result(GetInstance().m_rootconfig.string());
-	switch(info)
-	{
-	case GRP_RES:
-		return result+GetInstance().m_datas[GRP_RES];
-	case PLUGINS:
-		return result+GetInstance().m_datas[PLUGINS];
-	default:
-		return "";
-	}
+	return result+GetInstance().m_datas[info];
 }
 
 void AppConfig::readLine(std::unique_ptr<TextFile> &file)

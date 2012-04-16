@@ -41,8 +41,6 @@ protected:
 	void readLine(std::unique_ptr<TextFile> &file);
 private:
 	std::vector<std::string> m_datas;
-//	std::string m_graphicalResources;
-//	std::string m_pluginsConfig;
 
 	boost::filesystem::path m_rootconfig; //directory which contain configuration files and dir
 };
