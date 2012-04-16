@@ -58,6 +58,8 @@
 			<Add option="`wx-config --libs aui gl adv core base `" />
 			<Add library="GL" />
 			<Add library="GLU" />
+			<Add library="boost_filesystem" />
+			<Add library="boost_system" />
 		</Linker>
 		<Unit filename="gui/App.cpp">
 			<Option virtualFolder="source/" />
@@ -103,6 +105,12 @@
 		</Unit>
 		<Unit filename="plugins/core/mover.h">
 			<Option virtualFolder="rag-bag/plugins/" />
+		</Unit>
+		<Unit filename="utils/textfile.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="utils/textfile.h">
+			<Option virtualFolder="headers/" />
 		</Unit>
 		<Extensions>
 			<envvars />

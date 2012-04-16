@@ -38,7 +38,7 @@ void Item::readConfig(void)
 //!\todo check the portability of this method
 //!\todo think about a configuration written in a pseudo file-system. Something like Menu<=>directory and Item<=>file
 	FILE *input=0;
-	std::string configFileFullPath=AppConfig::buildPath(AppConfig::INFO::CONFIG)+AppConfig::buildPath(AppConfig::INFO::PLUGINS)+m_configFileName;
+	std::string configFileFullPath=AppConfig::buildPath(AppConfig::INFO::PLUGINS)+m_configFileName;
 	input=fopen(configFileFullPath.c_str(),"r");
 	if(!input)
 		throw std::runtime_error("can not open the file "+configFileFullPath);//!\todo write config and retry to read configuration before leaving
