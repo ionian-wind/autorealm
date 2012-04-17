@@ -38,12 +38,10 @@ MainFrame::~MainFrame(void)
 }
 
 MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
-//:wxFrame(parent,id,title)
+:wxFrame(parent,id,title)
 {
     wxMenu* MenuFile;
     wxMenuItem* MenuItemExit;
-
-	wxFrame::Create(parent,id,title);
 
     m_auiManager.SetManagedWindow(this);
     m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);

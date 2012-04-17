@@ -25,8 +25,10 @@
 #include <wx/image.h>
 #include <wx/app.h>
 
-
+class Splash;
 class MainFrame;
+#include <memory>
+
 
 class App : public wxApp
 {
@@ -36,7 +38,7 @@ private:
 
 public:
     virtual bool OnInit();
-
-
+    std::unique_ptr<Splash> s;
+    App(void):s(){}
 };
 #endif

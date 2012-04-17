@@ -22,7 +22,6 @@
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
-					<Add library="pluma-d" />
 					<Add library="renderEngine-d" />
 					<Add library="pluginEngine-d" />
 					<Add directory="../bin/debug" />
@@ -41,7 +40,6 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="pluma" />
 					<Add library="renderEngine" />
 					<Add library="pluginEngine" />
 					<Add directory="../bin/release" />
@@ -61,6 +59,7 @@
 			<Add library="GLU" />
 			<Add library="boost_filesystem" />
 			<Add library="boost_system" />
+			<Add library="pluma" />
 		</Linker>
 		<Unit filename="gui/App.cpp">
 			<Option virtualFolder="source/" />
@@ -93,6 +92,12 @@
 			<Option virtualFolder="rag-bag/" />
 		</Unit>
 		<Unit filename="gui/singleton.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="gui/splash.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/splash.h">
 			<Option virtualFolder="headers/" />
 		</Unit>
 		<Unit filename="plugins/core/linemonocolor.cpp">

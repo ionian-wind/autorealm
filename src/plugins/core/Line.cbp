@@ -23,7 +23,6 @@
 				<Linker>
 					<Add option="-pg" />
 					<Add library="pluginEngine-d" />
-					<Add library="pluma-d" />
 					<Add directory="../../../bin/debug" />
 				</Linker>
 			</Target>
@@ -43,7 +42,6 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="pluginEngine" />
-					<Add library="pluma" />
 					<Add directory="../../../bin/release" />
 				</Linker>
 			</Target>
@@ -56,6 +54,9 @@
 			<Add option="-fPIC" />
 			<Add directory="../../" />
 		</Compiler>
+		<Linker>
+			<Add library="pluma" />
+		</Linker>
 		<Unit filename="Line/Connector.cpp">
 			<Option virtualFolder="sources/" />
 		</Unit>

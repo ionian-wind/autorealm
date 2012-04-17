@@ -22,6 +22,7 @@
 #include "App.h"
 #include "MainFrame.h"
 
+#include "splash.h"
 
 IMPLEMENT_APP(App)
 
@@ -34,7 +35,9 @@ bool App::OnInit()
 		wxInitAllImageHandlers();
 		if ( wxsOK )
 		{
+			s.reset(new Splash());
 			m_app= new MainFrame (0);
+			s.reset();
 			m_app->Show();
 			SetTopWindow(m_app);
 		}
