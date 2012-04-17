@@ -13,5 +13,6 @@
 			<Depends filename="src/pluginEngine.cbp" />
 		</Project>
 		<Project filename="src/plugins/core/Line.cbp" />
+		<Project filename="src/menuEngine.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
