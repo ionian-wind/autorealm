@@ -47,8 +47,6 @@ bool App::OnInit()
 	}
 	catch(std::exception &e)
 	{
-		const char *t=e.what();
-		perror(t);
 		return false;
 	}
 }
