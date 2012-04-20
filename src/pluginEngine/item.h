@@ -52,17 +52,17 @@ public:
 	Item(std::string const &);
 	virtual ~Item(void);
 
-//    /** \brief create controls to use a plug-in and bind it's action
-//     * The plug-in add it's controls to it's parent's lists.
-//     * The location of several things will be given by the AppConfig object
-//     *
-//     * \param parent wxFrame* container which will own the plug-in controls
-//     * \param containers std::map<std::string,Container>& list of parent's plug-in
-//     * \param appConfig AppConfig const& configuration of the application
-//     * \return void
-//     *
-//     */
-//	void registerIn(wxFrame *parent,std::map<std::string,Container>&);
+    /** \brief create controls to use a plug-in and bind it's action
+     * The plug-in add it's controls to it's parent's lists.
+     * The location of several things will be given by the AppConfig object
+     *
+     * \param parent wxFrame* container which will own the plug-in controls
+     * \param containers std::map<std::string,Container>& list of parent's plug-in
+     * \param appConfig AppConfig const& configuration of the application
+     * \return void
+     *
+     */
+	void registerIn(wxFrame *parent,std::map<std::string,Container>&);
 
     /** \brief read the plug-in's configuration
 	 *	\note the plug-in should read it's specific data before asking to Item to read common data
@@ -101,6 +101,7 @@ protected:
      */
 	wxMenu* createMenuPath(wxMenu *parent,std::vector<MenuData>::const_iterator &it)const;
 private:
+
 
 public:
 //protected:

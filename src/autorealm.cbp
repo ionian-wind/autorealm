@@ -23,6 +23,7 @@
 				<Linker>
 					<Add option="-pg" />
 					<Add library="renderEngine-d" />
+					<Add library="menuEngine-d" />
 					<Add library="pluginEngine-d" />
 					<Add directory="../bin/debug" />
 				</Linker>
@@ -42,6 +43,7 @@
 					<Add option="-s" />
 					<Add library="renderEngine" />
 					<Add library="pluginEngine" />
+					<Add library="menuEngine" />
 					<Add directory="../bin/release" />
 				</Linker>
 			</Target>

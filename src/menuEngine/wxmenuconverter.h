@@ -18,30 +18,35 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef ITEM_H
-#define ITEM_H
+#ifndef WXMENUCONVERTER_H
+#define WXMENUCONVERTER_H
 
-#include <memory>
+#include <string>
 
-#include "menuitem.h"
+class wxMenu;
+class wxMenuBar;
+class wxMenuItem;
 
-//class Plugin;
-class Menu;
-
-class Item : public MenuItem
+class MenuConverter
 {
-friend class Menu;
 public:
-	virtual ~Item();
-//	void associate(std::unique_ptr<Plugin> &target);
+	virtual ~MenuConverter();
+	operator wxMenuBar*(void)const;
 protected:
-	Item(boost::filesystem::path const &location, Menu *parent);
+	operator wxMenu*(void)const;
+	operator wxMenuItem*(void)const;
+	void init(MenuConverter *parent);
+	virtual std::string getName(void)const=0;
+	virtual std::string getHelp(void)const=0;
 private:
-
-public:
-protected:
-//	std::unique_ptr<Plugin> m_plugin;
 private:
+	union WWxContent
+	{
+		wxMenu* menu=nullptr;
+		wxMenuBar* menubar;
+		wxMenuItem* menuitem;
+	}m_content;
+	bool m_isMenuBar=false;
 };
 
-#endif // ITEM_H
+#endif // WXMENUCONVERTER_H

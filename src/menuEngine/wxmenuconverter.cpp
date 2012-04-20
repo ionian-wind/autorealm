@@ -18,49 +18,71 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
+#include "wxmenuconverter.h"
+
+#include <wx/menu.h>
+#include <wx/menuitem.h>
+
+#include "item.h"
+#include "menubar.h"
 #include "menu.h"
+#include "menuitem.h"
 
 #include <assert.h>
-#include "item.h"
 
-Menu::Menu(boost::filesystem::path const &location)
-:Menu(location,nullptr)
+void MenuConverter::init(MenuConverter *parent)
 {
-}
+	//!\todo find a way to check at compilation that (*this) is of the good type.
+	//!\pre type of *this is Menu or Item
+	assert(typeid(*this)==typeid(Menu) || typeid(*this)==typeid(Item));//, "(*this)'s type can only be Menu or Item");
+	//!\pre parent must be a Menu
+	assert(typeid(*parent)==typeid(Menu));//, "(*parent)'s type can only be Menu");
+	//!\pre Item can not be added to a menubar
+	assert(typeid(*this)==typeid(Menu) || (parent!=nullptr && false==parent->m_isMenuBar));//, "Item can not be added to a root Menu (aka: menubar. WxWidget's limitation)");
 
-Menu::Menu(boost::filesystem::path const &location, MenuItem* parent)
-{
-	//!\pre location must exists
-	if(!boost::filesystem::exists(location))
-		throw std::runtime_error("Given location does not exists");
-	//!\pre location is a directory
-	if(!boost::filesystem::is_directory(location))
-		throw std::runtime_error("Given location is not a directory");
-
-	bool confFileFound=false;
-	boost::filesystem::path ownedFile;
-	for(auto content=boost::filesystem::directory_iterator(location);content!=boost::filesystem::directory_iterator();++content)
+	if(nullptr==parent)
 	{
-		if(boost::filesystem::is_regular_file(content->path()))
-		{
-			// do the file have the same name as it's directory?
-			if(0==location.filename().string().compare(content->path().filename().string()))
-			{
-				ownedFile=*content;
-				confFileFound=true;
-			}
-			else
-				m_leaves.push_back(std::unique_ptr<MenuItem>(new Item(content->path(),this)));
-		}
-		else
-			m_leaves.push_back(std::unique_ptr<MenuItem>(new Menu(content->path(),this)));
+		m_content.menubar=new wxMenuBar();
+		m_isMenuBar=true;
 	}
-	if(!confFileFound)
-		throw std::runtime_error("configuration file is missing");
-	init(ownedFile,parent);
+	else
+	{
+		//create Menu or Item
+		if(typeid(*this)==typeid(Menu))
+			m_content.menu=new wxMenu(getName()); //!\todo implement style
+		else
+			m_content.menuitem=new wxMenuItem(parent->m_content.menu, wxNewId(),getName(),getHelp(),wxITEM_NORMAL);
+
+		if(parent->m_isMenuBar)
+			parent->m_content.menubar->Append(m_content.menu, getName());// it is only possible to add menu to menubars
+		else
+		{
+			if(typeid(*this)==typeid(Menu))
+				parent->m_content.menu->AppendSubMenu(m_content.menu,getName(),getHelp());
+			else
+				parent->m_content.menu->Append(m_content.menuitem);
+		}
+
+	}
 }
 
-Menu::~Menu()
+MenuConverter::~MenuConverter()
 {
 	//dtor
+}
+
+MenuConverter::operator wxMenuBar*(void)const
+{
+	assert(m_isMenuBar);
+	return m_content.menubar;
+}
+
+MenuConverter::operator wxMenu*(void)const
+{
+	return m_content.menu;
+}
+
+MenuConverter::operator wxMenuItem*(void)const
+{
+	return m_content.menuitem;
 }
