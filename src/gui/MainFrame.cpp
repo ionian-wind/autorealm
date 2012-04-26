@@ -67,14 +67,15 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 	SetMenuBar(m_menuTree.getMenuBar());
 
 ////add all plug-ins entries
+	//register plugins types
 	m_actionPlugIn.acceptProviderType<PluginProvider>();
-
 	m_actionPlugIn.getProviders(m_actionProviders);
+	//instanciate plugins
 	m_plugins.reserve(m_actionProviders.size());
-//	std::transform(m_actionProviders.begin(),m_actionProviders.end(),std::inserter(m_plugins,m_plugins.begin()),
-//					[](PluginProvider *ita)
-//					{return std::unique_ptr<Item>(ita->create());});
-//
+	std::transform(m_actionProviders.begin(),m_actionProviders.end(),std::inserter(m_plugins,m_plugins.begin()),
+					[](PluginProvider *ita)
+					{return std::unique_ptr<Plugin>(ita->create());});
+
 //	//!\todo use algorithms (for_each and transform) instead of for loops
 //	for(auto &i:m_plugins)
 //		registerItem(i);
