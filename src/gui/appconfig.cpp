@@ -42,8 +42,9 @@ AppConfig::AppConfig()
 
 std::string AppConfig::buildPath(INFO info)
 {
-	std::string result(GetInstance().m_rootconfig.string());
-	return result+GetInstance().m_datas[info];
+//	std::string result(GetInstance().m_rootconfig.string());
+//	return result+GetInstance().m_datas[info];
+	return GetInstance().m_datas[info];
 }
 
 void AppConfig::readLine(std::unique_ptr<TextFile> &file)

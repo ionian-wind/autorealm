@@ -42,10 +42,15 @@ MainFrame::~MainFrame(void)
 MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 :wxFrame(parent,id,title)
 ,m_menuTree(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)))
+,m_plans()
+,m_active()
+,m_auiManager()
+,m_auiNotebookWorkspace()
+,m_actionProviders()
+,m_plugins()
+//,m_selected()
+,m_actionPlugIn()
 {
-    wxMenu* MenuFile;
-    wxMenuItem* MenuItemExit;
-
     m_auiManager.SetManagedWindow(this);
     m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
 
@@ -60,28 +65,18 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
     m_auiManager.Update();
 
 	SetMenuBar(m_menuTree.getMenuBar());
-////add menu entry File->Exit
-//    m_MenuBar = new wxMenuBar();
-//	SetMenuBar(m_MenuBar);
-//
-//    MenuFile = new wxMenu();
-//    m_MenuBar->Append(MenuFile, _("&File"));
-//    MenuItemExit = new wxMenuItem(MenuFile, ID_MENUQUIT, _("&Exit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
-//    MenuFile->Append(MenuItemExit);
-//	Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onQuit, this, ID_MENUQUIT);
-//
+
 ////add all plug-ins entries
-//	m_actionPlugIn.acceptProviderType<ItemProvider>();
-//	m_actionPlugIn.loadFromFolder("plugin");
-//	m_actionPlugIn.getProviders(m_actionProviders);
-//
-//	m_items.reserve(m_actionProviders.size());
-//	std::transform(m_actionProviders.begin(),m_actionProviders.end(),std::inserter(m_items,m_items.begin()),
-//					[](ItemProvider *ita)
+	m_actionPlugIn.acceptProviderType<PluginProvider>();
+
+	m_actionPlugIn.getProviders(m_actionProviders);
+	m_plugins.reserve(m_actionProviders.size());
+//	std::transform(m_actionProviders.begin(),m_actionProviders.end(),std::inserter(m_plugins,m_plugins.begin()),
+//					[](PluginProvider *ita)
 //					{return std::unique_ptr<Item>(ita->create());});
 //
 //	//!\todo use algorithms (for_each and transform) instead of for loops
-//	for(auto &i:m_items)
+//	for(auto &i:m_plugins)
 //		registerItem(i);
 //
 //	for(auto p:m_containers)

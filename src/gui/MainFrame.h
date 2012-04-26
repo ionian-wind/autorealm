@@ -33,6 +33,7 @@
 //#include <pluginEngine/item.h>
 #include "appconfig.h"
 #include <menuEngine/menu.h>
+#include <pluginEngine/plugin.h>
 
 class RenderWindow;
 //class ToolbarItem;
@@ -45,20 +46,19 @@ public:
 public:
 protected:
 private:
+    Menu m_menuTree;
     std::vector<RenderWindow*> m_plans;
     std::vector<RenderWindow*>::iterator m_active;
     wxAuiManager m_auiManager;
     wxAuiNotebook* m_auiNotebookWorkspace;
-    wxMenuBar* m_MenuBar;
 
     static const long ID_NOTEBOOK;
     static const long ID_MENUQUIT;
 
-//	std::vector<ItemProvider * > m_actionProviders;
-//	std::vector<std::unique_ptr<Item>> m_items;
-//    std::vector<std::unique_ptr<Item>>::iterator m_selected;
-//	pluma::Pluma m_actionPlugIn;
-//	std::map<std::string,Container > m_containers;
+	std::vector<PluginProvider*> m_actionProviders;
+	std::vector<std::unique_ptr<Plugin>> m_plugins;
+//	std::vector<std::unique_ptr<Plugin>>::iterator m_selected;
+	pluma::Pluma m_actionPlugIn;
 
 public:
     /** \brief build the window and load plug-ins
@@ -79,12 +79,11 @@ public:
     ~MainFrame(void);
 
 protected:
-//	void registerItem(std::unique_ptr<Item> &item);
+//	void registerPlugin(std::unique_ptr<Plugin> &plugin);
 private:
     /** \brief Exit the application
      * \param event wxCommandEvent&
      */
     void onQuit(wxCommandEvent& event);
-    Menu m_menuTree;
 };
 #endif
