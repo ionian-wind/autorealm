@@ -32,7 +32,7 @@ class MenuConverter
 public:
 	virtual ~MenuConverter(){};
 //	virtual ~MenuConverter()=default;
-	operator wxMenuBar*(void)const;
+	wxMenuBar* getMenuBar(void)const;
 protected:
 	void init(MenuConverter *parent);
 	virtual std::string getName(void)const=0;

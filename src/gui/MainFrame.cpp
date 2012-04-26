@@ -59,6 +59,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
     m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Name(_T("Workspace")).Caption(_("Workspace")).CaptionVisible(false).CloseButton(false).Center());
     m_auiManager.Update();
 
+	SetMenuBar(m.getMenuBar());
 ////add menu entry File->Exit
 //    m_MenuBar = new wxMenuBar();
 //	SetMenuBar(m_MenuBar);
