@@ -24,7 +24,6 @@
 #include <wx/menuitem.h>
 
 #include "item.h"
-#include "menubar.h"
 #include "menu.h"
 #include "menuitem.h"
 
@@ -36,7 +35,7 @@ void MenuConverter::init(MenuConverter *parent)
 	//!\pre type of *this is Menu or Item
 	assert(typeid(*this)==typeid(Menu) || typeid(*this)==typeid(Item));//, "(*this)'s type can only be Menu or Item");
 	//!\pre parent must be a Menu
-	assert(typeid(*parent)==typeid(Menu));//, "(*parent)'s type can only be Menu");
+	assert(parent==nullptr || typeid(*parent)==typeid(Menu));//, "(*parent)'s type can only be Menu");
 	//!\pre Item can not be added to a menubar
 	assert(typeid(*this)==typeid(Menu) || (parent!=nullptr && false==parent->m_isMenuBar));//, "Item can not be added to a root Menu (aka: menubar. WxWidget's limitation)");
 
@@ -64,25 +63,4 @@ void MenuConverter::init(MenuConverter *parent)
 		}
 
 	}
-}
-
-MenuConverter::~MenuConverter()
-{
-	//dtor
-}
-
-MenuConverter::operator wxMenuBar*(void)const
-{
-	assert(m_isMenuBar);
-	return m_content.menubar;
-}
-
-MenuConverter::operator wxMenu*(void)const
-{
-	return m_content.menu;
-}
-
-MenuConverter::operator wxMenuItem*(void)const
-{
-	return m_content.menuitem;
 }

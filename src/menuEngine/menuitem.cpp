@@ -31,8 +31,3 @@ void MenuItem::init(boost::filesystem::path const &file,MenuItem *parent)
 	//!\todo read kind of entry from the file
 	MenuConverter::init(parent);
 }
-
-MenuItem::~MenuItem()
-{
-	//dtor
-}

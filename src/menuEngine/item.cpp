@@ -29,11 +29,6 @@ Item::Item(boost::filesystem::path const &location, Menu *parent)
 	init(location,parent);
 }
 
-Item::~Item()
-{
-	//dtor
-}
-
 //void Item::associate(std::unique_ptr<Plugin> &target)
 //{
 ////	m_plugin.reset(std::move(target));

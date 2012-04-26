@@ -32,7 +32,7 @@ class Item : public MenuItem
 {
 friend class Menu;
 public:
-	virtual ~Item();
+	virtual ~Item()=default;
 //	void associate(std::unique_ptr<Plugin> &target);
 protected:
 	Item(boost::filesystem::path const &location, Menu *parent);

@@ -29,7 +29,7 @@
 class MenuItem: public MenuConverter
 {
 	public:
-		virtual ~MenuItem();
+		virtual ~MenuItem()=default;
 		std::string getName(void)const{return m_name;}
 		std::string getHelp(void)const{return m_help;}
 	protected:

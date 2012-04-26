@@ -40,7 +40,8 @@ MainFrame::~MainFrame(void)
 }
 
 MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
-:wxFrame(parent,id,title),m(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::PLUGINS)),this)
+:wxFrame(parent,id,title)
+,m(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)))
 {
     wxMenu* MenuFile;
     wxMenuItem* MenuItemExit;

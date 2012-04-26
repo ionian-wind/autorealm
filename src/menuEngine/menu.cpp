@@ -37,30 +37,29 @@ Menu::Menu(boost::filesystem::path const &location, MenuItem* parent)
 	if(!boost::filesystem::is_directory(location))
 		throw std::runtime_error("Given location is not a directory");
 
-	bool confFileFound=false;
-	boost::filesystem::path ownedFile;
+	init(findConfigurationFile(location),parent);
+	buildMenu(location);
+}
+
+boost::filesystem::path Menu::findConfigurationFile(boost::filesystem::path const &location)
+{
+	boost::filesystem::path file(location.string()+"/"+location.filename().string());
+	if(!boost::filesystem::exists(file))
+		throw std::runtime_error("configuration file is missing");
+	return file;
+}
+
+void Menu::buildMenu(boost::filesystem::path const &location)
+{
 	for(auto content=boost::filesystem::directory_iterator(location);content!=boost::filesystem::directory_iterator();++content)
 	{
 		if(boost::filesystem::is_regular_file(content->path()))
 		{
-			// do the file have the same name as it's directory?
-			if(0==location.filename().string().compare(content->path().filename().string()))
-			{
-				ownedFile=*content;
-				confFileFound=true;
-			}
-			else
+			// do the file have different name as it's parent directory?
+			if(0!=location.filename().string().compare(content->path().filename().string()))
 				m_leaves.push_back(std::unique_ptr<MenuItem>(new Item(content->path(),this)));
 		}
 		else
 			m_leaves.push_back(std::unique_ptr<MenuItem>(new Menu(content->path(),this)));
 	}
-	if(!confFileFound)
-		throw std::runtime_error("configuration file is missing");
-	init(ownedFile,parent);
-}
-
-Menu::~Menu()
-{
-	//dtor
 }

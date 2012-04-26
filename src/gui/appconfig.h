@@ -31,7 +31,7 @@
 class AppConfig:public Singleton<AppConfig>
 {
 public:
-	enum INFO{GRP_RES=0, PLUGINS=1, SPLASH=2,LASTINDEX};
+	enum INFO{GRP_RES=0, PLUGINS=1, SPLASH=2, MENU=3, LASTINDEX};
 	/** \brief
 	 * \todo retrieve data from a configuration file
 	 */

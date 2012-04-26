@@ -30,11 +30,10 @@ class wxMenuItem;
 class MenuConverter
 {
 public:
-	virtual ~MenuConverter();
+	virtual ~MenuConverter(){};
+//	virtual ~MenuConverter()=default;
 	operator wxMenuBar*(void)const;
 protected:
-	operator wxMenu*(void)const;
-	operator wxMenuItem*(void)const;
 	void init(MenuConverter *parent);
 	virtual std::string getName(void)const=0;
 	virtual std::string getHelp(void)const=0;

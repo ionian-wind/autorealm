@@ -30,9 +30,11 @@ class Menu : public MenuItem
 {
 public:
 	Menu(boost::filesystem::path const &location);
-	virtual ~Menu();
+	virtual ~Menu()=default;
 protected:
 	Menu(boost::filesystem::path const &location, MenuItem* parent);
+	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
+	void buildMenu(boost::filesystem::path const &location);
 private:
 public:
 protected:

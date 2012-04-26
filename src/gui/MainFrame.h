@@ -32,7 +32,7 @@
 
 //#include <pluginEngine/item.h>
 #include "appconfig.h"
-#include <menuEngine/menubar.h>
+#include <menuEngine/menu.h>
 
 class RenderWindow;
 //class ToolbarItem;
@@ -85,6 +85,6 @@ private:
      * \param event wxCommandEvent&
      */
     void onQuit(wxCommandEvent& event);
-    MenuBar m;
+    Menu m;
 };
 #endif
