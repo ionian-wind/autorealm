@@ -28,11 +28,11 @@ AppConfig::AppConfig()
 	// guess the directory where configuration is stored
 	//!\todo use freedesktop.org recommmandations for linux, and fallback on system variables if they are not supported on client computer
 	std::unique_ptr<TextFile> rootConfigFile;
-	std::string homepath("/home/berenger/");
+	std::string homepath(getenv("HOME"));
 	if(boost::filesystem::exists(homepath+"/.autorealm"))
 		configDir=boost::filesystem::path(homepath+".autorealm/");
-	else if(boost::filesystem::exists(homepath+".config/autorealm"))
-		configDir=boost::filesystem::path(homepath+".config/autorealm/");
+	else if(boost::filesystem::exists(homepath+"/.config/autorealm"))
+		configDir=boost::filesystem::path(homepath+"/.config/autorealm/");
 
 	// read global configuration
 	rootConfigFile=TextFile::OpenFile(boost::filesystem::path(configDir.string()+"config"));
