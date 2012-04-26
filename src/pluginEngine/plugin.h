@@ -22,15 +22,18 @@
 #define PLUGIN_H
 
 #include <string>
+#include <Pluma/Pluma.hpp>
 
 class Plugin
 {
 	public:
-		Plugin();
+		Plugin(void);
 		virtual ~Plugin();
 	protected:
-	private:
 		static const std::string m_configFileName;
+	private:
 };
+
+PLUMA_PROVIDER_HEADER(Plugin)
 
 #endif // PLUGIN_H

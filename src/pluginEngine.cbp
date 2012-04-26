@@ -44,25 +44,7 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
-		<Unit filename="pluginEngine/container.cpp">
-			<Option virtualFolder="sources/" />
-		</Unit>
-		<Unit filename="pluginEngine/container.h">
-			<Option virtualFolder="headers/" />
-		</Unit>
 		<Unit filename="pluginEngine/drawer.h">
-			<Option virtualFolder="headers/" />
-		</Unit>
-		<Unit filename="pluginEngine/item.cpp">
-			<Option virtualFolder="sources/" />
-		</Unit>
-		<Unit filename="pluginEngine/item.h">
-			<Option virtualFolder="headers/" />
-		</Unit>
-		<Unit filename="pluginEngine/menudata.cpp">
-			<Option virtualFolder="sources/" />
-		</Unit>
-		<Unit filename="pluginEngine/menudata.h">
 			<Option virtualFolder="headers/" />
 		</Unit>
 		<Unit filename="pluginEngine/mutator.h">
@@ -72,12 +54,6 @@
 			<Option virtualFolder="sources/" />
 		</Unit>
 		<Unit filename="pluginEngine/plugin.h">
-			<Option virtualFolder="headers/" />
-		</Unit>
-		<Unit filename="pluginEngine/toolbardata.cpp">
-			<Option virtualFolder="sources/" />
-		</Unit>
-		<Unit filename="pluginEngine/toolbardata.h">
 			<Option virtualFolder="headers/" />
 		</Unit>
 		<Unit filename="utils/utils.cpp">

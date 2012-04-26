@@ -21,9 +21,14 @@
 #ifndef LineTool_H
 #define LineTool_H
 
-#include <pluginEngine/item.h>
+#include <memory>
 
-class LineTool : public Item
+#include <pluginEngine/plugin.h>
+#include <utils/textfile.h>
+
+#include <wx/event.h>
+
+class LineTool : public Plugin
 {
 	public:
 		LineTool(void);
@@ -33,5 +38,5 @@ class LineTool : public Item
 	private:
 };
 
-PLUMA_INHERIT_PROVIDER(LineTool,Item)
+PLUMA_INHERIT_PROVIDER(LineTool,Plugin)
 #endif // INETOOL_H

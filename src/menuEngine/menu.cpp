@@ -51,14 +51,12 @@ boost::filesystem::path Menu::findConfigurationFile(boost::filesystem::path cons
 
 void Menu::buildMenu(boost::filesystem::path const &location)
 {
-	const boost::filesystem::path toSkip(findConfigurationFile(location));
+	const boost::filesystem::path toSkip(findConfigurationFile(location)); //skip the file with same name as directory
 	for(auto content=boost::filesystem::directory_iterator(location);content!=boost::filesystem::directory_iterator();++content)
 	{
 		if(boost::filesystem::is_regular_file(content->path()))
 		{
-			// do the file have different name as it's parent directory?
 			if(toSkip!=content->path())
-			//if(0!=location.filename().string().compare(content->path().filename().string()))
 				m_leaves.push_back(std::unique_ptr<MenuItem>(new Item(content->path(),this)));
 		}
 		else

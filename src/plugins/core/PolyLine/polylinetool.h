@@ -21,9 +21,14 @@
 #ifndef POLYLINETOOL_H
 #define POLYLINETOOL_H
 
-#include <pluginEngine/item.h>
+#include <memory>
 
-class PolyLineTool : public Item
+#include <pluginEngine/plugin.h>
+#include <utils/textfile.h>
+
+#include <wx/event.h>
+
+class PolyLineTool : public Plugin
 {
 	public:
 		PolyLineTool (void);
@@ -33,5 +38,5 @@ class PolyLineTool : public Item
 	private:
 };
 
-PLUMA_INHERIT_PROVIDER(PolyLineTool,Item)
+PLUMA_INHERIT_PROVIDER(PolyLineTool,Plugin)
 #endif // POLYLINETOOL_H

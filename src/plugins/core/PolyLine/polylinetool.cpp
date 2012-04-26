@@ -20,20 +20,22 @@
 
 #include "polylinetool.h"
 
-#include <wx/image.h>
-#include <gui/MainFrame.h>
+//#include <wx/image.h>
+//#include <gui/MainFrame.h>
+
+const std::string Plugin::m_configFileName("polyline.cfg");
 
 PolyLineTool ::PolyLineTool (void)
-:Item("polyline.cfg")
+:Plugin()
 {
 }
 
 void PolyLineTool ::readConfig(std::unique_ptr<TextFile> &file)
 {
-	m_callback=static_cast<ITEM_CALLBACK>(&PolyLineTool ::action);
+//	m_callback=static_cast<ITEM_CALLBACK>(&PolyLineTool ::action);
 }
 
 void PolyLineTool ::action(wxEvent&ev)
 {
-	wxMessageBox("hello world","hello caption");
+//	wxMessageBox("hello world","hello caption");
 }

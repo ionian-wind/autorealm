@@ -20,21 +20,23 @@
 
 #include "linetool.h"
 
-#include <wx/image.h>
+//#include <wx/image.h>
+
+const std::string Plugin::m_configFileName("line.cfg");
 
 LineTool::LineTool(void)
-:Item("line.cfg")
+:Plugin()
 {
 }
 
 void LineTool::readConfig(std::unique_ptr<TextFile> &file)
 {
-	m_callback=static_cast<ITEM_CALLBACK>(&LineTool::action);
+//	m_callback=static_cast<ITEM_CALLBACK>(&LineTool::action);
 }
 
 #include <wx/msgdlg.h>
 void LineTool::action(wxEvent& event)
 {
-	wxMessageBox("hello Vertex","hello caption");
+//	wxMessageBox("hello Vertex","hello caption");
 }
 
