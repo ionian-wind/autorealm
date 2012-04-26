@@ -39,6 +39,7 @@ public:
 	static std::string buildPath(INFO info);
 protected:
 	void readLine(std::unique_ptr<TextFile> &file);
+
 private:
 	std::vector<std::string> m_datas;
 };

@@ -28,7 +28,11 @@ AppConfig::AppConfig()
 	// guess the directory where configuration is stored
 	//!\todo use freedesktop.org recommmandations for linux, and fallback on system variables if they are not supported on client computer
 	std::unique_ptr<TextFile> rootConfigFile;
+#ifdef WIN32
+	std::string homepath(getenv("HOMEPATH")); //!\todo check that it should not be %APPDATA% instead of %HOMEPATH%
+#else
 	std::string homepath(getenv("HOME"));
+#endif
 	if(boost::filesystem::exists(homepath+"/.autorealm"))
 		configDir=boost::filesystem::path(homepath+".autorealm/");
 	else if(boost::filesystem::exists(homepath+"/.config/autorealm"))
