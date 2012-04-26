@@ -41,7 +41,7 @@ MainFrame::~MainFrame(void)
 
 MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 :wxFrame(parent,id,title)
-,m(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)))
+,m_menuTree(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)))
 {
     wxMenu* MenuFile;
     wxMenuItem* MenuItemExit;
@@ -59,7 +59,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
     m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Name(_T("Workspace")).Caption(_("Workspace")).CaptionVisible(false).CloseButton(false).Center());
     m_auiManager.Update();
 
-	SetMenuBar(m.getMenuBar());
+	SetMenuBar(m_menuTree.getMenuBar());
 ////add menu entry File->Exit
 //    m_MenuBar = new wxMenuBar();
 //	SetMenuBar(m_MenuBar);

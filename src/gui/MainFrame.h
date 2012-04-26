@@ -85,6 +85,6 @@ private:
      * \param event wxCommandEvent&
      */
     void onQuit(wxCommandEvent& event);
-    Menu m;
+    Menu m_menuTree;
 };
 #endif
