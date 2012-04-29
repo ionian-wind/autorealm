@@ -34,8 +34,8 @@ const long MainFrame::ID_MENUQUIT = wxNewId();
 
 MainFrame::~MainFrame(void)
 {
-//	for(auto &i:m_items)//!\todo find a way to let unique_ptr<> do the delete job when destroyed by vector's destruction
-//		i.reset();
+	for(auto &i:m_plugins)//!\todo find a way to let unique_ptr<> do the delete job when destroyed by vector's destruction
+		i.reset();
 
 	m_auiManager.UnInit();
 }
@@ -65,6 +65,8 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
     m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Name(_T("Workspace")).Caption(_("Workspace")).CaptionVisible(false).CloseButton(false).Center());
     m_auiManager.Update();
 
+m_menuTree.buildMenu(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)));
+m_menuTree.create();
 	SetMenuBar(m_menuTree.getMenuBar());
 
 ////add all plug-ins entries

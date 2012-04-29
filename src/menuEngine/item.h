@@ -35,7 +35,7 @@ public:
 	virtual ~Item()=default;
 //	void associate(std::unique_ptr<Plugin> &target);
 protected:
-	Item(boost::filesystem::path const &location, Menu *parent);
+	Item(std::unique_ptr<TextFile> file);
 private:
 
 public:

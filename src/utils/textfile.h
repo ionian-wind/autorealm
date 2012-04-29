@@ -40,6 +40,7 @@ class TextFile
          */
 		bool eofReached(void)const;
 		~TextFile();
+		std::string getFileName(void)const;
 	protected:
 		TextFile(boost::filesystem::path const &file, bool create=false);
 	private:

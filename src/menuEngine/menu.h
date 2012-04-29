@@ -24,6 +24,8 @@
 #include <vector>
 #include <memory>
 
+#include <boost/filesystem.hpp>
+
 #include "menuitem.h"
 
 class Menu : public MenuItem
@@ -31,10 +33,11 @@ class Menu : public MenuItem
 public:
 	Menu(boost::filesystem::path const &location);
 	virtual ~Menu()=default;
-protected:
-	Menu(boost::filesystem::path const &location, MenuItem* parent);
-	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
 	void buildMenu(boost::filesystem::path const &location);
+	void create(void);
+protected:
+	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
+	virtual void create(MenuConverter* parent);
 private:
 public:
 protected:

@@ -27,9 +27,10 @@
 #include "menu.h"
 #include "menuitem.h"
 
+#include "../utils/textfile.h"
 #include <assert.h>
 
-void MenuConverter::init(MenuConverter *parent)
+void MenuConverter::create(MenuConverter *parent)
 {
 	//!\todo find a way to check at compilation that (*this) is of the good type.
 	//!\pre type of *this is Menu or Item
@@ -39,6 +40,7 @@ void MenuConverter::init(MenuConverter *parent)
 	//!\pre Item can not be added to a menubar
 	assert(typeid(*this)==typeid(Menu) || (parent!=nullptr && false==parent->m_isMenuBar));//, "Item can not be added to a root Menu (aka: menubar. WxWidget's limitation)");
 
+	m_isMenuBar=false; //!\todo this flag should have been set at constructor. Why is it not?
 	if(nullptr==parent)
 	{
 		m_content.menubar=new wxMenuBar();
@@ -67,11 +69,16 @@ void MenuConverter::init(MenuConverter *parent)
 
 wxMenuBar* MenuConverter::getMenuBar(void)const
 {
-	assert(typeid(*this)==typeid(Menu) && m_isMenuBar==true);
+	assert(typeid(*this)==typeid(Menu) && true==m_isMenuBar);
 	return m_content.menubar;
 }
 
 std::string MenuConverter::getHelp(void)const
 {
 	return m_help;
+}
+
+void MenuConverter::loadConfiguration(std::unique_ptr<TextFile> &file)
+{
+	m_help=file->readLine();
 }

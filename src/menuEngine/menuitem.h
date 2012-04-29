@@ -22,7 +22,7 @@
 #define MENUITEM_H
 
 #include <string>
-#include <boost/filesystem.hpp>
+//#include <boost/filesystem.hpp>
 
 #include "wxmenuconverter.h"
 
@@ -32,7 +32,8 @@ class MenuItem: public MenuConverter
 		virtual ~MenuItem()=default;
 		std::string getName(void)const{return m_name;}
 	protected:
-		void init(boost::filesystem::path const &file, MenuItem *parent);
+		void virtual loadConfiguration(std::unique_ptr<TextFile> &file);
+		//void init(boost::filesystem::path const &file);
 	private:
 		std::string m_name;
 };

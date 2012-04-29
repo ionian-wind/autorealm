@@ -34,6 +34,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="`wx-config --cppflags`" />
 			<Add option="-fPIC" />

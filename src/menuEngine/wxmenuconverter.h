@@ -22,19 +22,23 @@
 #define WXMENUCONVERTER_H
 
 #include <string>
+#include <memory>
 
 class wxMenu;
 class wxMenuBar;
 class wxMenuItem;
+class TextFile;
 
 class MenuConverter
 {
+	friend class Menu; //!\todo find why this declaration is needed and correct the problem!
 public:
 	virtual ~MenuConverter(){};
 //	virtual ~MenuConverter()=default;
 	wxMenuBar* getMenuBar(void)const;
 protected:
-	void init(MenuConverter *parent);
+	virtual void loadConfiguration(std::unique_ptr<TextFile> &file);
+	virtual void create(MenuConverter *parent);
 	virtual std::string getName(void)const=0;
 	virtual std::string getHelp(void)const;
 private:

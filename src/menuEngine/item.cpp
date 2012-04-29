@@ -21,12 +21,11 @@
 #include "item.h"
 
 #include "menu.h"
-//#include <pluginEngine/plugin.h>
 
-Item::Item(boost::filesystem::path const &location, Menu *parent)
+Item::Item(std::unique_ptr<TextFile> file)
 //: m_plugin()
 {
-	init(location,parent);
+	loadConfiguration(file);
 }
 
 //void Item::associate(std::unique_ptr<Plugin> &target)

@@ -86,3 +86,8 @@ bool TextFile::eofReached(void)const
 	fseek(m_file,current_pos,SEEK_SET);
 	return result;
 }
+
+std::string TextFile::getFileName(void)const
+{
+	return m_filePath.filename().string();
+}

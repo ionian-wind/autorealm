@@ -93,6 +93,12 @@
 		<Unit filename="gui/drawingtests.h">
 			<Option virtualFolder="rag-bag/" />
 		</Unit>
+		<Unit filename="gui/id.cpp">
+			<Option virtualFolder="rag-bag/" />
+		</Unit>
+		<Unit filename="gui/id.h">
+			<Option virtualFolder="rag-bag/" />
+		</Unit>
 		<Unit filename="gui/singleton.h">
 			<Option virtualFolder="headers/" />
 		</Unit>

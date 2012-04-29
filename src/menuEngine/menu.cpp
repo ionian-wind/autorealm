@@ -22,13 +22,9 @@
 
 #include <assert.h>
 #include "item.h"
+#include <utils/textfile.h>
 
 Menu::Menu(boost::filesystem::path const &location)
-:Menu(location,nullptr)
-{
-}
-
-Menu::Menu(boost::filesystem::path const &location, MenuItem* parent)
 {
 	//!\pre location must exists
 	if(!boost::filesystem::exists(location))
@@ -37,8 +33,8 @@ Menu::Menu(boost::filesystem::path const &location, MenuItem* parent)
 	if(!boost::filesystem::is_directory(location))
 		throw std::runtime_error("Given location is not a directory");
 
-	init(findConfigurationFile(location),parent);
-	buildMenu(location);
+	auto file=TextFile::OpenFile(findConfigurationFile(location));
+	loadConfiguration(file);
 }
 
 boost::filesystem::path Menu::findConfigurationFile(boost::filesystem::path const &location)
@@ -54,12 +50,28 @@ void Menu::buildMenu(boost::filesystem::path const &location)
 	const boost::filesystem::path toSkip(findConfigurationFile(location)); //skip the file with same name as directory
 	for(auto content=boost::filesystem::directory_iterator(location);content!=boost::filesystem::directory_iterator();++content)
 	{
+		if(toSkip==content->path())
+			continue;
+		m_leaves.push_back(std::unique_ptr<MenuItem>());
 		if(boost::filesystem::is_regular_file(content->path()))
-		{
-			if(toSkip!=content->path())
-				m_leaves.push_back(std::unique_ptr<MenuItem>(new Item(content->path(),this)));
-		}
+			m_leaves.back().reset(new Item(TextFile::OpenFile(content->path())));
 		else
-			m_leaves.push_back(std::unique_ptr<MenuItem>(new Menu(content->path(),this)));
+		{
+			Menu *m(new Menu(content->path()));
+			m->buildMenu(content->path());
+			m_leaves.back().reset(m);
+		}
 	}
+}
+
+void Menu::create(void)
+{
+	create(nullptr);
+}
+
+void Menu::create(MenuConverter* parent)
+{
+	MenuConverter::create(parent);
+	for(auto &i:m_leaves)
+		i->create(this);
 }

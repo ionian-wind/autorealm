@@ -21,13 +21,19 @@
 #include "menuitem.h"
 
 #include <assert.h>
-void MenuItem::init(boost::filesystem::path const &file,MenuItem *parent)
+
+#include <utils/textfile.h>
+
+void MenuItem::loadConfiguration(std::unique_ptr<TextFile> &file)
 {
-	//!\pre file must be a regular file
-	assert(boost::filesystem::is_regular_file(file));
-	m_name=file.filename().string();
-	//!\todo read name of the entry from the file
-	//!\todo read help text from the file
-	//!\todo read kind of entry from the file
-	MenuConverter::init(parent);
+	m_name=file->getFileName();
 }
+//
+//void MenuItem::init(boost::filesystem::path const &file)
+//{
+//	//!\pre file must be a regular file
+//	assert(boost::filesystem::is_regular_file(file));
+//	m_name=file.filename().string();
+//	//!\todo read name of the entry from the file
+//	//!\todo read kind of entry from the file
+//}
