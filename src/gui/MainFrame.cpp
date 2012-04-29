@@ -26,6 +26,7 @@
 #include <boost/filesystem.hpp>
 
 #include "RenderWindow.h"
+#include "id.h"
 //#include <pluginEngine/container.h>
 
 const long MainFrame::ID_NOTEBOOK = wxNewId();
@@ -69,6 +70,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 ////add all plug-ins entries
 	//register plugins types
 	m_actionPlugIn.acceptProviderType<PluginProvider>();
+	m_actionPlugIn.loadFromFolder(AppConfig::buildPath(AppConfig::INFO::PLUGINS));
 	m_actionPlugIn.getProviders(m_actionProviders);
 	//instanciate plugins
 	m_plugins.reserve(m_actionProviders.size());
