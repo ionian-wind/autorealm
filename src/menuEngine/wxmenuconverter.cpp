@@ -70,3 +70,8 @@ wxMenuBar* MenuConverter::getMenuBar(void)const
 	assert(typeid(*this)==typeid(Menu) && m_isMenuBar==true);
 	return m_content.menubar;
 }
+
+std::string MenuConverter::getHelp(void)const
+{
+	return m_help;
+}

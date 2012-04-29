@@ -36,7 +36,7 @@ public:
 protected:
 	void init(MenuConverter *parent);
 	virtual std::string getName(void)const=0;
-	virtual std::string getHelp(void)const=0;
+	virtual std::string getHelp(void)const;
 private:
 private:
 	union WWxContent
@@ -46,6 +46,7 @@ private:
 		wxMenuItem* menuitem;
 	}m_content;
 	bool m_isMenuBar=false;
+	std::string m_help;
 };
 
 #endif // WXMENUCONVERTER_H

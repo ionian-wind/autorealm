@@ -31,12 +31,10 @@ class MenuItem: public MenuConverter
 	public:
 		virtual ~MenuItem()=default;
 		std::string getName(void)const{return m_name;}
-		std::string getHelp(void)const{return m_help;}
 	protected:
 		void init(boost::filesystem::path const &file, MenuItem *parent);
 	private:
 		std::string m_name;
-		std::string m_help;
 };
 
 #endif // MENUITEM_H
