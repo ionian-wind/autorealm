@@ -18,35 +18,25 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef MENU_H
-#define MENU_H
+#ifndef ITERATOR_H
+#define ITERATOR_H
 
-#include <vector>
-#include <memory>
+class Menu;
 
-#include <boost/filesystem.hpp>
-
-#include "menuitem.h"
-#include "iterator.h"
-
-class Menu : public MenuItem
+template <class Composite>
+class Iterator
 {
-	friend class Iterator<Menu>;
-	typedef std::vector<std::unique_ptr<MenuItem>> Components;
+	friend class Menu;
 public:
-	Menu(boost::filesystem::path const &location);
-	virtual ~Menu()=default;
-	void buildMenu(boost::filesystem::path const &location);
-	void create(void);
-	Iterator<Menu> begin(void);
+	Iterator& operator++(void);
+	//implémenter les opérateurs de déréférencement tel un smart ptr
 protected:
-	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
-	virtual void create(MenuConverter* parent);
+	Iterator(Composite *owner);
 private:
-public:
-protected:
-	Components m_components;
-private:
+	Composite *m_owner;
+	typename Composite::Components::iterator m_position;
+	std::stack<std::pair<Composite*,typename Composite::Components::iterator>> m_ancestors;
 };
 
-#endif // MENU_H
+#include "iterator.cpp"
+#endif // ITERATOR_H

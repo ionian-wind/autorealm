@@ -52,14 +52,14 @@ void Menu::buildMenu(boost::filesystem::path const &location)
 	{
 		if(toSkip==content->path())
 			continue;
-		m_leaves.push_back(std::unique_ptr<MenuItem>());
+		m_components.push_back(std::unique_ptr<MenuItem>());
 		if(boost::filesystem::is_regular_file(content->path()))
-			m_leaves.back().reset(new Item(TextFile::OpenFile(content->path())));
+			m_components.back().reset(new Item(TextFile::OpenFile(content->path())));
 		else
 		{
 			Menu *m(new Menu(content->path()));
 			m->buildMenu(content->path());
-			m_leaves.back().reset(m);
+			m_components.back().reset(m);
 		}
 	}
 }
@@ -72,6 +72,11 @@ void Menu::create(void)
 void Menu::create(MenuConverter* parent)
 {
 	MenuConverter::create(parent);
-	for(auto &i:m_leaves)
+	for(auto &i:m_components)
 		i->create(this);
+}
+
+Iterator<Menu> Menu::begin(void)
+{
+	return Iterator<Menu>(this);
 }

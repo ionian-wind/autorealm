@@ -51,6 +51,11 @@
 		<Unit filename="menuEngine/item.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Unit filename="menuEngine/iterator.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="menuEngine/iterator.h" />
 		<Unit filename="menuEngine/menu.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>

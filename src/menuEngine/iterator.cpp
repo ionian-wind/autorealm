@@ -18,35 +18,28 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef MENU_H
-#define MENU_H
-
-#include <vector>
-#include <memory>
-
-#include <boost/filesystem.hpp>
-
-#include "menuitem.h"
-#include "iterator.h"
-
-class Menu : public MenuItem
+template <class Composite>
+Iterator<Composite>& Iterator<Composite>::operator++(void)
 {
-	friend class Iterator<Menu>;
-	typedef std::vector<std::unique_ptr<MenuItem>> Components;
-public:
-	Menu(boost::filesystem::path const &location);
-	virtual ~Menu()=default;
-	void buildMenu(boost::filesystem::path const &location);
-	void create(void);
-	Iterator<Menu> begin(void);
-protected:
-	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
-	virtual void create(MenuConverter* parent);
-private:
-public:
-protected:
-	Components m_components;
-private:
-};
+	++m_position;
+	if(typeid(**m_position)==typeid(Composite))
+	{
+		m_ancestors.push(std::make_pair(m_owner,m_position));
+		m_owner=static_cast<Composite*>(&**m_position);
+		m_position=m_owner->m_components.begin();
+	}
+	if(m_position==m_owner->m_components.end() && !m_ancestors.empty())
+	{
+		m_owner=m_ancestors.top().first;
+		m_position=m_ancestors.top().second;
+		m_ancestors.pop();
+	}
+	operator++();
+	return *this;
+}
 
-#endif // MENU_H
+template <class Composite>
+Iterator<Composite>::Iterator(Composite *owner)
+:m_owner(owner),m_position(owner->m_components.begin())
+{
+}
