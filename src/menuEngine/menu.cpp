@@ -80,3 +80,8 @@ Iterator<Menu> Menu::begin(void)
 {
 	return Iterator<Menu>(this);
 }
+
+Iterator<Menu> Menu::end(void)
+{
+	return Iterator<Menu>(this, false);
+}

@@ -39,6 +39,7 @@ public:
 	void buildMenu(boost::filesystem::path const &location);
 	void create(void);
 	Iterator<Menu> begin(void);
+	Iterator<Menu> end(void);
 protected:
 	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
 	virtual void create(MenuConverter* parent);

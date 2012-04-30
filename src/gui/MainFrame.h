@@ -38,6 +38,7 @@
 class RenderWindow;
 //class ToolbarItem;
 //class ToolBar;
+class ID;
 
 class MainFrame : public wxFrame
 {
@@ -57,6 +58,7 @@ private:
 
 	std::vector<PluginProvider*> m_actionProviders;
 	std::vector<std::unique_ptr<Plugin>> m_plugins;
+	std::map<std::string, ID> m_buttonIDs;
 //	std::vector<std::unique_ptr<Plugin>>::iterator m_selected;
 	pluma::Pluma m_actionPlugIn;
 

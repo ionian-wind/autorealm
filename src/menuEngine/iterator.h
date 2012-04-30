@@ -29,9 +29,11 @@ class Iterator
 	friend class Menu;
 public:
 	Iterator& operator++(void);
+	bool operator!=(Iterator<Composite> const&other)const;
 	//implémenter les opérateurs de déréférencement tel un smart ptr
 protected:
 	Iterator(Composite *owner);
+	Iterator(Composite *owner, bool dumb);
 private:
 	Composite *m_owner;
 	typename Composite::Components::iterator m_position;

@@ -43,3 +43,15 @@ Iterator<Composite>::Iterator(Composite *owner)
 :m_owner(owner),m_position(owner->m_components.begin())
 {
 }
+
+template <class Composite>
+Iterator<Composite>::Iterator(Composite *owner, bool dumb)
+:m_owner(owner),m_position(owner->m_components.end())
+{
+}
+
+template <class Composite>
+bool Iterator<Composite>::operator!=(Iterator<Composite> const&other)const
+{
+	return m_owner==other.m_owner && m_position==other.m_position;
+}
