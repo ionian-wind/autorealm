@@ -68,7 +68,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 m_menuTree.buildMenu(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)));
 for(auto it=m_menuTree.begin();it!=m_menuTree.end();++it)
 {
-	//auto id=m_buttonIDs[it->getPluginName];
+	auto id=m_buttonIDs[it->getPluginName()];
 	//Bind(wxEVT_COMMAND_MENU_SELECTED,&Plugin::activator,*it, id,id);
 }
 

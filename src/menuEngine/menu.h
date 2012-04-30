@@ -31,6 +31,7 @@
 
 class Menu : public MenuItem
 {
+	typedef class Iterator<Menu> MenuIter;
 	friend class Iterator<Menu>;
 	typedef std::vector<std::unique_ptr<MenuItem>> Components;
 public:
@@ -38,8 +39,8 @@ public:
 	virtual ~Menu()=default;
 	void buildMenu(boost::filesystem::path const &location);
 	void create(void);
-	Iterator<Menu> begin(void);
-	Iterator<Menu> end(void);
+	MenuIter begin(void);
+	MenuIter end(void);
 protected:
 	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
 	virtual void create(MenuConverter* parent);

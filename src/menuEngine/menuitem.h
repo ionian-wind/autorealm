@@ -29,6 +29,7 @@
 class MenuItem: public MenuConverter
 {
 	public:
+		std::string getPluginName(void)const;
 		virtual ~MenuItem()=default;
 		std::string getName(void)const{return m_name;}
 	protected:

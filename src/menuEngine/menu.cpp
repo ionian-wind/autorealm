@@ -21,8 +21,11 @@
 #include "menu.h"
 
 #include <assert.h>
-#include "item.h"
+
 #include <utils/textfile.h>
+
+#include "item.h"
+#include "iterator.h"
 
 Menu::Menu(boost::filesystem::path const &location)
 {
@@ -81,7 +84,7 @@ Iterator<Menu> Menu::begin(void)
 	return Iterator<Menu>(this);
 }
 
-Iterator<Menu> Menu::end(void)
+Menu::MenuIter Menu::end(void)
 {
-	return Iterator<Menu>(this, false);
+	return MenuIter(this, false);
 }

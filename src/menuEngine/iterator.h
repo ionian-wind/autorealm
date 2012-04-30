@@ -30,6 +30,8 @@ class Iterator
 public:
 	Iterator& operator++(void);
 	bool operator!=(Iterator<Composite> const&other)const;
+	//decltype(*Iterator<Composite>::m_position) operator->(void);
+	MenuItem* operator->(void);
 	//implémenter les opérateurs de déréférencement tel un smart ptr
 protected:
 	Iterator(Composite *owner);

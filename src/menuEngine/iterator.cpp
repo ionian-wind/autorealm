@@ -55,3 +55,10 @@ bool Iterator<Composite>::operator!=(Iterator<Composite> const&other)const
 {
 	return m_owner==other.m_owner && m_position==other.m_position;
 }
+
+template <class Composite>
+//decltype(*Iterator<Composite>::m_position) Iterator<Composite>::operator->(void)
+MenuItem* Iterator<Composite>::operator->(void)
+{
+	return &**m_position;
+}

@@ -37,3 +37,8 @@ void MenuItem::loadConfiguration(std::unique_ptr<TextFile> &file)
 //	//!\todo read name of the entry from the file
 //	//!\todo read kind of entry from the file
 //}
+
+std::string MenuItem::getPluginName(void)const
+{
+	return getName();
+}
