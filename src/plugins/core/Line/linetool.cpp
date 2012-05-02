@@ -40,3 +40,6 @@ void LineTool::action(wxEvent& event)
 //	wxMessageBox("hello Vertex","hello caption");
 }
 
+void LineTool::activator(wxCommandEvent&)
+{
+}

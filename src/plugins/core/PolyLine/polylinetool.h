@@ -32,11 +32,17 @@ class PolyLineTool : public Plugin
 {
 	public:
 		PolyLineTool (void);
+		virtual void activator(wxCommandEvent&);
 		virtual void readConfig(std::unique_ptr<TextFile> &file);
 		virtual void action(wxEvent&ev);
 	protected:
 	private:
 };
 
-PLUMA_INHERIT_PROVIDER(PolyLineTool,Plugin)
+class PolyLineToolProvider: public PluginProvider{
+public:
+    Plugin * create() const{ return new PolyLineTool(); }
+	const std::string& getPluginName(void)const{return "PolyLineTool";}
+};
+
 #endif // POLYLINETOOL_H

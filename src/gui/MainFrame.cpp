@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -29,13 +29,34 @@
 #include "id.h"
 //#include <pluginEngine/container.h>
 
+//!\todo move me in Pluma
+template <class T>
+T* getProvider(pluma::Pluma & plumConf, std::string const& location, std::string const& pluginName)
+{
+	std::vector<T*> prevProviders, actualProviders;
+	plumConf.getProviders(prevProviders);
+	if(plumConf.load(location,pluginName))
+	{ // register loaded provider
+		decltype(actualProviders.size()) i=0;
+		plumConf.getProviders(actualProviders);//!\todo PlumaLack#1 remove that
+		//!\todo PlumaLack#1 remove that
+		//Locate the provider newly loaded
+		while(i<actualProviders.size() && prevProviders.end()!=std::find(prevProviders.begin(),prevProviders.end(),actualProviders[i]))
+			++i;
+
+int j=i;int k=actualProviders.size();
+		if(i<=actualProviders.size())
+			return actualProviders[i];
+	}
+	return nullptr;
+}
+
 const long MainFrame::ID_NOTEBOOK = wxNewId();
-const long MainFrame::ID_MENUQUIT = wxNewId();
 
 MainFrame::~MainFrame(void)
 {
 	for(auto &i:m_plugins)//!\todo find a way to let unique_ptr<> do the delete job when destroyed by vector's destruction
-		i.reset();
+		i.second.reset();
 
 	m_auiManager.UnInit();
 }
@@ -65,53 +86,38 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
     m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Name(_T("Workspace")).Caption(_("Workspace")).CaptionVisible(false).CloseButton(false).Center());
     m_auiManager.Update();
 
-m_menuTree.buildMenu(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)));
-for(auto it=m_menuTree.begin();it!=m_menuTree.end();++it)
-{
-	auto id=m_buttonIDs[it->getPluginName()];
-	//Bind(wxEVT_COMMAND_MENU_SELECTED,&Plugin::activator,*it, id,id);
-}
-
-m_menuTree.create();
-	SetMenuBar(m_menuTree.getMenuBar());
-
-////add all plug-ins entries
-	//register plugins types
 	m_actionPlugIn.acceptProviderType<PluginProvider>();
-	m_actionPlugIn.loadFromFolder(AppConfig::buildPath(AppConfig::INFO::PLUGINS));
-	m_actionPlugIn.getProviders(m_actionProviders);
-	//instanciate plugins
-	m_plugins.reserve(m_actionProviders.size());
-	std::transform(m_actionProviders.begin(),m_actionProviders.end(),std::inserter(m_plugins,m_plugins.begin()),
-					[](PluginProvider *ita)
-					{return std::unique_ptr<Plugin>(ita->create());});
+	m_menuTree.buildMenu(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)));
 
-//	//!\todo use algorithms (for_each and transform) instead of for loops
-//	for(auto &i:m_plugins)
-//		registerItem(i);
-//
-//	for(auto p:m_containers)
-//		m_auiManager.AddPane(p.second.first,p.second.second);
+	//load only needed plugins
+	auto at=m_menuTree.begin();
+	auto bt=m_menuTree.end();
+	for(auto it=m_menuTree.begin();it!=m_menuTree.end();++it)//only browse leaves
+	{
+		std::string plugName=it->getPluginName();
+		auto jt=m_buttonIDs.find(plugName);
+		if(jt==m_buttonIDs.end())// plugin is not loaded? Try to load it.
+		{
+			assert(!m_actionPlugIn.isLoaded(plugName));//!\note should never load twice the same plugin. Could be in pluma...
+			PluginProvider* plugProvider=getProvider<PluginProvider>(m_actionPlugIn,AppConfig::buildPath(AppConfig::INFO::PLUGINS),plugName);
+			if(nullptr==plugProvider)
+				it->disable();
+			else
+				m_plugins[m_buttonIDs[plugName]].reset(plugProvider->create());
+		}
+		jt=m_buttonIDs.find(plugName);
+		if(jt!=m_buttonIDs.end())// plugin loaded? Bind it.
+		{
+			Plugin *plu=m_plugins[jt->second].get();
+			Bind(wxEVT_COMMAND_MENU_SELECTED,&Plugin::activator,plu, jt->second,jt->second);
+		}
+	}
+
+	m_menuTree.create();
+	SetMenuBar(m_menuTree.getMenuBar());
 
 	m_auiManager.Update();
 }
-
-//void MainFrame::registerItem(std::unique_ptr<Item> &item)
-//{
-//	auto id=item->m_id;
-//	item->readConfig();
-//	wxMenu *lastMenu=item->createMenu(this);
-////TODO make this function doing something
-//	std::string name=item->m_path.back().getName();
-//
-//	if(m_containers.find(name)==m_containers.end())
-//		m_containers[name].createToolbar(name,this);
-//
-//	m_containers[name].createItem(item->m_toolbarItem,id);
-//	static_cast<MenuData>(item->m_toolbarItem).addTo(lastMenu, id);
-//
-//	Bind(wxEVT_COMMAND_MENU_SELECTED,&MainFrame::changeLeftAction,this,id,id);
-//}
 
 void MainFrame::onQuit(wxCommandEvent& event)
 {

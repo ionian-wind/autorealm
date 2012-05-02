@@ -52,7 +52,11 @@ void MenuConverter::create(MenuConverter *parent)
 		if(typeid(*this)==typeid(Menu))
 			m_content.menu=new wxMenu(getName()); //!\todo implement style
 		else
+		{
 			m_content.menuitem=new wxMenuItem(parent->m_content.menu, wxNewId(),getName(),getHelp(),wxITEM_NORMAL);
+			//m_content.menuitem->Enable(isEnabled());
+			//!\todo find a solution to indicate that a meu item is useless
+		}
 
 		if(parent->m_isMenuBar)
 			parent->m_content.menubar->Append(m_content.menu, getName());// it is only possible to add menu to menubars

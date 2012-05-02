@@ -36,6 +36,7 @@ public:
 	virtual ~MenuConverter(){};
 //	virtual ~MenuConverter()=default;
 	wxMenuBar* getMenuBar(void)const;
+	virtual bool isEnabled(void)const=0;
 protected:
 	virtual void loadConfiguration(std::unique_ptr<TextFile> &file);
 	virtual void create(MenuConverter *parent);

@@ -39,3 +39,7 @@ void PolyLineTool ::action(wxEvent&ev)
 {
 //	wxMessageBox("hello world","hello caption");
 }
+
+void PolyLineTool::activator(wxCommandEvent&)
+{
+}

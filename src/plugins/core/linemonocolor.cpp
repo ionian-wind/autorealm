@@ -38,3 +38,7 @@ std::unique_ptr<Drawer> LineMonoColor::clone(void)const
 {
 	return std::unique_ptr<LineMonoColor>(new LineMonoColor());
 }
+
+void LineMonoColor::activator(wxCommandEvent&)
+{
+}

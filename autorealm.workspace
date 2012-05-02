@@ -15,5 +15,6 @@
 		</Project>
 		<Project filename="src/plugins/core/Line.cbp" />
 		<Project filename="src/menuEngine.cbp" />
+		<Project filename="../prj/Pluma-1.0/build/gcc/pluma.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

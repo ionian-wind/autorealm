@@ -32,11 +32,17 @@ class LineTool : public Plugin
 {
 	public:
 		LineTool(void);
+		virtual void activator(wxCommandEvent&);
 		virtual void readConfig(std::unique_ptr<TextFile> &file);
 		virtual void action(wxEvent &);
 	protected:
 	private:
 };
 
-PLUMA_INHERIT_PROVIDER(LineTool,Plugin)
+class LineToolProvider: public PluginProvider{
+public:
+    Plugin * create() const{ return new LineTool(); }
+	const std::string& getPluginName(void)const{return "LineTool";}
+};
+
 #endif // INETOOL_H

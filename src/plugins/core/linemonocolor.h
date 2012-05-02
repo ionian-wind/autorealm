@@ -27,6 +27,7 @@ class LineMonoColor : public Drawer
 {
 	public:
 		LineMonoColor();
+		virtual void activator(wxCommandEvent&);
 		virtual void draw(Vertex const &v)const;
 		virtual std::unique_ptr<Drawer> clone(void)const;
 	protected:

@@ -54,6 +54,7 @@
 			<Add option="`wx-config --cppflags`" />
 			<Add directory="../src" />
 			<Add directory="renderEngine" />
+			<Add directory="../../prj/Pluma-1.0/include" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs aui gl adv core base `" />
@@ -61,7 +62,8 @@
 			<Add library="GLU" />
 			<Add library="boost_filesystem" />
 			<Add library="boost_system" />
-			<Add library="pluma" />
+			<Add library="pluma-d" />
+			<Add directory="../../prj/Pluma-1.0/lib" />
 		</Linker>
 		<Unit filename="gui/App.cpp">
 			<Option virtualFolder="source/" />

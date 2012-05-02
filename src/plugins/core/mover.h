@@ -29,6 +29,7 @@ class Vertex;
 class Mover : public Mutator
 {
 	public:
+		virtual void activator(wxCommandEvent&);
 		void visit(Group& v);
 		void visit(Shape& v);
 		Point m_distance;

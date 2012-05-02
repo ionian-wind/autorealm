@@ -22,19 +22,7 @@ template <class Composite>
 Iterator<Composite>& Iterator<Composite>::operator++(void)
 {
 	++m_position;
-	if(typeid(**m_position)==typeid(Composite))
-	{
-		m_ancestors.push(std::make_pair(m_owner,m_position));
-		m_owner=static_cast<Composite*>(&**m_position);
-		m_position=m_owner->m_components.begin();
-	}
-	if(m_position==m_owner->m_components.end() && !m_ancestors.empty())
-	{
-		m_owner=m_ancestors.top().first;
-		m_position=m_ancestors.top().second;
-		m_ancestors.pop();
-	}
-	operator++();
+	goDeeper();
 	return *this;
 }
 
@@ -42,23 +30,73 @@ template <class Composite>
 Iterator<Composite>::Iterator(Composite *owner)
 :m_owner(owner),m_position(owner->m_components.begin())
 {
+	goDeeper();
 }
 
 template <class Composite>
 Iterator<Composite>::Iterator(Composite *owner, bool dumb)
 :m_owner(owner),m_position(owner->m_components.end())
 {
+	goUpper();
 }
 
 template <class Composite>
 bool Iterator<Composite>::operator!=(Iterator<Composite> const&other)const
 {
-	return m_owner==other.m_owner && m_position==other.m_position;
+	return m_owner!=other.m_owner || (*m_position)!=(*other.m_position);
 }
 
 template <class Composite>
 //decltype(*Iterator<Composite>::m_position) Iterator<Composite>::operator->(void)
 MenuItem* Iterator<Composite>::operator->(void)
 {
-	return &**m_position;
+	return m_position->get();
+}
+
+template <class Composite>
+MenuItem& Iterator<Composite>::operator*(void)
+{
+	return *(m_position->get());
+}
+
+template <class Composite>
+void Iterator<Composite>::goDeeper(void)
+{
+	//!\pre m_owner is a valid Composite
+	//!\post m_position refer to a leaf or Iterator is set to end()
+	//!\post m_owner is a valid Composite but might have changed
+	if(m_owner->m_components.empty() || isEndOfLevel())
+		goUpper();
+	else if(isComposite())
+	{
+		m_ancestors.push(std::make_pair(m_owner,m_position));
+		m_owner=static_cast<Composite*>(m_position->get());
+		m_position=m_owner->m_components.begin();
+		goDeeper();
+	}
+}
+
+template <class Composite>
+void Iterator<Composite>::goUpper(void)
+{
+	if(isEndOfLevel() && !m_ancestors.empty())
+	{
+		m_owner=m_ancestors.top().first;
+		m_position=m_ancestors.top().second;
+		m_ancestors.pop();
+		operator++();
+		goUpper();
+	}
+}
+
+template <class Composite>
+bool Iterator<Composite>::isComposite(void)const
+{
+	return typeid(*m_position->get())==typeid(Composite);
+}
+
+template <class Composite>
+bool Iterator<Composite>::isEndOfLevel(void)const
+{
+	return m_position==m_owner->m_components.end();
 }

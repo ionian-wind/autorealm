@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -54,11 +54,10 @@ private:
     wxAuiNotebook* m_auiNotebookWorkspace;
 
     static const long ID_NOTEBOOK;
-    static const long ID_MENUQUIT;
 
 	std::vector<PluginProvider*> m_actionProviders;
-	std::vector<std::unique_ptr<Plugin>> m_plugins;
-	std::map<std::string, ID> m_buttonIDs;
+	std::map<std::string, ID> m_buttonIDs;// name of plugins are associated with an ID
+	std::map<ID,std::unique_ptr<Plugin>> m_plugins;// IDs are associated with plugins
 //	std::vector<std::unique_ptr<Plugin>>::iterator m_selected;
 	pluma::Pluma m_actionPlugIn;
 
@@ -81,11 +80,14 @@ public:
     ~MainFrame(void);
 
 protected:
-//	void registerPlugin(std::unique_ptr<Plugin> &plugin);
+
 private:
     /** \brief Exit the application
      * \param event wxCommandEvent&
      */
     void onQuit(wxCommandEvent& event);
 };
+
 #endif
+
+//!\todo PlumaLack#1 implement a Provider::getProvider(std::string const &plugName) in pluma to remove dumb code here

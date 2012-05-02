@@ -31,12 +31,16 @@ class MenuItem: public MenuConverter
 	public:
 		std::string getPluginName(void)const;
 		virtual ~MenuItem()=default;
-		std::string getName(void)const{return m_name;}
+		std::string getName(void)const;
+		void disable(bool disable=true);
+		bool isEnabled(void)const;
+		bool m_isComposite=false; //!\todo remove this horror as soon as possible!
 	protected:
 		void virtual loadConfiguration(std::unique_ptr<TextFile> &file);
 		//void init(boost::filesystem::path const &file);
 	private:
 		std::string m_name;
+		bool m_enable=true;
 };
 
 #endif // MENUITEM_H

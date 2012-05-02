@@ -21,21 +21,23 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-class Menu;
-
 template <class Composite>
 class Iterator
 {
-	friend class Menu;
+	friend Composite;
 public:
 	Iterator& operator++(void);
 	bool operator!=(Iterator<Composite> const&other)const;
-	//decltype(*Iterator<Composite>::m_position) operator->(void);
+
 	MenuItem* operator->(void);
-	//implémenter les opérateurs de déréférencement tel un smart ptr
+	MenuItem& operator*(void);
+	bool isEndOfLevel(void)const;
 protected:
 	Iterator(Composite *owner);
-	Iterator(Composite *owner, bool dumb);
+	Iterator(Composite *owner, bool dumb);//!\todo make Ctor private and create static methods to build begin/end iterators
+	void goDeeper();
+	void goUpper();
+	bool isComposite(void)const;
 private:
 	Composite *m_owner;
 	typename Composite::Components::iterator m_position;

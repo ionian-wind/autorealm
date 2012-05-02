@@ -46,3 +46,7 @@ Vertex Mover::mover(Vertex const&v)
 	v1.setEnd(v1.getEnd()+m_distance);
 	return v1;
 }
+
+void Mover::activator(wxCommandEvent&)
+{
+}

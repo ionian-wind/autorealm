@@ -26,7 +26,8 @@
 
 void MenuItem::loadConfiguration(std::unique_ptr<TextFile> &file)
 {
-	m_name=file->getFileName();
+	m_name=file->readLine();
+//	m_name=file->getFileName();
 }
 //
 //void MenuItem::init(boost::filesystem::path const &file)
@@ -41,4 +42,19 @@ void MenuItem::loadConfiguration(std::unique_ptr<TextFile> &file)
 std::string MenuItem::getPluginName(void)const
 {
 	return getName();
+}
+
+void MenuItem::disable(bool disable)
+{
+	m_enable=!disable;
+}
+
+bool MenuItem::isEnabled(void)const
+{
+	return m_enable;
+}
+
+std::string MenuItem::getName(void)const
+{
+	return m_name;
 }

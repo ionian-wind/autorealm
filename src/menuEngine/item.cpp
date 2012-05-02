@@ -25,6 +25,7 @@
 Item::Item(std::unique_ptr<TextFile> file)
 //: m_plugin()
 {
+	m_isComposite=false;
 	loadConfiguration(file);
 }
 
