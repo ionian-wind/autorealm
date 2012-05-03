@@ -7,6 +7,7 @@
 			<Depends filename="src/plugins/core/PolyLine.cbp" />
 			<Depends filename="src/plugins/core/Line.cbp" />
 			<Depends filename="src/menuEngine.cbp" />
+			<Depends filename="../prj/Pluma-1.0/build/gcc/pluma.cbp" />
 		</Project>
 		<Project filename="src/pluginEngine.cbp" />
 		<Project filename="src/renderEngine.cbp" />

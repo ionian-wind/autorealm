@@ -46,6 +46,7 @@
 			<Add option="-fexceptions" />
 			<Add option="-fPIC" />
 			<Add directory="../src" />
+			<Add directory="../../prj/Pluma-1.0/include" />
 		</Compiler>
 		<Linker>
 			<Add library="GL" />

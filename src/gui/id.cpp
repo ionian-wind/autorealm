@@ -1,6 +1,7 @@
 #include "id.h"
 
-uint16_t ID::s_nextID=0;
+#include <wx/utils.h>
+uint16_t ID::s_nextID=wxNewId();
 
 ID::ID()
 :m_id(s_nextID)

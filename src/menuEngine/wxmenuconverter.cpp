@@ -53,7 +53,7 @@ void MenuConverter::create(MenuConverter *parent)
 			m_content.menu=new wxMenu(getName()); //!\todo implement style
 		else
 		{
-			m_content.menuitem=new wxMenuItem(parent->m_content.menu, wxNewId(),getName(),getHelp(),wxITEM_NORMAL);
+			m_content.menuitem=new wxMenuItem(parent->m_content.menu, m_id,getName(),getHelp(),wxITEM_NORMAL);
 			//m_content.menuitem->Enable(isEnabled());
 			//!\todo find a solution to indicate that a meu item is useless
 		}
@@ -85,4 +85,9 @@ std::string MenuConverter::getHelp(void)const
 void MenuConverter::loadConfiguration(std::unique_ptr<TextFile> &file)
 {
 	m_help=file->readLine();
+}
+
+void MenuConverter::setID(uint16_t id)
+{
+	m_id=id;
 }

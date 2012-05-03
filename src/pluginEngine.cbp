@@ -40,7 +40,7 @@
 			<Add option="`wx-config --cxxflags`" />
 			<Add option="-fPIC" />
 			<Add directory="../src" />
-			<Add directory="../../prj/Pluma-1.0/include" />
+			<Add directory="../../prj/Pluma-1.0/include/" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs`" />

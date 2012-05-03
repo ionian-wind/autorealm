@@ -39,7 +39,9 @@ void PolyLineTool ::action(wxEvent&ev)
 {
 //	wxMessageBox("hello world","hello caption");
 }
+#include <wx/msgdlg.h>
 
 void PolyLineTool::activator(wxCommandEvent&)
 {
+	wxMessageBox("hello Vertex","hello caption");
 }

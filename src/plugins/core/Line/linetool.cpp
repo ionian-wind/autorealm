@@ -20,8 +20,6 @@
 
 #include "linetool.h"
 
-//#include <wx/image.h>
-
 const std::string Plugin::m_configFileName("line.cfg");
 
 LineTool::LineTool(void)
@@ -42,4 +40,5 @@ void LineTool::action(wxEvent& event)
 
 void LineTool::activator(wxCommandEvent&)
 {
+	wxMessageBox("hello Vertex","hello caption");
 }

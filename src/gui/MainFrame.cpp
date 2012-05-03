@@ -44,7 +44,6 @@ T* getProvider(pluma::Pluma & plumConf, std::string const& location, std::string
 		while(i<actualProviders.size() && prevProviders.end()!=std::find(prevProviders.begin(),prevProviders.end(),actualProviders[i]))
 			++i;
 
-int j=i;int k=actualProviders.size();
 		if(i<=actualProviders.size())
 			return actualProviders[i];
 	}
@@ -103,13 +102,16 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 			if(nullptr==plugProvider)
 				it->disable();
 			else
+			{
 				m_plugins[m_buttonIDs[plugName]].reset(plugProvider->create());
+				it->setID(m_buttonIDs[plugName]);
+			}
 		}
 		jt=m_buttonIDs.find(plugName);
 		if(jt!=m_buttonIDs.end())// plugin loaded? Bind it.
 		{
 			Plugin *plu=m_plugins[jt->second].get();
-			Bind(wxEVT_COMMAND_MENU_SELECTED,&Plugin::activator,plu, jt->second,jt->second);
+			Bind(wxEVT_COMMAND_MENU_SELECTED,&Plugin::activator,plu,jt->second,jt->second);
 		}
 	}
 

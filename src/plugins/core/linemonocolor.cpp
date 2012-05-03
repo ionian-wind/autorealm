@@ -38,7 +38,9 @@ std::unique_ptr<Drawer> LineMonoColor::clone(void)const
 {
 	return std::unique_ptr<LineMonoColor>(new LineMonoColor());
 }
+#include <wx/msgdlg.h>
 
 void LineMonoColor::activator(wxCommandEvent&)
 {
+	wxMessageBox("hello Vertex","hello caption");
 }

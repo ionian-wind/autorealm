@@ -53,9 +53,11 @@
 			<Add option="`wx-config --cxxflags`" />
 			<Add option="-fPIC" />
 			<Add directory="../../" />
+			<Add directory="../../../../prj/Pluma-1.0/include" />
 		</Compiler>
 		<Linker>
-			<Add library="pluma" />
+			<Add library="pluma-d" />
+			<Add directory="../../../../prj/Pluma-1.0/lib" />
 		</Linker>
 		<Unit filename="PolyLine/Connector.cpp">
 			<Option virtualFolder="sources/" />
