@@ -18,9 +18,9 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include "item.h"
+#include "leaf.h"
 
-#include "menu.h"
+#include "component.h"
 
 Leaf::Leaf(std::unique_ptr<TextFile> file)
 //: m_plugin()

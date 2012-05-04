@@ -18,13 +18,13 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include "menu.h"
+#include "composite.h"
 
 #include <assert.h>
 
 #include <utils/textfile.h>
 
-#include "item.h"
+#include "leaf.h"
 #include "iterator.h"
 
 Composite::Composite(boost::filesystem::path const &location)
@@ -57,7 +57,7 @@ void Composite::buildMenu(boost::filesystem::path const &location)
 	{
 		if(toSkip==content->path())
 			continue;
-		m_components.push_back(std::unique_ptr<IComponent>());
+		m_components.push_back(std::unique_ptr<Component>());
 		if(boost::filesystem::is_regular_file(content->path()))
 			m_components.back().reset(new Leaf(TextFile::OpenFile(content->path())));
 		else

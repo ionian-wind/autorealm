@@ -18,29 +18,43 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef MENUITEM_H
-#define MENUITEM_H
+#include "component.h"
 
-#include <string>
-//#include <boost/filesystem.hpp>
+#include <assert.h>
 
-#include "wxmenuconverter.h"
+#include <utils/textfile.h>
 
-class IComponent: public MenuConverter
+void Component::loadConfiguration(std::unique_ptr<TextFile> &file)
 {
-	public:
-		std::string getPluginName(void)const;
-		virtual ~IComponent()=default;
-		std::string getName(void)const;
-		void disable(bool disable=true);
-		bool isEnabled(void)const;
-		bool m_isComposite=false; //!\todo remove this horror as soon as possible!
-	protected:
-		void virtual loadConfiguration(std::unique_ptr<TextFile> &file);
-		//void init(boost::filesystem::path const &file);
-	private:
-		std::string m_name;
-		bool m_enable=true;
-};
+	m_name=file->readLine();
+//	m_name=file->getFileName();
+}
+//
+//void IComponent::init(boost::filesystem::path const &file)
+//{
+//	//!\pre file must be a regular file
+//	assert(boost::filesystem::is_regular_file(file));
+//	m_name=file.filename().string();
+//	//!\todo read name of the entry from the file
+//	//!\todo read kind of entry from the file
+//}
 
-#endif // MENUITEM_H
+std::string Component::getPluginName(void)const
+{
+	return getName();
+}
+
+void Component::disable(bool disable)
+{
+	m_enable=!disable;
+}
+
+bool Component::isEnabled(void)const
+{
+	return m_enable;
+}
+
+std::string Component::getName(void)const
+{
+	return m_name;
+}

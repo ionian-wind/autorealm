@@ -18,43 +18,37 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include "menuitem.h"
+#ifndef MENU_H
+#define MENU_H
 
-#include <assert.h>
+#include <vector>
+#include <memory>
 
-#include <utils/textfile.h>
+#include <boost/filesystem.hpp>
 
-void IComponent::loadConfiguration(std::unique_ptr<TextFile> &file)
+#include "component.h"
+#include "iterator.h"
+
+class Composite : public Component
 {
-	m_name=file->readLine();
-//	m_name=file->getFileName();
-}
-//
-//void IComponent::init(boost::filesystem::path const &file)
-//{
-//	//!\pre file must be a regular file
-//	assert(boost::filesystem::is_regular_file(file));
-//	m_name=file.filename().string();
-//	//!\todo read name of the entry from the file
-//	//!\todo read kind of entry from the file
-//}
+	typedef class Iterator<Composite> MenuIter;
+	friend class Iterator<Composite>;
+	typedef std::vector<std::unique_ptr<Component>> Components;
+public:
+	Composite(boost::filesystem::path const &location);
+	virtual ~Composite()=default;
+	void buildMenu(boost::filesystem::path const &location);
+	void create(void);
+	MenuIter begin(void);
+	MenuIter end(void);
+protected:
+	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
+	virtual void create(MenuConverter* parent);
+private:
+public:
+protected:
+	Components m_components;
+private:
+};
 
-std::string IComponent::getPluginName(void)const
-{
-	return getName();
-}
-
-void IComponent::disable(bool disable)
-{
-	m_enable=!disable;
-}
-
-bool IComponent::isEnabled(void)const
-{
-	return m_enable;
-}
-
-std::string IComponent::getName(void)const
-{
-	return m_name;
-}
+#endif // MENU_H

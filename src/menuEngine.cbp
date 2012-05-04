@@ -45,30 +45,28 @@
 			<Add library="boost_filesystem" />
 			<Add library="boost_system" />
 		</Linker>
-		<Unit filename="menuEngine/item.cpp">
+		<Unit filename="menuEngine/component.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
-		<Unit filename="menuEngine/item.h">
+		<Unit filename="menuEngine/component.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="menuEngine/composite.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="menuEngine/composite.h">
 			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="menuEngine/iterator.cpp">
-			<Option compile="0" />
-			<Option link="0" />
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="menuEngine/iterator.h">
 			<Option virtualFolder="header/" />
 		</Unit>
-		<Unit filename="menuEngine/menu.cpp">
+		<Unit filename="menuEngine/leaf.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
-		<Unit filename="menuEngine/menu.h">
-			<Option virtualFolder="header/" />
-		</Unit>
-		<Unit filename="menuEngine/menuitem.cpp">
-			<Option virtualFolder="source/" />
-		</Unit>
-		<Unit filename="menuEngine/menuitem.h">
+		<Unit filename="menuEngine/leaf.h">
 			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="menuEngine/wxmenuconverter.cpp">

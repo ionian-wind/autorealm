@@ -18,37 +18,29 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef MENU_H
-#define MENU_H
+#ifndef MENUITEM_H
+#define MENUITEM_H
 
-#include <vector>
-#include <memory>
+#include <string>
+//#include <boost/filesystem.hpp>
 
-#include <boost/filesystem.hpp>
+#include "wxmenuconverter.h"
 
-#include "menuitem.h"
-#include "iterator.h"
-
-class Composite : public IComponent
+class Component: public MenuConverter
 {
-	typedef class Iterator<Composite> MenuIter;
-	friend class Iterator<Composite>;
-	typedef std::vector<std::unique_ptr<IComponent>> Components;
-public:
-	Composite(boost::filesystem::path const &location);
-	virtual ~Composite()=default;
-	void buildMenu(boost::filesystem::path const &location);
-	void create(void);
-	MenuIter begin(void);
-	MenuIter end(void);
-protected:
-	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
-	virtual void create(MenuConverter* parent);
-private:
-public:
-protected:
-	Components m_components;
-private:
+	public:
+		std::string getPluginName(void)const;
+		virtual ~Component()=default;
+		std::string getName(void)const;
+		void disable(bool disable=true);
+		bool isEnabled(void)const;
+		bool m_isComposite=false; //!\todo remove this horror as soon as possible!
+	protected:
+		void virtual loadConfiguration(std::unique_ptr<TextFile> &file);
+		//void init(boost::filesystem::path const &file);
+	private:
+		std::string m_name;
+		bool m_enable=true;
 };
 
-#endif // MENU_H
+#endif // MENUITEM_H

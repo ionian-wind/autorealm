@@ -23,12 +23,12 @@
 
 #include <memory>
 
-#include "menuitem.h"
+#include "component.h"
 
 //class Plugin;
 class Composite;
 
-class Leaf : public IComponent
+class Leaf : public Component
 {
 friend class Composite;
 public:

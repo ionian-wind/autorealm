@@ -29,8 +29,8 @@ public:
 	Iterator& operator++(void);
 	bool operator!=(Iterator<Composite> const&other)const;
 
-	IComponent* operator->(void);
-	IComponent& operator*(void);
+	Component* operator->(void);
+	Component& operator*(void);
 	bool isEndOfLevel(void)const;
 protected:
 	Iterator(Composite *owner);
