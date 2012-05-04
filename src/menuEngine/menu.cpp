@@ -27,7 +27,7 @@
 #include "item.h"
 #include "iterator.h"
 
-Menu::Menu(boost::filesystem::path const &location)
+Composite::Composite(boost::filesystem::path const &location)
 :m_components()
 {
 	m_isComposite=true;
@@ -42,7 +42,7 @@ Menu::Menu(boost::filesystem::path const &location)
 	loadConfiguration(file);
 }
 
-boost::filesystem::path Menu::findConfigurationFile(boost::filesystem::path const &location)
+boost::filesystem::path Composite::findConfigurationFile(boost::filesystem::path const &location)
 {
 	boost::filesystem::path file(location.string()+"/"+location.filename().string());
 	if(!boost::filesystem::exists(file))
@@ -50,43 +50,43 @@ boost::filesystem::path Menu::findConfigurationFile(boost::filesystem::path cons
 	return file;
 }
 
-void Menu::buildMenu(boost::filesystem::path const &location)
+void Composite::buildMenu(boost::filesystem::path const &location)
 {
 	const boost::filesystem::path toSkip(findConfigurationFile(location)); //skip the file with same name as directory
 	for(auto content=boost::filesystem::directory_iterator(location);content!=boost::filesystem::directory_iterator();++content)
 	{
 		if(toSkip==content->path())
 			continue;
-		m_components.push_back(std::unique_ptr<MenuItem>());
+		m_components.push_back(std::unique_ptr<IComponent>());
 		if(boost::filesystem::is_regular_file(content->path()))
-			m_components.back().reset(new Item(TextFile::OpenFile(content->path())));
+			m_components.back().reset(new Leaf(TextFile::OpenFile(content->path())));
 		else
 		{
-			Menu *m(new Menu(content->path()));
+			Composite *m(new Composite(content->path()));
 			m->buildMenu(content->path());
 			m_components.back().reset(m);
 		}
 	}
 }
 
-void Menu::create(void)
+void Composite::create(void)
 {
 	create(nullptr);
 }
 
-void Menu::create(MenuConverter* parent)
+void Composite::create(MenuConverter* parent)
 {
 	MenuConverter::create(parent);
 	for(auto &i:m_components)
 		i->create(this);
 }
 
-Iterator<Menu> Menu::begin(void)
+Iterator<Composite> Composite::begin(void)
 {
-	return Iterator<Menu>(this);
+	return Iterator<Composite>(this);
 }
 
-Menu::MenuIter Menu::end(void)
+Composite::MenuIter Composite::end(void)
 {
 	return MenuIter(this, false);
 }

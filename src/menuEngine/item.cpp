@@ -22,7 +22,7 @@
 
 #include "menu.h"
 
-Item::Item(std::unique_ptr<TextFile> file)
+Leaf::Leaf(std::unique_ptr<TextFile> file)
 //: m_plugin()
 {
 	m_isComposite=false;

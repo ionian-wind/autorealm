@@ -29,14 +29,14 @@
 #include "menuitem.h"
 #include "iterator.h"
 
-class Menu : public MenuItem
+class Composite : public IComponent
 {
-	typedef class Iterator<Menu> MenuIter;
-	friend class Iterator<Menu>;
-	typedef std::vector<std::unique_ptr<MenuItem>> Components;
+	typedef class Iterator<Composite> MenuIter;
+	friend class Iterator<Composite>;
+	typedef std::vector<std::unique_ptr<IComponent>> Components;
 public:
-	Menu(boost::filesystem::path const &location);
-	virtual ~Menu()=default;
+	Composite(boost::filesystem::path const &location);
+	virtual ~Composite()=default;
 	void buildMenu(boost::filesystem::path const &location);
 	void create(void);
 	MenuIter begin(void);

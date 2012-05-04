@@ -26,11 +26,11 @@
 
 #include "wxmenuconverter.h"
 
-class MenuItem: public MenuConverter
+class IComponent: public MenuConverter
 {
 	public:
 		std::string getPluginName(void)const;
-		virtual ~MenuItem()=default;
+		virtual ~IComponent()=default;
 		std::string getName(void)const;
 		void disable(bool disable=true);
 		bool isEnabled(void)const;

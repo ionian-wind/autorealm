@@ -48,13 +48,13 @@ bool Iterator<Composite>::operator!=(Iterator<Composite> const&other)const
 
 template <class Composite>
 //decltype(*Iterator<Composite>::m_position) Iterator<Composite>::operator->(void)
-MenuItem* Iterator<Composite>::operator->(void)
+IComponent* Iterator<Composite>::operator->(void)
 {
 	return m_position->get();
 }
 
 template <class Composite>
-MenuItem& Iterator<Composite>::operator*(void)
+IComponent& Iterator<Composite>::operator*(void)
 {
 	return *(m_position->get());
 }

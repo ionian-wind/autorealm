@@ -26,16 +26,16 @@
 #include "menuitem.h"
 
 //class Plugin;
-class Menu;
+class Composite;
 
-class Item : public MenuItem
+class Leaf : public IComponent
 {
-friend class Menu;
+friend class Composite;
 public:
-	virtual ~Item()=default;
+	virtual ~Leaf()=default;
 //	void associate(std::unique_ptr<Plugin> &target);
 protected:
-	Item(std::unique_ptr<TextFile> file);
+	Leaf(std::unique_ptr<TextFile> file);
 private:
 
 public:

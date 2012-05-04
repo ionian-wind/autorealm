@@ -24,13 +24,13 @@
 
 #include <utils/textfile.h>
 
-void MenuItem::loadConfiguration(std::unique_ptr<TextFile> &file)
+void IComponent::loadConfiguration(std::unique_ptr<TextFile> &file)
 {
 	m_name=file->readLine();
 //	m_name=file->getFileName();
 }
 //
-//void MenuItem::init(boost::filesystem::path const &file)
+//void IComponent::init(boost::filesystem::path const &file)
 //{
 //	//!\pre file must be a regular file
 //	assert(boost::filesystem::is_regular_file(file));
@@ -39,22 +39,22 @@ void MenuItem::loadConfiguration(std::unique_ptr<TextFile> &file)
 //	//!\todo read kind of entry from the file
 //}
 
-std::string MenuItem::getPluginName(void)const
+std::string IComponent::getPluginName(void)const
 {
 	return getName();
 }
 
-void MenuItem::disable(bool disable)
+void IComponent::disable(bool disable)
 {
 	m_enable=!disable;
 }
 
-bool MenuItem::isEnabled(void)const
+bool IComponent::isEnabled(void)const
 {
 	return m_enable;
 }
 
-std::string MenuItem::getName(void)const
+std::string IComponent::getName(void)const
 {
 	return m_name;
 }

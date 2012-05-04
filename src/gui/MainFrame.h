@@ -35,6 +35,7 @@
 #include <menuEngine/menu.h>
 #include <pluginEngine/plugin.h>
 
+typedef Composite Menu;
 class RenderWindow;
 //class ToolbarItem;
 //class ToolBar;

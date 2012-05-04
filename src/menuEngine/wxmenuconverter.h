@@ -31,7 +31,7 @@ class TextFile;
 
 class MenuConverter
 {
-	friend class Menu; //!\todo find why this declaration is needed and correct the problem!
+	friend class Composite; //!\todo find why this declaration is needed and correct the problem!
 public:
 	virtual ~MenuConverter(){};
 //	virtual ~MenuConverter()=default;
