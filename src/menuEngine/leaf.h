@@ -25,7 +25,6 @@
 
 #include "component.h"
 
-//class Plugin;
 class Composite;
 
 class Leaf : public Component
@@ -33,15 +32,13 @@ class Leaf : public Component
 friend class Composite;
 public:
 	virtual ~Leaf()=default;
-//	void associate(std::unique_ptr<Plugin> &target);
 protected:
 	Leaf(std::unique_ptr<TextFile> file);
 private:
 
 public:
 protected:
-//	std::unique_ptr<Plugin> m_plugin;
 private:
 };
 
-#endif // ITEM_H
+#endif

@@ -23,9 +23,9 @@
 #include <wx/menu.h>
 #include <wx/menuitem.h>
 
-#include "item.h"
-#include "menu.h"
-#include "menuitem.h"
+#include "leaf.h"
+#include "composite.h"
+#include "component.h"
 
 #include "../utils/textfile.h"
 #include <assert.h>

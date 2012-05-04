@@ -51,4 +51,4 @@ protected:
 private:
 };
 
-#endif // MENU_H
+#endif

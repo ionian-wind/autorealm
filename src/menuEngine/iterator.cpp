@@ -18,66 +18,66 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-template <class Composite>
-Iterator<Composite>& Iterator<Composite>::operator++(void)
+template <class Compositor>
+Iterator<Compositor>& Iterator<Compositor>::operator++(void)
 {
 	++m_position;
 	goDeeper();
 	return *this;
 }
 
-template <class Composite>
-Iterator<Composite>::Iterator(Composite *owner)
+template <class Compositor>
+Iterator<Compositor>::Iterator(Compositor *owner)
 :m_owner(owner),m_position(owner->m_components.begin())
 {
 	goDeeper();
 }
 
-template <class Composite>
-Iterator<Composite>::Iterator(Composite *owner, bool dumb)
+template <class Compositor>
+Iterator<Compositor>::Iterator(Compositor *owner, bool dumb)
 :m_owner(owner),m_position(owner->m_components.end())
 {
 	goUpper();
 }
 
-template <class Composite>
-bool Iterator<Composite>::operator!=(Iterator<Composite> const&other)const
+template <class Compositor>
+bool Iterator<Compositor>::operator!=(Iterator<Compositor> const&other)const
 {
 	return m_owner!=other.m_owner || (*m_position)!=(*other.m_position);
 }
 
-template <class Composite>
+template <class Compositor>
 //decltype(*Iterator<Composite>::m_position) Iterator<Composite>::operator->(void)
-Component* Iterator<Composite>::operator->(void)
+Component* Iterator<Compositor>::operator->(void)
 {
 	return m_position->get();
 }
 
-template <class Composite>
-Component& Iterator<Composite>::operator*(void)
+template <class Compositor>
+Component& Iterator<Compositor>::operator*(void)
 {
 	return *(m_position->get());
 }
 
-template <class Composite>
-void Iterator<Composite>::goDeeper(void)
+template <class Compositor>
+void Iterator<Compositor>::goDeeper(void)
 {
-	//!\pre m_owner is a valid Composite
+	//!\pre m_owner is a valid Compositor
 	//!\post m_position refer to a leaf or Iterator is set to end()
-	//!\post m_owner is a valid Composite but might have changed
+	//!\post m_owner is a valid Compositor but might have changed
 	if(m_owner->m_components.empty() || isEndOfLevel())
 		goUpper();
 	else if(isComposite())
 	{
 		m_ancestors.push(std::make_pair(m_owner,m_position));
-		m_owner=static_cast<Composite*>(m_position->get());
+		m_owner=static_cast<Compositor*>(m_position->get());
 		m_position=m_owner->m_components.begin();
 		goDeeper();
 	}
 }
 
-template <class Composite>
-void Iterator<Composite>::goUpper(void)
+template <class Compositor>
+void Iterator<Compositor>::goUpper(void)
 {
 	if(isEndOfLevel() && !m_ancestors.empty())
 	{
@@ -89,14 +89,14 @@ void Iterator<Composite>::goUpper(void)
 	}
 }
 
-template <class Composite>
-bool Iterator<Composite>::isComposite(void)const
+template <class Compositor>
+bool Iterator<Compositor>::isComposite(void)const
 {
-	return typeid(*m_position->get())==typeid(Composite);
+	return typeid(*m_position->get())==typeid(Compositor);
 }
 
-template <class Composite>
-bool Iterator<Composite>::isEndOfLevel(void)const
+template <class Compositor>
+bool Iterator<Compositor>::isEndOfLevel(void)const
 {
 	return m_position==m_owner->m_components.end();
 }

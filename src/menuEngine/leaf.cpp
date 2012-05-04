@@ -23,14 +23,6 @@
 #include "component.h"
 
 Leaf::Leaf(std::unique_ptr<TextFile> file)
-//: m_plugin()
 {
-	m_isComposite=false;
 	loadConfiguration(file);
 }
-
-//void Item::associate(std::unique_ptr<Plugin> &target)
-//{
-////	m_plugin.reset(std::move(target));
-//	m_plugin=std::move(target);
-//}

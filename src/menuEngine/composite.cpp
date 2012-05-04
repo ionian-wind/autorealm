@@ -30,7 +30,6 @@
 Composite::Composite(boost::filesystem::path const &location)
 :m_components()
 {
-	m_isComposite=true;
 	//!\pre location must exists
 	if(!boost::filesystem::exists(location))
 		throw std::runtime_error("Given location does not exists");

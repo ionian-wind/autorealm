@@ -21,27 +21,27 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-template <class Composite>
+template <class Compositor>
 class Iterator
 {
-	friend Composite;
+	friend Compositor;
 public:
 	Iterator& operator++(void);
-	bool operator!=(Iterator<Composite> const&other)const;
+	bool operator!=(Iterator<Compositor> const&other)const;
 
 	Component* operator->(void);
 	Component& operator*(void);
 	bool isEndOfLevel(void)const;
 protected:
-	Iterator(Composite *owner);
-	Iterator(Composite *owner, bool dumb);//!\todo make Ctor private and create static methods to build begin/end iterators
+	Iterator(Compositor *owner);
+	Iterator(Compositor *owner, bool dumb);//!\todo make Ctor private and create static methods to build begin/end iterators
 	void goDeeper();
 	void goUpper();
 	bool isComposite(void)const;
 private:
-	Composite *m_owner;
-	typename Composite::Components::iterator m_position;
-	std::stack<std::pair<Composite*,typename Composite::Components::iterator>> m_ancestors;
+	Compositor *m_owner;
+	typename Compositor::Components::iterator m_position;
+	std::stack<std::pair<Compositor*,typename Compositor::Components::iterator>> m_ancestors;
 };
 
 #include "iterator.cpp"

@@ -27,17 +27,7 @@
 void Component::loadConfiguration(std::unique_ptr<TextFile> &file)
 {
 	m_name=file->readLine();
-//	m_name=file->getFileName();
 }
-//
-//void IComponent::init(boost::filesystem::path const &file)
-//{
-//	//!\pre file must be a regular file
-//	assert(boost::filesystem::is_regular_file(file));
-//	m_name=file.filename().string();
-//	//!\todo read name of the entry from the file
-//	//!\todo read kind of entry from the file
-//}
 
 std::string Component::getPluginName(void)const
 {

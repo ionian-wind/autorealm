@@ -32,7 +32,7 @@
 
 //#include <pluginEngine/item.h>
 #include "appconfig.h"
-#include <menuEngine/menu.h>
+#include <menuEngine/composite.h>
 #include <pluginEngine/plugin.h>
 
 typedef Composite Menu;
