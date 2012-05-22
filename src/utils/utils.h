@@ -31,7 +31,6 @@
 /** \brief open an image from disk if it exists
  *
  * \param fileName std::string const&
- * \param config AppConfig const&
  * \return wxBitmap
  */
 wxBitmap loadImage(std::string const & fileName);

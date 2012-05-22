@@ -40,7 +40,7 @@ public:
 	void setID(uint16_t id);
 protected:
 	virtual void loadConfiguration(std::unique_ptr<TextFile> &file);
-	virtual void create(MenuConverter *parent);
+	virtual void create(MenuConverter *parent, std::string const &title);
 	virtual std::string getName(void)const=0;
 	virtual std::string getHelp(void)const;
 private:

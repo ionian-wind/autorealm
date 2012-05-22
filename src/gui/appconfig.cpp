@@ -41,7 +41,7 @@ AppConfig::AppConfig()
 	// read global configuration
 	rootConfigFile=TextFile::OpenFile(boost::filesystem::path(configDir.string()+"config"));
 
-	for(uint8_t i=GRP_RES;i<LASTINDEX;++i)
+	for(uint8_t i=GRP_RES;i<LASTINDEX && !rootConfigFile->eofReached();++i)
 		readLine(rootConfigFile);
 }
 

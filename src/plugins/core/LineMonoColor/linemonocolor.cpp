@@ -18,44 +18,34 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include "drawingtests.h"
+#include "linemonocolor.h"
 
-#include <renderEngine/shape.h>
-#include <renderEngine/point.h>
-#include <renderEngine/color.h>
 #include <renderEngine/vertex.h>
-#include "../plugins/core/linemonocolor.h"
 
-DrawingTests::DrawingTests()
+LineMonoColor::LineMonoColor()
 {
+	//ctor
 }
 
-std::unique_ptr<Shape> DrawingTests::create(void)
+void LineMonoColor::draw(Vertex const &v)const
 {
-	std::unique_ptr<Shape> s(new Shape());
-
-	s->setFiller(Color(0,0,0,1));
-	Point p(100,85,0);
-
-	Vertex l0;l0.set(p,
-					Color(1,0,0,1),LineMonoColor().clone());
-	Vertex l1;l1.set(Point(10,70,0),
-					Color(0,1,0,1),LineMonoColor().clone());
-	Vertex l2;l2.set(Point(50,100,0),
-					Color(0,0,1,1),LineMonoColor().clone());
-	Vertex l3;l3.set(p,
-					Color(0.5,0.5,0,1),LineMonoColor().clone());
-
-	s->push_back(l0);
-	s->push_back(l1);
-	s->push_back(l2);
-	s->push_back(l3);
-	return s;
+	v.getEnd().createVertice();
+	v.getColor().apply();
+	v.getEnd().createVertice();
 }
 
-Mover DrawingTests::move(void)
+std::unique_ptr<Drawer> LineMonoColor::clone(void)const
 {
-	Mover m;
-	m.m_distance=Point(00,00,00);
-	return m;
+	return std::unique_ptr<LineMonoColor>(new LineMonoColor());
+}
+#include <wx/msgdlg.h>
+
+void LineMonoColor::activator(wxCommandEvent&)
+{
+	wxMessageBox("monocolor activator","");
+}
+
+void LineMonoColor::leftClick(wxMouseEvent&)
+{
+	wxMessageBox("monocolor left click","");
 }

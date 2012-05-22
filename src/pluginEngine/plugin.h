@@ -48,7 +48,7 @@ public:
     unsigned int getVersion() const{ return PLUMA_INTERFACE_VERSION; }
 	virtual Plugin* create() const = 0; //!\todo PlumaLack#2 send this method into pluma::Provider and make Provider a template?
 	bool operator!=(PluginProvider const&other)const;
-	virtual std::string const& getPluginName(void)const=0;
+	virtual std::string const getPluginName(void)const=0;
 };
 
 #endif // PLUGIN_H

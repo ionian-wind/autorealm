@@ -42,7 +42,7 @@ class PolyLineTool : public Plugin
 class PolyLineToolProvider: public PluginProvider{
 public:
     Plugin * create() const{ return new PolyLineTool(); }
-	const std::string& getPluginName(void)const{return "PolyLineTool";}
+	const std::string getPluginName(void)const{return "PolyLineTool";}
 };
 
 #endif // POLYLINETOOL_H

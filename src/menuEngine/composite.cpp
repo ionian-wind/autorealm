@@ -75,9 +75,12 @@ void Composite::create(void)
 
 void Composite::create(MenuConverter* parent)
 {
-	MenuConverter::create(parent);
+	MenuConverter::create(parent,getName());
+
 	for(auto &i:m_components)
-		i->create(this);
+	{
+		static_cast<Composite*>(i.get())->create(static_cast<MenuConverter*>(this));
+	}
 }
 
 Iterator<Composite> Composite::begin(void)

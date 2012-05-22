@@ -38,7 +38,7 @@ public:
 	Composite(boost::filesystem::path const &location);
 	virtual ~Composite()=default;
 	void buildMenu(boost::filesystem::path const &location);
-	void create(void);
+	virtual void create(void);
 	MenuIter begin(void);
 	MenuIter end(void);
 protected:

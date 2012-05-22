@@ -18,24 +18,27 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef DRAWINGTESTS_H
-#define DRAWINGTESTS_H
+#ifndef VertexMONOCOLOR_H
+#define VertexMONOCOLOR_H
 
-#include <memory>
-#include <renderEngine/group.h>
-#include "../plugins/core/mover.h"
+#include <pluginEngine/drawer.h>
 
-class Shape;
-
-class DrawingTests
+class LineMonoColor : public Drawer
 {
 	public:
-		DrawingTests();
-		static std::unique_ptr<Shape>create(void);
-		static Mover move(void);
-		static Group tests;
+		LineMonoColor();
+		virtual void activator(wxCommandEvent&);
+		virtual void draw(Vertex const &v)const;
+		virtual std::unique_ptr<Drawer> clone(void)const;
+		virtual void leftClick(wxMouseEvent&);
 	protected:
 	private:
 };
 
-#endif // DRAWINGTESTS_H
+class LineMonoColorProvider: public PluginProvider{
+public:
+    Plugin * create() const{ return new LineMonoColor(); }
+	const std::string getPluginName(void)const{return "LineMonoColor";}
+};
+
+#endif

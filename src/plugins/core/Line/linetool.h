@@ -42,7 +42,7 @@ class LineTool : public Plugin
 class LineToolProvider: public PluginProvider{
 public:
     Plugin * create() const{ return new LineTool(); }
-	const std::string& getPluginName(void)const{return "LineTool";}
+	const std::string getPluginName(void)const{return "LineTool";}
 };
 
 #endif // INETOOL_H

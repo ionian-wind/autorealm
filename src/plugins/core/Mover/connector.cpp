@@ -18,29 +18,11 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include "linemonocolor.h"
+#include <Pluma/Connector.hpp>
+#include "mover.h"
 
-#include <renderEngine/vertex.h>
-
-LineMonoColor::LineMonoColor()
-{
-	//ctor
-}
-
-void LineMonoColor::draw(Vertex const &v)const
-{
-	v.getEnd().createVertice();
-	v.getColor().apply();
-	v.getEnd().createVertice();
-}
-
-std::unique_ptr<Drawer> LineMonoColor::clone(void)const
-{
-	return std::unique_ptr<LineMonoColor>(new LineMonoColor());
-}
-#include <wx/msgdlg.h>
-
-void LineMonoColor::activator(wxCommandEvent&)
-{
-	wxMessageBox("hello Vertex","hello caption");
+PLUMA_CONNECTOR
+bool connect(pluma::Host& host){
+    host.add( new MoverProvider() );
+    return true;
 }

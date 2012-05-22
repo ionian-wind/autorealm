@@ -26,6 +26,7 @@
 #include "plugin.h"
 
 class Vertex;
+class wxMouseEvent;
 
 class Drawer : public Plugin
 {
@@ -33,6 +34,7 @@ class Drawer : public Plugin
 		virtual ~Drawer(){};
 		virtual void draw(Vertex const &v)const=0;
 		virtual std::unique_ptr<Drawer> clone(void)const=0;
+		virtual void leftClick(wxMouseEvent&)=0;
 	protected:
 	private:
 };

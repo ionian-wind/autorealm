@@ -25,7 +25,6 @@
 #include <wx/dcclient.h>
 
 //!\todo remove test includes
-#include "drawingtests.h"
 #include <renderEngine/shape.h>
 #include <renderEngine/vertex.h>
 
@@ -60,9 +59,9 @@ RenderWindow::RenderWindow(wxFrame* parent, int* args)
 
 
 	//!\todo remove testing code
-	Group::m_children.push_back(std::move(DrawingTests::create()));
-	Mover m(DrawingTests::move());
-	accept(m);
+//	Group::m_children.push_back(std::move(DrawingTests::create()));
+//	Mover m(DrawingTests::move());
+//	accept(m);
 }
 
 void RenderWindow::onDraw(wxEvent&ev)

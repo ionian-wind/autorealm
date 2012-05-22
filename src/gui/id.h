@@ -6,7 +6,8 @@
 class ID
 {
 	public:
-		ID();
+		ID(void);
+		ID(unsigned long id);
 		const uint16_t operator()(void)const;
 		operator int(void)const;
 	protected:

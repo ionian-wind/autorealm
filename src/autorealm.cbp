@@ -5,7 +5,7 @@
 		<Option title="autorealm" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="rag-bag/plugins/;rag-bag/;headers/;source/;" />
+		<Option virtualFolders="rag-bag/;headers/;source/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="../bin/debug/autorealm" prefix_auto="1" extension_auto="1" />
@@ -89,12 +89,6 @@
 		<Unit filename="gui/appconfig.h">
 			<Option virtualFolder="headers/" />
 		</Unit>
-		<Unit filename="gui/drawingtests.cpp">
-			<Option virtualFolder="rag-bag/" />
-		</Unit>
-		<Unit filename="gui/drawingtests.h">
-			<Option virtualFolder="rag-bag/" />
-		</Unit>
 		<Unit filename="gui/id.cpp">
 			<Option virtualFolder="rag-bag/" />
 		</Unit>
@@ -109,18 +103,6 @@
 		</Unit>
 		<Unit filename="gui/splash.h">
 			<Option virtualFolder="headers/" />
-		</Unit>
-		<Unit filename="plugins/core/linemonocolor.cpp">
-			<Option virtualFolder="rag-bag/plugins/" />
-		</Unit>
-		<Unit filename="plugins/core/linemonocolor.h">
-			<Option virtualFolder="rag-bag/plugins/" />
-		</Unit>
-		<Unit filename="plugins/core/mover.cpp">
-			<Option virtualFolder="rag-bag/plugins/" />
-		</Unit>
-		<Unit filename="plugins/core/mover.h">
-			<Option virtualFolder="rag-bag/plugins/" />
 		</Unit>
 		<Unit filename="utils/textfile.cpp">
 			<Option virtualFolder="source/" />

@@ -43,11 +43,10 @@ Iterator<Compositor>::Iterator(Compositor *owner, bool dumb)
 template <class Compositor>
 bool Iterator<Compositor>::operator!=(Iterator<Compositor> const&other)const
 {
-	return m_owner!=other.m_owner || (*m_position)!=(*other.m_position);
+	return (m_owner!=other.m_owner) || (m_position!=other.m_position);
 }
 
 template <class Compositor>
-//decltype(*Iterator<Composite>::m_position) Iterator<Composite>::operator->(void)
 Component* Iterator<Compositor>::operator->(void)
 {
 	return m_position->get();

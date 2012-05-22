@@ -30,7 +30,7 @@
 #include "../utils/textfile.h"
 #include <assert.h>
 
-void MenuConverter::create(MenuConverter *parent)
+void MenuConverter::create(MenuConverter *parent,std::string const &title)
 {
 	//!\todo find a way to check at compilation that (*this) is of the good type.
 	//!\pre type of *this is Menu or Item
@@ -50,20 +50,20 @@ void MenuConverter::create(MenuConverter *parent)
 	{
 		//create Menu or Item
 		if(typeid(*this)==typeid(Composite))
-			m_content.menu=new wxMenu(getName()); //!\todo implement style
+			m_content.menu=new wxMenu(title); //!\todo implement style
 		else
 		{
-			m_content.menuitem=new wxMenuItem(parent->m_content.menu, m_id,getName(),getHelp(),wxITEM_NORMAL);
+			m_content.menuitem=new wxMenuItem(parent->m_content.menu, m_id,title,getHelp(),wxITEM_NORMAL);
 			//m_content.menuitem->Enable(isEnabled());
 			//!\todo find a solution to indicate that a meu item is useless
 		}
 
 		if(parent->m_isMenuBar)
-			parent->m_content.menubar->Append(m_content.menu, getName());// it is only possible to add menu to menubars
+			parent->m_content.menubar->Append(m_content.menu, title);// it is only possible to add menu to menubars
 		else
 		{
 			if(typeid(*this)==typeid(Composite))
-				parent->m_content.menu->AppendSubMenu(m_content.menu,getName(),getHelp());
+				parent->m_content.menu->AppendSubMenu(m_content.menu,title,getHelp());
 			else
 				parent->m_content.menu->Append(m_content.menuitem);
 		}

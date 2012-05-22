@@ -18,24 +18,11 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef MOVER_H
-#define MOVER_H
+#include <Pluma/Connector.hpp>
+#include "linemonocolor.h"
 
-#include <pluginEngine/mutator.h>
-#include <renderEngine/point.h>
-
-class Vertex;
-
-class Mover : public Mutator
-{
-	public:
-		virtual void activator(wxCommandEvent&);
-		void visit(Group& v);
-		void visit(Shape& v);
-		Point m_distance;
-	protected:
-	private:
-		Vertex mover(Vertex const&v);
-};
-
-#endif // MOVER_H
+PLUMA_CONNECTOR
+bool connect(pluma::Host& host){
+    host.add( new LineMonoColorProvider() );
+    return true;
+}

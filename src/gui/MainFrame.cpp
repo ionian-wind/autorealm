@@ -126,27 +126,16 @@ void MainFrame::onQuit(wxCommandEvent& event)
     Close();
 }
 
-//void MainFrame::changeLeftAction(wxCommandEvent& ev)
-//{
-//	static ITEM_CALLBACK s_actualCallback=0;
-//	static Item *s_actualItem=0;
-//
-//	if(s_actualCallback)
-//		(*m_active)->Unbind(wxEVT_LEFT_DOWN, s_actualCallback, s_actualItem);
-//
-////!\todo replace that with find_if
-//	auto it=m_items.begin();
-//	for(;it!=m_items.end();++it)
-//		if((*it)->m_id==ev.GetId())
-//			break;
-//
-////	auto it=std::find_if(m_items.begin(),m_items.end(),
-////						std::bind2nd(std::mem_fun_ref<bool,Item,wxEvent&>(&Item::test),ev)
-////						);
-//
-//	if(it==m_items.end())
-//		throw std::runtime_error("item not found");
-//	s_actualItem=&(**it);
-//	s_actualCallback=s_actualItem->m_callback;
-//	(*m_active)->Bind(wxEVT_LEFT_DOWN, s_actualCallback, s_actualItem);
-//}
+void MainFrame::changeLeftAction(wxCommandEvent& ev)
+{
+	static void (Drawer::*s_actualCallback)(wxMouseEvent&)=0;
+	static Drawer* s_actualItem=0;
+
+	if(s_actualCallback)
+		(*m_active)->Unbind(wxEVT_LEFT_DOWN, s_actualCallback, s_actualItem);
+
+	s_actualItem=static_cast<Drawer*>(m_plugins[ev.GetId()].get());
+	s_actualCallback=&Drawer::leftClick;
+
+	(*m_active)->Bind(wxEVT_LEFT_DOWN, s_actualCallback, s_actualItem);
+}

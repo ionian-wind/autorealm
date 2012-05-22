@@ -18,20 +18,30 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef VertexMONOCOLOR_H
-#define VertexMONOCOLOR_H
+#ifndef MOVER_H
+#define MOVER_H
 
-#include <pluginEngine/drawer.h>
+#include <pluginEngine/mutator.h>
+#include <renderEngine/point.h>
 
-class LineMonoColor : public Drawer
+class Vertex;
+
+class Mover : public Mutator
 {
 	public:
-		LineMonoColor();
 		virtual void activator(wxCommandEvent&);
-		virtual void draw(Vertex const &v)const;
-		virtual std::unique_ptr<Drawer> clone(void)const;
+		void visit(Group& v);
+		void visit(Shape& v);
+		Point m_distance;
 	protected:
 	private:
+		Vertex mover(Vertex const&v);
 };
 
-#endif
+class MoverProvider: public PluginProvider{
+public:
+    Plugin * create() const{ return new Mover(); }
+	const std::string getPluginName(void)const{return "Mover";}
+};
+
+#endif // MOVER_H
