@@ -5,7 +5,7 @@
 		<Option title="autorealm" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="rag-bag/;headers/;source/;" />
+		<Option virtualFolders="headers/;source/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="../bin/debug/autorealm" prefix_auto="1" extension_auto="1" />
@@ -90,10 +90,10 @@
 			<Option virtualFolder="headers/" />
 		</Unit>
 		<Unit filename="gui/id.cpp">
-			<Option virtualFolder="rag-bag/" />
+			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="gui/id.h">
-			<Option virtualFolder="rag-bag/" />
+			<Option virtualFolder="headers/" />
 		</Unit>
 		<Unit filename="gui/singleton.h">
 			<Option virtualFolder="headers/" />
