@@ -31,21 +31,81 @@
 class Vertex
 {
 	public:
-		Vertex(void);
-		Vertex(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer);
-		Vertex(Vertex const&other);
-		void set(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer);
-		Vertex& operator=(Vertex const&v);
-		bool operator==(Vertex const&other)const;
-		void render(Color const *color=nullptr)const;
-		void changeRender(std::unique_ptr<Drawer> newRender);
+        /** \brief default constructor */
+		Vertex(void) nothrow =default;
+        /** \brief constructor with initialization
+         *	\param end Point const&
+         *	\param color Color const&
+         *	\param drawer std::unique_ptr<Drawer>
+         *	\throw nothing
+         */
+		Vertex(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer) nothrow;
+        /** \brief copy ctor
+         *	\param const&other Vertex
+         *	\throw nothing
+         */
+		Vertex(Vertex const&other) nothrow;
+        /** \brief initialize the vertex with new values
+         *	\param end Point const& coordinates of the last point of the vertex
+         *	\param color Color const& color of the last point of the vertex
+         *	\param drawer std::unique_ptr<Drawer> algorithm used to render the line which will end to the vertex
+         *	\throw nothing
+         */
+		void set(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer) nothrow;
+        /** \brief copy another vertex
+         *	\param const&v Vertex
+         *	\return Vertex&
+         *	\throw nothing
+         */
+		Vertex& operator=(Vertex const&v) nothrow;
+        /** \brief test if two vertex are the same
+         *	\note currently, only the position is used to compare two vertices
+         *	\param const&other Vertex
+         *	\return bool true if vertices are the same
+         *	\throw nothing
+         */
+		bool operator==(Vertex const&other)const nothrow;
+        /** \brief render a vertex
+         *	If color is set, the color is used instead of the color of the vertex.
+         *	This is usefull to create shapes filled with a given color, by example.
+         *	\param color=nullptr Color const* color to use to render. If it is a nullptr, then the vertex's one is used
+         *	\throw nothing
+         *	\todo check if it is realistic to say Drawer::draw can not throw
+         */
+		void render(Color const *color=nullptr)const nothrow;
+        /** \brief Change the algorithm used to render
+         *	\param newRender std::unique_ptr<Drawer>
+         *	\throw nothing
+         */
+		void changeRender(std::unique_ptr<Drawer> newRender) nothrow;
 
+        /** \brief clone a vertex
+         *	this method is useful because unique_ptr are used internally
+         *	\return Vertex copy of the vertex
+         *	\todo make it nothrow
+         */
 		Vertex clone(void)const;
 
-		Color getColor(void)const;
-		void setColor(Color const &c);
-		Point getEnd(void)const;
-		void setEnd(Point const &p);
+        /** \brief get a copy of the color
+         *	\return Color
+         *	\throw nothing
+         */
+		Color getColor(void)const nothrow;
+        /** \brief change the color to a copy of c
+         *	\param c Color const&
+         *	\throw nothing
+         */
+		void setColor(Color const &c) nothrow;
+        /** \brief return (a copy of the) coordinates of the ending point
+         *	\return Point
+         *	\throw nothing
+         */
+		Point getEnd(void)const nothrow;
+        /** \brief use (a copy of) p as new ending coordinates
+         *	\param p Point const&
+         *	\throw nothing
+         */
+		void setEnd(Point const &p) nothrow;
 	protected:
 		Color m_color;
 		Point m_point;

@@ -22,35 +22,40 @@
 
 #include <assert.h>
 
-Vertex::Vertex(void)
-:m_color(),m_point(),m_drawer()
-{
-}
-
-Vertex::Vertex(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer)
+Vertex::Vertex(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer) nothrow
 :m_color(color),m_point(end),m_drawer(std::move(drawer))
 {
+	//!\todo make it inline
 }
 
-Vertex::Vertex(Vertex const&other)
+Vertex::Vertex(Vertex const&other) nothrow
 :m_color(other.m_color),m_point(other.m_point),m_drawer(other.m_drawer->clone())
 {
+	//!\todo make it inline
 }
 
-void Vertex::set(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer)
+void Vertex::set(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer) nothrow
 {
+	//!\todo make it inline
 	m_color=color;
 	m_point=end;
 	m_drawer=std::move(drawer);
 }
 
-Vertex& Vertex::operator=(Vertex const&v)
+Vertex& Vertex::operator=(Vertex const&v) nothrow
 {
+	//!\todo make it inline
 	set(v.m_point, v.m_color, v.m_drawer->clone());
 	return *this;
 }
 
-void Vertex::render(Color const *color) const
+bool Vertex::operator==(Vertex const&other)const nothrow
+{
+	//!\todo make it inline
+	return m_point==other.m_point;
+}
+
+void Vertex::render(Color const *color) const nothrow
 {
 	if(!color)
 		m_drawer->draw(*this);
@@ -62,37 +67,38 @@ void Vertex::render(Color const *color) const
 	}
 }
 
-void Vertex::changeRender(std::unique_ptr<Drawer> newRender)
+void Vertex::changeRender(std::unique_ptr<Drawer> newRender) nothrow
 {
+	//!\todo make it inline
 	m_drawer=std::move(newRender);
-}
-
-Color Vertex::getColor(void)const
-{
-	return m_color;
-}
-
-Point Vertex::getEnd(void)const
-{
-	return m_point;
-}
-
-void Vertex::setColor(Color const &c)
-{
-	m_color=c;
-}
-
-void Vertex::setEnd(Point const &p)
-{
-	m_point=p;
-}
-
-bool Vertex::operator==(Vertex const&other)const
-{
-	return m_point==other.m_point;
 }
 
 Vertex Vertex::clone(void)const
 {
+	//!\todo make it inline
 	return Vertex( m_point, m_color, m_drawer->clone());
+}
+
+Color Vertex::getColor(void)const nothrow
+{
+	//!\todo make it inline
+	return m_color;
+}
+
+Point Vertex::getEnd(void)const nothrow
+{
+	//!\todo make it inline
+	return m_point;
+}
+
+void Vertex::setColor(Color const &c) nothrow
+{
+	//!\todo make it inline
+	m_color=c;
+}
+
+void Vertex::setEnd(Point const &p) nothrow
+{
+	//!\todo make it inline
+	m_point=p;
 }

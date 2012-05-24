@@ -25,15 +25,39 @@ class Point
 {
 	public:
 		double m_x,m_y,m_z;
-		Point();
-		Point(double x, double y, double z);
-		void createVertice(void)const;
-		bool operator==(Point const&p)const;
-		Point& operator+=(Point const&p1);
+        /** \brief default Ctor */
+		Point() nothrow =default;
+        /** \brief Constructor with initialization of coordinates
+         *	\param x double
+         *	\param y double
+         *	\param z double
+         *	\throw nothing
+         */
+		Point(double x, double y, double z) nothrow;
+        /** \brief simply encapsulate glVertex to avoid direct calls to openGL
+         *	\throw nothing
+         */
+		void createVertice(void)const nothrow;
+        /** \brief increment a vertex with the value of another
+         *	\param const&p1 Point vertex to add
+         *	\return Point& reference to this
+         *	\throw nothing
+         */
+		Point& operator+=(Point const&p1) nothrow;
+        /** \brief test if two vertices are identical
+         * \param const&p Point vertex to compare to this
+         * \return bool true if vertices are the same
+         */
+		bool operator==(Point const&p)const nothrow;
 	protected:
 	private:
 };
 
-Point operator+(Point const&p1, Point const&p2);
+/** \brief increment a vertex with the value of another
+ *	\param const&p1 Point vertex to add
+ *	\return Point copy of the resulting vertex
+ *	\throw nothing
+ */
+Point operator+(Point const&p1, Point const&p2) nothrow;
 
 #endif // POINT_H

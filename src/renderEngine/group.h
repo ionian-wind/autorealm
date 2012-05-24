@@ -29,10 +29,33 @@
 class Group : public Object
 {
 	public:
-		Group(void);
+        /** \brief default constructor
+         *	\throw nothing
+         */
+		Group(void)=default;
+
+        /** \brief apply on algorithm on the group and it's children
+         *
+         *	\param v Mutator& object wich contain the algorithm to apply
+		 *	\pre all children contain a valid pointer on an object
+         */
 		virtual void accept(Mutator &v);
-		void draw(void)const;
-		void push_back(std::unique_ptr<Object> target);
+        /** \brief draw the group and everything it contains
+         *	\throw nothing
+         */
+		void draw(void)const nothrow;
+
+        /** \brief move the given element into a new element of children
+         *
+         *	\param target std::unique_ptr<Object> pointer to data which will be transmitted
+         *	\pre target must contain a valid pointer on an object
+         *	\post target is no longer usable
+         *	\post m_children size has increased
+         *	\post last element of m_children contain the pointer target
+         *	\throw can throw if there not enough memory to create the new element. If so, target is not changed and an exception is thrown to inform caller of the problem.
+         */
+		void push_back(std::unique_ptr<Object> &target);
+		//void push_back(std::unique_ptr<Object> target);
 	protected:
 		std::vector<std::unique_ptr<Object>> m_children;
 	private:

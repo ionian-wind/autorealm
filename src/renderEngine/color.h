@@ -24,9 +24,23 @@
 class Color
 {
 	public:
-		Color();
-		Color(double red, double green, double blue, double alpha);
-		void apply(void)const;
+        /** \brief default constructor */
+		Color()=default;
+        /** \brief constructor with initialization
+         *
+         *	\param red double
+         *	\param green double
+         *	\param blue double
+         *	\param alpha double
+		 *	\throw nothing
+         */
+		Color(double red, double green, double blue, double alpha) nothrow;
+
+        /** \brief apply the color resulting of the combination
+         *	this method simply call glColor4d. Its only use is encapsulation of openGL
+         *	\throw nothing
+         */
+		void apply(void)const nothrow;
 		double m_red, m_green, m_blue, m_alpha;
 	protected:
 	private:

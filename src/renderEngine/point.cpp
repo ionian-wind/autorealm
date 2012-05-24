@@ -22,18 +22,18 @@
 
 #include <GL/gl.h>
 
-Point::Point()
-:m_x(),m_y(),m_z()
-{
-	//ctor
-}
-
-Point::Point(double x, double y, double z)
+Point::Point(double x, double y, double z) nothrow
 :m_x(x),m_y(y),m_z(z)
 {
 }
 
-Point& Point::operator+=(Point const&p)
+void Point::createVertice(void)const nothrow
+{
+	//!\todo make this inline
+	glVertex3d(m_x,m_y,m_z);
+}
+
+Point& Point::operator+=(Point const&p) nothrow
 {
 	m_x+=p.m_x;
 	m_y+=p.m_y;
@@ -41,17 +41,12 @@ Point& Point::operator+=(Point const&p)
 	return *this;
 }
 
-bool Point::operator==(Point const&p)const
+bool Point::operator==(Point const&p)const nothrow
 {
 	return m_x==p.m_x && m_y==p.m_y && m_z==p.m_z;
 }
 
-void Point::createVertice(void)const
-{
-	glVertex3d(m_x,m_y,m_z);
-}
-
-Point operator+(Point const& p1, Point const& p2)
+Point operator+(Point const& p1, Point const& p2) nothrow
 {
 	Point p(p1);
 	p+=p2;

@@ -22,11 +22,6 @@
 
 #include <algorithm>
 
-Group::Group(void)
-:m_children()
-{
-}
-
 void Group::accept(Mutator &v)
 {
 	//!\todo find a solution to use std::for_each
@@ -35,13 +30,14 @@ void Group::accept(Mutator &v)
 		i->accept(v);
 }
 
-void Group::push_back(std::unique_ptr<Object> target)
-{
-	m_children.push_back(std::move(target));
-}
-
-void Group::draw(void)const
+void Group::draw(void)const nothrow
 {
 	for(auto &i:m_children)
 		i->draw();
+}
+
+void Group::push_back(std::unique_ptr<Object> &target)
+{
+	m_children.push_back(std::unique_ptr<Object>());
+	std::swap(m_children.back(),target);
 }

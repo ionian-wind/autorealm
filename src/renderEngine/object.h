@@ -24,12 +24,19 @@
 #include <pluginEngine/mutator.h>
 #include <pluginEngine/drawer.h>
 
+/** \brief Ancestor of Shape and Group. It only provides an interface for composite and visitor patterns */
 class Object
 {
 	public:
+        /** \brief apply an algorithm on the object
+         *	\param v Mutator& algo to apply
+         */
 		virtual void accept(Mutator &v)=0;
-		virtual void draw(void)const=0;
-		virtual ~Object(void){};
+        /** \brief draw the object
+         *	\throw nothing
+         */
+		virtual void draw(void)const nothrow =0;
+		virtual ~Object(void) nothrow =default;
 	protected:
 	private:
 };
