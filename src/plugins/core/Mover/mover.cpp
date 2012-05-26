@@ -50,5 +50,5 @@ Vertex Mover::mover(Vertex const&v)
 
 void Mover::activator(wxCommandEvent&)
 {
-	wxMessageBox("hello Vertex","hello caption");
+	wxMessageBox("mover activator","");
 }

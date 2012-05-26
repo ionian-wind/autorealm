@@ -34,7 +34,7 @@ public:
     virtual void draw();
     void onDraw(wxEvent&ev);
     RenderWindow(wxFrame* parent, int* args);
-    ~RenderWindow(void);
+    ~RenderWindow(void) throw();
     void setName(std::string const &str);
     std::string getName(void)const;
     int getWidth(void)const;

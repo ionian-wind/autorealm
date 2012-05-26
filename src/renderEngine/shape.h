@@ -41,13 +41,13 @@ class Shape : public Object
          *	\throw nothing
          *	\todo check if it is possible and realistic to avoid Vertex throwing
          */
-		void draw(void)const nothrow;
+		void draw(void)const throw();
 
         /** \brief test if the Shape is closed or opened figure
          *	\return bool true if the shape is closed
          *	\throw nothing
          */
-		bool isClosed(void)const nothrow;
+		bool isClosed(void)const throw();
         /** \brief add a new point to the shape
          *	\note A copy of the vertex is made before adding it to the shape
          *	\param const&target Vertex vertex to add.
@@ -58,23 +58,23 @@ class Shape : public Object
 		 *	\note a copy of the color is used
          *	\param const&c Color color to use
          */
-		void setFiller(Color const&c) nothrow;
+		void setFiller(Color const&c) throw();
         /** \brief retrieve color used to fill the shape
          *	\return Color copy of the color used
          */
-		Color getFiller(void)const nothrow;
+		Color getFiller(void)const throw();
 
         /** \brief retrieve an iterator on the first vertex
          *	\todo check if this method is really mandatory, because it breaks the encapsulation
          *	\return std::vector<Vertex>::iterator
          */
-		std::vector<Vertex>::iterator getFirstChild(void) const nothrow;
+		std::vector<Vertex>::iterator getFirstChild(void) throw();
 
         /** \brief retrieve on iterator after the last vertex
          *	\todo check if this method is really mandatory, because it breaks the encapsulation
          *	\return std::vector<Vertex>::iterator
          */
-		std::vector<Vertex>::iterator getLastChild(void) const nothrow;
+		std::vector<Vertex>::iterator getLastChild(void) throw();
 	protected:
 	private:
 	protected:

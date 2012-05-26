@@ -112,6 +112,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 		{
 			Plugin *plu=m_plugins[jt->second].get();
 			Bind(wxEVT_COMMAND_MENU_SELECTED,&Plugin::activator,plu,jt->second,jt->second);
+			//Bind(wxEVT_COMMAND_MENU_SELECTED,changeMouseAction,plu,jt->second,jt->second);
 		}
 	}
 
@@ -126,16 +127,24 @@ void MainFrame::onQuit(wxCommandEvent& event)
     Close();
 }
 
-void MainFrame::changeLeftAction(wxCommandEvent& ev)
+//void MainFrame::changeMouseAction(wxCommandEvent& ev, wxEventTypeTag<wxMouseEvent> actionType, void (Drawer::*action)(wxMouseEvent&))
+void MainFrame::changeMouseAction(wxCommandEvent& ev)
 {
+	//!\note this method should replace Plugin::activator()
+	//!\todo make this method the most generic as possible (get rid of Drawer and wxMouseEvent, by example)
 	static void (Drawer::*s_actualCallback)(wxMouseEvent&)=0;
 	static Drawer* s_actualItem=0;
 
+	//!\todo use those variables as member and create a fonctor for that method
+	wxEventTypeTag<wxMouseEvent> actionType=wxEVT_LEFT_DOWN;
+	void (Drawer::*action)(wxMouseEvent&)=&Drawer::leftClick;
+
 	if(s_actualCallback)
-		(*m_active)->Unbind(wxEVT_LEFT_DOWN, s_actualCallback, s_actualItem);
+		//(*m_active)->Unbind(actionType, s_actualCallback, s_actualItem);
+		(*m_active)->Unbind(actionType, s_actualCallback, s_actualItem);
 
 	s_actualItem=static_cast<Drawer*>(m_plugins[ev.GetId()].get());
-	s_actualCallback=&Drawer::leftClick;
+	s_actualCallback=action;
 
-	(*m_active)->Bind(wxEVT_LEFT_DOWN, s_actualCallback, s_actualItem);
+	(*m_active)->Bind(actionType, s_actualCallback, s_actualItem);
 }

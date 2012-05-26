@@ -30,7 +30,7 @@ void Group::accept(Mutator &v)
 		i->accept(v);
 }
 
-void Group::draw(void)const nothrow
+void Group::draw(void)const throw()
 {
 	for(auto &i:m_children)
 		i->draw();

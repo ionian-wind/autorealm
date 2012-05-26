@@ -50,4 +50,3 @@ bool App::OnInit()
 		return false;
 	}
 }
-

@@ -35,8 +35,8 @@ class Object
         /** \brief draw the object
          *	\throw nothing
          */
-		virtual void draw(void)const nothrow =0;
-		virtual ~Object(void) nothrow =default;
+		virtual void draw(void)const throw() =0;
+		virtual ~Object(void) throw() =default;
 	protected:
 	private:
 };

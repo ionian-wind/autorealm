@@ -34,13 +34,13 @@ class Color
          *	\param alpha double
 		 *	\throw nothing
          */
-		Color(double red, double green, double blue, double alpha) nothrow;
+		Color(double red, double green, double blue, double alpha) throw();
 
         /** \brief apply the color resulting of the combination
          *	this method simply call glColor4d. Its only use is encapsulation of openGL
          *	\throw nothing
          */
-		void apply(void)const nothrow;
+		void apply(void)const throw();
 		double m_red, m_green, m_blue, m_alpha;
 	protected:
 	private:

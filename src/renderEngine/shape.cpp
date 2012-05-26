@@ -31,7 +31,7 @@ void Shape::accept(Mutator &v)
 	v.visit(*this);
 }
 
-void Shape::draw(void)const nothrow
+void Shape::draw(void)const throw()
 {
 	glBegin(GL_LINE_STRIP);
 	for(auto &i:m_children)
@@ -47,7 +47,7 @@ void Shape::draw(void)const nothrow
 	}
 }
 
-bool Shape::isClosed(void)const  nothrow
+bool Shape::isClosed(void)const  throw()
 {
 	if(m_children.empty())
 		return false;
@@ -59,22 +59,22 @@ void Shape::push_back(Vertex const&target)
 	m_children.push_back(target);
 }
 
-void Shape::setFiller(Color const&c) nothrow
+void Shape::setFiller(Color const&c) throw()
 {
 	m_filler=c;
 }
 
-Color Shape::getFiller(void)const nothrow
+Color Shape::getFiller(void)const throw()
 {
 	return m_filler;
 }
 
-std::vector<Vertex>::iterator Shape::getFirstChild(void) const nothrow
+std::vector<Vertex>::iterator Shape::getFirstChild(void) throw()
 {
 	return m_children.begin();
 }
 
-std::vector<Vertex>::iterator Shape::getLastChild(void) const nothrow
+std::vector<Vertex>::iterator Shape::getLastChild(void) throw()
 {
 	return m_children.end();
 }

@@ -40,12 +40,12 @@ std::unique_ptr<Drawer> LineMonoColor::clone(void)const
 }
 #include <wx/msgdlg.h>
 
-void LineMonoColor::activator(wxCommandEvent&)
+void LineMonoColor::activator(wxCommandEvent& ev)
 {
 	wxMessageBox("monocolor activator","");
 }
 
-void LineMonoColor::leftClick(wxMouseEvent&)
+void LineMonoColor::leftClick(wxMouseEvent& ev)
 {
 	wxMessageBox("monocolor left click","");
 }

@@ -22,12 +22,12 @@
 
 #include <GL/gl.h>
 
-Color::Color(double red, double green, double blue, double alpha) nothrow
+Color::Color(double red, double green, double blue, double alpha) throw()
 :m_red(red), m_green(green), m_blue(blue), m_alpha(alpha)
 {
 }
 
-void Color::apply(void)const nothrow
+void Color::apply(void)const throw()
 {
 	//!\todo make this inline
 	glColor4d(m_red,m_green,m_blue,m_alpha);

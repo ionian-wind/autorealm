@@ -69,7 +69,7 @@ void RenderWindow::onDraw(wxEvent&ev)
 	draw();
 }
 
-RenderWindow::~RenderWindow(void)
+RenderWindow::~RenderWindow(void) throw()
 {
 	delete m_context;
 }

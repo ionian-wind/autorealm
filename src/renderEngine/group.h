@@ -43,7 +43,7 @@ class Group : public Object
         /** \brief draw the group and everything it contains
          *	\throw nothing
          */
-		void draw(void)const nothrow;
+		void draw(void)const throw();
 
         /** \brief move the given element into a new element of children
          *

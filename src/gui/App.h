@@ -35,7 +35,6 @@ class App : public wxApp
 private:
     MainFrame * m_app;
 
-
 public:
     virtual bool OnInit();
     std::unique_ptr<Splash> s;

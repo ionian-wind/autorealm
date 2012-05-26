@@ -30,7 +30,6 @@
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 
-//#include <pluginEngine/item.h>
 #include "appconfig.h"
 #include <menuEngine/composite.h>
 #include <pluginEngine/plugin.h>
@@ -40,6 +39,7 @@ class RenderWindow;
 //class ToolbarItem;
 //class ToolBar;
 class ID;
+class Drawer;
 
 class MainFrame : public wxFrame
 {
@@ -71,13 +71,10 @@ public:
      *
      */
     MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");
-    /** \brief Change the action taken when a the left button of the mouse is pressed on the active RenderWindow
-     *
-     * \param ev wxCommandEvent& event containing the item which were pushed
-     */
-	void changeLeftAction(wxCommandEvent& ev);
-    /** \brief clean datas
-     */
+
+	//void changeMouseAction(wxCommandEvent& ev, wxEventTypeTag<wxMouseEvent> actionType, void (Drawer::*action)(wxMouseEvent&));
+	void changeMouseAction(wxCommandEvent& ev);
+
     ~MainFrame(void);
 
 protected:
