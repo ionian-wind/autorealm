@@ -28,7 +28,6 @@ class Splash: public wxFrame
 {
 public:
 	Splash();
-	~Splash();
 protected:
 private:
 private:

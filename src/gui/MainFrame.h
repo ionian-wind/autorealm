@@ -37,8 +37,7 @@
 
 typedef Composite Menu;
 class RenderWindow;
-//class ToolbarItem;
-//class ToolBar;
+
 class ID;
 class Drawer;
 
@@ -74,7 +73,6 @@ public:
      */
     MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");
 
-	//void changeMouseAction(wxCommandEvent& ev, wxEventTypeTag<wxMouseEvent> actionType, void (Drawer::*action)(wxMouseEvent&));
 	void changeSelectedPlugin(wxCommandEvent& event);
 	void leftClick(wxMouseEvent &event);
 

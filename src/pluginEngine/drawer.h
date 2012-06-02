@@ -26,16 +26,15 @@
 #include "plugin.h"
 
 class Vertex;
-class wxMouseEvent;
 
 class Drawer : public Plugin
 {
 	public:
 		virtual ~Drawer()=default;
+		virtual PluginType getType(void) const throw() override final {return PluginType::DRAWER;}
+
 		virtual void draw(Vertex const &v)const=0;
 		virtual std::unique_ptr<Drawer> clone(void)const=0;
-//		virtual void leftClick(wxMouseEvent&)=0;
-		virtual PluginType getType(void) const throw() override {return PluginType::DRAWER;}
 	protected:
 	private:
 };

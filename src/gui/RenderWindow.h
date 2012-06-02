@@ -26,7 +26,7 @@
 
 #include <wx/glcanvas.h>
 
-#include "../renderEngine/group.h"
+#include <renderEngine/group.h>
 
 class RenderWindow : public Group,public wxGLCanvas
 {

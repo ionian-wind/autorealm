@@ -26,13 +26,8 @@
 class LineMonoColor : public Drawer
 {
 	public:
-		LineMonoColor();
-//		virtual void activator(void)const override;
 		virtual void draw(Vertex const &v)const override;
 		virtual std::unique_ptr<Drawer> clone(void)const override;
-//		virtual void leftClick(wxMouseEvent&) override;
-	protected:
-	private:
 };
 
 class LineMonoColorProvider: public PluginProvider{

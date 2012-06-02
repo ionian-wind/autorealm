@@ -41,8 +41,3 @@ Splash::Splash()
 		Show();
 	}
 }
-
-Splash::~Splash()
-{
-	//dtor
-}

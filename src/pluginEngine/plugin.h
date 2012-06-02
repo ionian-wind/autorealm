@@ -33,9 +33,6 @@ enum PluginType
 class Plugin
 {
 	public:
-		Plugin(void);
-//		virtual void activator(void) const; //empty method to allow plugin to know that they have been selected (usable for logs by example)
-//		virtual void leftClick(void) const;
 		virtual ~Plugin();
 		virtual PluginType getType(void) const throw() =0;
 	protected:

@@ -46,9 +46,3 @@ Vertex Mover::mover(Vertex const&v)
 	v1.setEnd(v1.getEnd()+m_distance);
 	return v1;
 }
-//#include <wx/msgdlg.h>
-//
-//void Mover::activator(void) const
-//{
-//	wxMessageBox("mover activation","");
-//}

@@ -31,7 +31,6 @@
 
 #include "RenderWindow.h"
 #include "id.h"
-//#include <pluginEngine/container.h>
 
 //!\todo move me in Pluma
 template <class T>
@@ -73,7 +72,6 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 ,m_auiNotebookWorkspace()
 ,m_actionProviders()
 ,m_plugins()
-//,m_selected()
 ,m_actionPlugIn()
 {
     m_auiManager.SetManagedWindow(this);
