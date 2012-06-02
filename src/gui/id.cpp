@@ -21,5 +21,5 @@ const uint16_t ID::operator()(void)const
 
 ID::operator int(void)const
 {
-	return m_id;
+	return operator()();
 }

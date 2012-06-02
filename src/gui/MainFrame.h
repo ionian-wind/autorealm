@@ -85,6 +85,7 @@ private:
      * \param event wxCommandEvent&
      */
     void onQuit(wxCommandEvent& event);
+    void loadRequestedPlugins(void);
 };
 
 #endif

@@ -70,29 +70,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 	m_actionPlugIn.acceptProviderType<PluginProvider>();
 	m_menuTree.buildMenu(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)));
 
-	//load only needed plugins
-	auto at=m_menuTree.begin();
-	auto bt=m_menuTree.end();
-	for(auto it=m_menuTree.begin();it!=m_menuTree.end();++it)//only browse leaves
-	{
-		std::string plugName=it->getPluginName();
-		auto jt=m_buttonIDs.find(plugName);
-		if(jt==m_buttonIDs.end())// plugin is not loaded? Try to load it.
-		{
-			assert(!m_actionPlugIn.isLoaded(plugName));//!\note should never load twice the same plugin. Could be in pluma...
-			PluginProvider* plugProvider=getProvider<PluginProvider>(m_actionPlugIn,AppConfig::buildPath(AppConfig::INFO::PLUGINS),plugName);
-			if(nullptr==plugProvider)
-				it->disable();
-			else
-			{
-				m_plugins[m_buttonIDs[plugName]].reset(plugProvider->create());
-				it->setID(m_buttonIDs[plugName]);
-			}
-		}
-		jt=m_buttonIDs.find(plugName);
-		if(jt!=m_buttonIDs.end())// plugin loaded? Bind it.
-			Bind(wxEVT_COMMAND_MENU_SELECTED,&MainFrame::changeSelectedPlugin,this,jt->second,jt->second);
-	}
+	loadRequestedPlugins();
 
 	m_menuTree.create();
 	SetMenuBar(m_menuTree.getMenuBar());
@@ -144,4 +122,29 @@ void MainFrame::leftClick(wxMouseEvent &event)
 							event.GetY(),
 							dynamic_cast<Drawer*>
 								(m_selectedPlugin->second.get())->clone());
+}
+
+void MainFrame::loadRequestedPlugins(void)
+{
+	//load only needed plugins
+	for(auto it=m_menuTree.begin();it!=m_menuTree.end();++it)//only browse leaves
+	{
+		std::string plugName=it->getPluginName();
+		auto jt=m_buttonIDs.find(plugName);
+		if(jt==m_buttonIDs.end())// plugin is not loaded? Try to load it.
+		{
+			assert(!m_actionPlugIn.isLoaded(plugName));//!\note should never load twice the same plugin. Could be in pluma...
+			PluginProvider* plugProvider=getProvider<PluginProvider>(m_actionPlugIn,AppConfig::buildPath(AppConfig::INFO::PLUGINS),plugName);
+			if(nullptr==plugProvider)
+				it->disable();
+			else
+			{
+				m_plugins[m_buttonIDs[plugName]].reset(plugProvider->create());
+				it->setID(m_buttonIDs[plugName]);
+			}
+		}
+		jt=m_buttonIDs.find(plugName);
+		if(jt!=m_buttonIDs.end())// plugin loaded? Bind it.
+			Bind(wxEVT_COMMAND_MENU_SELECTED,&MainFrame::changeSelectedPlugin,this,jt->second,jt->second);
+	}
 }
