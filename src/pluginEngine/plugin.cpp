@@ -20,15 +20,18 @@
 
 #include "plugin.h"
 
-Plugin::Plugin(void)
-{
-}
+Plugin::Plugin(void)=default;
 
-Plugin::~Plugin()
-{
-	//dtor
-}
+Plugin::~Plugin()=default;
 
+//void Plugin::activator(void) const
+//{
+//}
+//
+//void Plugin::leftClick(void) const
+//{
+//}
+//
 const std::string PluginProvider::PLUMA_PROVIDER_TYPE = PLUMA_2STRING( Plugin );
 const unsigned int PluginProvider::PLUMA_INTERFACE_VERSION = 1;
 const unsigned int PluginProvider::PLUMA_INTERFACE_LOWEST_VERSION = 1;

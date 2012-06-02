@@ -33,6 +33,8 @@ class Point;
 class Shape : public Object
 {
 	public:
+		/** Destructor */
+		~Shape(void) throw();
         /** \brief Apply an algorithm on itself
          * \param v Mutator& algorithm to apply
          */

@@ -25,6 +25,10 @@
 
 #include <boost/filesystem.hpp>
 
+#include <renderEngine/vertex.h>
+#include <renderEngine/point.h>
+#include <renderEngine/shape.h>
+
 #include "RenderWindow.h"
 #include "id.h"
 //#include <pluginEngine/container.h>
@@ -109,11 +113,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 		}
 		jt=m_buttonIDs.find(plugName);
 		if(jt!=m_buttonIDs.end())// plugin loaded? Bind it.
-		{
-			Plugin *plu=m_plugins[jt->second].get();
-			Bind(wxEVT_COMMAND_MENU_SELECTED,&Plugin::activator,plu,jt->second,jt->second);
-			//Bind(wxEVT_COMMAND_MENU_SELECTED,changeMouseAction,plu,jt->second,jt->second);
-		}
+			Bind(wxEVT_COMMAND_MENU_SELECTED,&MainFrame::changeSelectedPlugin,this,jt->second,jt->second);
 	}
 
 	m_menuTree.create();
@@ -127,24 +127,46 @@ void MainFrame::onQuit(wxCommandEvent& event)
     Close();
 }
 
-//void MainFrame::changeMouseAction(wxCommandEvent& ev, wxEventTypeTag<wxMouseEvent> actionType, void (Drawer::*action)(wxMouseEvent&))
-void MainFrame::changeMouseAction(wxCommandEvent& ev)
+void MainFrame::changeSelectedPlugin(wxCommandEvent& event)
 {
-	//!\note this method should replace Plugin::activator()
-	//!\todo make this method the most generic as possible (get rid of Drawer and wxMouseEvent, by example)
-	static void (Drawer::*s_actualCallback)(wxMouseEvent&)=0;
-	static Drawer* s_actualItem=0;
+	static wxEventTypeTag<wxMouseEvent> const *actionType=nullptr;
+	static void (MainFrame::*s_actualCallback)(wxMouseEvent &event)=nullptr;
 
-	//!\todo use those variables as member and create a fonctor for that method
-	wxEventTypeTag<wxMouseEvent> actionType=wxEVT_LEFT_DOWN;
-	void (Drawer::*action)(wxMouseEvent&)=&Drawer::leftClick;
+	if(m_plans.end()==m_active) //!\todo find a solution to make this impossible to happen, and change that check into an assert
+		throw std::runtime_error("can not select an action when there are no selected map");
 
-	if(s_actualCallback)
-		//(*m_active)->Unbind(actionType, s_actualCallback, s_actualItem);
-		(*m_active)->Unbind(actionType, s_actualCallback, s_actualItem);
+	if(nullptr!=s_actualCallback)
+		(*m_active)->Unbind(*actionType, s_actualCallback, this);
+	s_actualCallback=nullptr;
 
-	s_actualItem=static_cast<Drawer*>(m_plugins[ev.GetId()].get());
-	s_actualCallback=action;
+	m_selectedPlugin=m_plugins.find(event.GetId());
+	switch(m_plugins[event.GetId()]->getType())
+	{
+	case PluginType::DRAWER:
+		//selects the trigger and the manager
+		s_actualCallback=&MainFrame::leftClick;
+		actionType=&wxEVT_LEFT_DOWN;
+		//create a new shape in m_active and select it
+		(*m_active)->push_back(std::unique_ptr<Shape>(new Shape()));
+		(*m_active)->selectLastObject();
+		break;
+	case PluginType::MUTATOR:
+		break;
+	default:
+		throw std::runtime_error("unknown plugin selected. Please check that the plugin use a version of the AutoREALM's API compatible with this version of AutoREALM.");
+	}
 
-	(*m_active)->Bind(actionType, s_actualCallback, s_actualItem);
+	(*m_active)->Bind(*actionType, s_actualCallback, this);
+}
+
+void MainFrame::leftClick(wxMouseEvent &event)
+{
+	//!\todo clean me
+	Shape *s=dynamic_cast<Shape*>((*m_active)->getSelection());
+	Drawer *d=dynamic_cast<Drawer*>(m_selectedPlugin->second.get());
+	Point p(event.GetX(),event.GetY(),0);
+	Color c(1,0,0,1);//!\todo use m_selectedColor
+	Vertex v;
+	v.set(p,c,d->clone());
+	s->push_back(v);
 }

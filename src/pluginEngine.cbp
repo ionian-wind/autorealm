@@ -37,13 +37,11 @@
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add option="`wx-config --cxxflags`" />
 			<Add option="-fPIC" />
 			<Add directory="../src" />
 			<Add directory="../../prj/Pluma-1.0/include/" />
 		</Compiler>
 		<Linker>
-			<Add option="`wx-config --libs`" />
 			<Add directory="../../prj/Pluma-1.0/lib" />
 		</Linker>
 		<Unit filename="pluginEngine/drawer.h">

@@ -45,6 +45,8 @@ class Vertex
          *	\throw nothing
          */
 		Vertex(Vertex const&other) throw();
+        /** \brief destructor */
+		~Vertex(void) throw();
         /** \brief initialize the vertex with new values
          *	\param end Point const& coordinates of the last point of the vertex
          *	\param color Color const& color of the last point of the vertex

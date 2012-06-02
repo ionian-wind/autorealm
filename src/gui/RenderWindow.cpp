@@ -56,12 +56,29 @@ RenderWindow::RenderWindow(wxFrame* parent, int* args)
     SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 
 	Bind(wxEVT_PAINT, &RenderWindow::onDraw, this);
-
-
-	//!\todo remove testing code
-//	Group::m_children.push_back(std::move(DrawingTests::create()));
-//	Mover m(DrawingTests::move());
-//	accept(m);
+//	//!\todo remove test code (and do not forget to fix build system too)
+//	{
+//		#include <plugins/core/LineMonoColor/linemonocolor.h>
+//		std::unique_ptr<Shape> s(new Shape());
+//
+//		s->setFiller(Color(0,0,0,1));
+//		Point p(100,85,0);
+//
+//		Vertex l0;l0.set(p,
+//						Color(1,0,0,1),LineMonoColor().clone());
+//		Vertex l1;l1.set(Point(10,70,0),
+//						Color(0,1,0,1),LineMonoColor().clone());
+//		Vertex l2;l2.set(Point(50,100,0),
+//						Color(0,0,1,1),LineMonoColor().clone());
+//		Vertex l3;l3.set(p,
+//						Color(0.5,0.5,0,1),LineMonoColor().clone());
+//
+//		s->push_back(l0);
+//		s->push_back(l1);
+//		s->push_back(l2);
+//		s->push_back(l3);
+//		push_back(std::move(s));
+//	}
 }
 
 void RenderWindow::onDraw(wxEvent&ev)
@@ -108,7 +125,12 @@ void RenderWindow::draw()//const
     SwapBuffers();
 }
 
-Object *RenderWindow::getSelection(void)
+Object *RenderWindow::getSelection(void) const throw()
 {
 	return m_selection;
+}
+
+void RenderWindow::selectLastObject(void) throw()
+{
+	m_selection=Group::m_children.back().get();
 }

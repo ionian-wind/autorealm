@@ -54,7 +54,7 @@ class Group : public Object
          *	\post last element of m_children contain the pointer target
          *	\throw can throw if there not enough memory to create the new element. If so, target is not changed and an exception is thrown to inform caller of the problem.
          */
-		void push_back(std::unique_ptr<Object> &target);
+		void push_back(std::unique_ptr<Object> target);
 		//void push_back(std::unique_ptr<Object> target);
 	protected:
 		std::vector<std::unique_ptr<Object>> m_children;

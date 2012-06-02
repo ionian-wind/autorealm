@@ -34,6 +34,12 @@ Vertex::Vertex(Vertex const&other) throw()
 	//!\todo make it inline
 }
 
+Vertex::~Vertex(void) throw()
+{
+	//!\todo make it inline
+	m_drawer.reset();
+}
+
 void Vertex::set(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer) throw()
 {
 	//!\todo make it inline

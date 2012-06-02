@@ -50,7 +50,6 @@
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add option="`wx-config --cxxflags`" />
 			<Add option="-fPIC" />
 			<Add directory="../../" />
 			<Add directory="../../../../prj/Pluma-1.0/include" />

@@ -25,6 +25,11 @@
 
 #include "vertex.h"
 
+Shape::~Shape(void) throw()
+{
+	m_children.clear();
+}
+
 void Shape::accept(Mutator &v)
 {
 	//!\todo find a solution to use std::for_each

@@ -39,7 +39,8 @@ public:
     std::string getName(void)const;
     int getWidth(void)const;
     int getHeight(void)const;
-    Object* getSelection(void);
+    Object* getSelection(void) const throw();
+    void selectLastObject(void) throw();
 
 private:
     std::string m_name;

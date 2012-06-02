@@ -33,6 +33,7 @@
 #include "appconfig.h"
 #include <menuEngine/composite.h>
 #include <pluginEngine/plugin.h>
+#include <renderEngine/color.h>
 
 typedef Composite Menu;
 class RenderWindow;
@@ -59,8 +60,9 @@ private:
 	std::vector<PluginProvider*> m_actionProviders;
 	std::map<std::string, ID> m_buttonIDs;// name of plugins are associated with an ID
 	std::map<ID,std::unique_ptr<Plugin>> m_plugins;// IDs are associated with plugins
-//	std::vector<std::unique_ptr<Plugin>>::iterator m_selected;
+	std::map<ID,std::unique_ptr<Plugin>>::iterator m_selectedPlugin;
 	pluma::Pluma m_actionPlugIn;
+	Color m_selectedColor;
 
 public:
     /** \brief build the window and load plug-ins
@@ -73,7 +75,8 @@ public:
     MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");
 
 	//void changeMouseAction(wxCommandEvent& ev, wxEventTypeTag<wxMouseEvent> actionType, void (Drawer::*action)(wxMouseEvent&));
-	void changeMouseAction(wxCommandEvent& ev);
+	void changeSelectedPlugin(wxCommandEvent& event);
+	void leftClick(wxMouseEvent &event);
 
     ~MainFrame(void);
 

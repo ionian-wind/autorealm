@@ -31,10 +31,11 @@ class wxMouseEvent;
 class Drawer : public Plugin
 {
 	public:
-		virtual ~Drawer(){};
+		virtual ~Drawer()=default;
 		virtual void draw(Vertex const &v)const=0;
 		virtual std::unique_ptr<Drawer> clone(void)const=0;
-		virtual void leftClick(wxMouseEvent&)=0;
+//		virtual void leftClick(wxMouseEvent&)=0;
+		virtual PluginType getType(void) const throw() override {return PluginType::DRAWER;}
 	protected:
 	private:
 };

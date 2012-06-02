@@ -31,7 +31,8 @@ class Mutator: public Plugin
 	public:
 		virtual void visit(Group& v)=0;
 		virtual void visit(Shape& v)=0;
-		virtual ~Mutator(void){};
+		virtual ~Mutator(void)=default;
+		virtual PluginType getType(void)const throw() override {return PluginType::MUTATOR;}
 	protected:
 	private:
 };

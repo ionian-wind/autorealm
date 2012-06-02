@@ -22,10 +22,7 @@
 
 #include <renderEngine/vertex.h>
 
-LineMonoColor::LineMonoColor()
-{
-	//ctor
-}
+LineMonoColor::LineMonoColor()=default;
 
 void LineMonoColor::draw(Vertex const &v)const
 {
@@ -38,14 +35,14 @@ std::unique_ptr<Drawer> LineMonoColor::clone(void)const
 {
 	return std::unique_ptr<LineMonoColor>(new LineMonoColor());
 }
-#include <wx/msgdlg.h>
-
-void LineMonoColor::activator(wxCommandEvent& ev)
-{
-	wxMessageBox("monocolor activator","");
-}
-
-void LineMonoColor::leftClick(wxMouseEvent& ev)
-{
-	wxMessageBox("monocolor left click","");
-}
+//#include <wx/msgdlg.h>
+//
+//void LineMonoColor::activator(void) const
+//{
+//	wxMessageBox("monocolor activation","");
+//}
+//
+//void LineMonoColor::leftClick(wxMouseEvent& ev)
+//{
+//	wxMessageBox("monocolor left click","");
+//}
