@@ -31,27 +31,7 @@
 
 #include "RenderWindow.h"
 #include "id.h"
-
-//!\todo move me in Pluma
-template <class T>
-T* getProvider(pluma::Pluma & plumConf, std::string const& location, std::string const& pluginName)
-{
-	std::vector<T*> prevProviders, actualProviders;
-	plumConf.getProviders(prevProviders);
-	if(plumConf.load(location,pluginName))
-	{ // register loaded provider
-		decltype(actualProviders.size()) i=0;
-		plumConf.getProviders(actualProviders);//!\todo PlumaLack#1 remove that
-		//!\todo PlumaLack#1 remove that
-		//Locate the provider newly loaded
-		while(i<actualProviders.size() && prevProviders.end()!=std::find(prevProviders.begin(),prevProviders.end(),actualProviders[i]))
-			++i;
-
-		if(i<=actualProviders.size())
-			return actualProviders[i];
-	}
-	return nullptr;
-}
+#include "../utils/utils.h"
 
 const long MainFrame::ID_NOTEBOOK = wxNewId();
 
@@ -159,13 +139,9 @@ void MainFrame::changeSelectedPlugin(wxCommandEvent& event)
 
 void MainFrame::leftClick(wxMouseEvent &event)
 {
-	//!\todo clean me
-	Shape *s=dynamic_cast<Shape*>((*m_active)->getSelection());
-	Drawer *d=dynamic_cast<Drawer*>(m_selectedPlugin->second.get());
-	Point p(event.GetX(),event.GetY(),0);
-	Color c(1,0,0,1);//!\todo use m_selectedColor
-	Vertex v;
-	v.set(p,c,d->clone());
-	s->push_back(v);
-	(*m_active)->draw();
+	(*m_active)->addVertex(
+							event.GetX(),
+							event.GetY(),
+							dynamic_cast<Drawer*>
+								(m_selectedPlugin->second.get())->clone());
 }

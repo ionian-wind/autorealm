@@ -22,29 +22,49 @@
 #define _RENDERWINDOW_H
 
 #include <vector>
-#include <string>
 
 #include <wx/glcanvas.h>
 
 #include <renderEngine/group.h>
+#include <renderEngine/color.h>
 
 class RenderWindow : public Group,public wxGLCanvas
 {
 public:
+    /** \brief initialize the sheet to be able to recept drawing and call Group::draw */
     virtual void draw();
+    /** \brief event manager for drawing requests
+     * \param wxEvent&ev
+     */
     void onDraw(wxEvent&ev);
+    /** \brief Constructor
+     *
+     * \param parent wxFrame*
+     * \param args int*
+     *
+     */
     RenderWindow(wxFrame* parent, int* args);
+    /** Destructor */
     ~RenderWindow(void) throw();
-    void setName(std::string const &str);
-    std::string getName(void)const;
-    int getWidth(void)const;
-    int getHeight(void)const;
-    Object* getSelection(void) const throw();
+    /** \brief select the last object in the vector of ojects contained
+     *
+     * \return void selectLastObject(void)
+     *
+     */
     void selectLastObject(void) throw();
+    /** \brief add a vertex to the selected shape.
+     *
+     * \param x wxCoord
+     * \param y wxCoord
+     * \param drawer std::unique_ptr<Drawer>
+     * \pre m_selection is a pointer on a Shape object
+     * \throw bad_cast if the selected object is not a shape
+     */
+    void addVertex(wxCoord x, wxCoord y,std::unique_ptr<Drawer> drawer);
 
 private:
-    std::string m_name;
     Object *m_selection;
     wxGLContext * m_context;
+    Color m_selectedColor;
 };
 #endif

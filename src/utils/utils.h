@@ -25,6 +25,7 @@
 #include <string>
 
 #include <wx/bitmap.h>
+#include <Pluma/Pluma.hpp>
 
 #include "../gui/appconfig.h"
 
@@ -34,5 +35,27 @@
  * \return wxBitmap
  */
 wxBitmap loadImage(std::string const & fileName);
+
+//!\todo PlumaLack#1 implement a Provider::getProvider(std::string const &plugName) in pluma to remove dumb code here
+//!\todo move me in Pluma
+template <class T>
+T* getProvider(pluma::Pluma & plumConf, std::string const& location, std::string const& pluginName)
+{
+	std::vector<T*> prevProviders, actualProviders;
+	plumConf.getProviders(prevProviders);
+	if(plumConf.load(location,pluginName))
+	{ // register loaded provider
+		decltype(actualProviders.size()) i=0;
+		plumConf.getProviders(actualProviders);//!\todo PlumaLack#1 remove that
+		//!\todo PlumaLack#1 remove that
+		//Locate the provider newly loaded
+		while(i<actualProviders.size() && prevProviders.end()!=std::find(prevProviders.begin(),prevProviders.end(),actualProviders[i]))
+			++i;
+
+		if(i<=actualProviders.size())
+			return actualProviders[i];
+	}
+	return nullptr;
+}
 
 #endif // UTILS_H

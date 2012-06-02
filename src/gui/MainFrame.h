@@ -88,5 +88,3 @@ private:
 };
 
 #endif
-
-//!\todo PlumaLack#1 implement a Provider::getProvider(std::string const &plugName) in pluma to remove dumb code here

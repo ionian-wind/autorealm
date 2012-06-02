@@ -24,28 +24,13 @@
 #include <GL/glu.h>
 #include <wx/dcclient.h>
 
-void RenderWindow::setName(std::string const &str)
-{
-    m_name=str;
-}
-
-std::string RenderWindow::getName(void)const
-{
-    return m_name;
-}
-
-int RenderWindow::getWidth(void)const
-{
-    return GetSize().x;
-}
-
-int RenderWindow::getHeight(void)const
-{
-    return GetSize().y;
-}
+#include <renderEngine/point.h>
+#include <renderEngine/vertex.h>
+#include <renderEngine/shape.h>
 
 RenderWindow::RenderWindow(wxFrame* parent, int* args)
     :wxGLCanvas(parent,wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
+    ,m_selectedColor(0,0,0,1)
 {
 	m_context = new wxGLContext(this);
     // To avoid flashing on MSW
@@ -66,6 +51,9 @@ RenderWindow::~RenderWindow(void) throw()
 
 void RenderWindow::draw()//const
 {
+	int w,h;
+	GetSize(&w,&h);
+
     if(!IsShown())
         return;
 
@@ -82,11 +70,11 @@ void RenderWindow::draw()//const
     glEnable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-    glViewport(0, 0, getWidth(), getHeight());
+    glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    gluOrtho2D(0, getWidth(), getHeight(), 0);
+    gluOrtho2D(0, w, h, 0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
@@ -96,12 +84,18 @@ void RenderWindow::draw()//const
     SwapBuffers();
 }
 
-Object *RenderWindow::getSelection(void) const throw()
-{
-	return m_selection;
-}
-
 void RenderWindow::selectLastObject(void) throw()
 {
 	m_selection=Group::m_children.back().get();
+}
+
+void RenderWindow::addVertex(wxCoord x, wxCoord y, std::unique_ptr<Drawer> drawer)
+{
+	dynamic_cast<Shape*>(m_selection)->push_back(
+			Vertex(
+					Point(x,y,0),
+					m_selectedColor,
+					std::move(drawer))
+			);
+	this->draw();
 }
