@@ -169,4 +169,5 @@ void MainFrame::leftClick(wxMouseEvent &event)
 	Vertex v;
 	v.set(p,c,d->clone());
 	s->push_back(v);
+	(*m_active)->draw();
 }
