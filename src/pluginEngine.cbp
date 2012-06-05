@@ -56,12 +56,6 @@
 		<Unit filename="pluginEngine/plugin.h">
 			<Option virtualFolder="headers/" />
 		</Unit>
-		<Unit filename="utils/utils.cpp">
-			<Option virtualFolder="sources/" />
-		</Unit>
-		<Unit filename="utils/utils.h">
-			<Option virtualFolder="headers/" />
-		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />

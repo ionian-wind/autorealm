@@ -110,6 +110,12 @@
 		<Unit filename="utils/textfile.h">
 			<Option virtualFolder="headers/" />
 		</Unit>
+		<Unit filename="utils/utils.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="utils/utils.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
 		<Extensions>
 			<envvars />
 			<code_completion />
