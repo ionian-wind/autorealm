@@ -5,29 +5,24 @@
  *This file is part of autorealm.                                                 *
  *                                                                                *
  *    autorealm is free software: you can redistribute it and/or modify           *
- *    it under the terms of the GNU Lesser General Public License as published by        *
+ *    it under the terms of the GNU Lesser General Public License as published by *
  *    the Free Software Foundation, either version 3 of the License, or           *
  *    (at your option) any later version.                                         *
  *                                                                                *
  *    autorealm is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of              *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
- *    GNU Lesser General Public License for more details.                                *
+ *    GNU Lesser General Public License for more details.                         *
  *                                                                                *
- *    You should have received a copy of the GNU Lesser General Public License           *
+ *    You should have received a copy of the GNU Lesser General Public License    *
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include "composite.h"
-
 #include <assert.h>
-
 #include <utils/textfile.h>
 
-#include "leaf.h"
-#include "iterator.h"
-
-Composite::Composite(boost::filesystem::path const &location)
+template <class T>
+Composite<T>::Composite(boost::filesystem::path const &location)
 :m_components()
 {
 	//!\pre location must exists
@@ -38,10 +33,11 @@ Composite::Composite(boost::filesystem::path const &location)
 		throw std::runtime_error("Given location is not a directory");
 
 	auto file=TextFile::OpenFile(findConfigurationFile(location));
-	loadConfiguration(file);
+	this->loadConfiguration(file);
 }
 
-boost::filesystem::path Composite::findConfigurationFile(boost::filesystem::path const &location)
+template <class T>
+boost::filesystem::path Composite<T>::findConfigurationFile(boost::filesystem::path const &location)
 {
 	boost::filesystem::path file(location.string()+"/"+location.filename().string());
 	if(!boost::filesystem::exists(file))
@@ -49,47 +45,52 @@ boost::filesystem::path Composite::findConfigurationFile(boost::filesystem::path
 	return file;
 }
 
-void Composite::buildMenu(boost::filesystem::path const &location)
+template <class T>
+void Composite<T>::buildMenu(boost::filesystem::path const &location)
 {
 	const boost::filesystem::path toSkip(findConfigurationFile(location)); //skip the file with same name as directory
 	for(auto content=boost::filesystem::directory_iterator(location);content!=boost::filesystem::directory_iterator();++content)
 	{
 		if(toSkip==content->path())
 			continue;
-		m_components.push_back(std::unique_ptr<Component>());
+		m_components.push_back(std::unique_ptr<Component<T>>());
 		if(boost::filesystem::is_regular_file(content->path()))
-			m_components.back().reset(new Leaf(TextFile::OpenFile(content->path())));
+			m_components.back().reset(new Leaf<T>(TextFile::OpenFile(content->path())));
 		else
 		{
-			Composite *m(new Composite(content->path()));
+			Composite<T> *m(new Composite<T>(content->path()));
 			m->buildMenu(content->path());
 			m_components.back().reset(m);
 		}
 	}
 }
 
-void Composite::create(void)
+template <class T>
+void Composite<T>::create(void)
 {
 	create(nullptr);
 }
 
-void Composite::create(MenuConverter* parent)
+template <class T>
+void Composite<T>::create(T* parent)
 {
-	MenuConverter::create(parent,getName());
+	T::create(parent,Component<T>::getName());
 
 	for(auto &i:m_components)
-		if(typeid(*i.get())==typeid(Composite))
-			static_cast<Composite*>(i.get())->create(this);
+		if(typeid(*i.get())==typeid(Composite<T>))
+			static_cast<Composite<T>*>(i.get())->create(this);
 		else
 			i->create(this,i->getName());
 }
 
-Iterator<Composite> Composite::begin(void)
+template <class T>
+typename Composite<T>::MenuIter Composite<T>::begin(void)
 {
-	return Iterator<Composite>(this);
+	return MenuIter(this);
 }
 
-Composite::MenuIter Composite::end(void)
+template <class T>
+typename Composite<T>::MenuIter Composite<T>::end(void)
 {
 	return MenuIter(this, false);
 }

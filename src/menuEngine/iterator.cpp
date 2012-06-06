@@ -5,61 +5,63 @@
  *This file is part of autorealm.                                                 *
  *                                                                                *
  *    autorealm is free software: you can redistribute it and/or modify           *
- *    it under the terms of the GNU Lesser General Public License as published by        *
+ *    it under the terms of the GNU Lesser General Public License as published by *
  *    the Free Software Foundation, either version 3 of the License, or           *
  *    (at your option) any later version.                                         *
  *                                                                                *
  *    autorealm is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of              *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
- *    GNU Lesser General Public License for more details.                                *
+ *    GNU Lesser General Public License for more details.                         *
  *                                                                                *
- *    You should have received a copy of the GNU Lesser General Public License           *
+ *    You should have received a copy of the GNU Lesser General Public License    *
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-template <class Compositor>
-Iterator<Compositor>& Iterator<Compositor>::operator++(void)
+template <class Compositor, class TComponent>
+Iterator<Compositor, TComponent>& Iterator<Compositor, TComponent>::operator++(void)
 {
 	++m_position;
 	goDeeper();
 	return *this;
 }
 
-template <class Compositor>
-Iterator<Compositor>::Iterator(Compositor *owner)
+template <class Compositor, class TComponent>
+Iterator<Compositor, TComponent>::Iterator(Compositor *owner)
 :m_owner(owner),m_position(owner->m_components.begin())
 {
 	goDeeper();
 }
 
-template <class Compositor>
-Iterator<Compositor>::Iterator(Compositor *owner, bool dumb)
+template <class Compositor, class TComponent>
+Iterator<Compositor, TComponent>::Iterator(Compositor *owner, bool dumb)
 :m_owner(owner),m_position(owner->m_components.end())
 {
 	goUpper();
 }
 
-template <class Compositor>
-bool Iterator<Compositor>::operator!=(Iterator<Compositor> const&other)const
+template <class Compositor, class TComponent>
+bool Iterator<Compositor, TComponent>::operator!=(Iterator<Compositor, TComponent> const&other)const
 {
 	return (m_owner!=other.m_owner) || (m_position!=other.m_position);
 }
 
-template <class Compositor>
-Component* Iterator<Compositor>::operator->(void)
+template <class Compositor, class TComponent>
+//Component<TComponent>* Iterator<Compositor, TComponent>::operator->(void)
+TComponent* Iterator<Compositor, TComponent>::operator->(void)
 {
 	return m_position->get();
 }
 
-template <class Compositor>
-Component& Iterator<Compositor>::operator*(void)
+template <class Compositor, class TComponent>
+//Component<TComponent>& Iterator<Compositor, TComponent>::operator*(void)
+TComponent& Iterator<Compositor, TComponent>::operator*(void)
 {
 	return *(m_position->get());
 }
 
-template <class Compositor>
-void Iterator<Compositor>::goDeeper(void)
+template <class Compositor, class TComponent>
+void Iterator<Compositor, TComponent>::goDeeper(void)
 {
 	//!\pre m_owner is a valid Compositor
 	//!\post m_position refer to a leaf or Iterator is set to end()
@@ -75,8 +77,8 @@ void Iterator<Compositor>::goDeeper(void)
 	}
 }
 
-template <class Compositor>
-void Iterator<Compositor>::goUpper(void)
+template <class Compositor, class TComponent>
+void Iterator<Compositor, TComponent>::goUpper(void)
 {
 	if(isEndOfLevel() && !m_ancestors.empty())
 	{
@@ -88,14 +90,14 @@ void Iterator<Compositor>::goUpper(void)
 	}
 }
 
-template <class Compositor>
-bool Iterator<Compositor>::isComposite(void)const
+template <class Compositor, class TComponent>
+bool Iterator<Compositor, TComponent>::isComposite(void)const
 {
 	return typeid(*m_position->get())==typeid(Compositor);
 }
 
-template <class Compositor>
-bool Iterator<Compositor>::isEndOfLevel(void)const
+template <class Compositor, class TComponent>
+bool Iterator<Compositor, TComponent>::isEndOfLevel(void)const
 {
 	return m_position==m_owner->m_components.end();
 }

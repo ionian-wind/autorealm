@@ -5,16 +5,16 @@
  *This file is part of autorealm.                                                 *
  *                                                                                *
  *    autorealm is free software: you can redistribute it and/or modify           *
- *    it under the terms of the GNU Lesser General Public License as published by        *
+ *    it under the terms of the GNU Lesser General Public License as published by *
  *    the Free Software Foundation, either version 3 of the License, or           *
  *    (at your option) any later version.                                         *
  *                                                                                *
  *    autorealm is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of              *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
- *    GNU Lesser General Public License for more details.                                *
+ *    GNU Lesser General Public License for more details.                         *
  *                                                                                *
- *    You should have received a copy of the GNU Lesser General Public License           *
+ *    You should have received a copy of the GNU Lesser General Public License    *
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
@@ -23,21 +23,23 @@
 
 #include <string>
 
-#include "wxmenuconverter.h"
+//template <class T>
+//class Component: public T
+//{
+//	public:
+//		std::string getPluginName(void)const;
+//		virtual ~Component()=default;
+//		std::string getName(void)const;
+//		void disable(bool disable=true);
+//		bool isEnabled(void)const;
+//	protected:
+//		void virtual loadConfiguration(std::unique_ptr<TextFile> &file);
+//	private:
+//		std::string m_name;
+//		bool m_enable=true;
+//};
 
-class Component: public MenuConverter
-{
-	public:
-		std::string getPluginName(void)const;
-		virtual ~Component()=default;
-		std::string getName(void)const;
-		void disable(bool disable=true);
-		bool isEnabled(void)const;
-	protected:
-		void virtual loadConfiguration(std::unique_ptr<TextFile> &file);
-	private:
-		std::string m_name;
-		bool m_enable=true;
-};
+//#include "component.cpp"
+//#include "composite.h"
 
 #endif

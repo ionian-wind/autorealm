@@ -5,16 +5,16 @@
  *This file is part of autorealm.                                                 *
  *                                                                                *
  *    autorealm is free software: you can redistribute it and/or modify           *
- *    it under the terms of the GNU Lesser General Public License as published by        *
+ *    it under the terms of the GNU Lesser General Public License as published by *
  *    the Free Software Foundation, either version 3 of the License, or           *
  *    (at your option) any later version.                                         *
  *                                                                                *
  *    autorealm is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of              *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
- *    GNU Lesser General Public License for more details.                                *
+ *    GNU Lesser General Public License for more details.                         *
  *                                                                                *
- *    You should have received a copy of the GNU Lesser General Public License           *
+ *    You should have received a copy of the GNU Lesser General Public License    *
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
@@ -23,22 +23,22 @@
 #include <wx/menu.h>
 #include <wx/menuitem.h>
 
-#include "leaf.h"
-#include "composite.h"
-#include "component.h"
+//#include "leaf.h"
+//#include "composite.h"
+//#include "component.h"
 
-#include "../utils/textfile.h"
+#include <utils/textfile.h>
 #include <assert.h>
 
 void MenuConverter::create(MenuConverter *parent,std::string const &title)
 {
 	//!\todo find a way to check at compilation that (*this) is of the good type.
 	//!\pre type of *this is Menu or Item
-	assert(typeid(*this)==typeid(Composite) || typeid(*this)==typeid(Leaf));//, "(*this)'s type can only be Menu or Item");
+	assert(typeid(*this)==typeid(Composite<MenuConverter>) || typeid(*this)==typeid(Leaf<MenuConverter>));//, "(*this)'s type can only be Menu or Item");
 	//!\pre parent must be a Menu
-	assert(parent==nullptr || typeid(*parent)==typeid(Composite));//, "(*parent)'s type can only be Menu");
+	assert(parent==nullptr || typeid(*parent)==typeid(Composite<MenuConverter>));//, "(*parent)'s type can only be Menu");
 	//!\pre Item can not be added to a menubar
-	assert(typeid(*this)==typeid(Composite) || (parent!=nullptr && false==parent->m_isMenuBar));//, "Item can not be added to a root Menu (aka: menubar. WxWidget's limitation)");
+	assert(typeid(*this)==typeid(Composite<MenuConverter>) || (parent!=nullptr && false==parent->m_isMenuBar));//, "Item can not be added to a root Menu (aka: menubar. WxWidget's limitation)");
 
 	m_isMenuBar=false; //!\todo this flag should have been set at constructor. Why is it not?
 	if(nullptr==parent)
@@ -49,7 +49,7 @@ void MenuConverter::create(MenuConverter *parent,std::string const &title)
 	else
 	{
 		//create Menu or Item
-		if(typeid(*this)==typeid(Composite))
+		if(typeid(*this)==typeid(Composite<MenuConverter>))
 			m_content.menu=new wxMenu(title); //!\todo implement style
 		else
 		{
@@ -62,7 +62,7 @@ void MenuConverter::create(MenuConverter *parent,std::string const &title)
 			parent->m_content.menubar->Append(m_content.menu, title);// it is only possible to add menu to menubars
 		else
 		{
-			if(typeid(*this)==typeid(Composite))
+			if(typeid(*this)==typeid(Composite<MenuConverter>))
 				parent->m_content.menu->AppendSubMenu(m_content.menu,title,getHelp());
 			else
 				parent->m_content.menu->Append(m_content.menuitem);
@@ -73,7 +73,7 @@ void MenuConverter::create(MenuConverter *parent,std::string const &title)
 
 wxMenuBar* MenuConverter::getMenuBar(void)const
 {
-	assert(typeid(*this)==typeid(Composite) && true==m_isMenuBar);
+	assert(typeid(*this)==typeid(Composite<MenuConverter>) && true==m_isMenuBar);
 	return m_content.menubar;
 }
 

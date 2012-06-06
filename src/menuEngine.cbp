@@ -46,12 +46,16 @@
 			<Add library="boost_system" />
 		</Linker>
 		<Unit filename="menuEngine/component.cpp">
+			<Option compile="0" />
+			<Option link="0" />
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="menuEngine/component.h">
 			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="menuEngine/composite.cpp">
+			<Option compile="0" />
+			<Option link="0" />
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="menuEngine/composite.h">
@@ -66,6 +70,8 @@
 			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="menuEngine/leaf.cpp">
+			<Option compile="0" />
+			<Option link="0" />
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="menuEngine/leaf.h">
