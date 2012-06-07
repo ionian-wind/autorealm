@@ -18,67 +18,89 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-template <class Compositor, class TComponent>
-Iterator<Compositor, TComponent>& Iterator<Compositor, TComponent>::operator++(void)
+template <class T>
+Iterator<T>& Iterator<T>::operator++(void)
 {
 	++m_position;
 	goDeeper();
 	return *this;
 }
 
-template <class Compositor, class TComponent>
-Iterator<Compositor, TComponent>::Iterator(Compositor *owner)
-:m_owner(owner),m_position(owner->m_components.begin())
+template <class T>
+Iterator<T>::Iterator(Iterator<T> const& other)=default;
+//:m_owner(other.m_owner), m_position(other.m_position), m_ancestors(other.m_ancestors)
+//{
+//}
+
+template <class T>
+Iterator<T>& Iterator<T>::operator=(Iterator<T> const& other)
 {
-	goDeeper();
+	Iterator<T> me(other);
+	std::swap(me,*this);
+	return *this;
 }
 
-template <class Compositor, class TComponent>
-Iterator<Compositor, TComponent>::Iterator(Compositor *owner, bool dumb)
-:m_owner(owner),m_position(owner->m_components.end())
+template <class T>
+Iterator<T> Iterator<T>::begin_of(Composite<T> *owner)
 {
-	goUpper();
+	Iterator<T> *it=new Iterator<T>(owner);
+	it->m_position=owner->m_components.begin();
+	it->goDeeper();
+	return *it;
 }
 
-template <class Compositor, class TComponent>
-bool Iterator<Compositor, TComponent>::operator!=(Iterator<Compositor, TComponent> const&other)const
+template <class T>
+Iterator<T> Iterator<T>::end_of(Composite<T> *owner)
+{
+	Iterator<T> *it=new Iterator<T>(owner);
+	it->m_position=owner->m_components.end();
+	it->goUpper();
+	return *it;
+}
+
+template <class T>
+Iterator<T>::Iterator(Composite<T> *owner)
+:m_owner(owner)
+{
+}
+
+template <class T>
+bool Iterator<T>::operator!=(Iterator<T> const&other)const
 {
 	return (m_owner!=other.m_owner) || (m_position!=other.m_position);
 }
 
-template <class Compositor, class TComponent>
-//Component<TComponent>* Iterator<Compositor, TComponent>::operator->(void)
-TComponent* Iterator<Compositor, TComponent>::operator->(void)
+template <class T>
+Component<T>* Iterator<T>::operator->(void)
 {
 	return m_position->get();
 }
 
-template <class Compositor, class TComponent>
-//Component<TComponent>& Iterator<Compositor, TComponent>::operator*(void)
-TComponent& Iterator<Compositor, TComponent>::operator*(void)
+template <class T>
+Component<T>& Iterator<T>::operator*(void)
 {
 	return *(m_position->get());
 }
 
-template <class Compositor, class TComponent>
-void Iterator<Compositor, TComponent>::goDeeper(void)
+template <class T>
+void Iterator<T>::goDeeper(void)
 {
-	//!\pre m_owner is a valid Compositor
+	//!\pre m_owner is a valid Composite<T>
 	//!\post m_position refer to a leaf or Iterator is set to end()
-	//!\post m_owner is a valid Compositor but might have changed
+	//!\post m_owner is a valid Composite<T> but might have changed
 	if(m_owner->m_components.empty() || isEndOfLevel())
 		goUpper();
 	else if(isComposite())
 	{
 		m_ancestors.push(std::make_pair(m_owner,m_position));
-		m_owner=static_cast<Compositor*>(m_position->get());
+		m_owner=static_cast<Composite<T>*>(m_position->get());
 		m_position=m_owner->m_components.begin();
 		goDeeper();
 	}
 }
 
-template <class Compositor, class TComponent>
-void Iterator<Compositor, TComponent>::goUpper(void)
+template <class T>
+void Iterator<T>::goUpper(void)
 {
 	if(isEndOfLevel() && !m_ancestors.empty())
 	{
@@ -90,14 +112,14 @@ void Iterator<Compositor, TComponent>::goUpper(void)
 	}
 }
 
-template <class Compositor, class TComponent>
-bool Iterator<Compositor, TComponent>::isComposite(void)const
+template <class T>
+bool Iterator<T>::isComposite(void)const
 {
-	return typeid(*m_position->get())==typeid(Compositor);
+	return typeid(*m_position->get())==typeid(Composite<T>);
 }
 
-template <class Compositor, class TComponent>
-bool Iterator<Compositor, TComponent>::isEndOfLevel(void)const
+template <class T>
+bool Iterator<T>::isEndOfLevel(void)const
 {
 	return m_position==m_owner->m_components.end();
 }

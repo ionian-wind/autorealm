@@ -18,9 +18,6 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include <assert.h>
-#include <utils/textfile.h>
-
 template <class T>
 Composite<T>::Composite(boost::filesystem::path const &location)
 :m_components()
@@ -86,11 +83,11 @@ void Composite<T>::create(T* parent)
 template <class T>
 typename Composite<T>::MenuIter Composite<T>::begin(void)
 {
-	return MenuIter(this);
+	return MenuIter::begin_of(this);
 }
 
 template <class T>
 typename Composite<T>::MenuIter Composite<T>::end(void)
 {
-	return MenuIter(this, false);
+	return MenuIter::begin_of(this);
 }

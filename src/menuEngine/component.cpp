@@ -18,9 +18,6 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include <assert.h>
-#include <utils/textfile.h>
-
 template <class T>
 void Component<T>::loadConfiguration(std::unique_ptr<TextFile> &file)
 {

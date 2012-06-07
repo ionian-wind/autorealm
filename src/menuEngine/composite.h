@@ -27,8 +27,7 @@
 
 #include <boost/filesystem.hpp>
 
-//#include "component.h"
-//#include "iterator.h"
+template <class T> class Composite;
 
 template <class T>
 class Component: public T
@@ -46,35 +45,38 @@ class Component: public T
 		bool m_enable=true;
 };
 
-template <class Compositor, class TComponent>
+template <class T>
 class Iterator
 {
-	friend Compositor;
+	friend Composite<T>;
 public:
 	Iterator& operator++(void);
-	bool operator!=(Iterator<Compositor,TComponent> const&other)const;
+	bool operator!=(Iterator<T> const&other)const;
+	Iterator<T>& operator=(Iterator<T> const& other);
+	Iterator(Iterator<T> const& other);
 
-//	Component<TComponent>* operator->(void);
-//	Component<TComponent>& operator*(void);
-	TComponent* operator->(void);
-	TComponent& operator*(void);
+	Component<T>* operator->(void);
+	Component<T>& operator*(void);
 	bool isEndOfLevel(void)const;
 protected:
-	Iterator(Compositor *owner);
-	Iterator(Compositor *owner, bool dumb);//!\todo make Ctor private and create static methods to build begin/end iterators
 	void goDeeper();
 	void goUpper();
 	bool isComposite(void)const;
 private:
-	Compositor *m_owner;
-	typename Compositor::Components::iterator m_position;
-	std::stack<std::pair<Compositor*,typename Compositor::Components::iterator>> m_ancestors;
+	Iterator(Composite<T> *owner);
+	static Iterator<T> begin_of(Composite<T> *owner);
+	static Iterator<T> end_of(Composite<T> *owner);
+
+private:
+	Composite<T> *m_owner;
+	typename Composite<T>::Components::iterator m_position;
+	std::stack<std::pair<Composite<T>*,typename Composite<T>::Components::iterator>> m_ancestors;
 };
 
 template <class T>
 class Composite : public Component<T>
 {
-	typedef class Iterator<Composite<T>,Component<T>> MenuIter;
+	typedef class Iterator<T> MenuIter;
 	friend MenuIter;
 	typedef std::vector<std::unique_ptr<Component<T>>> Components;
 public:
@@ -103,6 +105,9 @@ public:
 protected:
 	Leaf(std::unique_ptr<TextFile> file){Component<T>::loadConfiguration(file);}
 };
+
+#include <assert.h>
+#include <utils/textfile.h>
 
 #include "iterator.cpp"
 #include "composite.cpp"
