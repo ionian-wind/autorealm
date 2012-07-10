@@ -27,7 +27,8 @@
 #include "object.h"
 #include "color.h"
 
-class Vertex;
+//class Vertex;
+#include "vertex.h"
 class Point;
 
 class Shape : public Object

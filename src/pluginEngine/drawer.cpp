@@ -18,27 +18,33 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef VISITOR_H
-#define VISITOR_H
+#include "drawer.h"
 
-#include "plugin.h"
+#include <shape.h>
+#include <RenderWindow.h>
 
-class Group;
-class Shape;
-#include <renderEngine/point.h>
-
-class Mutator: public Plugin
+void Drawer::installEventManager(RenderWindow &target) throw()
 {
-	public:
-		virtual ~Mutator(void)=default;
-		virtual void installEventManager(RenderWindow & target) throw() override{};
-		virtual void removeEventManager(void) throw() override{};
+	m_target=&target;
+	m_target->push_back(std::unique_ptr<Shape>(new Shape()));
+	m_target->selectLastObject();
+	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
+	m_target->Bind(wxEVT_RIGHT_DOWN, &Drawer::rightClick, this);
+}
 
-		virtual void visit(Group& v)=0;
-		virtual void visit(Shape& v)=0;
-	protected:
-		Point m_distance;
-	private:
-};
+void Drawer::removeEventManager(void) throw()
+{
+	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
+	m_target->Unbind(wxEVT_RIGHT_DOWN, &Drawer::rightClick, this);
+	m_target=nullptr;
+}
 
-#endif // VISITOR_H
+void Drawer::leftClick(wxMouseEvent &event)
+{
+	m_target->addVertex(event.GetX(),event.GetY(),clone());
+}
+
+void Drawer::rightClick(wxMouseEvent &event)
+{
+}
+

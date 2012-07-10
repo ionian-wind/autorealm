@@ -85,43 +85,11 @@ void MainFrame::onQuit(wxCommandEvent& event)
 
 void MainFrame::changeSelectedPlugin(wxCommandEvent& event)
 {
-	static wxEventTypeTag<wxMouseEvent> const *actionType=nullptr;
-	static void (MainFrame::*s_actualCallback)(wxMouseEvent &event)=nullptr;
-
-	if(m_plans.end()==m_active) //!\todo find a solution to make this impossible to happen, and change that check into an assert
-		throw std::runtime_error("can not select an action when there are no selected map");
-
-	if(nullptr!=s_actualCallback)
-		(*m_active)->Unbind(*actionType, s_actualCallback, this);
-	s_actualCallback=nullptr;
-
-	m_selectedPlugin=m_plugins.find(event.GetId());
-	switch(m_plugins[event.GetId()]->getType())
-	{
-	case PluginType::DRAWER:
-		//selects the trigger and the manager
-		s_actualCallback=&MainFrame::leftClick;
-		actionType=&wxEVT_LEFT_DOWN;
-		//create a new shape in m_active and select it
-		(*m_active)->push_back(std::unique_ptr<Shape>(new Shape()));
-		(*m_active)->selectLastObject();
-		break;
-	case PluginType::MUTATOR:
-		break;
-	default:
-		throw std::runtime_error("unknown plugin selected. Please check that the plugin use a version of the AutoREALM's API compatible with this version of AutoREALM.");
-	}
-
-	(*m_active)->Bind(*actionType, s_actualCallback, this);
-}
-
-void MainFrame::leftClick(wxMouseEvent &event)
-{
-	(*m_active)->addVertex(
-							event.GetX(),
-							event.GetY(),
-							dynamic_cast<Drawer*>
-								(m_selectedPlugin->second.get())->clone());
+	static int oldId=0;
+	if(oldId)
+		m_plugins[oldId]->removeEventManager();
+	oldId=event.GetId();
+	m_plugins[oldId]->installEventManager(**m_active);
 }
 
 void MainFrame::loadRequestedPlugins(void)

@@ -75,7 +75,6 @@ public:
     MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");
 
 	void changeSelectedPlugin(wxCommandEvent& event);
-	void leftClick(wxMouseEvent &event);
 
     ~MainFrame(void);
 

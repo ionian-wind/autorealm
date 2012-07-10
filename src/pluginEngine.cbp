@@ -38,12 +38,18 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-fPIC" />
+			<Add option="`wx-config --cppflags`" />
 			<Add directory="../src" />
 			<Add directory="../../prj/Pluma-1.0/include/" />
+			<Add directory="renderEngine" />
+			<Add directory="gui" />
 		</Compiler>
 		<Linker>
 			<Add directory="../../prj/Pluma-1.0/lib" />
 		</Linker>
+		<Unit filename="pluginEngine/drawer.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
 		<Unit filename="pluginEngine/drawer.h">
 			<Option virtualFolder="headers/" />
 		</Unit>

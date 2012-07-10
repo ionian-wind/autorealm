@@ -24,19 +24,17 @@
 #include <string>
 #include <Pluma/Pluma.hpp>
 
-enum PluginType
-{
-	DRAWER,
-	MUTATOR
-};
+class RenderWindow;
 
 class Plugin
 {
 	public:
 		virtual ~Plugin();
-		virtual PluginType getType(void) const throw() =0;
+		virtual void installEventManager(RenderWindow & target) throw() =0;
+		virtual void removeEventManager(void) throw() =0;
 	protected:
 		static const std::string m_configFileName;
+		RenderWindow *m_target;
 	private:
 };
 
