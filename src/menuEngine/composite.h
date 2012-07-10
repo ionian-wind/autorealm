@@ -34,7 +34,7 @@ class Component: public T
 {
 	public:
 		std::string getPluginName(void)const;
-		virtual ~Component()=default;
+		virtual ~Component() throw() =default;
 		std::string getName(void)const;
 		void disable(bool disable=true);
 		bool isEnabled(void)const;
@@ -81,7 +81,7 @@ class Composite : public Component<T>
 	typedef std::vector<std::unique_ptr<Component<T>>> Components;
 public:
 	Composite(boost::filesystem::path const &location);
-	virtual ~Composite()=default;
+	virtual ~Composite() throw() =default;
 	void buildMenu(boost::filesystem::path const &location);
 	virtual void create(void);
 	MenuIter begin(void);
@@ -101,7 +101,7 @@ class Leaf : public Component<T>
 {
 friend class Composite<T>;
 public:
-	virtual ~Leaf()=default;
+	virtual ~Leaf() throw() =default;
 protected:
 	Leaf(std::unique_ptr<TextFile> file){Component<T>::loadConfiguration(file);}
 };

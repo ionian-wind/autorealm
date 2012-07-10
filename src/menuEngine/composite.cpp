@@ -77,7 +77,7 @@ void Composite<T>::create(T* parent)
 		if(typeid(*i.get())==typeid(Composite<T>))
 			static_cast<Composite<T>*>(i.get())->create(this);
 		else
-			i->create(this,i->getName());
+			i->T::create(this,i->getName());
 }
 
 template <class T>
@@ -89,5 +89,5 @@ typename Composite<T>::MenuIter Composite<T>::begin(void)
 template <class T>
 typename Composite<T>::MenuIter Composite<T>::end(void)
 {
-	return MenuIter::begin_of(this);
+	return MenuIter::end_of(this);
 }

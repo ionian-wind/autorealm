@@ -18,24 +18,11 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef VISITOR_H
-#define VISITOR_H
+#include <Pluma/Connector.hpp>
+#include "fractal.h"
 
-#include "plugin.h"
-
-class Group;
-class Shape;
-
-class Mutator: public Plugin
-{
-	public:
-		virtual ~Mutator(void)=default;
-		virtual PluginType getType(void) const throw() override final {return PluginType::MUTATOR;}
-
-		virtual void visit(Group& v)=0;
-		virtual void visit(Shape& v)=0;
-	protected:
-	private:
-};
-
-#endif // VISITOR_H
+PLUMA_CONNECTOR
+bool connect(pluma::Host& host){
+    host.add( new FractalProvider() );
+    return true;
+}

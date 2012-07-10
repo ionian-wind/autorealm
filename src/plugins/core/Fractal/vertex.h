@@ -18,24 +18,24 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef VISITOR_H
-#define VISITOR_H
+#ifndef LINEVERTEX_H
+#define LINEVERTEX_H
 
-#include "plugin.h"
+#include <pluginEngine/drawer.h>
 
-class Group;
-class Shape;
-
-class Mutator: public Plugin
+class Fractal: public Drawer
 {
-	public:
-		virtual ~Mutator(void)=default;
-		virtual PluginType getType(void) const throw() override final {return PluginType::MUTATOR;}
+public:
+	virtual void draw(Vertex const &v)const override;
+	virtual std::unique_ptr<Drawer> clone(void)const override;
+private:
 
-		virtual void visit(Group& v)=0;
-		virtual void visit(Shape& v)=0;
-	protected:
-	private:
 };
 
-#endif // VISITOR_H
+class FractalProvider: public PluginProvider{
+public:
+	Plugin * create() const{ return new Vertex(); }
+	const std::string getPluginName(void)const{return "Fractal";}
+};
+
+#endif

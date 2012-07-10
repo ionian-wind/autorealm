@@ -18,24 +18,18 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef VISITOR_H
-#define VISITOR_H
+#include "curve.h"
 
-#include "plugin.h"
+#include <renderEngine/vertex.h>
 
-class Group;
-class Shape;
-
-class Mutator: public Plugin
+void Curve::draw(Vertex const &v)const
 {
-	public:
-		virtual ~Mutator(void)=default;
-		virtual PluginType getType(void) const throw() override final {return PluginType::MUTATOR;}
+	v.getEnd().createVertice();
+	v.getColor().apply();
+	v.getEnd().createVertice();
+}
 
-		virtual void visit(Group& v)=0;
-		virtual void visit(Shape& v)=0;
-	protected:
-	private:
-};
-
-#endif // VISITOR_H
+std::unique_ptr<Drawer> Curve::clone(void)const
+{
+	return std::unique_ptr<Curve>(new LineVertex());
+}

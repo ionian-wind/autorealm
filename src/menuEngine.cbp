@@ -83,6 +83,12 @@
 		<Unit filename="menuEngine/wxmenuconverter.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Unit filename="menuEngine/wxtoolbarconverter.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="menuEngine/wxtoolbarconverter.h">
+			<Option virtualFolder="header/" />
+		</Unit>
 		<Extensions>
 			<envvars />
 			<code_completion />

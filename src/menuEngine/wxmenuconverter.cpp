@@ -23,10 +23,6 @@
 #include <wx/menu.h>
 #include <wx/menuitem.h>
 
-//#include "leaf.h"
-//#include "composite.h"
-//#include "component.h"
-
 #include <utils/textfile.h>
 #include <assert.h>
 
