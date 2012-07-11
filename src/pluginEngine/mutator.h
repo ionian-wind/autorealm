@@ -26,13 +26,13 @@
 class Group;
 class Shape;
 #include <renderEngine/point.h>
-
+#include <assert.h>
 class Mutator: public Plugin
 {
 	public:
 		virtual ~Mutator(void)=default;
-		virtual void installEventManager(RenderWindow & target) throw() override{};
-		virtual void removeEventManager(void) throw() override{};
+		virtual void installEventManager(RenderWindow & target) throw() override{assert(0);};
+		virtual void removeEventManager(void) throw() override{assert(0);};
 
 		virtual void visit(Group& v)=0;
 		virtual void visit(Shape& v)=0;

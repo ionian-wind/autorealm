@@ -23,19 +23,21 @@
 #include <shape.h>
 #include <RenderWindow.h>
 
+#include <wx/menu.h>
+
 void Drawer::installEventManager(RenderWindow &target) throw()
 {
 	m_target=&target;
 	m_target->push_back(std::unique_ptr<Shape>(new Shape()));
 	m_target->selectLastObject();
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
-	m_target->Bind(wxEVT_RIGHT_DOWN, &Drawer::rightClick, this);
+	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 }
 
 void Drawer::removeEventManager(void) throw()
 {
 	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
-	m_target->Unbind(wxEVT_RIGHT_DOWN, &Drawer::rightClick, this);
+	m_target->Unbind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 	m_target=nullptr;
 }
 
@@ -44,7 +46,31 @@ void Drawer::leftClick(wxMouseEvent &event)
 	m_target->addVertex(event.GetX(),event.GetY(),clone());
 }
 
-void Drawer::rightClick(wxMouseEvent &event)
+enum
 {
-}
+    Menu_Popup_OpenFig = 2000,
+    Menu_Popup_CloseFig,
+    Menu_Popup_UseShift
+};
 
+void Drawer::contextMenu(wxContextMenuEvent &event)
+{
+	wxPoint point=event.GetPosition();
+	if(-1==point.x && -1==point.y) //from keyboard ?
+	{
+		assert(0);
+		//!\todo implement popup's menu's position when user use the context menu key
+		//!\fixme it seem assert(0) is never executed. Guess that it is because I did not used the application pointer?
+	}
+	else
+		point=m_target->ScreenToClient(point);
+
+    wxMenu menu;
+
+	menu.Append(Menu_Popup_OpenFig, wxT("Create &Open Figure"));
+	menu.Append(Menu_Popup_CloseFig, wxT("Create &Closed Figure"));
+	menu.AppendSeparator();
+	menu.Append(Menu_Popup_UseShift,wxT("Suppress this menu and use &Shift for Closed Figures"));
+
+	m_target->PopupMenu(&menu, point);
+}
