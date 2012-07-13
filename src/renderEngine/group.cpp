@@ -22,6 +22,8 @@
 
 #include <algorithm>
 
+#include <pluginEngine/mutator.h>
+
 void Group::accept(Mutator &v)
 {
 	//!\todo find a solution to use std::for_each

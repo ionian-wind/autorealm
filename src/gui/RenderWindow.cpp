@@ -84,18 +84,18 @@ void RenderWindow::draw()//const
     SwapBuffers();
 }
 
-void RenderWindow::selectLastObject(void) throw()
-{
-	m_selection=Group::m_children.back().get();
-}
-
-void RenderWindow::addVertex(wxCoord x, wxCoord y, std::unique_ptr<Drawer> drawer)
-{
-	dynamic_cast<Shape*>(m_selection)->push_back(
-			Vertex(
-					Point(x,y,0),
-					m_selectedColor,
-					std::move(drawer))
-			);
-	this->draw();
-}
+//void RenderWindow::selectLastObject(void) throw()
+//{
+//	m_selection=Group::m_children.back().get();
+//}
+//
+//void RenderWindow::addVertex(wxCoord x, wxCoord y, std::unique_ptr<Drawer> drawer)
+//{
+//	dynamic_cast<Shape*>(m_selection)->push_back(
+//			Vertex(
+//					Point(x,y,0),
+//					m_selectedColor,
+//					std::move(drawer))
+//			);
+//	this->draw();
+//}

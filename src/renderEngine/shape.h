@@ -25,11 +25,8 @@
 #include <memory>
 
 #include "object.h"
-#include "color.h"
-
-//class Vertex;
 #include "vertex.h"
-class Point;
+#include "color.h"
 
 class Shape : public Object
 {
@@ -78,6 +75,9 @@ class Shape : public Object
          *	\return std::vector<Vertex>::iterator
          */
 		std::vector<Vertex>::iterator getLastChild(void) throw();
+
+        /** \brief close the shape */
+		void close(void) throw();
 	protected:
 	private:
 	protected:

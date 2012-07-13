@@ -46,24 +46,32 @@ public:
     RenderWindow(wxFrame* parent, int* args);
     /** Destructor */
     ~RenderWindow(void) throw();
-    /** \brief select the last object in the vector of ojects contained
-     *
-     * \return void selectLastObject(void)
-     *
-     */
-    void selectLastObject(void) throw();
-    /** \brief add a vertex to the selected shape.
-     *
-     * \param x wxCoord
-     * \param y wxCoord
-     * \param drawer std::unique_ptr<Drawer>
-     * \pre m_selection is a pointer on a Shape object
-     * \throw bad_cast if the selected object is not a shape
-     */
-    void addVertex(wxCoord x, wxCoord y,std::unique_ptr<Drawer> drawer);
+//    /** \brief select the last object in the vector of ojects contained
+//     *
+//     * \return void selectLastObject(void)
+//     *
+//     */
+//    void selectLastObject(void) throw();
+//    /** \brief add a vertex to the selected shape.
+//     *
+//     * \param x wxCoord
+//     * \param y wxCoord
+//     * \param drawer std::unique_ptr<Drawer>
+//     * \pre m_selection is a pointer on a Shape object
+//     * \throw bad_cast if the selected object is not a shape
+//     */
+//    void addVertex(wxCoord x, wxCoord y,std::unique_ptr<Drawer> drawer);
 
+//    /** \brief return a reference on actually selected shape
+//     *
+//     * \return Shape&
+//     * \throw bad_cast if
+//     * \throw
+//     */
+//	Shape& getSelectedShape(void)const;
+	Color getSelectedColor(void)const throw(){return m_selectedColor;}
 private:
-    Object *m_selection;
+//    Object *m_selection;
     wxGLContext * m_context;
     Color m_selectedColor;
 };

@@ -23,7 +23,7 @@
 #include <algorithm>
 #include <GL/gl.h>
 
-#include "vertex.h"
+#include <pluginEngine/mutator.h>
 
 Shape::~Shape(void) throw()
 {
@@ -82,4 +82,10 @@ std::vector<Vertex>::iterator Shape::getFirstChild(void) throw()
 std::vector<Vertex>::iterator Shape::getLastChild(void) throw()
 {
 	return m_children.end();
+}
+
+void Shape::close(void) throw()
+{
+	if(!isClosed())
+		m_children.push_back(m_children.front());
 }

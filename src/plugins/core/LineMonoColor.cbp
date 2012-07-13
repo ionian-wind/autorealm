@@ -53,6 +53,7 @@
 			<Add option="-fPIC" />
 			<Add directory="../../" />
 			<Add directory="../../../../prj/Pluma-1.0/include" />
+			<Add directory="../../renderEngine" />
 		</Compiler>
 		<Linker>
 			<Add library="pluma-d" />

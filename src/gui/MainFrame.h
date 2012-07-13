@@ -62,7 +62,7 @@ private:
 	std::map<ID,std::unique_ptr<Plugin>> m_plugins;// IDs are associated with plugins
 	std::map<ID,std::unique_ptr<Plugin>>::iterator m_selectedPlugin;
 	pluma::Pluma m_actionPlugIn;
-	Color m_selectedColor;
+//	Color m_selectedColor;
 
 public:
     /** \brief build the window and load plug-ins

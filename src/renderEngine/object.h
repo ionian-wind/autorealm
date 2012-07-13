@@ -21,8 +21,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include <pluginEngine/mutator.h>
-#include <pluginEngine/drawer.h>
+class Mutator;
 
 /** \brief Ancestor of Shape and Group. It only provides an interface for composite and visitor patterns */
 class Object

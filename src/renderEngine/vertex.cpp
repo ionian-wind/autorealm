@@ -22,6 +22,9 @@
 
 #include <assert.h>
 
+#include <shape.h>
+#include <pluginEngine/drawer.h>
+
 Vertex::Vertex(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer) throw()
 :m_color(color),m_point(end),m_drawer(std::move(drawer))
 {

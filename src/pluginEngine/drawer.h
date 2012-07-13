@@ -25,14 +25,19 @@
 
 #include "plugin.h"
 
+class RenderWindow;
+#include <shape.h>
+//class Shape;
 class Vertex;
 class wxMouseEvent;
 class wxContextMenuEvent;
+class wxCommandEvent;
 
 class Drawer : public Plugin
 {
 	public:
-		virtual ~Drawer()=default;
+//		Drawer(void) throw();
+		virtual ~Drawer(void)=default;
 		virtual void installEventManager(RenderWindow & target) throw() override;
 		virtual void removeEventManager(void) throw() override;
 		void leftClick(wxMouseEvent &event);
@@ -41,7 +46,11 @@ class Drawer : public Plugin
 		virtual void draw(Vertex const &v)const=0;
 		virtual std::unique_ptr<Drawer> clone(void)const=0;
 	protected:
+		void closer(wxCommandEvent &event);
+		void adder(wxCommandEvent &event);
+		void shifter(wxCommandEvent &event);
 	private:
+		std::unique_ptr<Shape> m_shape;
 };
 
 #endif // DRAWER_H

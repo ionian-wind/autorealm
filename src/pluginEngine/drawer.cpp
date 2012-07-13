@@ -22,16 +22,31 @@
 
 #include <shape.h>
 #include <RenderWindow.h>
+#include <id.h>
 
 #include <wx/menu.h>
+
+const int Menu_Popup_OpenFig = ID(); //!todo remove global variables
+const int Menu_Popup_CloseFig = ID(); //!todo remove global variables
+const int Menu_Popup_UseShift = ID(); //!todo remove global variables
+//
+//Drawer::Drawer(void) throw()
+//{
+//
+//}
 
 void Drawer::installEventManager(RenderWindow &target) throw()
 {
 	m_target=&target;
-	m_target->push_back(std::unique_ptr<Shape>(new Shape()));
-	m_target->selectLastObject();
+	m_shape=std::unique_ptr<Shape>(new Shape());
+//	m_target->push_back(std::unique_ptr<Shape>(new Shape()));
+//	m_target->selectLastObject();
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
+
+//	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, function, this, Menu_Popup_OpenFig, Menu_Popup_OpenFig);
+//	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, function, this, Menu_Popup_CloseFig, Menu_Popup_CloseFig);
+//	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, function, this, Menu_Popup_UseShift, Menu_Popup_UseShift);
 }
 
 void Drawer::removeEventManager(void) throw()
@@ -39,19 +54,15 @@ void Drawer::removeEventManager(void) throw()
 	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Unbind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 	m_target=nullptr;
+	m_target->push_back(std::move(m_shape));
+	m_shape.reset();
 }
 
 void Drawer::leftClick(wxMouseEvent &event)
 {
-	m_target->addVertex(event.GetX(),event.GetY(),clone());
+	m_shape->push_back(Vertex(Point(event.GetX(),event.GetY(),0),m_target->getSelectedColor(),clone()));
+//	m_target->addVertex(event.GetX(),event.GetY(),clone());
 }
-
-enum
-{
-    Menu_Popup_OpenFig = 2000,
-    Menu_Popup_CloseFig,
-    Menu_Popup_UseShift
-};
 
 void Drawer::contextMenu(wxContextMenuEvent &event)
 {
@@ -74,3 +85,19 @@ void Drawer::contextMenu(wxContextMenuEvent &event)
 
 	m_target->PopupMenu(&menu, point);
 }
+
+void Drawer::closer(wxCommandEvent &event)
+{
+	m_shape->close();
+	adder(event);
+}
+
+void Drawer::adder(wxCommandEvent &event)
+{
+	removeEventManager();
+}
+
+void Drawer::shifter(wxCommandEvent &event)
+{
+}
+
