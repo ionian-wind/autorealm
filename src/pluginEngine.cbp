@@ -40,7 +40,7 @@
 			<Add option="-fPIC" />
 			<Add option="`wx-config --cppflags`" />
 			<Add directory="../src" />
-			<Add directory="../../prj/Pluma-1.0/include/" />
+			<Add directory="../../pluma-fork/include" />
 			<Add directory="renderEngine" />
 			<Add directory="gui" />
 		</Compiler>

@@ -41,12 +41,13 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-std=c++0x" />
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-fPIC" />
 			<Add directory="../src" />
-			<Add directory="../../prj/Pluma-1.0/include" />
+			<Add directory="../../pluma-fork/include" />
+			<Add directory="renderEngine" />
 		</Compiler>
 		<Linker>
 			<Add library="GL" />

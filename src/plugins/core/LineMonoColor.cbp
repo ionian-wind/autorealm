@@ -52,12 +52,12 @@
 			<Add option="-fexceptions" />
 			<Add option="-fPIC" />
 			<Add directory="../../" />
-			<Add directory="../../../../prj/Pluma-1.0/include" />
+			<Add directory="../../../../pluma-fork/include" />
 			<Add directory="../../renderEngine" />
 		</Compiler>
 		<Linker>
 			<Add library="pluma-d" />
-			<Add directory="../../../../prj/Pluma-1.0/lib" />
+			<Add directory="../../../../pluma-fork/lib" />
 		</Linker>
 		<Unit filename="LineMonoColor/connector.cpp">
 			<Option virtualFolder="sources/" />

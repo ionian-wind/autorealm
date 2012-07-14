@@ -52,11 +52,11 @@
 			<Add option="-fexceptions" />
 			<Add option="-fPIC" />
 			<Add directory="../../" />
-			<Add directory="../../../../prj/Pluma-1.0/include" />
+			<Add directory="../../../../pluma-fork/include" />
 		</Compiler>
 		<Linker>
 			<Add library="pluma-d" />
-			<Add directory="../../../../prj/Pluma-1.0/lib" />
+			<Add directory="../../../../pluma-fork/lib" />
 		</Linker>
 		<Unit filename="Mover/connector.cpp">
 			<Option virtualFolder="sources/" />
