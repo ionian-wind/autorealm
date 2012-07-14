@@ -18,6 +18,7 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
+#include <exception>
 
 #include "App.h"
 #include "MainFrame.h"
@@ -47,6 +48,7 @@ bool App::OnInit()
 	}
 	catch(std::exception &e)
 	{
+		wxMessageBox(e.what(),"Fatal exception");
 		return false;
 	}
 }
