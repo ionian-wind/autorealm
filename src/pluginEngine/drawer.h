@@ -42,6 +42,7 @@ class Drawer : public Plugin
 		virtual void removeEventManager(void) throw() override;
 		void leftClick(wxMouseEvent &event);
 		void contextMenu(wxContextMenuEvent &event);
+		void render(void);
 
 		virtual void draw(Vertex const &v)const=0;
 		virtual std::unique_ptr<Drawer> clone(void)const=0;
