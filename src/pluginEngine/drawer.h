@@ -44,6 +44,9 @@ class Drawer : public Plugin
 		void contextMenu(wxContextMenuEvent &event);
 		void render(void);
 
+		void createClosedFigure(wxCommandEvent &event);
+		void createOpenedFigure(wxCommandEvent &event);
+
 		virtual void draw(Vertex const &v)const=0;
 		virtual std::unique_ptr<Drawer> clone(void)const=0;
 	protected:

@@ -44,9 +44,24 @@ void Drawer::installEventManager(RenderWindow &target) throw()
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 
-//	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, function, this, Menu_Popup_OpenFig, Menu_Popup_OpenFig);
-//	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, function, this, Menu_Popup_CloseFig, Menu_Popup_CloseFig);
+	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createOpenedFigure, this, Menu_Popup_OpenFig, Menu_Popup_OpenFig);
+	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createClosedFigure, this, Menu_Popup_CloseFig, Menu_Popup_CloseFig);
 //	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, function, this, Menu_Popup_UseShift, Menu_Popup_UseShift);
+}
+
+#include <wx/msgdlg.h>
+
+void Drawer::createOpenedFigure(wxCommandEvent &event)
+{
+	m_target->push_back(std::move(m_shape));
+	m_shape.reset(new Shape());
+	render();
+}
+
+void Drawer::createClosedFigure(wxCommandEvent &event)
+{
+	m_shape->close();
+	createOpenedFigure(event);
 }
 
 void Drawer::removeEventManager(void) throw()
