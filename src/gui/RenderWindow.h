@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -31,9 +31,7 @@
 class RenderWindow : public Group,public wxGLCanvas
 {
 public:
-    /** \brief initialize the sheet to be able to recept drawing and call Group::draw */
-    virtual void draw();
-    /** \brief event manager for drawing requests
+	/** \brief event manager for drawing requests
      * \param wxEvent&ev
      */
     void onDraw(wxEvent&ev);
@@ -46,6 +44,10 @@ public:
     RenderWindow(wxFrame* parent, int* args);
     /** Destructor */
     ~RenderWindow(void) throw();
+
+	void startRendering(void);
+    void finalizeRendering(void);
+
 //    /** \brief select the last object in the vector of ojects contained
 //     *
 //     * \return void selectLastObject(void)

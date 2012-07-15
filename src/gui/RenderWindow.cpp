@@ -41,7 +41,9 @@ RenderWindow::RenderWindow(wxFrame* parent, int* args)
 
 void RenderWindow::onDraw(wxEvent&ev)
 {
+	startRendering();
 	draw();
+	finalizeRendering();
 }
 
 RenderWindow::~RenderWindow(void) throw()
@@ -49,7 +51,7 @@ RenderWindow::~RenderWindow(void) throw()
 	delete m_context;
 }
 
-void RenderWindow::draw()//const
+void RenderWindow::startRendering(void)
 {
 	int w,h;
 	GetSize(&w,&h);
@@ -77,9 +79,10 @@ void RenderWindow::draw()//const
     gluOrtho2D(0, w, h, 0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+}
 
-	Group::draw();
-
+void RenderWindow::finalizeRendering(void)
+{
     glFlush();
     SwapBuffers();
 }

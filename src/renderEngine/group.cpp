@@ -40,6 +40,5 @@ void Group::draw(void)const throw()
 
 void Group::push_back(std::unique_ptr<Object> target)
 {
-	m_children.push_back(std::unique_ptr<Object>());
-	std::swap(m_children.back(),target);
+	m_children.push_back(std::move(target));
 }
