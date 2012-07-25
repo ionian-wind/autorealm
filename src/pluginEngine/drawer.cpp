@@ -29,11 +29,6 @@
 const int Menu_Popup_OpenFig = ID(); //!todo remove global variables
 const int Menu_Popup_CloseFig = ID(); //!todo remove global variables
 const int Menu_Popup_UseShift = ID(); //!todo remove global variables
-//
-//Drawer::Drawer(void) throw()
-//{
-//
-//}
 
 void Drawer::installEventManager(RenderWindow &target) throw()
 {
@@ -41,26 +36,21 @@ void Drawer::installEventManager(RenderWindow &target) throw()
 
 	//!\todo that code could be merged with a part of createOpenedFigure
 	m_shape.reset(new Shape());
-	m_shape->setFiller(Color(0xFF,0xFF,0x00,0xFF));//!\todo remove me
+	m_shape->setFiller(m_target->getFillerColor());//!\todo remove me
 
-//	m_target->push_back(std::unique_ptr<Shape>(new Shape()));
-//	m_target->selectLastObject();
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 
 	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createOpenedFigure, this, Menu_Popup_OpenFig, Menu_Popup_OpenFig);
 	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createClosedFigure, this, Menu_Popup_CloseFig, Menu_Popup_CloseFig);
-//	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, function, this, Menu_Popup_UseShift, Menu_Popup_UseShift);
 }
-
-#include <wx/msgdlg.h>
 
 void Drawer::createOpenedFigure(wxCommandEvent &event)
 {
 	m_target->push_back(std::move(m_shape));
 	//!\todo that code could be merged with a part of installEventManager
 	m_shape.reset(new Shape());
-	m_shape->setFiller(Color(0xFF,0xFF,0x00,0xFF));//!\todo remove me
+	m_shape->setFiller(m_target->getFillerColor());//!\todo remove me
 	render();
 }
 
@@ -84,9 +74,8 @@ void Drawer::leftClick(wxMouseEvent &event)
 	m_lastClick.m_x=event.GetX();
 	m_lastClick.m_y=event.GetY();
 	m_lastClick.m_z=0;
-	m_shape->push_back(Vertex(m_lastClick,m_target->getSelectedColor(),clone()));
+	m_shape->push_back(Vertex(m_lastClick,m_target->getBorderColor(),clone()));
 	render();
-//	m_target->addVertex(event.GetX(),event.GetY(),clone());
 }
 
 void Drawer::contextMenu(wxContextMenuEvent &event)

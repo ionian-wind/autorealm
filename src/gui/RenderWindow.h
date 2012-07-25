@@ -71,10 +71,12 @@ public:
 //     * \throw
 //     */
 //	Shape& getSelectedShape(void)const;
-	Color getSelectedColor(void)const throw(){return m_selectedColor;}
+	Color getBorderColor(void)const throw(){return m_borderColor;}
+	Color getFillerColor(void)const throw(){return m_fillerColor;}
 private:
 //    Object *m_selection;
     wxGLContext * m_context;
-    Color m_selectedColor;
+    Color m_borderColor;
+    Color m_fillerColor;
 };
 #endif

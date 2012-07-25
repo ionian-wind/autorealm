@@ -23,11 +23,12 @@
 
 #include <memory>
 
+#include <point.h>
+#include <shape.h>
+
 #include "plugin.h"
 
 class RenderWindow;
-#include <shape.h>
-//class Shape;
 class Vertex;
 class wxMouseEvent;
 class wxContextMenuEvent;
@@ -36,7 +37,6 @@ class wxCommandEvent;
 class Drawer : public Plugin
 {
 	public:
-//		Drawer(void) throw();
 		virtual ~Drawer(void)=default;
 		virtual void installEventManager(RenderWindow & target) throw() override;
 		virtual void removeEventManager(void) throw() override;
