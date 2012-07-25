@@ -34,8 +34,9 @@ void Group::accept(Mutator &v)
 
 void Group::draw(void)const throw()
 {
-	for(auto &i:m_children)
-		i->draw();
+	for(auto it=m_children.rbegin();it!=m_children.rend();++it)
+//		auto &i:m_children)
+		(*it)->draw();
 }
 
 void Group::push_back(std::unique_ptr<Object> target)
