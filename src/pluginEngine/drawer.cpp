@@ -75,7 +75,10 @@ void Drawer::removeEventManager(void) throw()
 
 void Drawer::leftClick(wxMouseEvent &event)
 {
-	m_shape->push_back(Vertex(Point(event.GetX(),event.GetY(),0),m_target->getSelectedColor(),clone()));
+	m_lastClick.m_x=event.GetX();
+	m_lastClick.m_y=event.GetY();
+	m_lastClick.m_z=0;
+	m_shape->push_back(Vertex(m_lastClick,m_target->getSelectedColor(),clone()));
 	render();
 //	m_target->addVertex(event.GetX(),event.GetY(),clone());
 }

@@ -55,6 +55,7 @@ class Drawer : public Plugin
 		void shifter(wxCommandEvent &event);
 	private:
 		std::unique_ptr<Shape> m_shape;
+		Point m_lastClick;
 };
 
 #endif // DRAWER_H
