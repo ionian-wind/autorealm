@@ -38,7 +38,11 @@ const int Menu_Popup_UseShift = ID(); //!todo remove global variables
 void Drawer::installEventManager(RenderWindow &target) throw()
 {
 	m_target=&target;
-	m_shape=std::unique_ptr<Shape>(new Shape());
+
+	//!\todo that code could be merged with a part of createOpenedFigure
+	m_shape.reset(new Shape());
+	m_shape->setFiller(Color(0xFF,0xFF,0x00,0xFF));//!\todo remove me
+
 //	m_target->push_back(std::unique_ptr<Shape>(new Shape()));
 //	m_target->selectLastObject();
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
@@ -54,7 +58,9 @@ void Drawer::installEventManager(RenderWindow &target) throw()
 void Drawer::createOpenedFigure(wxCommandEvent &event)
 {
 	m_target->push_back(std::move(m_shape));
+	//!\todo that code could be merged with a part of installEventManager
 	m_shape.reset(new Shape());
+	m_shape->setFiller(Color(0xFF,0xFF,0x00,0xFF));//!\todo remove me
 	render();
 }
 
