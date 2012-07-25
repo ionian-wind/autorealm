@@ -53,6 +53,7 @@ class Drawer : public Plugin
 		void closer(wxCommandEvent &event);
 		void adder(wxCommandEvent &event);
 		void shifter(wxCommandEvent &event);
+		void createShape(void);
 	private:
 		std::unique_ptr<Shape> m_shape;
 		Point m_lastClick;

@@ -34,10 +34,7 @@ void Drawer::installEventManager(RenderWindow &target) throw()
 {
 	m_target=&target;
 
-	//!\todo that code could be merged with a part of createOpenedFigure
-	m_shape.reset(new Shape());
-	m_shape->setFiller(m_target->getFillerColor());//!\todo remove me
-
+	createShape();
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 
@@ -48,10 +45,14 @@ void Drawer::installEventManager(RenderWindow &target) throw()
 void Drawer::createOpenedFigure(wxCommandEvent &event)
 {
 	m_target->push_back(std::move(m_shape));
-	//!\todo that code could be merged with a part of installEventManager
-	m_shape.reset(new Shape());
-	m_shape->setFiller(m_target->getFillerColor());//!\todo remove me
+	createShape();
 	render();
+}
+
+void Drawer::createShape(void)
+{
+	m_shape.reset(new Shape());
+	m_shape->setFiller(m_target->getFillerColor());
 }
 
 void Drawer::createClosedFigure(wxCommandEvent &event)
