@@ -32,12 +32,18 @@ class AppConfig:public Singleton<AppConfig>
 {
 public:
 	enum INFO{GRP_RES=0, PLUGINS=1, SPLASH=2, MENU=3, LASTINDEX};
-	/** \brief
-	 * \todo retrieve data from a configuration file
-	 */
+	/** \brief retrieve data from a configuration file */
 	AppConfig();
+	/**	\brief retrieve the needed path from stored datas
+		Stored datas are read from file config. It's location depends on your OS */
 	static std::string buildPath(INFO info);
 protected:
+    /** \brief Read a line from the given file and store it into m_data
+     *	\pre file must be valid
+     *	\param file std::unique_ptr<TextFile>& file from which datas must be read
+     *	\post m_data have one more element containing the read file
+     *	\post file's cursor's position have moved and might be invalid (end of file by example)
+     */
 	void readLine(std::unique_ptr<TextFile> &file);
 
 private:
