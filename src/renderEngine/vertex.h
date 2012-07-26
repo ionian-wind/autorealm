@@ -30,6 +30,7 @@ class Drawer;
 
 class Vertex
 {
+	friend class boost::serialization::access;
 	public:
         /** \brief default constructor */
 		Vertex(void) throw() =default;
@@ -108,6 +109,15 @@ class Vertex
          *	\throw nothing
          */
 		void setEnd(Point const &p) throw();
+	private:
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version)
+		{
+			ar & m_color;
+			ar & m_point;
+			ar & m_drawer;
+		}
+
 	protected:
 		Color m_color;
 		Point m_point;

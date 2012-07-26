@@ -28,6 +28,7 @@
 
 class Group : public Object
 {
+	friend class boost::serialization::access;
 	public:
         /** \brief default constructor
          *	\throw nothing
@@ -55,6 +56,14 @@ class Group : public Object
          *	\throw can throw if there not enough memory to create the new element. If so, target is not changed and an exception is thrown to inform caller of the problem.
          */
 		void push_back(std::unique_ptr<Object> target);
+	private:
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version)
+		{
+			ar & m_children;
+		}
+
+	public:
 	protected:
 		std::vector<std::unique_ptr<Object>> m_children;
 	private:

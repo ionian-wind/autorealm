@@ -30,6 +30,7 @@
 
 class RenderWindow : public Group,public wxGLCanvas
 {
+    friend class boost::serialization::access;
 public:
 	/** \brief event manager for drawing requests
      * \param wxEvent&ev
@@ -50,6 +51,15 @@ public:
 
 	Color getBorderColor(void)const throw(){return m_borderColor;}
 	Color getFillerColor(void)const throw(){return m_fillerColor;}
+private:
+	template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & m_context;
+        ar & m_borderColor;
+        ar & m_fillerColor;
+    }
+
 private:
     wxGLContext * m_context;
     Color m_borderColor;

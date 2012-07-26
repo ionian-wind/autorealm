@@ -21,8 +21,11 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <boost/serialization/access.hpp>
+
 class Point
 {
+	friend class boost::serialization::access;
 	public:
 		double m_x,m_y,m_z;
         /** \brief default Ctor */
@@ -51,6 +54,12 @@ class Point
 		bool operator==(Point const&p)const throw();
 	protected:
 	private:
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version)
+		{
+			ar & m_x;ar&m_y;ar&m_z;
+		}
+
 };
 
 /** \brief increment a vertex with the value of another

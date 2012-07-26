@@ -30,6 +30,7 @@
 
 class Shape : public Object
 {
+	friend class boost::serialization::access;
 	public:
 		/** Destructor */
 		~Shape(void) throw();
@@ -80,6 +81,13 @@ class Shape : public Object
 		void close(void) throw();
 	protected:
 	private:
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version)
+		{
+			ar & m_filler;
+			ar & m_children;
+		}
+
 	protected:
 		Color m_filler;
 	private:

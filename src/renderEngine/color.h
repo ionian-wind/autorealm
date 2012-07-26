@@ -21,8 +21,11 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include <boost/serialization/access.hpp>
+
 class Color
 {
+	friend class boost::serialization::access;
 	public:
         /** \brief default constructor */
 		Color()=default;
@@ -44,6 +47,15 @@ class Color
 		double m_red, m_green, m_blue, m_alpha;
 	protected:
 	private:
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version)
+		{
+			ar & m_red;
+			ar & m_green;
+			ar & m_blue;
+			ar & m_alpha;
+		}
+
 };
 
 #endif // COLOR_H

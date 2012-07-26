@@ -23,6 +23,8 @@
 
 class Mutator;
 
+#include <boost/serialization/access.hpp>
+
 /** \brief Ancestor of Shape and Group. It only provides an interface for composite and visitor patterns */
 class Object
 {
@@ -36,7 +38,9 @@ class Object
          */
 		virtual void draw(void)const throw() =0;
 		virtual ~Object(void) throw() =default;
-	protected:
+	private:
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version);
 	private:
 };
 
