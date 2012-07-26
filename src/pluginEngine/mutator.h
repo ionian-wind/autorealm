@@ -30,7 +30,6 @@ class Shape;
 class Mutator: public Plugin
 {
 	public:
-		virtual ~Mutator(void)=default;
 		virtual void installEventManager(RenderWindow & target) throw() override{assert(0);};
 		virtual void removeEventManager(void) throw() override{assert(0);};
 

@@ -37,7 +37,6 @@ class wxCommandEvent;
 class Drawer : public Plugin
 {
 	public:
-		virtual ~Drawer(void)=default;
 		virtual void installEventManager(RenderWindow & target) throw() override;
 		virtual void removeEventManager(void) throw() override;
 		void leftClick(wxMouseEvent &event);
