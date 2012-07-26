@@ -68,8 +68,8 @@ std::string TextFile::readLine(void)
 
 bool TextFile::eofReached(void)const
 {
-	/*
-	How to make the constness more consistent:
+	/**
+	\todo How to make the constness more consistent:
 
 	reopen the file in h2
 	move h2's cursor to the end of the file

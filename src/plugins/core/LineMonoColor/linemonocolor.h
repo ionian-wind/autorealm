@@ -30,10 +30,6 @@ class LineMonoColor : public Drawer
 		virtual std::unique_ptr<Drawer> clone(void)const override;
 };
 
-class LineMonoColorProvider: public PluginProvider{
-public:
-    Plugin * create() const{ return new LineMonoColor(); }
-	const std::string getPluginName(void)const{return "LineMonoColor";}
-};
+PLUMA_INHERIT_PROVIDER(LineMonoColor, Plugin);
 
 #endif

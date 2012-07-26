@@ -36,10 +36,6 @@ class Mover : public Mutator
 		Vertex mover(Vertex const&v);
 };
 
-class MoverProvider: public PluginProvider{
-public:
-    Plugin * create() const{ return new Mover(); }
-	const std::string getPluginName(void)const{return "Mover";}
-};
+PLUMA_INHERIT_PROVIDER(Mover, Plugin);
 
 #endif // MOVER_H

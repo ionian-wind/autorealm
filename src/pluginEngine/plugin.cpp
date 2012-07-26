@@ -20,13 +20,4 @@
 
 #include "plugin.h"
 
-Plugin::~Plugin()=default;
-
-const std::string PluginProvider::PLUMA_PROVIDER_TYPE = PLUMA_2STRING( Plugin );
-const unsigned int PluginProvider::PLUMA_INTERFACE_VERSION = 1;
-const unsigned int PluginProvider::PLUMA_INTERFACE_LOWEST_VERSION = 1;
-
-bool PluginProvider::operator!=(PluginProvider const&other)const
-{
-	return !getPluginName().compare(other.getPluginName());
-}
+PLUMA_PROVIDER_SOURCE(Plugin, 1, 1)
