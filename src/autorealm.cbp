@@ -65,22 +65,16 @@
 			<Add library="pluma-d" />
 			<Add directory="../../pluma-fork/lib" />
 		</Linker>
-		<Unit filename="gui/App.cpp">
-			<Option virtualFolder="source/" />
-		</Unit>
-		<Unit filename="gui/App.h">
-			<Option virtualFolder="headers/" />
-		</Unit>
-		<Unit filename="gui/MainFrame.cpp">
-			<Option virtualFolder="source/" />
-		</Unit>
-		<Unit filename="gui/MainFrame.h">
-			<Option virtualFolder="headers/" />
-		</Unit>
 		<Unit filename="gui/RenderWindow.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="gui/RenderWindow.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="gui/app.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/app.h">
 			<Option virtualFolder="headers/" />
 		</Unit>
 		<Unit filename="gui/appconfig.cpp">
@@ -93,6 +87,12 @@
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="gui/id.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="gui/mainframe.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/mainframe.h">
 			<Option virtualFolder="headers/" />
 		</Unit>
 		<Unit filename="gui/singleton.h">
