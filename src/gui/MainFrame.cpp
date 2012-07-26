@@ -104,13 +104,14 @@ void MainFrame::loadRequestedPlugins(void)
 			assert(!m_actionPlugIn.isLoaded(plugName));//!\note should never load twice the same plugin. Could be in pluma...
 			PluginProvider* plugProvider=getProvider<PluginProvider>(m_actionPlugIn,AppConfig::buildPath(AppConfig::INFO::PLUGINS),plugName);
 			if(nullptr==plugProvider)
-				it->disable();
+				it->disable(); //!\todo implement an action for this
 			else
 			{
 				m_plugins[m_buttonIDs[plugName]].reset(plugProvider->create());
 				it->setID(m_buttonIDs[plugName]);
 			}
 		}
+		//!\todo do not bind buttons if the plugin has been disabled
 		jt=m_buttonIDs.find(plugName);
 		if(jt!=m_buttonIDs.end())// plugin loaded? Bind it.
 			Bind(wxEVT_COMMAND_MENU_SELECTED,&MainFrame::changeSelectedPlugin,this,jt->second,jt->second);
