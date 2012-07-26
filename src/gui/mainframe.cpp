@@ -46,13 +46,6 @@ MainFrame::~MainFrame(void)
 MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 :wxFrame(parent,id,title)
 ,m_menuTree(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)))
-,m_plans()
-,m_active()
-,m_auiManager()
-,m_auiNotebookWorkspace()
-,m_actionProviders()
-,m_plugins()
-,m_actionPlugIn()
 {
     m_auiManager.SetManagedWindow(this);
     m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
@@ -61,7 +54,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
     int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
 	RenderWindow *first=new RenderWindow((wxFrame*)m_auiNotebookWorkspace,args);
     m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
-    m_plans.push_back(first);
+	m_plans.push_back(first);
     m_active=m_plans.begin();
 
     m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Name(_T("Workspace")).Caption(_("Workspace")).CaptionVisible(false).CloseButton(false).Center());
@@ -76,11 +69,6 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 	SetMenuBar(m_menuTree.getMenuBar());
 
 	m_auiManager.Update();
-}
-
-void MainFrame::onQuit(wxCommandEvent& event)
-{
-    Close();
 }
 
 void MainFrame::changeSelectedPlugin(wxCommandEvent& event)

@@ -44,27 +44,23 @@ class Drawer;
 
 class MainFrame : public wxFrame
 {
-public:
-
-public:
-protected:
-private:
-    Menu m_menuTree;
-    std::vector<RenderWindow*> m_plans;
-    std::vector<RenderWindow*>::iterator m_active;
-    wxAuiManager m_auiManager;
-    wxAuiNotebook* m_auiNotebookWorkspace;
+    Menu m_menuTree;	/// contain all menus and submenus of the menubar
+    //!\todo avoid the use of pointers
+    std::vector<RenderWindow*> m_plans;	/// list of plans. Aka: drawing sheets
+    std::vector<RenderWindow*>::iterator m_active;	/// iterator on the currently active plan
+    wxAuiManager m_auiManager;	/// internal "window manager" of wxWidgets
+    wxAuiNotebook* m_auiNotebookWorkspace;	/// contain plans'windows
 
     static const long ID_NOTEBOOK;
 
+	std::map<std::string, ID> m_buttonIDs;/// name of plugins are associated with an ID
+	std::map<ID,std::unique_ptr<Plugin>> m_plugins;/// IDs are associated with plugins
+
 	std::vector<PluginProvider*> m_actionProviders;
-	std::map<std::string, ID> m_buttonIDs;// name of plugins are associated with an ID
-	std::map<ID,std::unique_ptr<Plugin>> m_plugins;// IDs are associated with plugins
-	std::map<ID,std::unique_ptr<Plugin>>::iterator m_selectedPlugin;
 	pluma::Pluma m_actionPlugIn;
 
 public:
-    /** \brief build the window and load plug-ins
+    /** \brief build the GUI and load plugins
      *
      * \param parent=0 wxWindow*
      * \param id=-1 wxWindowID
@@ -73,17 +69,22 @@ public:
      */
     MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");
 
+    /** \brief change the current used plugin
+     *	This method ask to currently (if existing) used plugin to remove it's event
+     *	managers. After this, it register the new plugin to use and asks it to
+     *	do what it needs.
+     *	Plugins often need to register event managers by example.
+     *	The method give to the plugin a reference of the active RenderWindow.
+     * \param event wxCommandEvent& event to process
+     */
 	void changeSelectedPlugin(wxCommandEvent& event);
 
+    /** \brief default Ctor */
     ~MainFrame(void);
 
 protected:
-
 private:
-    /** \brief Exit the application
-     * \param event wxCommandEvent&
-     */
-    void onQuit(wxCommandEvent& event);
+    /** \brief load plugins used by BUI and bind them to needed GUI elements */
     void loadRequestedPlugins(void);
 };
 
