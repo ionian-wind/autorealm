@@ -20,20 +20,7 @@
 
 #include "textfile.h"
 
-TextFile::TextFile(boost::filesystem::path const &file, bool create)
-:m_filePath(file)
-{
-	if(create)
-		throw std::logic_error("not implemented yet");
-	m_file=fopen(m_filePath.string().c_str(),"r");
-	if(!m_file)
-		throw std::runtime_error("could not open file "+m_filePath.string());
-}
-
-TextFile::~TextFile()
-{
-	fclose(m_file);
-}
+#include <stdio.h>
 
 std::unique_ptr<TextFile> TextFile::OpenFile(boost::filesystem::path const &file)
 {
@@ -51,7 +38,7 @@ std::unique_ptr<TextFile> TextFile::CreateFile(boost::filesystem::path const &fi
 	return std::unique_ptr<TextFile>(new TextFile(file,true));
 }
 
-std::string TextFile::readLine(void)
+std::string TextFile::readLine(void) throw()
 {
 	std::string result;
 	char c;
@@ -60,13 +47,13 @@ std::string TextFile::readLine(void)
 		result.push_back(fgetc(m_file));
 		c=result.back();
 	}
-	while(!feof(m_file) && c!='\n' && c!='\r');//!\note with those 2 characters, we should be fine on Mac OSand Linux operating systems. Problems will probably happens with MS Windows, because end of lines there are "\r\n" or "\n\r"
+	while(!feof(m_file) && c!='\n' && c!='\r');//!\note should be fine on MacOS and Linux. Problems could happens with MS Windows, because EoL uses both.
 	result.resize(result.size()-1);
 
 	return result;
 }
 
-bool TextFile::eofReached(void)const
+bool TextFile::eofReached(void) const
 {
 	/**
 	\todo How to make the constness more consistent:
@@ -87,7 +74,22 @@ bool TextFile::eofReached(void)const
 	return result;
 }
 
-std::string TextFile::getFileName(void)const
+TextFile::~TextFile()
+{
+	fclose(m_file);
+}
+
+std::string TextFile::getFileName(void)const throw()
 {
 	return m_filePath.filename().string();
+}
+
+TextFile::TextFile(boost::filesystem::path const &file, bool create)
+:m_filePath(file)
+{
+	if(create)
+		m_file=fopen(m_filePath.string().c_str(),"w");
+	m_file=fopen(m_filePath.string().c_str(),"r");
+	if(!m_file)
+		throw std::runtime_error("could not open file "+m_filePath.string());
 }

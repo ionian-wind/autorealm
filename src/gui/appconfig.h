@@ -25,8 +25,10 @@
 
 #include <boost/filesystem.hpp>
 
+class TextFile;
+//#include <utils/textfile.h>
+
 #include "singleton.h"
-#include <utils/textfile.h>
 
 class AppConfig:public Singleton<AppConfig>
 {
@@ -40,14 +42,6 @@ public:
 	 *	\param INFO name of the data to retrieve
 	 */
 	static std::string buildPath(INFO info);
-protected:
-    /** \brief Read a line from the given file and store it into m_data
-     *	\pre file must be valid
-     *	\param file std::unique_ptr<TextFile>& file from which datas must be read
-     *	\post m_data have one more element containing the read file
-     *	\post file's cursor's position have moved and might be invalid (end of file by example)
-     */
-	void readLine(std::unique_ptr<TextFile> &file);
 };
 
 #endif // APPCONFIG_H

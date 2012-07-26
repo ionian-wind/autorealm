@@ -18,19 +18,17 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _MAINFRAME_H
-#define _MAINFRAME_H
+#ifndef MAINFRAME_H
+#define MAINFRAME_H
 
 
 #include <string>
 #include <vector>
-#include <list>
 #include <memory>
 
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 
-#include "appconfig.h"
 #include <menuEngine/composite.h>
 #include <menuEngine/wxmenuconverter.h>
 #include <pluginEngine/plugin.h>
@@ -40,7 +38,6 @@ typedef Composite<MenuConverter> Menu;
 class RenderWindow;
 
 class ID;
-class Drawer;
 
 class MainFrame : public wxFrame
 {
@@ -53,7 +50,7 @@ class MainFrame : public wxFrame
 
     static const long ID_NOTEBOOK;
 
-	std::map<std::string, ID> m_buttonIDs;/// name of plugins are associated with an ID
+	std::map<std::string, ID> m_buttonIDs;	/// name of plugins are associated with an ID
 	std::map<ID,std::unique_ptr<Plugin>> m_plugins;/// IDs are associated with plugins
 
 	std::vector<PluginProvider*> m_actionProviders;
@@ -69,6 +66,9 @@ public:
      */
     MainFrame(wxWindow *parent=0,wxWindowID id=-1,std::string const &title="");
 
+    /** \brief default Ctor */
+    ~MainFrame(void);
+
     /** \brief change the current used plugin
      *	This method ask to currently (if existing) used plugin to remove it's event
      *	managers. After this, it register the new plugin to use and asks it to
@@ -78,9 +78,6 @@ public:
      * \param event wxCommandEvent& event to process
      */
 	void changeSelectedPlugin(wxCommandEvent& event);
-
-    /** \brief default Ctor */
-    ~MainFrame(void);
 
 protected:
 private:

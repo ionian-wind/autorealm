@@ -22,22 +22,20 @@
 #define SINGLETON_H
 
 template <typename T>
-/** \brief A singleton template. Classic and so undocumented.
- */
+/** \brief A singleton template. Classic and so undocumented. */
 class Singleton
 {
-    public:
-        static T &GetInstance(void)
-        {
-        	if(!m_Instance)
-				m_Instance=new T;
-			return static_cast<T&>(*m_Instance);
-		}
-    protected:
-        Singleton() {}
-        virtual ~Singleton() {}
-    private:
-        static T *m_Instance;
+	static T *m_Instance;
+public:
+	static T &GetInstance(void)
+	{
+		if(!m_Instance)
+			m_Instance=new T;
+		return static_cast<T&>(*m_Instance);
+	}
+protected:
+	Singleton()=default;
+	virtual ~Singleton()=default;
 };
 
 template <class T>

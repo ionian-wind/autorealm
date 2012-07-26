@@ -27,10 +27,12 @@
 
 #include <boost/filesystem.hpp>
 
+#include <utils/textfile.h>
+
 template <class T> class Composite;
 
 template <class T>
-class Component: public T
+class Component: public T //!\todo change the relation to have something which behave more like STL containers
 {
 	public:
 		std::string getPluginName(void)const;
@@ -76,9 +78,14 @@ private:
 template <class T>
 class Composite : public Component<T>
 {
+public:
 	typedef class Iterator<T> MenuIter;
 	friend MenuIter;
+protected:
 	typedef std::vector<std::unique_ptr<Component<T>>> Components;
+	Components m_components;
+private:
+
 public:
 	Composite(boost::filesystem::path const &location);
 	virtual ~Composite() throw() =default;
@@ -90,10 +97,7 @@ protected:
 	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
 	virtual void create(T* parent);
 private:
-public:
-protected:
-	Components m_components;
-private:
+
 };
 
 template <class T>

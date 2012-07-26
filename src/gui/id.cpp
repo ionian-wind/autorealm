@@ -3,6 +3,7 @@
 #include <stdexcept>
 
 #include <wx/utils.h>
+
 uint16_t ID::s_nextID=wxNewId();
 
 ID::ID(void)
@@ -18,7 +19,7 @@ ID::ID(uint16_t id) throw()
 {
 }
 
-const uint16_t ID::operator()(void)const throw()
+inline const uint16_t ID::operator()(void)const throw()
 {
 	return m_id;
 }

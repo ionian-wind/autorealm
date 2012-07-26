@@ -22,30 +22,59 @@
 #define TEXTFILE_H
 
 #include <boost/filesystem.hpp>
-#include <stdio.h>
+struct FILE;
 
 class TextFile
 {
-	public:
-		static std::unique_ptr<TextFile> OpenFile(boost::filesystem::path const &path);
-		static std::unique_ptr<TextFile> CreateFile(boost::filesystem::path const &file);
-		std::string readLine(void);
-        /** \brief indicate if eof has been reached
-         *
-         * \param void
-         * \return bool
-         * \post m_file is not null
-         * \pre m_file did not change
-         * \todo make the constness more consistent (see implementation for details)
-         */
-		bool eofReached(void)const;
-		~TextFile();
-		std::string getFileName(void)const;
-	protected:
-		TextFile(boost::filesystem::path const &file, bool create=false);
-	private:
-		boost::filesystem::path m_filePath;
-		FILE *m_file;
+	boost::filesystem::path m_filePath;
+	FILE *m_file;
+
+public:
+    /** \brief open an existing file
+     *
+     *	\param path boost::filesystem::path const& name of the file to open
+     *	\return std::unique_ptr<TextFile> unique pointer to a TextFile object
+     *	\pre given file exists
+     *	\pre given file is a regular file
+     *	\post file is open with cursor located at it's first byte
+     */
+	static std::unique_ptr<TextFile> OpenFile(boost::filesystem::path const &path);
+
+    /** \brief create and open an inexisting file
+     *
+     *	\param file boost::filesystem::path const& name of the file to open
+     *	\return std::unique_ptr<TextFile> unique pointer to a TextFile object
+     *	\pre file does not exists
+     *	\post file is created
+     *	\post file is open with cursor located at it's first byte
+     */
+	static std::unique_ptr<TextFile> CreateFile(boost::filesystem::path const &file);
+
+    /** \brief read an entire line and return it as a std::string
+     *	\return std::string
+     	\post file's cursors has been move to the next line or EOF if it was the last one
+     */
+	std::string readLine(void) throw();
+
+	/** \brief indicate if eof has been reached
+	 *
+	 * \return bool true is EoF reached
+	 * \invariant m_file is not altered
+	 * \todo make the constness more consistent (see implementation for details)
+	 */
+	bool eofReached(void) const;
+
+    /** \brief Dtor. Close file correctly. */
+	~TextFile();
+
+    /** \brief return name of opened file */
+	std::string getFileName(void)const throw();
+protected:
+    /** \brief Ctor
+     *	\param path and namefile of the file
+     *	\param flag to know if we want to create a new file or not
+     */
+	TextFile(boost::filesystem::path const &file, bool create=false);
 };
 
 #endif // TEXTFILE_H

@@ -18,25 +18,18 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _APP_H
-#define _APP_H
+#ifndef APP_H
+#define APP_H
 
-
-#include <wx/image.h>
 #include <wx/app.h>
 
-class Splash;
 class MainFrame;
-#include <memory>
-
 
 class App : public wxApp
 {
     MainFrame * m_app;
-    std::unique_ptr<Splash> s;
-
 public:
     virtual bool OnInit();
-    App(void):s(){}
+    App(void)=default;
 };
 #endif

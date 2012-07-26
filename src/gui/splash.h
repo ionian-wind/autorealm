@@ -22,16 +22,12 @@
 #define SPLASH_H
 
 #include <wx/frame.h>
-#include <wx/statbmp.h>
 
 class Splash: public wxFrame
 {
+	wxStaticBitmap *m_splash=nullptr;
 public:
 	Splash();
-protected:
-private:
-private:
-	wxStaticBitmap *m_splash=nullptr;
 };
 
 #endif

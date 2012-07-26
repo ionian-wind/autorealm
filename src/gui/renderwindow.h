@@ -18,8 +18,8 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef _RENDERWINDOW_H
-#define _RENDERWINDOW_H
+#ifndef RENDERWINDOW_H
+#define RENDERWINDOW_H
 
 #include <vector>
 
@@ -31,38 +31,48 @@
 class RenderWindow : public Group,public wxGLCanvas
 {
     friend class boost::serialization::access;
+
+    wxGLContext * m_context;
+    Color m_borderColor;
+    Color m_fillerColor;
+
 public:
 	/** \brief event manager for drawing requests
-     * \param wxEvent&ev
+     *	\param wxEvent&ev
      */
     void onDraw(wxEvent&ev);
-    /** \brief Constructor
+
+    /** \brief Ctor
      *
-     * \param parent wxFrame*
-     * \param args int*
-     *
+     * \param parent wxFrame* parent window
+     * \param args int* arguments for wxGLCanvas
+     * \param border Color const&
+     * \param filler Color const&
      */
-    RenderWindow(wxFrame* parent, int* args);
+    RenderWindow(wxFrame* parent, int* args, Color const &border, Color const &filler);
+
     /** Destructor */
     ~RenderWindow(void) throw();
 
+    /** \brief prepare the opengl drawing */
 	void startRendering(void);
+	/** \brief apply the drawing and clean OpenGL buffers */
     void finalizeRendering(void);
 
 	Color getBorderColor(void)const throw(){return m_borderColor;}
 	Color getFillerColor(void)const throw(){return m_fillerColor;}
 private:
 	template<class Archive>
+    /** \brief allow the object to be serialized
+     *	\note is it really interesting to restore last selected colors?
+     *	\param ar Archive&
+     *	\param version const unsignedint
+     */
     void serialize(Archive & ar, const unsigned int version)
     {
-        ar & m_context;
         ar & m_borderColor;
         ar & m_fillerColor;
     }
 
-private:
-    wxGLContext * m_context;
-    Color m_borderColor;
-    Color m_fillerColor;
 };
 #endif

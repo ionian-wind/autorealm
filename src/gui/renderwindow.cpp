@@ -19,7 +19,7 @@
  **********************************************************************************/
 
 
-#include "RenderWindow.h"
+#include "renderwindow.h"
 #include <wx/frame.h>
 #include <GL/glu.h>
 #include <wx/dcclient.h>
@@ -28,22 +28,22 @@
 #include <renderEngine/vertex.h>
 #include <renderEngine/shape.h>
 
-RenderWindow::RenderWindow(wxFrame* parent, int* args)
+void RenderWindow::onDraw(wxEvent&ev)
+{
+	startRendering();
+	draw();
+	finalizeRendering();
+}
+
+RenderWindow::RenderWindow(wxFrame* parent, int* args, Color const &border, Color const &filler)
     :wxGLCanvas(parent,wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
-    ,m_borderColor(0,0,0,1),m_fillerColor(1,1,0,1)
+    ,m_borderColor(border),m_fillerColor(filler)
 {
 	m_context = new wxGLContext(this);
     // To avoid flashing on MSW
     SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 
 	Bind(wxEVT_PAINT, &RenderWindow::onDraw, this);
-}
-
-void RenderWindow::onDraw(wxEvent&ev)
-{
-	startRendering();
-	draw();
-	finalizeRendering();
 }
 
 RenderWindow::~RenderWindow(void) throw()

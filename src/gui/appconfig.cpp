@@ -22,17 +22,23 @@
 
 #include <utils/textfile.h>
 
+#ifdef WIN32
+#define HOME "HOMEPATH" //!\todo check that it should not be %APPDATA% instead of %HOMEPATH%
+#else
+#define HOME "HOME"
+#endif
+
+
+
 AppConfig::AppConfig()
 {
 	boost::filesystem::path configDir;
 	// guess the directory where configuration is stored
 	//!\todo use freedesktop.org recommmandations for linux, and fallback on system variables if they are not supported on client computer
 	std::unique_ptr<TextFile> rootConfigFile;
-#ifdef WIN32
-	std::string homepath(getenv("HOMEPATH")); //!\todo check that it should not be %APPDATA% instead of %HOMEPATH%
-#else
 	std::string homepath(getenv("HOME"));
-#endif
+
+	//!\todo move that OS related code in an extern function
 	if(boost::filesystem::exists(homepath+"/.autorealm"))
 		configDir=boost::filesystem::path(homepath+".autorealm/");
 	else if(boost::filesystem::exists(homepath+"/.config/autorealm"))
@@ -41,19 +47,12 @@ AppConfig::AppConfig()
 	// read global configuration
 	rootConfigFile=TextFile::OpenFile(boost::filesystem::path(configDir.string()+"config"));
 
+	//!\todo support incomplete file
 	for(uint8_t i=GRP_RES;i<LASTINDEX && !rootConfigFile->eofReached();++i)
-		readLine(rootConfigFile);
+		m_datas.push_back(rootConfigFile->readLine());
 }
 
 std::string AppConfig::buildPath(INFO info)
 {
 	return GetInstance().m_datas[info];
-}
-
-void AppConfig::readLine(std::unique_ptr<TextFile> &file)
-{
-	m_datas.push_back(file->readLine());
-//!\todo find a way to control that files in configuration truly exists (but in another method)
-//	if(!boost::filesystem::exists(m_rootconfig.string()+m_datas.back()))
-//		throw std::runtime_error("Entry "+m_datas.back()+"specified in configuration file does not exists.");
 }

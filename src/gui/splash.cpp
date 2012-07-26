@@ -21,6 +21,7 @@
 #include "splash.h"
 
 #include <wx/sizer.h>
+#include <wx/statbmp.h>
 
 #include "appconfig.h"
 #include "id.h"
@@ -30,11 +31,10 @@
 Splash::Splash()
 :wxFrame(nullptr,-1,"")
 {
-	std::string filename(AppConfig::buildPath(AppConfig::INFO::GRP_RES)+"splash/splash.png");
-	if(exists(boost::filesystem::path(filename)))
+	if(exists(boost::filesystem::path(AppConfig::buildPath(AppConfig::GRP_RES)+"splash/splash.png")))
 	{
 		wxBoxSizer* BoxSizer1=new wxBoxSizer(wxHORIZONTAL);
-		m_splash = new wxStaticBitmap(this, ID(), loadImage("splash/splash.png"));
+		m_splash = new wxStaticBitmap(this, ID(), loadImage("splash/splash.png"));//!\todo move this string into a configuration file
 		BoxSizer1->Add(m_splash);
 		SetSizer(BoxSizer1);
 		BoxSizer1->Fit(this);
