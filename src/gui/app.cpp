@@ -20,8 +20,8 @@
 
 #include <exception>
 
-#include "App.h"
-#include "MainFrame.h"
+#include "app.h"
+#include "mainframe.h"
 
 #include "splash.h"
 

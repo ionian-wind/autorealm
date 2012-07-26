@@ -18,7 +18,7 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include "MainFrame.h"
+#include "mainframe.h"
 
 #include <functional>
 #include <algorithm>

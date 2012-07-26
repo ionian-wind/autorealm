@@ -32,12 +32,11 @@ class MainFrame;
 
 class App : public wxApp
 {
-private:
     MainFrame * m_app;
+    std::unique_ptr<Splash> s;
 
 public:
     virtual bool OnInit();
-    std::unique_ptr<Splash> s;
     App(void):s(){}
 };
 #endif
