@@ -23,6 +23,8 @@
 
 #include <wx/frame.h>
 
+class wxStaticBitmap;
+
 class Splash: public wxFrame
 {
 	wxStaticBitmap *m_splash=nullptr;
