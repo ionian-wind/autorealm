@@ -22,7 +22,7 @@
 #define TEXTFILE_H
 
 #include <boost/filesystem.hpp>
-struct FILE;
+#include <stdio.h> //!\todo find a way to use something like "struct FILE" like for classes
 
 class TextFile
 {
