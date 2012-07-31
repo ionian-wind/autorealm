@@ -21,7 +21,7 @@
 #include "drawer.h"
 
 #include <shape.h>
-#include <RenderWindow.h>
+#include <renderwindow.h>
 #include <id.h>
 
 #include <wx/menu.h>
