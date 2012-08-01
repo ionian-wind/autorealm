@@ -26,9 +26,8 @@
 
 #include "object.h"
 #include "vertex.h"
-#include "drawable.h"
 
-class Shape : public Object, public REDrawable
+class Shape : public Object
 {
 	friend class boost::serialization::access;
 	public:

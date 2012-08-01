@@ -43,3 +43,21 @@ void Group::push_back(std::unique_ptr<Object> target)
 {
 	m_children.push_back(std::move(target));
 }
+
+void Group::apply(void)const throw()
+{
+	draw();
+}
+
+std::unique_ptr<REDrawable> Group::clone(void)const
+{
+	std::unique_ptr<REDrawable> group(new Group(*this));
+	return group;
+}
+
+Group::Group(Group const &g)
+:m_children()
+{
+	for(auto &i : g.m_children)
+		m_children.push_back(std::move(std::unique_ptr<Group>(dynamic_cast<Group*>(i->clone().get()))));
+}

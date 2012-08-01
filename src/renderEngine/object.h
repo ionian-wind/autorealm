@@ -25,8 +25,10 @@ class Mutator;
 
 #include <boost/serialization/access.hpp>
 
+#include "drawable.h"
+
 /** \brief Ancestor of Shape and Group. It only provides an interface for composite and visitor patterns */
-class Object
+class Object: public REDrawable
 {
 	public:
         /** \brief apply an algorithm on the object

@@ -34,6 +34,7 @@ class Group : public Object
          *	\throw nothing
          */
 		Group(void)=default;
+		Group(Group const &g);
 
         /** \brief apply on algorithm on the group and it's children
          *
@@ -56,6 +57,9 @@ class Group : public Object
          *	\throw can throw if there not enough memory to create the new element. If so, target is not changed and an exception is thrown to inform caller of the problem.
          */
 		void push_back(std::unique_ptr<Object> target);
+
+		virtual void apply(void)const throw() override;
+		virtual std::unique_ptr<REDrawable> clone(void)const override;
 	private:
 		template<class Archive>
 		void serialize(Archive & ar, const unsigned int version)
