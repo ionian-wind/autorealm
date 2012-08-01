@@ -94,7 +94,7 @@ class Vertex
          *	\return Drawable*
          *	\throw nothing
          */
-		REDrawable* getDrawable(void)const throw();
+		std::unique_ptr<REDrawable> getDrawable(void)const throw();
         /** \brief change the drawable to a copy of d
          *	\param d Drawable const*
          *	\throw nothing

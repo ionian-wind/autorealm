@@ -90,10 +90,10 @@ Vertex Vertex::clone(void)const
 	return Vertex( m_point, m_drawable->clone().get(), m_drawer->clone());
 }
 
-REDrawable* Vertex::getDrawable(void)const throw()
+std::unique_ptr<REDrawable> Vertex::getDrawable(void)const throw()
 {
 	//!\todo make it inline
-	return m_drawable->clone().get();
+	return m_drawable->clone();
 }
 
 void Vertex::setDrawable(REDrawable const *d) throw()

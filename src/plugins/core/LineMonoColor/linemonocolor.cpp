@@ -25,15 +25,7 @@
 void LineMonoColor::draw(Vertex const &v)const
 {
 	v.getEnd().createVertice();
-	REDrawable *tmp=v.getDrawable();
-	try
-	{
-	tmp->apply();//!\todo fucking crash, sigsegv, but why?
-	}catch(std::exception &e)
-	{
-		printf(e.what());
-		int i=2;
-	}
+	v.getDrawable()->apply();
 	v.getEnd().createVertice();
 }
 
