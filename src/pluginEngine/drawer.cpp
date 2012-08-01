@@ -52,7 +52,8 @@ void Drawer::createOpenedFigure(wxCommandEvent &event)
 void Drawer::createShape(void)
 {
 	m_shape.reset(new Shape());
-	m_shape->setFiller(m_target->getFillerColor());
+	Color c=m_target->getFillerColor();
+	m_shape->setFiller(&c);
 }
 
 void Drawer::createClosedFigure(wxCommandEvent &event)
@@ -75,7 +76,8 @@ void Drawer::leftClick(wxMouseEvent &event)
 	m_lastClick.m_x=event.GetX();
 	m_lastClick.m_y=event.GetY();
 	m_lastClick.m_z=0;
-	m_shape->push_back(Vertex(m_lastClick,m_target->getBorderColor(),clone()));
+	Color c=m_target->getBorderColor();
+	m_shape->push_back(Vertex(m_lastClick,&c,clone()));
 	render();
 }
 

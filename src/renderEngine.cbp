@@ -58,6 +58,12 @@
 		<Unit filename="renderEngine/color.h">
 			<Option virtualFolder="headers/" />
 		</Unit>
+		<Unit filename="renderEngine/drawable.cpp">
+			<Option virtualFolder="sources/" />
+		</Unit>
+		<Unit filename="renderEngine/drawable.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
 		<Unit filename="renderEngine/group.cpp">
 			<Option virtualFolder="sources/" />
 		</Unit>

@@ -45,9 +45,9 @@ void Shape::draw(void)const throw()
 	if(isClosed())
 	{
 		glBegin(GL_POLYGON);
-		m_filler.apply();
+		m_filler->apply();
 		for(auto &i:m_children)
-			i.render(&m_filler);
+			i.render(m_filler.get());
 		glEnd();
 	}
 }
@@ -64,14 +64,14 @@ void Shape::push_back(Vertex const&target)
 	m_children.push_back(target);
 }
 
-void Shape::setFiller(Color const&c) throw()
+void Shape::setFiller(REDrawable const*d) throw()
 {
-	m_filler=c;
+	m_filler=d->clone();
 }
 
-Color Shape::getFiller(void)const throw()
+REDrawable* Shape::getFiller(void)const throw()
 {
-	return m_filler;
+	return m_filler->clone().get();
 }
 
 std::vector<Vertex>::iterator Shape::getFirstChild(void) throw()
@@ -88,4 +88,21 @@ void Shape::close(void) throw()
 {
 	if(!isClosed())
 		m_children.push_back(m_children.front());
+}
+
+void Shape::apply(void)const throw()
+{
+	draw();
+}
+
+std::unique_ptr<REDrawable> Shape::clone(void)const
+{
+	std::unique_ptr<REDrawable> shape(new Shape(*this));
+	return shape;
+}
+
+Shape::Shape(Shape const &s)
+:m_filler(),m_children(s.m_children)
+{
+	m_filler=s.m_filler->clone();
 }

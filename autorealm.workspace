@@ -13,5 +13,6 @@
 		<Project filename="src/menuEngine.cbp" />
 		<Project filename="src/plugins/core/Mover.cbp" />
 		<Project filename="src/plugins/core/LineMonoColor.cbp" />
+		<Project filename="../pluma-fork/build/gcc/pluma.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

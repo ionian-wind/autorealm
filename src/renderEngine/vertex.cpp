@@ -25,15 +25,17 @@
 #include "shape.h"
 #include <pluginEngine/drawer.h>
 
-Vertex::Vertex(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer) throw()
-:m_color(color),m_point(end),m_drawer(std::move(drawer))
+Vertex::Vertex(Point const &end, REDrawable const *drawable,std::unique_ptr<Drawer> drawer) throw()
+:m_drawable(),m_point(end),m_drawer(std::move(drawer))
 {
+	m_drawable=drawable->clone();
 	//!\todo make it inline
 }
 
 Vertex::Vertex(Vertex const&other) throw()
-:m_color(other.m_color),m_point(other.m_point),m_drawer(other.m_drawer->clone())
+:m_drawable(),m_point(other.m_point),m_drawer(other.m_drawer->clone())
 {
+	m_drawable=other.m_drawable->clone();
 	//!\todo make it inline
 }
 
@@ -43,10 +45,10 @@ Vertex::~Vertex(void) throw()
 	m_drawer.reset();
 }
 
-void Vertex::set(Point const &end, Color const &color,std::unique_ptr<Drawer> drawer) throw()
+void Vertex::set(Point const &end, REDrawable const *drawable,std::unique_ptr<Drawer> drawer) throw()
 {
 	//!\todo make it inline
-	m_color=color;
+	m_drawable=drawable->clone();
 	m_point=end;
 	m_drawer=std::move(drawer);
 }
@@ -54,7 +56,7 @@ void Vertex::set(Point const &end, Color const &color,std::unique_ptr<Drawer> dr
 Vertex& Vertex::operator=(Vertex const&v) throw()
 {
 	//!\todo make it inline
-	set(v.m_point, v.m_color, v.m_drawer->clone());
+	set(v.m_point, v.m_drawable->clone().get(), v.m_drawer->clone());
 	return *this;
 }
 
@@ -64,14 +66,14 @@ bool Vertex::operator==(Vertex const&other)const throw()
 	return m_point==other.m_point;
 }
 
-void Vertex::render(Color const *color) const throw()
+void Vertex::render(REDrawable const *drawable) const throw()
 {
-	if(!color)
+	if(!drawable)
 		m_drawer->draw(*this);
 	else
 	{
 		Vertex v=clone();
-		v.setColor(*color);
+		v.setDrawable(drawable);
 		m_drawer->draw(v);
 	}
 }
@@ -85,25 +87,25 @@ void Vertex::changeRender(std::unique_ptr<Drawer> newRender) throw()
 Vertex Vertex::clone(void)const
 {
 	//!\todo make it inline
-	return Vertex( m_point, m_color, m_drawer->clone());
+	return Vertex( m_point, m_drawable->clone().get(), m_drawer->clone());
 }
 
-Color Vertex::getColor(void)const throw()
+REDrawable* Vertex::getDrawable(void)const throw()
 {
 	//!\todo make it inline
-	return m_color;
+	return m_drawable->clone().get();
+}
+
+void Vertex::setDrawable(REDrawable const *d) throw()
+{
+	//!\todo make it inline
+	m_drawable=d->clone();
 }
 
 Point Vertex::getEnd(void)const throw()
 {
 	//!\todo make it inline
 	return m_point;
-}
-
-void Vertex::setColor(Color const &c) throw()
-{
-	//!\todo make it inline
-	m_color=c;
 }
 
 void Vertex::setEnd(Point const &p) throw()

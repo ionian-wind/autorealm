@@ -26,12 +26,14 @@
 
 #include "object.h"
 #include "vertex.h"
-#include "color.h"
+#include "drawable.h"
 
-class Shape : public Object
+class Shape : public Object, public REDrawable
 {
 	friend class boost::serialization::access;
 	public:
+		Shape(void)=default;
+		Shape(Shape const &s);
 		/** Destructor */
 		~Shape(void) throw();
         /** \brief Apply an algorithm on itself
@@ -55,15 +57,15 @@ class Shape : public Object
          */
 		void push_back(Vertex const&target);
 
-        /** \brief change the color used to fill the shape
-		 *	\note a copy of the color is used
-         *	\param const&c Color color to use
+        /** \brief change the drawable used to fill the shape
+		 *	\note a copy of the drawable is used
+         *	\param d REDrawable const* drawable to use
          */
-		void setFiller(Color const&c) throw();
-        /** \brief retrieve color used to fill the shape
-         *	\return Color copy of the color used
+		void setFiller(REDrawable const* d) throw();
+        /** \brief retrieve a copy of the drawable used to fill the shape
+         *	\return REDrawable* copy of the drawable used
          */
-		Color getFiller(void)const throw();
+		REDrawable* getFiller(void)const throw();
 
         /** \brief retrieve an iterator on the first vertex
          *	\todo check if this method is really mandatory, because it breaks the encapsulation
@@ -79,6 +81,10 @@ class Shape : public Object
 
         /** \brief close the shape */
 		void close(void) throw();
+
+		virtual void apply(void)const throw() override;
+		virtual std::unique_ptr<REDrawable> clone(void)const override;
+
 	protected:
 	private:
 		template<class Archive>
@@ -89,7 +95,7 @@ class Shape : public Object
 		}
 
 	protected:
-		Color m_filler;
+		std::unique_ptr<REDrawable> m_filler;
 	private:
 		std::vector<Vertex> m_children;
 };
