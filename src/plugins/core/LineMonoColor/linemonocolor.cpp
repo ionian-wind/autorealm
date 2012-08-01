@@ -22,7 +22,7 @@
 
 #include <renderEngine/vertex.h>
 
-void LineMonoColor::draw(Vertex const &v)const
+void LineMonoColor::draw(Render::Vertex const &v)const
 {
 	v.getEnd().createVertice();
 	v.getDrawable()->apply();

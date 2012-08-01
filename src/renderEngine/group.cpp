@@ -24,6 +24,9 @@
 
 #include <pluginEngine/mutator.h>
 
+namespace Render
+{
+
 void Group::accept(Mutator &v)
 {
 	//!\todo find a solution to use std::for_each
@@ -49,9 +52,9 @@ void Group::apply(void)const throw()
 	draw();
 }
 
-std::unique_ptr<REDrawable> Group::clone(void)const
+std::unique_ptr<Drawable> Group::clone(void)const
 {
-	std::unique_ptr<REDrawable> group(new Group(*this));
+	std::unique_ptr<Drawable> group(new Group(*this));
 	return group;
 }
 
@@ -60,4 +63,6 @@ Group::Group(Group const &g)
 {
 	for(auto &i : g.m_children)
 		m_children.push_back(std::move(std::unique_ptr<Group>(dynamic_cast<Group*>(i->clone().get()))));
+}
+
 }

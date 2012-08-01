@@ -43,7 +43,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 //add first page to notebook
     int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
 	RenderWindow *first=new RenderWindow((wxFrame*)m_auiNotebookWorkspace,args,
-										 Color(0,0,0,1),Color(0,1,0,1)//!\todo remove those constants. Maybe use a config file entry?
+										 Render::Color(0,0,0,1),Render::Color(0,1,0,1)//!\todo remove those constants. Maybe use a config file entry?
 										);
     m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
 	m_plans.push_back(first);

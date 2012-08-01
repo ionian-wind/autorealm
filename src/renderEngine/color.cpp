@@ -22,6 +22,9 @@
 
 #include <GL/gl.h>
 
+namespace Render
+{
+
 Color::Color(double red, double green, double blue, double alpha) throw()
 :m_red(red), m_green(green), m_blue(blue), m_alpha(alpha)
 {
@@ -33,8 +36,10 @@ void Color::apply(void)const throw()
 	glColor4d(m_red,m_green,m_blue,m_alpha);
 }
 
-std::unique_ptr<REDrawable> Color::clone(void)const
+std::unique_ptr<Drawable> Color::clone(void)const
 {
-	std::unique_ptr<REDrawable> col(new Color(*this));
+	std::unique_ptr<Drawable> col(new Color(*this));
 	return col;
+}
+
 }

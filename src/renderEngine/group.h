@@ -26,6 +26,9 @@
 #include <vector>
 #include <memory>
 
+namespace Render
+{
+
 class Group : public Object
 {
 	friend class boost::serialization::access;
@@ -59,7 +62,7 @@ class Group : public Object
 		void push_back(std::unique_ptr<Object> target);
 
 		virtual void apply(void)const throw() override;
-		virtual std::unique_ptr<REDrawable> clone(void)const override;
+		virtual std::unique_ptr<Drawable> clone(void)const override;
 	private:
 		template<class Archive>
 		void serialize(Archive & ar, const unsigned int version)
@@ -72,5 +75,7 @@ class Group : public Object
 		std::vector<std::unique_ptr<Object>> m_children;
 	private:
 };
+
+}
 
 #endif // GROUP_H

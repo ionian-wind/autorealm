@@ -25,7 +25,10 @@
 
 #include "drawable.h"
 
-class Color: public REDrawable
+namespace Render
+{
+
+class Color: public Drawable
 {
 	friend class boost::serialization::access;
 	public:
@@ -46,7 +49,7 @@ class Color: public REDrawable
          *	\throw nothing
          */
 		void apply(void)const throw() override;
-		virtual std::unique_ptr<REDrawable> clone(void)const;
+		virtual std::unique_ptr<Drawable> clone(void)const;
 		double m_red, m_green, m_blue, m_alpha;
 	protected:
 	private:
@@ -60,5 +63,7 @@ class Color: public REDrawable
 		}
 
 };
+
+}
 
 #endif // COLOR_H

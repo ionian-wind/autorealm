@@ -26,7 +26,7 @@
 class LineMonoColor : public Drawer
 {
 	public:
-		virtual void draw(Vertex const &v)const override;
+		virtual void draw(Render::Vertex const &v)const override;
 		virtual std::unique_ptr<Drawer> clone(void)const override;
 };
 

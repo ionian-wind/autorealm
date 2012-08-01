@@ -35,7 +35,7 @@ void RenderWindow::onDraw(wxEvent&ev)
 	finalizeRendering();
 }
 
-RenderWindow::RenderWindow(wxFrame* parent, int* args, Color const &border, Color const &filler)
+RenderWindow::RenderWindow(wxFrame* parent, int* args, Render::Color const &border, Render::Color const &filler)
     :wxGLCanvas(parent,wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
     ,m_borderColor(border),m_fillerColor(filler)
 {

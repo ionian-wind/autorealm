@@ -27,8 +27,11 @@ class Mutator;
 
 #include "drawable.h"
 
+namespace Render
+{
+
 /** \brief Ancestor of Shape and Group. It only provides an interface for composite and visitor patterns */
-class Object: public REDrawable
+class Object: public Drawable
 {
 	public:
         /** \brief apply an algorithm on the object
@@ -45,5 +48,7 @@ class Object: public REDrawable
 		void serialize(Archive & ar, const unsigned int version);
 	private:
 };
+
+}
 
 #endif // OBJECT_H

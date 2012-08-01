@@ -24,12 +24,17 @@
 #include <memory>
 #include <stdexcept>
 
-class REDrawable //!\todo rename it to simply Drawable and use namespaces
+namespace Render
+{
+
+class Drawable //!\todo rename it to simply Drawable and use namespaces
 {
 public:
 	virtual void apply(void)const throw()=0;
-	virtual std::unique_ptr<REDrawable> clone(void)const =0;
-	virtual ~REDrawable(void)=default;
+	virtual std::unique_ptr<Drawable> clone(void)const =0;
+	virtual ~Drawable(void)=default;
 };
+
+}
 
 #endif

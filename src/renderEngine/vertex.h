@@ -29,6 +29,9 @@
 
 class Drawer;
 
+namespace Render
+{
+
 class Vertex
 {
 	friend class boost::serialization::access;
@@ -41,7 +44,7 @@ class Vertex
          *	\param drawer std::unique_ptr<Drawer>
          *	\throw nothing
          */
-		Vertex(Point const &end, REDrawable const *drawable,std::unique_ptr<Drawer> drawer) throw();
+		Vertex(Point const &end, Drawable const *drawable,std::unique_ptr<Drawer> drawer) throw();
         /** \brief copy ctor
          *	\param const&other Vertex
          *	\throw nothing
@@ -55,7 +58,7 @@ class Vertex
          *	\param drawer std::unique_ptr<Drawer> algorithm used to render the line which will end to the vertex
          *	\throw nothing
          */
-		void set(Point const &end, REDrawable const *drawable,std::unique_ptr<Drawer> drawer) throw();
+		void set(Point const &end, Drawable const *drawable,std::unique_ptr<Drawer> drawer) throw();
         /** \brief copy another vertex
          *	\param const&v Vertex
          *	\return Vertex&
@@ -76,7 +79,7 @@ class Vertex
          *	\throw nothing
          *	\todo check if it is realistic to say Drawer::draw can not throw
          */
-		void render(REDrawable const *drawable=nullptr)const throw();
+		void render(Drawable const *drawable=nullptr)const throw();
         /** \brief Change the algorithm used to render
          *	\param newRender std::unique_ptr<Drawer>
          *	\throw nothing
@@ -94,12 +97,12 @@ class Vertex
          *	\return Drawable*
          *	\throw nothing
          */
-		std::unique_ptr<REDrawable> getDrawable(void)const throw();
+		std::unique_ptr<Drawable> getDrawable(void)const throw();
         /** \brief change the drawable to a copy of d
          *	\param d Drawable const*
          *	\throw nothing
          */
-		void setDrawable(REDrawable const *d) throw();
+		void setDrawable(Drawable const *d) throw();
 
         /** \brief return (a copy of the) coordinates of the ending point
          *	\return Point
@@ -121,10 +124,12 @@ class Vertex
 		}
 
 	protected:
-		std::unique_ptr<REDrawable> m_drawable;
+		std::unique_ptr<Drawable> m_drawable;
 		Point m_point;
 		std::unique_ptr<Drawer> m_drawer;
 	private:
 };
+
+}
 
 #endif // VERTEX_H

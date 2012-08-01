@@ -28,13 +28,13 @@
 #include <renderEngine/group.h>
 #include <renderEngine/color.h>
 
-class RenderWindow : public Group,public wxGLCanvas
+class RenderWindow : public Render::Group,public wxGLCanvas
 {
     friend class boost::serialization::access;
 
     wxGLContext * m_context;
-    Color m_borderColor;
-    Color m_fillerColor;
+    Render::Color m_borderColor;
+    Render::Color m_fillerColor;
 
 public:
 	/** \brief event manager for drawing requests
@@ -49,7 +49,7 @@ public:
      * \param border Color const&
      * \param filler Color const&
      */
-    RenderWindow(wxFrame* parent, int* args, Color const &border, Color const &filler);
+    RenderWindow(wxFrame* parent, int* args, Render::Color const &border, Render::Color const &filler);
 
     /** Destructor */
     ~RenderWindow(void) throw();
@@ -59,8 +59,8 @@ public:
 	/** \brief apply the drawing and clean OpenGL buffers */
     void finalizeRendering(void);
 
-	Color getBorderColor(void)const throw(){return m_borderColor;}
-	Color getFillerColor(void)const throw(){return m_fillerColor;}
+	Render::Color getBorderColor(void)const throw(){return m_borderColor;}
+	Render::Color getFillerColor(void)const throw(){return m_fillerColor;}
 private:
 	template<class Archive>
     /** \brief allow the object to be serialized

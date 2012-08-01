@@ -29,7 +29,7 @@
 #include "plugin.h"
 
 class RenderWindow;
-class Vertex;
+class Render::Vertex;
 class wxMouseEvent;
 class wxContextMenuEvent;
 class wxCommandEvent;
@@ -46,7 +46,7 @@ class Drawer : public Plugin
 		void createClosedFigure(wxCommandEvent &event);
 		void createOpenedFigure(wxCommandEvent &event);
 
-		virtual void draw(Vertex const &v)const=0;
+		virtual void draw(Render::Vertex const &v)const=0;
 		virtual std::unique_ptr<Drawer> clone(void)const=0;
 	protected:
 		void closer(wxCommandEvent &event);
@@ -54,8 +54,8 @@ class Drawer : public Plugin
 		void shifter(wxCommandEvent &event);
 		void createShape(void);
 	private:
-		std::unique_ptr<Shape> m_shape;
-		Point m_lastClick;
+		std::unique_ptr<Render::Shape> m_shape;
+		Render::Point m_lastClick;
 };
 
 #endif // DRAWER_H

@@ -27,6 +27,9 @@
 #include "object.h"
 #include "vertex.h"
 
+namespace Render
+{
+
 class Shape : public Object
 {
 	friend class boost::serialization::access;
@@ -60,11 +63,11 @@ class Shape : public Object
 		 *	\note a copy of the drawable is used
          *	\param d REDrawable const* drawable to use
          */
-		void setFiller(REDrawable const* d) throw();
+		void setFiller(Drawable const* d) throw();
         /** \brief retrieve a copy of the drawable used to fill the shape
          *	\return REDrawable* copy of the drawable used
          */
-		REDrawable* getFiller(void)const throw();
+		Drawable* getFiller(void)const throw();
 
         /** \brief retrieve an iterator on the first vertex
          *	\todo check if this method is really mandatory, because it breaks the encapsulation
@@ -82,7 +85,7 @@ class Shape : public Object
 		void close(void) throw();
 
 		virtual void apply(void)const throw() override;
-		virtual std::unique_ptr<REDrawable> clone(void)const override;
+		virtual std::unique_ptr<Drawable> clone(void)const override;
 
 	protected:
 	private:
@@ -94,9 +97,11 @@ class Shape : public Object
 		}
 
 	protected:
-		std::unique_ptr<REDrawable> m_filler;
 	private:
+		std::unique_ptr<Drawable> m_filler;
 		std::vector<Vertex> m_children;
 };
+
+}
 
 #endif // SHAPE_H

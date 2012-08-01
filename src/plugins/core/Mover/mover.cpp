@@ -26,11 +26,11 @@
 #include <renderEngine/shape.h>
 #include <renderEngine/vertex.h>
 
-void Mover::visit(Group& v)
+void Mover::visit(Render::Group& v)
 {
 }
 
-void Mover::visit(Shape& v)
+void Mover::visit(Render::Shape& v)
 {
 	std::transform(
 					v.getFirstChild(),
@@ -40,9 +40,9 @@ void Mover::visit(Shape& v)
 					);
 }
 
-Vertex Mover::mover(Vertex const&v)
+Render::Vertex Mover::mover(Render::Vertex const&v)
 {
-	Vertex v1(v);
+	Render::Vertex v1(v);
 	v1.setEnd(v1.getEnd()+m_distance);
 	return v1;
 }

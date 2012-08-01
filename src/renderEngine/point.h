@@ -23,6 +23,9 @@
 
 #include <boost/serialization/access.hpp>
 
+namespace Render
+{
+
 class Point
 {
 	friend class boost::serialization::access;
@@ -68,5 +71,7 @@ class Point
  *	\throw nothing
  */
 Point operator+(Point const&p1, Point const&p2) throw();
+
+}
 
 #endif // POINT_H

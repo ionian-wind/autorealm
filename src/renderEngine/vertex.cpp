@@ -25,7 +25,10 @@
 #include "shape.h"
 #include <pluginEngine/drawer.h>
 
-Vertex::Vertex(Point const &end, REDrawable const *drawable,std::unique_ptr<Drawer> drawer) throw()
+namespace Render
+{
+
+Vertex::Vertex(Point const &end, Drawable const *drawable,std::unique_ptr<Drawer> drawer) throw()
 :m_drawable(),m_point(end),m_drawer(std::move(drawer))
 {
 	m_drawable=drawable->clone();
@@ -45,7 +48,7 @@ Vertex::~Vertex(void) throw()
 	m_drawer.reset();
 }
 
-void Vertex::set(Point const &end, REDrawable const *drawable,std::unique_ptr<Drawer> drawer) throw()
+void Vertex::set(Point const &end, Drawable const *drawable,std::unique_ptr<Drawer> drawer) throw()
 {
 	//!\todo make it inline
 	m_drawable=drawable->clone();
@@ -66,7 +69,7 @@ bool Vertex::operator==(Vertex const&other)const throw()
 	return m_point==other.m_point;
 }
 
-void Vertex::render(REDrawable const *drawable) const throw()
+void Vertex::render(Drawable const *drawable) const throw()
 {
 	if(!drawable)
 		m_drawer->draw(*this);
@@ -90,13 +93,13 @@ Vertex Vertex::clone(void)const
 	return Vertex( m_point, m_drawable->clone().get(), m_drawer->clone());
 }
 
-std::unique_ptr<REDrawable> Vertex::getDrawable(void)const throw()
+std::unique_ptr<Drawable> Vertex::getDrawable(void)const throw()
 {
 	//!\todo make it inline
 	return m_drawable->clone();
 }
 
-void Vertex::setDrawable(REDrawable const *d) throw()
+void Vertex::setDrawable(Drawable const *d) throw()
 {
 	//!\todo make it inline
 	m_drawable=d->clone();
@@ -112,4 +115,6 @@ void Vertex::setEnd(Point const &p) throw()
 {
 	//!\todo make it inline
 	m_point=p;
+}
+
 }

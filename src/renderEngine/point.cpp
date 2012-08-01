@@ -22,6 +22,9 @@
 
 #include <GL/gl.h>
 
+namespace Render
+{
+
 Point::Point(double x, double y, double z) throw()
 :m_x(x),m_y(y),m_z(z)
 {
@@ -51,4 +54,6 @@ Point operator+(Point const& p1, Point const& p2) throw()
 	Point p(p1);
 	p+=p2;
 	return p;
+}
+
 }

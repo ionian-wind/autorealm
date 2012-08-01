@@ -25,6 +25,9 @@
 
 #include <pluginEngine/mutator.h>
 
+namespace Render
+{
+
 Shape::~Shape(void) throw()
 {
 	m_children.clear();
@@ -64,12 +67,12 @@ void Shape::push_back(Vertex const&target)
 	m_children.push_back(target);
 }
 
-void Shape::setFiller(REDrawable const*d) throw()
+void Shape::setFiller(Drawable const*d) throw()
 {
 	m_filler=d->clone();
 }
 
-REDrawable* Shape::getFiller(void)const throw()
+Drawable* Shape::getFiller(void)const throw()
 {
 	return m_filler->clone().get();
 }
@@ -95,9 +98,9 @@ void Shape::apply(void)const throw()
 	draw();
 }
 
-std::unique_ptr<REDrawable> Shape::clone(void)const
+std::unique_ptr<Drawable> Shape::clone(void)const
 {
-	std::unique_ptr<REDrawable> shape(new Shape(*this));
+	std::unique_ptr<Drawable> shape(new Shape(*this));
 	return shape;
 }
 
@@ -105,4 +108,6 @@ Shape::Shape(Shape const &s)
 :m_filler(),m_children(s.m_children)
 {
 	m_filler=s.m_filler->clone();
+}
+
 }

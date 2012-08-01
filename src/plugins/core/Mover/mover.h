@@ -24,16 +24,18 @@
 #include <pluginEngine/mutator.h>
 #include <renderEngine/point.h>
 
+namespace Render{
 class Vertex;
+}
 
 class Mover : public Mutator
 {
 	public:
-		void visit(Group& v);
-		void visit(Shape& v);
+		void visit(Render::Group& v) override;
+		void visit(Render::Shape& v) override;
 	protected:
 	private:
-		Vertex mover(Vertex const&v);
+		Render::Vertex mover(Render::Vertex const&v);
 };
 
 PLUMA_INHERIT_PROVIDER(Mover, Plugin);
