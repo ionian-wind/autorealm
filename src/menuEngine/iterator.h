@@ -36,7 +36,7 @@
 //	bool isEndOfLevel(void)const;
 //protected:
 //	Iterator(Compositor *owner);
-//	Iterator(Compositor *owner, bool dumb);//!\todo make Ctor private and create static methods to build begin/end iterators
+//	Iterator(Compositor *owner, bool dumb);///\todo make Ctor private and create static methods to build begin/end iterators
 //	void goDeeper();
 //	void goUpper();
 //	bool isComposite(void)const;

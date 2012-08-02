@@ -35,7 +35,7 @@ Shape::~Shape(void) throw()
 
 void Shape::accept(Mutator &v)
 {
-	//!\todo find a solution to use std::for_each
+	///\todo find a solution to use std::for_each
 	v.visit(*this);
 }
 

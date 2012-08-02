@@ -42,7 +42,7 @@ class ID;
 class MainFrame : public wxFrame
 {
     Menu m_menuTree;	/// contain all menus and submenus of the menubar
-    //!\todo avoid the use of pointers
+    ///\todo avoid the use of pointers
     std::vector<RenderWindow*> m_plans;	/// list of plans. Aka: drawing sheets
     std::vector<RenderWindow*>::iterator m_active;	/// iterator on the currently active plan
     wxAuiManager m_auiManager;	/// internal "window manager" of wxWidgets

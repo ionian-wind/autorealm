@@ -43,7 +43,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 //add first page to notebook
     int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
 	RenderWindow *first=new RenderWindow((wxFrame*)m_auiNotebookWorkspace,args,
-										 Render::Color(0,0,0,1),Render::Color(0,1,0,1)//!\todo remove those constants. Maybe use a config file entry?
+										 Render::Color(0,0,0,1),Render::Color(0,1,0,1)///\todo remove those constants. Maybe use a config file entry?
 										);
     m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
 	m_plans.push_back(first);
@@ -65,7 +65,7 @@ MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
 
 MainFrame::~MainFrame(void)
 {
-	for(auto &i:m_plugins)//!\todo find a way to let unique_ptr<> do the delete job when destroyed by vector's destruction
+	for(auto &i:m_plugins)///\todo find a way to let unique_ptr<> do the delete job when destroyed by vector's destruction
 		i.second.reset();
 
 	m_auiManager.UnInit();
@@ -74,7 +74,7 @@ MainFrame::~MainFrame(void)
 void MainFrame::changeSelectedPlugin(wxCommandEvent& event)
 {
 	static int oldId=0;
-	if(oldId)//!\todo and what if it was the first plugin loaded?
+	if(oldId)///\todo and what if it was the first plugin loaded?
 		m_plugins[oldId]->removeEventManager();
 	oldId=event.GetId();
 	m_plugins[oldId]->installEventManager(**m_active);

@@ -30,7 +30,7 @@
 //
 //class ToolbarConverter
 //{
-//	friend class Composite<ToolbarConverter>; //!\todo find why this declaration is needed and correct the problem!
+//	friend class Composite<ToolbarConverter>; ///\todo find why this declaration is needed and correct the problem!
 //public:
 //	virtual ~ToolbarConverter() throw() =default;
 //	wxMenuBar* getMenuBar(void)const;

@@ -36,8 +36,8 @@
  */
 wxBitmap loadImage(std::string const & fileName);
 
-//!\todo PlumaLack#1 implement a Provider::getProvider(std::string const &plugName) in pluma to remove dumb code here
-//!\todo move me in Pluma
+///\todo PlumaLack#1 implement a Provider::getProvider(std::string const &plugName) in pluma to remove dumb code here
+///\todo move me in Pluma
 template <class T>
 T* getProvider(pluma::Pluma & plumConf, std::string const& location, std::string const& pluginName)
 {
@@ -46,8 +46,8 @@ T* getProvider(pluma::Pluma & plumConf, std::string const& location, std::string
 	if(plumConf.load(location,pluginName))
 	{ // register loaded provider
 		decltype(actualProviders.size()) i=0;
-		plumConf.getProviders(actualProviders);//!\todo PlumaLack#1 remove that
-		//!\todo PlumaLack#1 remove that
+		plumConf.getProviders(actualProviders);///\todo PlumaLack#1 remove that
+		///\todo PlumaLack#1 remove that
 		//Locate the provider newly loaded
 		while(i<actualProviders.size() && prevProviders.end()!=std::find(prevProviders.begin(),prevProviders.end(),actualProviders[i]))
 			++i;

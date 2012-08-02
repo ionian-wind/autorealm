@@ -33,7 +33,7 @@ bool App::OnInit()
 	try
 	{
 		wxInitAllImageHandlers();
-		if ( wxsOK ) //!\todo understand that test and probably remove it
+		if ( wxsOK ) ///\todo understand that test and probably remove it
 		{
 			Splash *s=new Splash();
 			m_app= new MainFrame (0);

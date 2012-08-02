@@ -32,7 +32,7 @@
 template <class T> class Composite;
 
 template <class T>
-class Component: public T //!\todo change the relation to have something which behave more like STL containers
+class Component: public T ///\todo change the relation to have something which behave more like STL containers
 {
 	public:
 		std::string getPluginName(void)const;

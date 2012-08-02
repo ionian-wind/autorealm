@@ -23,7 +23,7 @@
 #include <utils/textfile.h>
 
 #ifdef WIN32
-#define HOME "HOMEPATH" //!\todo check that it should not be %APPDATA% instead of %HOMEPATH%
+#define HOME "HOMEPATH" ///\todo check that it should not be %APPDATA% instead of %HOMEPATH%
 #else
 #define HOME "HOME"
 #endif
@@ -34,11 +34,11 @@ AppConfig::AppConfig()
 {
 	boost::filesystem::path configDir;
 	// guess the directory where configuration is stored
-	//!\todo use freedesktop.org recommmandations for linux, and fallback on system variables if they are not supported on client computer
+	///\todo use freedesktop.org recommmandations for linux, and fallback on system variables if they are not supported on client computer
 	std::unique_ptr<TextFile> rootConfigFile;
 	std::string homepath(getenv("HOME"));
 
-	//!\todo move that OS related code in an extern function
+	///\todo move that OS related code in an extern function
 	if(boost::filesystem::exists(homepath+"/.autorealm"))
 		configDir=boost::filesystem::path(homepath+".autorealm/");
 	else if(boost::filesystem::exists(homepath+"/.config/autorealm"))
@@ -47,7 +47,7 @@ AppConfig::AppConfig()
 	// read global configuration
 	rootConfigFile=TextFile::OpenFile(boost::filesystem::path(configDir.string()+"config"));
 
-	//!\todo support incomplete file
+	///\todo support incomplete file
 	for(uint8_t i=GRP_RES;i<LASTINDEX && !rootConfigFile->eofReached();++i)
 		m_datas.push_back(rootConfigFile->readLine());
 }

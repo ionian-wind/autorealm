@@ -29,7 +29,7 @@ namespace Render
 
 void Group::accept(Mutator &v)
 {
-	//!\todo find a solution to use std::for_each
+	///\todo find a solution to use std::for_each
 	v.visit(*this);
 	for(auto &i:m_children)
 		i->accept(v);

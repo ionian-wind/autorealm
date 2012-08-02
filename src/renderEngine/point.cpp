@@ -32,7 +32,7 @@ Point::Point(double x, double y, double z) throw()
 
 void Point::createVertice(void)const throw()
 {
-	//!\todo make this inline
+	///\todo make this inline
 	glVertex3d(m_x,m_y,m_z);
 }
 

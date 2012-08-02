@@ -33,7 +33,7 @@ class TextFile;
 
 class MenuConverter
 {
-	friend class Composite<MenuConverter>; //!\todo find why this declaration is needed and correct the problem!
+	friend class Composite<MenuConverter>; ///\todo find why this declaration is needed and correct the problem!
 public:
 	virtual ~MenuConverter()=default;
 	wxMenuBar* getMenuBar(void)const;

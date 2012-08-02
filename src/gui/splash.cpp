@@ -34,7 +34,7 @@ Splash::Splash()
 	if(exists(boost::filesystem::path(AppConfig::buildPath(AppConfig::GRP_RES)+"splash/splash.png")))
 	{
 		wxBoxSizer* BoxSizer1=new wxBoxSizer(wxHORIZONTAL);
-		m_splash = new wxStaticBitmap(this, ID(), loadImage("splash/splash.png"));//!\todo move this string into a configuration file
+		m_splash = new wxStaticBitmap(this, ID(), loadImage("splash/splash.png"));///\todo move this string into a configuration file
 		BoxSizer1->Add(m_splash);
 		SetSizer(BoxSizer1);
 		BoxSizer1->Fit(this);
