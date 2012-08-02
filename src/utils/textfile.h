@@ -40,6 +40,8 @@ public:
      */
 	static std::unique_ptr<TextFile> OpenFile(boost::filesystem::path const &path);
 
+	static std::unique_ptr<TextFile> OpenFile(std::string const &directory, std::string const &file);
+
     /** \brief create and open an inexisting file
      *
      *	\param file boost::filesystem::path const& name of the file to open

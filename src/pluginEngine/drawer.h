@@ -29,7 +29,6 @@
 #include "plugin.h"
 
 class RenderWindow;
-class Render::Vertex;
 class wxMouseEvent;
 class wxContextMenuEvent;
 class wxCommandEvent;

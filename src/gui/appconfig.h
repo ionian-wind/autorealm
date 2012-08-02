@@ -22,11 +22,9 @@
 #define APPCONFIG_H
 
 #include <string>
-
-#include <boost/filesystem.hpp>
+#include <vector>
 
 class TextFile;
-//#include <utils/textfile.h>
 
 #include "singleton.h"
 

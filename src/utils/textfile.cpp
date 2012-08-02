@@ -31,6 +31,11 @@ std::unique_ptr<TextFile> TextFile::OpenFile(boost::filesystem::path const &file
 	return std::unique_ptr<TextFile>(new TextFile(file));
 }
 
+std::unique_ptr<TextFile> TextFile::OpenFile(std::string const &directory, std::string const &file)
+{
+	return TextFile::OpenFile(boost::filesystem::path (directory+file));
+}
+
 std::unique_ptr<TextFile> TextFile::CreateFile(boost::filesystem::path const &file)
 {
 	if(exists(file))

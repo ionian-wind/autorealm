@@ -58,4 +58,6 @@ T* getProvider(pluma::Pluma & plumConf, std::string const& location, std::string
 	return nullptr;
 }
 
+std::string getPosixConfDir(void);
+
 #endif // UTILS_H

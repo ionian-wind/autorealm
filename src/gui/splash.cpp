@@ -28,6 +28,8 @@
 
 #include <utils/utils.h>
 
+#include <boost/filesystem.hpp>
+
 Splash::Splash()
 :wxFrame(nullptr,-1,"")
 {
