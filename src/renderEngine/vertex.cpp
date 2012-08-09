@@ -45,7 +45,7 @@ Vertex::Vertex(Vertex const &other) throw()
 Vertex::~Vertex(void) throw()
 {
 	///\todo make it inline
-	m_drawer.reset();
+	m_drawer.reset(); //!\todo fix a crash which happens sometimes here (application closing)
 }
 
 void Vertex::set(Point const &end, Drawable const *drawable, std::unique_ptr<Drawer> drawer) throw()

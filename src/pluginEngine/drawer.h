@@ -39,6 +39,7 @@ public:
 	virtual void installEventManager(RenderWindow &target) throw() override;
 	virtual void removeEventManager(void) throw() override;
 	void leftClick(wxMouseEvent &event);
+	void moveMouse(wxMouseEvent &event);
 	void contextMenu(wxContextMenuEvent &event);
 	void render(void);
 
@@ -54,7 +55,7 @@ protected:
 	void createShape(void);
 private:
 	std::unique_ptr<Render::Shape> m_shape;
-	Render::Point m_lastClick;
+	bool m_mouseMoveInstalled=false;
 };
 
 #endif // DRAWER_H

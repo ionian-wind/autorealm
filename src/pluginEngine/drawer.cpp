@@ -37,47 +37,43 @@ void Drawer::installEventManager(RenderWindow &target) throw()
 	createShape();
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
-
 	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createOpenedFigure, this, Menu_Popup_OpenFig, Menu_Popup_OpenFig);
 	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createClosedFigure, this, Menu_Popup_CloseFig, Menu_Popup_CloseFig);
-}
-
-void Drawer::createOpenedFigure(wxCommandEvent &event)
-{
-	m_target->push_back(std::move(m_shape));
-	createShape();
-	render();
-}
-
-void Drawer::createShape(void)
-{
-	m_shape.reset(new Render::Shape());
-	Render::Color c = m_target->getFillerColor(); ///\todo remove temp var
-	m_shape->setFiller(&c);
-}
-
-void Drawer::createClosedFigure(wxCommandEvent &event)
-{
-	m_shape->close();
-	createOpenedFigure(event);
 }
 
 void Drawer::removeEventManager(void) throw()
 {
 	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Unbind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
-	m_target = nullptr;
+	if(m_mouseMoveInstalled)
+	{
+		m_target->Unbind(wxEVT_MOTION, &Drawer::moveMouse, this);
+		m_mouseMoveInstalled=false;
+	}
 	m_target->push_back(std::move(m_shape));
 	m_shape.reset();
 }
 
 void Drawer::leftClick(wxMouseEvent &event)
 {
-	m_lastClick.m_x = event.GetX();
-	m_lastClick.m_y = event.GetY();
-	m_lastClick.m_z = 0;
 	Render::Color c = m_target->getBorderColor(); ///\todo remove temp var
-	m_shape->push_back(Render::Vertex(m_lastClick, &c, clone()));
+	m_shape->push_back(Render::Vertex(Render::Point(event.GetX(),event.GetY(),0), &c, clone()));
+	render();
+	if(!m_mouseMoveInstalled)
+	{
+		m_target->Bind(wxEVT_MOTION, &Drawer::moveMouse, this);//when a shape have a point, draw a line between it and the cursor
+		m_mouseMoveInstalled=true;
+	}
+}
+
+void Drawer::moveMouse(wxMouseEvent &event)
+{
+	Render::Shape s;
+	Render::Color c=m_target->getBorderColor();
+	s.setFiller(&c);
+	s.push_back(Render::Vertex(m_shape->getLastChild()->getEnd(),&c,clone()));
+	s.push_back(Render::Vertex(Render::Point(event.GetX(),event.GetY(),0),&c,clone()));
+
 	render();
 }
 
@@ -104,6 +100,27 @@ void Drawer::contextMenu(wxContextMenuEvent &event)
 	m_target->PopupMenu(&menu, point);
 }
 
+void Drawer::render(void)
+{
+	m_target->startRendering();
+	m_shape->draw();
+	m_target->draw();
+	m_target->finalizeRendering();
+}
+
+void Drawer::createClosedFigure(wxCommandEvent &event)
+{
+	m_shape->close();
+	createOpenedFigure(event);
+}
+
+void Drawer::createOpenedFigure(wxCommandEvent &event)
+{
+	m_target->push_back(std::move(m_shape));
+	createShape();
+	render();
+}
+
 void Drawer::closer(wxCommandEvent &event)
 {
 	m_shape->close();
@@ -120,10 +137,14 @@ void Drawer::shifter(wxCommandEvent &event)
 {
 }
 
-void Drawer::render(void)
+void Drawer::createShape(void)
 {
-	m_target->startRendering();
-	m_shape->draw();
-	m_target->draw();
-	m_target->finalizeRendering();
+	m_shape.reset(new Render::Shape());
+	Render::Color c (m_target->getFillerColor()); ///\todo remove temp var (and maybe references to Color?)
+	m_shape->setFiller(&c);
+	if(m_mouseMoveInstalled)
+	{
+		m_target->Unbind(wxEVT_MOTION, &Drawer::moveMouse, this);
+		m_mouseMoveInstalled=false;
+	}
 }

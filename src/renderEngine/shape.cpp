@@ -90,7 +90,7 @@ std::vector<Vertex>::iterator Shape::getFirstChild(void) throw()
 
 std::vector<Vertex>::iterator Shape::getLastChild(void) throw()
 {
-	return m_children.end();
+	return m_children.end()--;
 }
 
 void Shape::close(void) throw()
