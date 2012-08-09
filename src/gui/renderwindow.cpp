@@ -75,8 +75,10 @@ void RenderWindow::startRendering(void)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+	m_xm=w;
+	m_ym=h;
+    gluOrtho2D(m_xo, m_xm, m_yo, m_ym);
 
-    gluOrtho2D(0, w, h, 0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }

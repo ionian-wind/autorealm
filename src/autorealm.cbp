@@ -122,12 +122,12 @@
 			<lib_finder disable_auto="1" />
 			<debugger />
 			<DoxyBlocks>
-				<comment_style block="0" line="0" />
+				<comment_style block="4" line="0" />
 				<doxyfile_project />
-				<doxyfile_build />
-				<doxyfile_warnings />
+				<doxyfile_build extract_all="1" extract_private="1" extract_static="1" />
+				<doxyfile_warnings warn_if_undocumented="1" />
 				<doxyfile_output />
-				<doxyfile_dot />
+				<doxyfile_dot class_diagrams="1" have_dot="1" />
 				<general />
 			</DoxyBlocks>
 		</Extensions>

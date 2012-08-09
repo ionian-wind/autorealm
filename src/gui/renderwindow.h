@@ -35,6 +35,8 @@ class RenderWindow : public Render::Group,public wxGLCanvas
     wxGLContext * m_context;
     Render::Color m_borderColor;
     Render::Color m_fillerColor;
+    GLdouble m_xo=0, m_yo=0; //! origin for x and y axes
+    GLdouble m_xm, m_ym;//! maximum for x and y axes
 
 public:
 	/** \brief event manager for drawing requests
