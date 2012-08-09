@@ -32,7 +32,7 @@ const int Menu_Popup_UseShift = ID(); //!todo remove global variables
 
 void Drawer::installEventManager(RenderWindow &target) throw()
 {
-	m_target=&target;
+	m_target = &target;
 
 	createShape();
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
@@ -52,7 +52,7 @@ void Drawer::createOpenedFigure(wxCommandEvent &event)
 void Drawer::createShape(void)
 {
 	m_shape.reset(new Render::Shape());
-	Render::Color c=m_target->getFillerColor();///\todo remove temp var
+	Render::Color c = m_target->getFillerColor(); ///\todo remove temp var
 	m_shape->setFiller(&c);
 }
 
@@ -66,39 +66,40 @@ void Drawer::removeEventManager(void) throw()
 {
 	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Unbind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
-	m_target=nullptr;
+	m_target = nullptr;
 	m_target->push_back(std::move(m_shape));
 	m_shape.reset();
 }
 
 void Drawer::leftClick(wxMouseEvent &event)
 {
-	m_lastClick.m_x=event.GetX();
-	m_lastClick.m_y=event.GetY();
-	m_lastClick.m_z=0;
-	Render::Color c=m_target->getBorderColor();///\todo remove temp var
-	m_shape->push_back(Render::Vertex(m_lastClick,&c,clone()));
+	m_lastClick.m_x = event.GetX();
+	m_lastClick.m_y = event.GetY();
+	m_lastClick.m_z = 0;
+	Render::Color c = m_target->getBorderColor(); ///\todo remove temp var
+	m_shape->push_back(Render::Vertex(m_lastClick, &c, clone()));
 	render();
 }
 
 void Drawer::contextMenu(wxContextMenuEvent &event)
 {
-	wxPoint point=event.GetPosition();
-	if(-1==point.x && -1==point.y) //from keyboard ?
+	wxPoint point = event.GetPosition();
+
+	if(-1 == point.x && -1 == point.y) //from keyboard ?
 	{
 		assert(0);
 		///\todo implement popup's menu's position when user use the context menu key
 		//!\fixme it seem assert(0) is never executed. Guess that it is because I did not used the application pointer?
 	}
 	else
-		point=m_target->ScreenToClient(point);
+		point = m_target->ScreenToClient(point);
 
-    wxMenu menu;
+	wxMenu menu;
 
 	menu.Append(Menu_Popup_OpenFig, wxT("Create &Open Figure"));
 	menu.Append(Menu_Popup_CloseFig, wxT("Create &Closed Figure"));
 	menu.AppendSeparator();
-	menu.Append(Menu_Popup_UseShift,wxT("Suppress this menu and use &Shift for Closed Figures"));
+	menu.Append(Menu_Popup_UseShift, wxT("Suppress this menu and use &Shift for Closed Figures"));
 
 	m_target->PopupMenu(&menu, point);
 }

@@ -30,13 +30,15 @@ IMPLEMENT_APP(App)
 bool App::OnInit()
 {
 	bool wxsOK = true;
+
 	try
 	{
 		wxInitAllImageHandlers();
-		if ( wxsOK ) ///\todo understand that test and probably remove it
+
+		if(wxsOK)    ///\todo understand that test and probably remove it
 		{
-			Splash *s=new Splash();
-			m_app= new MainFrame (0);
+			Splash *s = new Splash();
+			m_app = new MainFrame(0);
 			delete s;
 			m_app->Show();
 			SetTopWindow(m_app);
@@ -44,8 +46,9 @@ bool App::OnInit()
 	}
 	catch(std::exception &e)
 	{
-		wxsOK=false;
-		wxMessageBox(e.what(),"Fatal exception");
+		wxsOK = false;
+		wxMessageBox(e.what(), "Fatal exception");
 	}
+
 	return wxsOK;
 }

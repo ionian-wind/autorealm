@@ -33,73 +33,73 @@ namespace Render
 class Shape : public Object
 {
 	friend class boost::serialization::access;
-	public:
-		Shape(void)=default;
-		Shape(Shape const &s);
-		/** Destructor */
-		~Shape(void) throw();
-        /** \brief Apply an algorithm on itself
-         * \param v Mutator& algorithm to apply
-         */
-		void accept(Mutator &v);
-        /** \brief draw the shape
-         *	\throw nothing
-         *	\todo check if it is possible and realistic to avoid Vertex throwing
-         */
-		void draw(void)const throw();
+public:
+	Shape(void) = default;
+	Shape(Shape const &s);
+	/** Destructor */
+	~Shape(void) throw();
+	/** \brief Apply an algorithm on itself
+	 * \param v Mutator& algorithm to apply
+	 */
+	void accept(Mutator &v);
+	/** \brief draw the shape
+	 *	\throw nothing
+	 *	\todo check if it is possible and realistic to avoid Vertex throwing
+	 */
+	void draw(void)const throw();
 
-        /** \brief test if the Shape is closed or opened figure
-         *	\return bool true if the shape is closed
-         *	\throw nothing
-         */
-		bool isClosed(void)const throw();
-        /** \brief add a new point to the shape
-         *	\note A copy of the vertex is made before adding it to the shape
-         *	\param const&target Vertex vertex to add.
-         */
-		void push_back(Vertex const&target);
+	/** \brief test if the Shape is closed or opened figure
+	 *	\return bool true if the shape is closed
+	 *	\throw nothing
+	 */
+	bool isClosed(void)const throw();
+	/** \brief add a new point to the shape
+	 *	\note A copy of the vertex is made before adding it to the shape
+	 *	\param const&target Vertex vertex to add.
+	 */
+	void push_back(Vertex const &target);
 
-        /** \brief change the drawable used to fill the shape
-		 *	\note a copy of the drawable is used
-         *	\param d REDrawable const* drawable to use
-         */
-		void setFiller(Drawable const* d) throw();
-        /** \brief retrieve a copy of the drawable used to fill the shape
-         *	\return REDrawable* copy of the drawable used
-         */
-		Drawable* getFiller(void)const throw();
+	/** \brief change the drawable used to fill the shape
+	 *	\note a copy of the drawable is used
+	 *	\param d REDrawable const* drawable to use
+	 */
+	void setFiller(Drawable const *d) throw();
+	/** \brief retrieve a copy of the drawable used to fill the shape
+	 *	\return REDrawable* copy of the drawable used
+	 */
+	Drawable *getFiller(void)const throw();
 
-        /** \brief retrieve an iterator on the first vertex
-         *	\todo check if this method is really mandatory, because it breaks the encapsulation
-         *	\return std::vector<Vertex>::iterator
-         */
-		std::vector<Vertex>::iterator getFirstChild(void) throw();
+	/** \brief retrieve an iterator on the first vertex
+	 *	\todo check if this method is really mandatory, because it breaks the encapsulation
+	 *	\return std::vector<Vertex>::iterator
+	 */
+	std::vector<Vertex>::iterator getFirstChild(void) throw();
 
-        /** \brief retrieve on iterator after the last vertex
-         *	\todo check if this method is really mandatory, because it breaks the encapsulation
-         *	\return std::vector<Vertex>::iterator
-         */
-		std::vector<Vertex>::iterator getLastChild(void) throw();
+	/** \brief retrieve on iterator after the last vertex
+	 *	\todo check if this method is really mandatory, because it breaks the encapsulation
+	 *	\return std::vector<Vertex>::iterator
+	 */
+	std::vector<Vertex>::iterator getLastChild(void) throw();
 
-        /** \brief close the shape */
-		void close(void) throw();
+	/** \brief close the shape */
+	void close(void) throw();
 
-		virtual void apply(void)const throw() override;
-		virtual std::unique_ptr<Drawable> clone(void)const override;
+	virtual void apply(void)const throw() override;
+	virtual std::unique_ptr<Drawable> clone(void)const override;
 
-	protected:
-	private:
-		template<class Archive>
-		void serialize(Archive & ar, const unsigned int version)
-		{
-			ar & m_filler;
-			ar & m_children;
-		}
+protected:
+private:
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version)
+	{
+		ar &m_filler;
+		ar &m_children;
+	}
 
-	protected:
-	private:
-		std::unique_ptr<Drawable> m_filler;
-		std::vector<Vertex> m_children;
+protected:
+private:
+	std::unique_ptr<Drawable> m_filler;
+	std::vector<Vertex> m_children;
 };
 
 }

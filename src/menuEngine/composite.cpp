@@ -20,25 +20,28 @@
 
 template <class T>
 Composite<T>::Composite(boost::filesystem::path const &location)
-:m_components()
+	: m_components()
 {
 	//!\pre location must exists
 	if(!boost::filesystem::exists(location))
 		throw std::runtime_error("Given location does not exists");
+
 	//!\pre location is a directory
 	if(!boost::filesystem::is_directory(location))
 		throw std::runtime_error("Given location is not a directory");
 
-	auto file=TextFile::OpenFile(findConfigurationFile(location));
+	auto file = TextFile::OpenFile(findConfigurationFile(location));
 	this->loadConfiguration(file);
 }
 
 template <class T>
 boost::filesystem::path Composite<T>::findConfigurationFile(boost::filesystem::path const &location)
 {
-	boost::filesystem::path file(location.string()+"/"+location.filename().string());
+	boost::filesystem::path file(location.string() + "/" + location.filename().string());
+
 	if(!boost::filesystem::exists(file))
 		throw std::runtime_error("configuration file is missing");
+
 	return file;
 }
 
@@ -46,11 +49,14 @@ template <class T>
 void Composite<T>::buildMenu(boost::filesystem::path const &location)
 {
 	const boost::filesystem::path toSkip(findConfigurationFile(location)); //skip the file with same name as directory
-	for(auto content=boost::filesystem::directory_iterator(location);content!=boost::filesystem::directory_iterator();++content)
+
+	for(auto content = boost::filesystem::directory_iterator(location); content != boost::filesystem::directory_iterator(); ++content)
 	{
-		if(toSkip==content->path())
+		if(toSkip == content->path())
 			continue;
+
 		m_components.push_back(std::unique_ptr<Component<T>>());
+
 		if(boost::filesystem::is_regular_file(content->path()))
 			m_components.back().reset(new Leaf<T>(TextFile::OpenFile(content->path())));
 		else
@@ -69,15 +75,15 @@ void Composite<T>::create(void)
 }
 
 template <class T>
-void Composite<T>::create(T* parent)
+void Composite<T>::create(T *parent)
 {
-	T::create(parent,Component<T>::getName());
+	T::create(parent, Component<T>::getName());
 
-	for(auto &i:m_components)
-		if(typeid(*i.get())==typeid(Composite<T>))
+	for(auto & i : m_components)
+		if(typeid(*i.get()) == typeid(Composite<T>))
 			static_cast<Composite<T>*>(i.get())->create(this);
 		else
-			i->T::create(this,i->getName());
+			i->T::create(this, i->getName());
 }
 
 template <class T>

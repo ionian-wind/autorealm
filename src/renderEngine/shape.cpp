@@ -42,15 +42,20 @@ void Shape::accept(Mutator &v)
 void Shape::draw(void)const throw()
 {
 	glBegin(GL_LINE_STRIP);
-	for(auto &i:m_children)
+
+	for(auto & i : m_children)
 		i.render();
+
 	glEnd();
+
 	if(isClosed())
 	{
 		glBegin(GL_POLYGON);
 		m_filler->apply();
-		for(auto &i:m_children)
+
+		for(auto & i : m_children)
 			i.render(m_filler.get());
+
 		glEnd();
 	}
 }
@@ -59,20 +64,21 @@ bool Shape::isClosed(void)const  throw()
 {
 	if(m_children.empty())
 		return false;
-	return m_children.front()==m_children.back();
+
+	return m_children.front() == m_children.back();
 }
 
-void Shape::push_back(Vertex const&target)
+void Shape::push_back(Vertex const &target)
 {
 	m_children.push_back(target);
 }
 
-void Shape::setFiller(Drawable const*d) throw()
+void Shape::setFiller(Drawable const *d) throw()
 {
-	m_filler=d->clone();
+	m_filler = d->clone();
 }
 
-Drawable* Shape::getFiller(void)const throw()
+Drawable *Shape::getFiller(void)const throw()
 {
 	return m_filler->clone().get();
 }
@@ -105,9 +111,9 @@ std::unique_ptr<Drawable> Shape::clone(void)const
 }
 
 Shape::Shape(Shape const &s)
-:m_filler(),m_children(s.m_children)
+	: m_filler(), m_children(s.m_children)
 {
-	m_filler=s.m_filler->clone();
+	m_filler = s.m_filler->clone();
 }
 
 }

@@ -22,7 +22,8 @@
 #include "mover.h"
 
 PLUMA_CONNECTOR
-bool connect(pluma::Host& host){
-    host.add( new MoverProvider() );
-    return true;
+bool connect(pluma::Host &host)
+{
+	host.add(new MoverProvider());
+	return true;
 }

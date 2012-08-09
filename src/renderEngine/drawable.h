@@ -30,9 +30,9 @@ namespace Render
 class Drawable ///\todo rename it to simply Drawable and use namespaces
 {
 public:
-	virtual void apply(void)const throw()=0;
-	virtual std::unique_ptr<Drawable> clone(void)const =0;
-	virtual ~Drawable(void)=default;
+	virtual void apply(void)const throw() = 0;
+	virtual std::unique_ptr<Drawable> clone(void)const = 0;
+	virtual ~Drawable(void) = default;
 };
 
 }

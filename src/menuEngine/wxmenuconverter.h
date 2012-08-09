@@ -35,26 +35,26 @@ class MenuConverter
 {
 	friend class Composite<MenuConverter>; ///\todo find why this declaration is needed and correct the problem!
 public:
-	virtual ~MenuConverter()=default;
-	wxMenuBar* getMenuBar(void)const;
-	virtual bool isEnabled(void)const=0;
+	virtual ~MenuConverter() = default;
+	wxMenuBar *getMenuBar(void)const;
+	virtual bool isEnabled(void)const = 0;
 	void setID(uint16_t id);
 protected:
 	virtual void loadConfiguration(std::unique_ptr<TextFile> &file);
 	virtual void create(MenuConverter *parent, std::string const &title);
-	virtual std::string getName(void)const=0;
+	virtual std::string getName(void)const = 0;
 	virtual std::string getHelp(void)const;
 private:
 private:
 	union WWxContent
 	{
-		wxMenu* menu=nullptr;
-		wxMenuBar* menubar;
-		wxMenuItem* menuitem;
-	}m_content;
-	bool m_isMenuBar=false;
+		wxMenu *menu = nullptr;
+		wxMenuBar *menubar;
+		wxMenuItem *menuitem;
+	} m_content;
+	bool m_isMenuBar = false;
 	std::string m_help;
-	uint16_t m_id=0;
+	uint16_t m_id = 0;
 };
 
 #endif // WXMENUCONVERTER_H

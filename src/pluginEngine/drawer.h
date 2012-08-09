@@ -35,26 +35,26 @@ class wxCommandEvent;
 
 class Drawer : public Plugin
 {
-	public:
-		virtual void installEventManager(RenderWindow & target) throw() override;
-		virtual void removeEventManager(void) throw() override;
-		void leftClick(wxMouseEvent &event);
-		void contextMenu(wxContextMenuEvent &event);
-		void render(void);
+public:
+	virtual void installEventManager(RenderWindow &target) throw() override;
+	virtual void removeEventManager(void) throw() override;
+	void leftClick(wxMouseEvent &event);
+	void contextMenu(wxContextMenuEvent &event);
+	void render(void);
 
-		void createClosedFigure(wxCommandEvent &event);
-		void createOpenedFigure(wxCommandEvent &event);
+	void createClosedFigure(wxCommandEvent &event);
+	void createOpenedFigure(wxCommandEvent &event);
 
-		virtual void draw(Render::Vertex const &v)const=0;
-		virtual std::unique_ptr<Drawer> clone(void)const=0;
-	protected:
-		void closer(wxCommandEvent &event);
-		void adder(wxCommandEvent &event);
-		void shifter(wxCommandEvent &event);
-		void createShape(void);
-	private:
-		std::unique_ptr<Render::Shape> m_shape;
-		Render::Point m_lastClick;
+	virtual void draw(Render::Vertex const &v)const = 0;
+	virtual std::unique_ptr<Drawer> clone(void)const = 0;
+protected:
+	void closer(wxCommandEvent &event);
+	void adder(wxCommandEvent &event);
+	void shifter(wxCommandEvent &event);
+	void createShape(void);
+private:
+	std::unique_ptr<Render::Shape> m_shape;
+	Render::Point m_lastClick;
 };
 
 #endif // DRAWER_H

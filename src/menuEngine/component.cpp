@@ -21,7 +21,7 @@
 template <class T>
 void Component<T>::loadConfiguration(std::unique_ptr<TextFile> &file)
 {
-	m_name=file->readLine();
+	m_name = file->readLine();
 }
 
 template <class T>
@@ -33,7 +33,7 @@ std::string Component<T>::getPluginName(void)const
 template <class T>
 void Component<T>::disable(bool disable)
 {
-	m_enable=!disable;
+	m_enable = !disable;
 }
 
 template <class T>

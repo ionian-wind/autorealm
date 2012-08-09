@@ -27,7 +27,7 @@ class wxStaticBitmap;
 
 class Splash: public wxFrame
 {
-	wxStaticBitmap *m_splash=nullptr;
+	wxStaticBitmap *m_splash = nullptr;
 public:
 	Splash();
 };

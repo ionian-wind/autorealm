@@ -34,17 +34,17 @@ template <class T> class Composite;
 template <class T>
 class Component: public T ///\todo change the relation to have something which behave more like STL containers
 {
-	public:
-		std::string getPluginName(void)const;
-		virtual ~Component() throw() =default;
-		std::string getName(void)const;
-		void disable(bool disable=true);
-		bool isEnabled(void)const;
-	protected:
-		void virtual loadConfiguration(std::unique_ptr<TextFile> &file);
-	private:
-		std::string m_name;
-		bool m_enable=true;
+public:
+	std::string getPluginName(void)const;
+	virtual ~Component() throw() = default;
+	std::string getName(void)const;
+	void disable(bool disable = true);
+	bool isEnabled(void)const;
+protected:
+	void virtual loadConfiguration(std::unique_ptr<TextFile> &file);
+private:
+	std::string m_name;
+	bool m_enable = true;
 };
 
 template <class T>
@@ -52,13 +52,13 @@ class Iterator
 {
 	friend Composite<T>;
 public:
-	Iterator& operator++(void);
-	bool operator!=(Iterator<T> const&other)const;
-	Iterator<T>& operator=(Iterator<T> const& other);
-	Iterator(Iterator<T> const& other);
+	Iterator &operator++(void);
+	bool operator!=(Iterator<T> const &other)const;
+	Iterator<T> &operator=(Iterator<T> const &other);
+	Iterator(Iterator<T> const &other);
 
-	Component<T>* operator->(void);
-	Component<T>& operator*(void);
+	Component<T> *operator->(void);
+	Component<T> &operator*(void);
 	bool isEndOfLevel(void)const;
 protected:
 	void goDeeper();
@@ -72,7 +72,7 @@ private:
 private:
 	Composite<T> *m_owner;
 	typename Composite<T>::Components::iterator m_position;
-	std::stack<std::pair<Composite<T>*,typename Composite<T>::Components::iterator>> m_ancestors;
+	std::stack<std::pair<Composite<T>*, typename Composite<T>::Components::iterator>> m_ancestors;
 };
 
 template <class T>
@@ -88,14 +88,14 @@ private:
 
 public:
 	Composite(boost::filesystem::path const &location);
-	virtual ~Composite() throw() =default;
+	virtual ~Composite() throw() = default;
 	void buildMenu(boost::filesystem::path const &location);
 	virtual void create(void);
 	MenuIter begin(void);
 	MenuIter end(void);
 protected:
 	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
-	virtual void create(T* parent);
+	virtual void create(T *parent);
 private:
 
 };
@@ -103,11 +103,14 @@ private:
 template <class T>
 class Leaf : public Component<T>
 {
-friend class Composite<T>;
+	friend class Composite<T>;
 public:
-	virtual ~Leaf() throw() =default;
+	virtual ~Leaf() throw() = default;
 protected:
-	Leaf(std::unique_ptr<TextFile> file){Component<T>::loadConfiguration(file);}
+	Leaf(std::unique_ptr<TextFile> file)
+	{
+		Component<T>::loadConfiguration(file);
+	}
 };
 
 #include <assert.h>

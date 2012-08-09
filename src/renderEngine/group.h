@@ -32,48 +32,48 @@ namespace Render
 class Group : public Object
 {
 	friend class boost::serialization::access;
-	public:
-        /** \brief default constructor
-         *	\throw nothing
-         */
-		Group(void)=default;
-		Group(Group const &g);
+public:
+	/** \brief default constructor
+	 *	\throw nothing
+	 */
+	Group(void) = default;
+	Group(Group const &g);
 
-        /** \brief apply on algorithm on the group and it's children
-         *
-         *	\param v Mutator& object wich contain the algorithm to apply
-		 *	\pre all children contain a valid pointer on an object
-         */
-		virtual void accept(Mutator &v);
-        /** \brief draw the group and everything it contains
-         *	\throw nothing
-         */
-		void draw(void)const throw();
+	/** \brief apply on algorithm on the group and it's children
+	 *
+	 *	\param v Mutator& object wich contain the algorithm to apply
+	 *	\pre all children contain a valid pointer on an object
+	 */
+	virtual void accept(Mutator &v);
+	/** \brief draw the group and everything it contains
+	 *	\throw nothing
+	 */
+	void draw(void)const throw();
 
-        /** \brief move the given element into a new element of children
-         *
-         *	\param target std::unique_ptr<Object> pointer to data which will be transmitted
-         *	\pre target must contain a valid pointer on an object
-         *	\post target is no longer usable
-         *	\post m_children size has increased
-         *	\post last element of m_children contain the pointer target
-         *	\throw can throw if there not enough memory to create the new element. If so, target is not changed and an exception is thrown to inform caller of the problem.
-         */
-		void push_back(std::unique_ptr<Object> target);
+	/** \brief move the given element into a new element of children
+	 *
+	 *	\param target std::unique_ptr<Object> pointer to data which will be transmitted
+	 *	\pre target must contain a valid pointer on an object
+	 *	\post target is no longer usable
+	 *	\post m_children size has increased
+	 *	\post last element of m_children contain the pointer target
+	 *	\throw can throw if there not enough memory to create the new element. If so, target is not changed and an exception is thrown to inform caller of the problem.
+	 */
+	void push_back(std::unique_ptr<Object> target);
 
-		virtual void apply(void)const throw() override;
-		virtual std::unique_ptr<Drawable> clone(void)const override;
-	private:
-		template<class Archive>
-		void serialize(Archive & ar, const unsigned int version)
-		{
-			ar & m_children;
-		}
+	virtual void apply(void)const throw() override;
+	virtual std::unique_ptr<Drawable> clone(void)const override;
+private:
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version)
+	{
+		ar &m_children;
+	}
 
-	public:
-	protected:
-		std::vector<std::unique_ptr<Object>> m_children;
-	private:
+public:
+protected:
+	std::vector<std::unique_ptr<Object>> m_children;
+private:
 };
 
 }

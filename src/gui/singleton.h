@@ -30,12 +30,13 @@ public:
 	static T &GetInstance(void)
 	{
 		if(!m_Instance)
-			m_Instance=new T;
-		return static_cast<T&>(*m_Instance);
+			m_Instance = new T;
+
+		return static_cast<T &>(*m_Instance);
 	}
 protected:
-	Singleton()=default;
-	virtual ~Singleton()=default;
+	Singleton() = default;
+	virtual ~Singleton() = default;
 };
 
 template <class T>

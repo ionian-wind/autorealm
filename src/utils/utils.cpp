@@ -31,12 +31,12 @@
 
 #include <boost/filesystem.hpp>
 
-wxBitmap loadImage(std::string const & fileName)
+wxBitmap loadImage(std::string const &fileName)
 {
 	if(fileName.empty())
 		return wxNullBitmap;
 
-	return wxBitmap(wxImage(AppConfig::buildPath(AppConfig::INFO::GRP_RES)+fileName));
+	return wxBitmap(wxImage(AppConfig::buildPath(AppConfig::INFO::GRP_RES) + fileName));
 }
 
 std::string getPosixConfDir(void)
@@ -44,13 +44,15 @@ std::string getPosixConfDir(void)
 	///\todo find a better solution to follow freeDesktop.org's recommmandations
 	std::string homepath(getenv("HOME"));
 
-	if(boost::filesystem::exists(homepath+"/.autorealm"))
-		return boost::filesystem::path(homepath+".autorealm/").string();
-	else if(boost::filesystem::exists(homepath+"/.config/autorealm"))
-		return boost::filesystem::path(homepath+"/.config/autorealm/").string();
+	if(boost::filesystem::exists(homepath + "/.autorealm"))
+		return boost::filesystem::path(homepath + ".autorealm/").string();
+	else if(boost::filesystem::exists(homepath + "/.config/autorealm"))
+		return boost::filesystem::path(homepath + "/.config/autorealm/").string();
+
 #ifndef WIN32
 	else if(boost::filesystem::exists("/etc/autorealm"))
 		return boost::filesystem::path("/etc/autorealm").string();
+
 #endif
 	throw std::runtime_error("configuration not found");
 }

@@ -30,32 +30,32 @@ class TextFile
 	FILE *m_file;
 
 public:
-    /** \brief open an existing file
-     *
-     *	\param path boost::filesystem::path const& name of the file to open
-     *	\return std::unique_ptr<TextFile> unique pointer to a TextFile object
-     *	\pre given file exists
-     *	\pre given file is a regular file
-     *	\post file is open with cursor located at it's first byte
-     */
+	/** \brief open an existing file
+	 *
+	 *	\param path boost::filesystem::path const& name of the file to open
+	 *	\return std::unique_ptr<TextFile> unique pointer to a TextFile object
+	 *	\pre given file exists
+	 *	\pre given file is a regular file
+	 *	\post file is open with cursor located at it's first byte
+	 */
 	static std::unique_ptr<TextFile> OpenFile(boost::filesystem::path const &path);
 
 	static std::unique_ptr<TextFile> OpenFile(std::string const &directory, std::string const &file);
 
-    /** \brief create and open an inexisting file
-     *
-     *	\param file boost::filesystem::path const& name of the file to open
-     *	\return std::unique_ptr<TextFile> unique pointer to a TextFile object
-     *	\pre file does not exists
-     *	\post file is created
-     *	\post file is open with cursor located at it's first byte
-     */
+	/** \brief create and open an inexisting file
+	 *
+	 *	\param file boost::filesystem::path const& name of the file to open
+	 *	\return std::unique_ptr<TextFile> unique pointer to a TextFile object
+	 *	\pre file does not exists
+	 *	\post file is created
+	 *	\post file is open with cursor located at it's first byte
+	 */
 	static std::unique_ptr<TextFile> CreateFile(boost::filesystem::path const &file);
 
-    /** \brief read an entire line and return it as a std::string
-     *	\return std::string
-     	\post file's cursors has been move to the next line or EOF if it was the last one
-     */
+	/** \brief read an entire line and return it as a std::string
+	 *	\return std::string
+	 	\post file's cursors has been move to the next line or EOF if it was the last one
+	 */
 	std::string readLine(void) throw();
 
 	/** \brief indicate if eof has been reached
@@ -66,17 +66,17 @@ public:
 	 */
 	bool eofReached(void) const;
 
-    /** \brief Dtor. Close file correctly. */
+	/** \brief Dtor. Close file correctly. */
 	~TextFile();
 
-    /** \brief return name of opened file */
+	/** \brief return name of opened file */
 	std::string getFileName(void)const throw();
 protected:
-    /** \brief Ctor
-     *	\param path and namefile of the file
-     *	\param flag to know if we want to create a new file or not
-     */
-	TextFile(boost::filesystem::path const &file, bool create=false);
+	/** \brief Ctor
+	 *	\param path and namefile of the file
+	 *	\param flag to know if we want to create a new file or not
+	 */
+	TextFile(boost::filesystem::path const &file, bool create = false);
 };
 
 #endif // TEXTFILE_H

@@ -31,11 +31,11 @@
 #include <boost/filesystem.hpp>
 
 Splash::Splash()
-:wxFrame(nullptr,-1,"")
+	: wxFrame(nullptr, -1, "")
 {
-	if(exists(boost::filesystem::path(AppConfig::buildPath(AppConfig::GRP_RES)+"splash/splash.png")))
+	if(exists(boost::filesystem::path(AppConfig::buildPath(AppConfig::GRP_RES) + "splash/splash.png")))
 	{
-		wxBoxSizer* BoxSizer1=new wxBoxSizer(wxHORIZONTAL);
+		wxBoxSizer *BoxSizer1 = new wxBoxSizer(wxHORIZONTAL);
 		m_splash = new wxStaticBitmap(this, ID(), loadImage("splash/splash.png"));///\todo move this string into a configuration file
 		BoxSizer1->Add(m_splash);
 		SetSizer(BoxSizer1);

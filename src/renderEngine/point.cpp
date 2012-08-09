@@ -26,33 +26,33 @@ namespace Render
 {
 
 Point::Point(double x, double y, double z) throw()
-:m_x(x),m_y(y),m_z(z)
+	: m_x(x), m_y(y), m_z(z)
 {
 }
 
 void Point::createVertice(void)const throw()
 {
 	///\todo make this inline
-	glVertex3d(m_x,m_y,m_z);
+	glVertex3d(m_x, m_y, m_z);
 }
 
-Point& Point::operator+=(Point const&p) throw()
+Point &Point::operator+=(Point const &p) throw()
 {
-	m_x+=p.m_x;
-	m_y+=p.m_y;
-	m_z+=p.m_z;
+	m_x += p.m_x;
+	m_y += p.m_y;
+	m_z += p.m_z;
 	return *this;
 }
 
-bool Point::operator==(Point const&p)const throw()
+bool Point::operator==(Point const &p)const throw()
 {
-	return m_x==p.m_x && m_y==p.m_y && m_z==p.m_z;
+	return m_x == p.m_x && m_y == p.m_y && m_z == p.m_z;
 }
 
-Point operator+(Point const& p1, Point const& p2) throw()
+Point operator+(Point const &p1, Point const &p2) throw()
 {
 	Point p(p1);
-	p+=p2;
+	p += p2;
 	return p;
 }
 

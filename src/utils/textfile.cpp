@@ -25,36 +25,40 @@
 std::unique_ptr<TextFile> TextFile::OpenFile(boost::filesystem::path const &file)
 {
 	if(!exists(file))
-		throw std::runtime_error("File "+file.string()+" does not exists.");
+		throw std::runtime_error("File " + file.string() + " does not exists.");
+
 	if(!is_regular_file(file))
-		throw std::runtime_error("File "+file.string()+" is not a regular file.");
+		throw std::runtime_error("File " + file.string() + " is not a regular file.");
+
 	return std::unique_ptr<TextFile>(new TextFile(file));
 }
 
 std::unique_ptr<TextFile> TextFile::OpenFile(std::string const &directory, std::string const &file)
 {
-	return TextFile::OpenFile(boost::filesystem::path (directory+file));
+	return TextFile::OpenFile(boost::filesystem::path(directory + file));
 }
 
 std::unique_ptr<TextFile> TextFile::CreateFile(boost::filesystem::path const &file)
 {
 	if(exists(file))
-		throw std::runtime_error("File "+file.string()+" already exists.");
-	return std::unique_ptr<TextFile>(new TextFile(file,true));
+		throw std::runtime_error("File " + file.string() + " already exists.");
+
+	return std::unique_ptr<TextFile>(new TextFile(file, true));
 }
 
 std::string TextFile::readLine(void) throw()
 {
 	std::string result;
 	char c;
+
 	do
 	{
 		result.push_back(fgetc(m_file));
-		c=result.back();
+		c = result.back();
 	}
-	while(!feof(m_file) && c!='\n' && c!='\r');//!\note should be fine on MacOS and Linux. Problems could happens with MS Windows, because EoL uses both.
-	result.resize(result.size()-1);
+	while(!feof(m_file) && c != '\n' && c != '\r'); //!\note should be fine on MacOS and Linux. Problems could happens with MS Windows, because EoL uses both.
 
+	result.resize(result.size() - 1);
 	return result;
 }
 
@@ -71,11 +75,10 @@ bool TextFile::eofReached(void) const
 
 	easy to implement, but need to check that a file can be opened twice in standard
 	*/
-	long int current_pos=ftell(m_file);
-
-	fseek(m_file,0,SEEK_END);
-	bool result=current_pos==ftell(m_file);
-	fseek(m_file,current_pos,SEEK_SET);
+	long int current_pos = ftell(m_file);
+	fseek(m_file, 0, SEEK_END);
+	bool result = current_pos == ftell(m_file);
+	fseek(m_file, current_pos, SEEK_SET);
 	return result;
 }
 
@@ -90,11 +93,13 @@ std::string TextFile::getFileName(void)const throw()
 }
 
 TextFile::TextFile(boost::filesystem::path const &file, bool create)
-:m_filePath(file)
+	: m_filePath(file)
 {
 	if(create)
-		m_file=fopen(m_filePath.string().c_str(),"w");
-	m_file=fopen(m_filePath.string().c_str(),"r");
+		m_file = fopen(m_filePath.string().c_str(), "w");
+
+	m_file = fopen(m_filePath.string().c_str(), "r");
+
 	if(!m_file)
-		throw std::runtime_error("could not open file "+m_filePath.string());
+		throw std::runtime_error("could not open file " + m_filePath.string());
 }

@@ -28,53 +28,59 @@
 #include <renderEngine/group.h>
 #include <renderEngine/color.h>
 
-class RenderWindow : public Render::Group,public wxGLCanvas
+class RenderWindow : public Render::Group, public wxGLCanvas
 {
-    friend class boost::serialization::access;
+	friend class boost::serialization::access;
 
-    wxGLContext * m_context;
-    Render::Color m_borderColor;
-    Render::Color m_fillerColor;
-    GLdouble m_xo=0, m_yo=0; //! origin for x and y axes
-    GLdouble m_xm, m_ym;//! maximum for x and y axes
+	wxGLContext *m_context;
+	Render::Color m_borderColor;
+	Render::Color m_fillerColor;
+	GLdouble m_xo = 0, m_yo = 0; //! origin for x and y axes
+	GLdouble m_xm, m_ym;//! maximum for x and y axes
 
 public:
 	/** \brief event manager for drawing requests
-     *	\param wxEvent&ev
-     */
-    void onDraw(wxEvent&ev);
+	 *	\param wxEvent&ev
+	 */
+	void onDraw(wxEvent &ev);
 
-    /** \brief Ctor
-     *
-     * \param parent wxFrame* parent window
-     * \param args int* arguments for wxGLCanvas
-     * \param border Color const&
-     * \param filler Color const&
-     */
-    RenderWindow(wxFrame* parent, int* args, Render::Color const &border, Render::Color const &filler);
+	/** \brief Ctor
+	 *
+	 * \param parent wxFrame* parent window
+	 * \param args int* arguments for wxGLCanvas
+	 * \param border Color const&
+	 * \param filler Color const&
+	 */
+	RenderWindow(wxFrame *parent, int *args, Render::Color const &border, Render::Color const &filler);
 
-    /** Destructor */
-    ~RenderWindow(void) throw();
+	/** Destructor */
+	~RenderWindow(void) throw();
 
-    /** \brief prepare the opengl drawing */
+	/** \brief prepare the opengl drawing */
 	void startRendering(void);
 	/** \brief apply the drawing and clean OpenGL buffers */
-    void finalizeRendering(void);
+	void finalizeRendering(void);
 
-	Render::Color getBorderColor(void)const throw(){return m_borderColor;}
-	Render::Color getFillerColor(void)const throw(){return m_fillerColor;}
+	Render::Color getBorderColor(void)const throw()
+	{
+		return m_borderColor;
+	}
+	Render::Color getFillerColor(void)const throw()
+	{
+		return m_fillerColor;
+	}
 private:
 	template<class Archive>
-    /** \brief allow the object to be serialized
-     *	\note is it really interesting to restore last selected colors?
-     *	\param ar Archive&
-     *	\param version const unsignedint
-     */
-    void serialize(Archive & ar, const unsigned int version)
-    {
-        ar & m_borderColor;
-        ar & m_fillerColor;
-    }
+	/** \brief allow the object to be serialized
+	 *	\note is it really interesting to restore last selected colors?
+	 *	\param ar Archive&
+	 *	\param version const unsignedint
+	 */
+	void serialize(Archive &ar, const unsigned int version)
+	{
+		ar &m_borderColor;
+		ar &m_fillerColor;
+	}
 
 };
 #endif

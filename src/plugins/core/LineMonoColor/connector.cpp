@@ -22,7 +22,8 @@
 #include "linemonocolor.h"
 
 PLUMA_CONNECTOR
-bool connect(pluma::Host& host){
-    host.add( new LineMonoColorProvider() );
-    return true;
+bool connect(pluma::Host &host)
+{
+	host.add(new LineMonoColorProvider());
+	return true;
 }

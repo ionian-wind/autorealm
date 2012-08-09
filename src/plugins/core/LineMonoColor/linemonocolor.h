@@ -25,9 +25,9 @@
 
 class LineMonoColor : public Drawer
 {
-	public:
-		virtual void draw(Render::Vertex const &v)const override;
-		virtual std::unique_ptr<Drawer> clone(void)const override;
+public:
+	virtual void draw(Render::Vertex const &v)const override;
+	virtual std::unique_ptr<Drawer> clone(void)const override;
 };
 
 PLUMA_INHERIT_PROVIDER(LineMonoColor, Plugin);

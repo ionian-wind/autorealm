@@ -19,7 +19,7 @@
  **********************************************************************************/
 
 template <class T>
-Iterator<T>& Iterator<T>::operator++(void)
+Iterator<T> &Iterator<T>::operator++(void)
 {
 	++m_position;
 	goDeeper();
@@ -27,24 +27,24 @@ Iterator<T>& Iterator<T>::operator++(void)
 }
 
 template <class T>
-Iterator<T>::Iterator(Iterator<T> const& other)=default;
+Iterator<T>::Iterator(Iterator<T> const &other) = default;
 //:m_owner(other.m_owner), m_position(other.m_position), m_ancestors(other.m_ancestors)
 //{
 //}
 
 template <class T>
-Iterator<T>& Iterator<T>::operator=(Iterator<T> const& other)
+Iterator<T> &Iterator<T>::operator=(Iterator<T> const &other)
 {
 	Iterator<T> me(other);
-	std::swap(me,*this);
+	std::swap(me, *this);
 	return *this;
 }
 
 template <class T>
 Iterator<T> Iterator<T>::begin_of(Composite<T> *owner)
 {
-	Iterator<T> *it=new Iterator<T>(owner);
-	it->m_position=owner->m_components.begin();
+	Iterator<T> *it = new Iterator<T>(owner);
+	it->m_position = owner->m_components.begin();
 	it->goDeeper();
 	return *it;
 }
@@ -52,32 +52,32 @@ Iterator<T> Iterator<T>::begin_of(Composite<T> *owner)
 template <class T>
 Iterator<T> Iterator<T>::end_of(Composite<T> *owner)
 {
-	Iterator<T> *it=new Iterator<T>(owner);
-	it->m_position=owner->m_components.end();
+	Iterator<T> *it = new Iterator<T>(owner);
+	it->m_position = owner->m_components.end();
 	it->goUpper();
 	return *it;
 }
 
 template <class T>
 Iterator<T>::Iterator(Composite<T> *owner)
-:m_owner(owner)
+	: m_owner(owner)
 {
 }
 
 template <class T>
-bool Iterator<T>::operator!=(Iterator<T> const&other)const
+bool Iterator<T>::operator!=(Iterator<T> const &other)const
 {
-	return (m_owner!=other.m_owner) || (m_position!=other.m_position);
+	return (m_owner != other.m_owner) || (m_position != other.m_position);
 }
 
 template <class T>
-Component<T>* Iterator<T>::operator->(void)
+Component<T> *Iterator<T>::operator->(void)
 {
 	return m_position->get();
 }
 
 template <class T>
-Component<T>& Iterator<T>::operator*(void)
+Component<T> &Iterator<T>::operator*(void)
 {
 	return *(m_position->get());
 }
@@ -92,9 +92,9 @@ void Iterator<T>::goDeeper(void)
 		goUpper();
 	else if(isComposite())
 	{
-		m_ancestors.push(std::make_pair(m_owner,m_position));
-		m_owner=static_cast<Composite<T>*>(m_position->get());
-		m_position=m_owner->m_components.begin();
+		m_ancestors.push(std::make_pair(m_owner, m_position));
+		m_owner = static_cast<Composite<T>*>(m_position->get());
+		m_position = m_owner->m_components.begin();
 		goDeeper();
 	}
 }
@@ -104,8 +104,8 @@ void Iterator<T>::goUpper(void)
 {
 	if(isEndOfLevel() && !m_ancestors.empty())
 	{
-		m_owner=m_ancestors.top().first;
-		m_position=m_ancestors.top().second;
+		m_owner = m_ancestors.top().first;
+		m_position = m_ancestors.top().second;
 		m_ancestors.pop();
 		operator++();
 		goUpper();
@@ -115,11 +115,11 @@ void Iterator<T>::goUpper(void)
 template <class T>
 bool Iterator<T>::isComposite(void)const
 {
-	return typeid(*m_position->get())==typeid(Composite<T>);
+	return typeid(*m_position->get()) == typeid(Composite<T>);
 }
 
 template <class T>
 bool Iterator<T>::isEndOfLevel(void)const
 {
-	return m_position==m_owner->m_components.end();
+	return m_position == m_owner->m_components.end();
 }

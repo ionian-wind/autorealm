@@ -33,64 +33,65 @@
 
 const long MainFrame::ID_NOTEBOOK = wxNewId();
 
-MainFrame::MainFrame(wxWindow *parent,wxWindowID id,std::string const &title)
-:wxFrame(parent,id,title)
-,m_menuTree(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)))
+MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
+	: wxFrame(parent, id, title)
+	, m_menuTree(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)))
 {
-    m_auiManager.SetManagedWindow(this);
-    m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
-
-//add first page to notebook
-    int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
-	RenderWindow *first=new RenderWindow((wxFrame*)m_auiNotebookWorkspace,args,
-										 Render::Color(0,0,0,1),Render::Color(0,1,0,1)///\todo remove those constants. Maybe use a config file entry?
-										);
-    m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
+	m_auiManager.SetManagedWindow(this);
+	m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
+	//add first page to notebook
+	int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
+	RenderWindow *first =
+		new RenderWindow((wxFrame *)m_auiNotebookWorkspace,
+						 args,
+						 Render::Color(0, 0, 0, 1),
+						 Render::Color(0, 1, 0, 1) ///\todo remove those constants. Maybe use a config file entry?
+						);
+	m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
 	m_plans.push_back(first);
-    m_active=m_plans.begin();
-
-    m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Center());
-    m_auiManager.Update();
-
+	m_active = m_plans.begin();
+	m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Center());
+	m_auiManager.Update();
 	m_actionPlugIn.acceptProviderType<PluginProvider>();
 	m_menuTree.buildMenu(boost::filesystem::path(AppConfig::buildPath(AppConfig::MENU)));
-
 	loadRequestedPlugins();
-
 	m_menuTree.create();
 	SetMenuBar(m_menuTree.getMenuBar());
-
 	m_auiManager.Update();
 }
 
 MainFrame::~MainFrame(void)
 {
-	for(auto &i:m_plugins)///\todo find a way to let unique_ptr<> do the delete job when destroyed by vector's destruction
+	for(auto & i : m_plugins) ///\todo find a way to let unique_ptr<> do the delete job when destroyed by vector's destruction
 		i.second.reset();
 
 	m_auiManager.UnInit();
 }
 
-void MainFrame::changeSelectedPlugin(wxCommandEvent& event)
+void MainFrame::changeSelectedPlugin(wxCommandEvent &event)
 {
-	static int oldId=0;
+	static int oldId = 0;
+
 	if(oldId)///\todo and what if it was the first plugin loaded?
 		m_plugins[oldId]->removeEventManager();
-	oldId=event.GetId();
+
+	oldId = event.GetId();
 	m_plugins[oldId]->installEventManager(**m_active);
 }
 
 void MainFrame::loadRequestedPlugins(void)
 {
-	for(auto &i:m_menuTree)//only browse leaves
+	for(auto & i : m_menuTree) //only browse leaves
 	{
-		std::string plugName=i.getPluginName();
-		auto jt=m_buttonIDs.find(plugName);
-		if(jt==m_buttonIDs.end())// plugin is not loaded? Try to load it.
+		std::string plugName = i.getPluginName();
+		auto jt = m_buttonIDs.find(plugName);
+
+		if(jt == m_buttonIDs.end()) // plugin is not loaded? Try to load it.
 		{
 			assert(!m_actionPlugIn.isLoaded(plugName));//!\note should never load twice the same plugin. Could be in pluma...
-			PluginProvider* plugProvider=getProvider<PluginProvider>(m_actionPlugIn,AppConfig::buildPath(AppConfig::PLUGINS),plugName);
-			if(nullptr!=plugProvider)
+			PluginProvider *plugProvider = getProvider<PluginProvider>(m_actionPlugIn, AppConfig::buildPath(AppConfig::PLUGINS), plugName);
+
+			if(nullptr != plugProvider)
 			{
 				ID tmp(m_buttonIDs[plugName]);// avoid searching twice in the map
 				m_plugins[tmp].reset(plugProvider->create());
@@ -99,11 +100,13 @@ void MainFrame::loadRequestedPlugins(void)
 			else
 				i.disable();
 		}
+
 		if(i.isEnabled())
 		{
-			jt=m_buttonIDs.find(plugName);
-			if(jt!=m_buttonIDs.end())// plugin loaded? Bind it.
-				Bind(wxEVT_COMMAND_MENU_SELECTED,&MainFrame::changeSelectedPlugin,this,jt->second,jt->second);
+			jt = m_buttonIDs.find(plugName);
+
+			if(jt != m_buttonIDs.end()) // plugin loaded? Bind it.
+				Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::changeSelectedPlugin, this, jt->second, jt->second);
 		}
 	}
 }

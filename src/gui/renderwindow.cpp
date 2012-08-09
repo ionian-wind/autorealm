@@ -28,21 +28,20 @@
 #include <renderEngine/vertex.h>
 #include <renderEngine/shape.h>
 
-void RenderWindow::onDraw(wxEvent&ev)
+void RenderWindow::onDraw(wxEvent &ev)
 {
 	startRendering();
 	draw();
 	finalizeRendering();
 }
 
-RenderWindow::RenderWindow(wxFrame* parent, int* args, Render::Color const &border, Render::Color const &filler)
-    :wxGLCanvas(parent,wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
-    ,m_borderColor(border),m_fillerColor(filler)
+RenderWindow::RenderWindow(wxFrame *parent, int *args, Render::Color const &border, Render::Color const &filler)
+	: wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
+	, m_borderColor(border), m_fillerColor(filler)
 {
 	m_context = new wxGLContext(this);
-    // To avoid flashing on MSW
-    SetBackgroundStyle(wxBG_STYLE_CUSTOM);
-
+	// To avoid flashing on MSW
+	SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 	Bind(wxEVT_PAINT, &RenderWindow::onDraw, this);
 }
 
@@ -53,38 +52,33 @@ RenderWindow::~RenderWindow(void) throw()
 
 void RenderWindow::startRendering(void)
 {
-	int w,h;
-	GetSize(&w,&h);
+	int w, h;
+	GetSize(&w, &h);
 
-    if(!IsShown())
-        return;
+	if(!IsShown())
+		return;
 
-    SetCurrent(*m_context);
+	SetCurrent(*m_context);
 	wxClientDC(this);
-
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // White Background
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glEnable(GL_TEXTURE_2D);   // textures
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_BLEND);
-    glEnable(GL_DEPTH_TEST);
-    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-
-    glViewport(0, 0, w, h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-	m_xm=w;
-	m_ym=h;
-    gluOrtho2D(m_xo, m_xm, m_yo, m_ym);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // White Background
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_TEXTURE_2D);   // textures
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	m_xm = w;
+	m_ym = h;
+	gluOrtho2D(m_xo, m_xm, m_yo, m_ym);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 }
 
 void RenderWindow::finalizeRendering(void)
 {
-    glFlush();
-    SwapBuffers();
+	glFlush();
+	SwapBuffers();
 }

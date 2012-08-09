@@ -31,14 +31,15 @@ void Group::accept(Mutator &v)
 {
 	///\todo find a solution to use std::for_each
 	v.visit(*this);
-	for(auto &i:m_children)
+
+	for(auto & i : m_children)
 		i->accept(v);
 }
 
 void Group::draw(void)const throw()
 {
-	for(auto it=m_children.rbegin();it!=m_children.rend();++it)
-//		auto &i:m_children)
+	for(auto it = m_children.rbegin(); it != m_children.rend(); ++it)
+		//		auto &i:m_children)
 		(*it)->draw();
 }
 
@@ -59,10 +60,10 @@ std::unique_ptr<Drawable> Group::clone(void)const
 }
 
 Group::Group(Group const &g)
-:m_children()
+	: m_children()
 {
-	for(auto &i : g.m_children)
-		m_children.push_back(std::move(std::unique_ptr<Group>(dynamic_cast<Group*>(i->clone().get()))));
+	for(auto & i : g.m_children)
+		m_children.push_back(std::move(std::unique_ptr<Group>(dynamic_cast<Group *>(i->clone().get()))));
 }
 
 }

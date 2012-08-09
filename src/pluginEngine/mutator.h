@@ -26,22 +26,29 @@
 #include <renderEngine/point.h>
 #include <assert.h>
 
-namespace Render{
+namespace Render
+{
 class Group;
 class Shape;
 }
 
 class Mutator: public Plugin
 {
-	public:
-		virtual void installEventManager(RenderWindow & target) throw() override{assert(0);};
-		virtual void removeEventManager(void) throw() override{assert(0);};
+public:
+	virtual void installEventManager(RenderWindow &target) throw() override
+	{
+		assert(0);
+	};
+	virtual void removeEventManager(void) throw() override
+	{
+		assert(0);
+	};
 
-		virtual void visit(Render::Group& v)=0;
-		virtual void visit(Render::Shape& v)=0;
-	protected:
-		Render::Point m_distance;
-	private:
+	virtual void visit(Render::Group &v) = 0;
+	virtual void visit(Render::Shape &v) = 0;
+protected:
+	Render::Point m_distance;
+private:
 };
 
 #endif // VISITOR_H

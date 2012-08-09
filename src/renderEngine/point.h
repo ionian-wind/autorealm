@@ -29,39 +29,41 @@ namespace Render
 class Point
 {
 	friend class boost::serialization::access;
-	public:
-		double m_x,m_y,m_z;
-        /** \brief default Ctor */
-		Point() throw() =default;
-        /** \brief Constructor with initialization of coordinates
-         *	\param x double
-         *	\param y double
-         *	\param z double
-         *	\throw nothing
-         */
-		Point(double x, double y, double z) throw();
-        /** \brief simply encapsulate glVertex to avoid direct calls to openGL
-         *	\throw nothing
-         */
-		void createVertice(void)const throw();
-        /** \brief increment a vertex with the value of another
-         *	\param const&p1 Point vertex to add
-         *	\return Point& reference to this
-         *	\throw nothing
-         */
-		Point& operator+=(Point const&p1) throw();
-        /** \brief test if two vertices are identical
-         * \param const&p Point vertex to compare to this
-         * \return bool true if vertices are the same
-         */
-		bool operator==(Point const&p)const throw();
-	protected:
-	private:
-		template<class Archive>
-		void serialize(Archive & ar, const unsigned int version)
-		{
-			ar & m_x;ar&m_y;ar&m_z;
-		}
+public:
+	double m_x, m_y, m_z;
+	/** \brief default Ctor */
+	Point() throw() = default;
+	/** \brief Constructor with initialization of coordinates
+	 *	\param x double
+	 *	\param y double
+	 *	\param z double
+	 *	\throw nothing
+	 */
+	Point(double x, double y, double z) throw();
+	/** \brief simply encapsulate glVertex to avoid direct calls to openGL
+	 *	\throw nothing
+	 */
+	void createVertice(void)const throw();
+	/** \brief increment a vertex with the value of another
+	 *	\param const&p1 Point vertex to add
+	 *	\return Point& reference to this
+	 *	\throw nothing
+	 */
+	Point &operator+=(Point const &p1) throw();
+	/** \brief test if two vertices are identical
+	 * \param const&p Point vertex to compare to this
+	 * \return bool true if vertices are the same
+	 */
+	bool operator==(Point const &p)const throw();
+protected:
+private:
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version)
+	{
+		ar &m_x;
+		ar &m_y;
+		ar &m_z;
+	}
 
 };
 
@@ -70,7 +72,7 @@ class Point
  *	\return Point copy of the resulting vertex
  *	\throw nothing
  */
-Point operator+(Point const&p1, Point const&p2) throw();
+Point operator+(Point const &p1, Point const &p2) throw();
 
 }
 

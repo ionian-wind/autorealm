@@ -33,20 +33,20 @@ namespace Render
 /** \brief Ancestor of Shape and Group. It only provides an interface for composite and visitor patterns */
 class Object: public Drawable
 {
-	public:
-        /** \brief apply an algorithm on the object
-         *	\param v Mutator& algo to apply
-         */
-		virtual void accept(Mutator &v)=0;
-        /** \brief draw the object
-         *	\throw nothing
-         */
-		virtual void draw(void)const throw() =0;
-		virtual ~Object(void) throw() =default;
-	private:
-		template<class Archive>
-		void serialize(Archive & ar, const unsigned int version);
-	private:
+public:
+	/** \brief apply an algorithm on the object
+	 *	\param v Mutator& algo to apply
+	 */
+	virtual void accept(Mutator &v) = 0;
+	/** \brief draw the object
+	 *	\throw nothing
+	 */
+	virtual void draw(void)const throw() = 0;
+	virtual ~Object(void) throw() = default;
+private:
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version);
+private:
 };
 
 }

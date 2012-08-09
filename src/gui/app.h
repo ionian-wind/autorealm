@@ -1,6 +1,6 @@
 /**********************************************************************************
  *autorealm - A vectorized graphic editor to create maps, mostly for RPG games    *
- *Copyright (C) 2012 Morel Bérenger                                               *
+ *Copyright (C) 2012 Morel BÃ©renger                                               *
  *                                                                                *
  *This file is part of autorealm.                                                 *
  *                                                                                *
@@ -27,9 +27,9 @@ class MainFrame;
 
 class App : public wxApp
 {
-    MainFrame * m_app;
+	MainFrame *m_app;
 public:
-    virtual bool OnInit();
-    App(void)=default;
+	virtual bool OnInit();
+	App(void) = default;
 };
 #endif
