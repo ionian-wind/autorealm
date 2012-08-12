@@ -22,13 +22,13 @@
 
 #include <shape.h>
 #include <renderwindow.h>
-#include <id.h>
 
 #include <wx/menu.h>
 
-const int Menu_Popup_OpenFig = ID(); //!todo remove global variables
-const int Menu_Popup_CloseFig = ID(); //!todo remove global variables
-const int Menu_Popup_UseShift = ID(); //!todo remove global variables
+Drawer::~Drawer(void)throw()
+{
+	delete m_shape;
+}
 
 void Drawer::installEventManager(RenderWindow &target) throw()
 {
@@ -37,8 +37,8 @@ void Drawer::installEventManager(RenderWindow &target) throw()
 	createShape();
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
-	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createOpenedFigure, this, Menu_Popup_OpenFig, Menu_Popup_OpenFig);
-	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createClosedFigure, this, Menu_Popup_CloseFig, Menu_Popup_CloseFig);
+	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createOpenedFigure, this, m_menuIds[0], m_menuIds[0]);
+	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createClosedFigure, this, m_menuIds[1], m_menuIds[1]);
 }
 
 void Drawer::removeEventManager(void) throw()
@@ -92,10 +92,10 @@ void Drawer::contextMenu(wxContextMenuEvent &event)
 
 	wxMenu menu;
 
-	menu.Append(Menu_Popup_OpenFig, wxT("Create &Open Figure"));
-	menu.Append(Menu_Popup_CloseFig, wxT("Create &Closed Figure"));
+	menu.Append(m_menuIds[0], wxT("Create &Open Figure"));
+	menu.Append(m_menuIds[1], wxT("Create &Closed Figure"));
 	menu.AppendSeparator();
-	menu.Append(Menu_Popup_UseShift, wxT("Suppress this menu and use &Shift for Closed Figures"));
+	menu.Append(m_menuIds[2], wxT("Suppress this menu and use &Shift for Closed Figures"));
 
 	m_target->PopupMenu(&menu, point);
 }

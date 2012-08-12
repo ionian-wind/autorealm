@@ -23,8 +23,13 @@
 
 #include <memory>
 
-#include <point.h>
-#include <shape.h>
+#include <gui/id.h>
+
+namespace Render
+{
+	class Vertex;
+	class Shape;
+}
 
 #include "plugin.h"
 
@@ -35,7 +40,10 @@ class wxCommandEvent;
 
 class Drawer : public Plugin
 {
+	ID m_menuIds[3];
 public:
+	Drawer(void)=default;
+	virtual ~Drawer(void)throw();
 	virtual void installEventManager(RenderWindow &target) throw() override;
 	virtual void removeEventManager(void) throw() override;
 	void leftClick(wxMouseEvent &event);
