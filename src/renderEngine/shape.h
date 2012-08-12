@@ -58,6 +58,7 @@ public:
 	 *	\param const&target Vertex vertex to add.
 	 */
 	void push_back(Vertex const &target);
+	void pop(void)throw();
 
 	/** \brief change the drawable used to fill the shape
 	 *	\note a copy of the drawable is used

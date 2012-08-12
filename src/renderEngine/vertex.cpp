@@ -46,6 +46,7 @@ Vertex::~Vertex(void) throw()
 {
 	///\todo make it inline
 	m_drawer.reset(); //!\todo fix a crash which happens sometimes here (application closing)
+	// the crash could be caused by multiple deletion of the same drawer. Is the clone method alright?
 }
 
 void Vertex::set(Point const &end, Drawable const *drawable, std::unique_ptr<Drawer> drawer) throw()

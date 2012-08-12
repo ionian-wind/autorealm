@@ -73,6 +73,11 @@ void Shape::push_back(Vertex const &target)
 	m_children.push_back(target);
 }
 
+void Shape::pop(void)throw()
+{
+	m_children.pop_back();
+}
+
 void Shape::setFiller(Drawable const *d) throw()
 {
 	m_filler = d->clone();
