@@ -22,7 +22,7 @@
 
 #include <stdio.h>
 
-std::unique_ptr<TextFile> TextFile::OpenFile(boost::filesystem::path const &file)
+TextFile TextFile::OpenFile(boost::filesystem::path const &file)
 {
 	if(!exists(file))
 		throw std::runtime_error("File " + file.string() + " does not exists.");
@@ -30,20 +30,20 @@ std::unique_ptr<TextFile> TextFile::OpenFile(boost::filesystem::path const &file
 	if(!is_regular_file(file))
 		throw std::runtime_error("File " + file.string() + " is not a regular file.");
 
-	return std::unique_ptr<TextFile>(new TextFile(file));
+	return TextFile(file);
 }
 
-std::unique_ptr<TextFile> TextFile::OpenFile(std::string const &directory, std::string const &file)
+TextFile TextFile::OpenFile(std::string const &directory, std::string const &file)
 {
 	return TextFile::OpenFile(boost::filesystem::path(directory + file));
 }
 
-std::unique_ptr<TextFile> TextFile::CreateFile(boost::filesystem::path const &file)
+TextFile TextFile::CreateFile(boost::filesystem::path const &file)
 {
 	if(exists(file))
 		throw std::runtime_error("File " + file.string() + " already exists.");
 
-	return std::unique_ptr<TextFile>(new TextFile(file, true));
+	return TextFile(file, true);
 }
 
 std::string TextFile::readLine(void) throw()

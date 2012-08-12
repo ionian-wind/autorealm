@@ -27,14 +27,11 @@
 AppConfig::AppConfig()
 {
 	// guess the directory where configuration is stored
-	std::unique_ptr<TextFile> rootConfigFile;
-	// read global configuration
-	///\todo split
-	rootConfigFile = TextFile::OpenFile(getPosixConfDir(), "config");
+	TextFile rootConfigFile(TextFile::OpenFile(getPosixConfDir(), "config"));
 
 	///\todo support incomplete file
-	for(uint8_t i = GRP_RES; i < LASTINDEX && !rootConfigFile->eofReached(); ++i)
-		m_datas.push_back(rootConfigFile->readLine());
+	for(uint8_t i = GRP_RES; i < LASTINDEX && !rootConfigFile.eofReached(); ++i)
+		m_datas.push_back(rootConfigFile.readLine());
 }
 
 std::string AppConfig::buildPath(INFO info)

@@ -38,9 +38,9 @@ public:
 	 *	\pre given file is a regular file
 	 *	\post file is open with cursor located at it's first byte
 	 */
-	static std::unique_ptr<TextFile> OpenFile(boost::filesystem::path const &path);
+	static TextFile OpenFile(boost::filesystem::path const &path);
 
-	static std::unique_ptr<TextFile> OpenFile(std::string const &directory, std::string const &file);
+	static TextFile OpenFile(std::string const &directory, std::string const &file);
 
 	/** \brief create and open an inexisting file
 	 *
@@ -50,7 +50,7 @@ public:
 	 *	\post file is created
 	 *	\post file is open with cursor located at it's first byte
 	 */
-	static std::unique_ptr<TextFile> CreateFile(boost::filesystem::path const &file);
+	static TextFile CreateFile(boost::filesystem::path const &file);
 
 	/** \brief read an entire line and return it as a std::string
 	 *	\return std::string

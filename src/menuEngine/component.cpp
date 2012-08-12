@@ -19,9 +19,9 @@
  **********************************************************************************/
 
 template <class T>
-void Component<T>::loadConfiguration(std::unique_ptr<TextFile> &file)
+void Component<T>::loadConfiguration(TextFile &file)
 {
-	m_name = file->readLine();
+	m_name = file.readLine();
 }
 
 template <class T>

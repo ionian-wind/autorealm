@@ -41,7 +41,7 @@ public:
 	void disable(bool disable = true);
 	bool isEnabled(void)const;
 protected:
-	void virtual loadConfiguration(std::unique_ptr<TextFile> &file);
+	void virtual loadConfiguration(TextFile &file);
 private:
 	std::string m_name;
 	bool m_enable = true;
@@ -107,7 +107,7 @@ class Leaf : public Component<T>
 public:
 	virtual ~Leaf() throw() = default;
 protected:
-	Leaf(std::unique_ptr<TextFile> file)
+	Leaf(TextFile file)
 	{
 		Component<T>::loadConfiguration(file);
 	}

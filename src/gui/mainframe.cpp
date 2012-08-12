@@ -62,7 +62,7 @@ MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 
 MainFrame::~MainFrame(void)
 {
-	for(auto & i : m_plugins) ///\todo find a way to let unique_ptr<> do the delete job when destroyed by vector's destruction
+	for(auto & i : m_plugins)
 		i.second.reset();
 
 	m_auiManager.UnInit();
