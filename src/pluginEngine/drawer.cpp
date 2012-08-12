@@ -132,22 +132,6 @@ void Drawer::finalizeShape(wxCommandEvent &event)
 	m_target->Unbind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 }
 
-void Drawer::closer(wxCommandEvent &event)
-{
-	m_shape->close();
-	adder(event);
-}
-
-void Drawer::adder(wxCommandEvent &event)
-{
-	removeEventManager();
-	render();
-}
-
-void Drawer::shifter(wxCommandEvent &event)
-{
-}
-
 void Drawer::createShape(void)
 {
 	assert(nullptr==m_shape);

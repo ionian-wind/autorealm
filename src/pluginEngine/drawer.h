@@ -66,9 +66,6 @@ public:
 	virtual void draw(Render::Vertex const &v)const = 0;
 	virtual std::unique_ptr<Drawer> clone(void)const = 0;
 protected:
-	void closer(wxCommandEvent &event);
-	void adder(wxCommandEvent &event);
-	void shifter(wxCommandEvent &event);
 	void createShape(void);
 };
 
