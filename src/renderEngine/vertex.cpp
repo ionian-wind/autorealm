@@ -94,10 +94,10 @@ Vertex Vertex::clone(void)const
 	return Vertex(m_point, m_drawable->clone(), m_drawer->clone());
 }
 
-std::unique_ptr<Drawable> Vertex::getDrawable(void)const throw()
+Drawable& Vertex::getDrawable(void)const throw()
 {
 	///\todo make it inline
-	return std::unique_ptr<Drawable>(m_drawable->clone());
+	return *m_drawable;
 }
 
 void Vertex::setDrawable(Drawable const *d) throw()

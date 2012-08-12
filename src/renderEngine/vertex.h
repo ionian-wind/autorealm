@@ -97,7 +97,7 @@ public:
 	 *	\return Drawable*
 	 *	\throw nothing
 	 */
-	std::unique_ptr<Drawable> getDrawable(void)const throw();
+	Drawable& getDrawable(void)const throw();
 	/** \brief change the drawable to a copy of d
 	 *	\param d Drawable const*
 	 *	\throw nothing

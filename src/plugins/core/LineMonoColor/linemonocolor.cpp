@@ -30,7 +30,7 @@ LineMonoColor::LineMonoColor(LineMonoColor const &other)
 void LineMonoColor::draw(Render::Vertex const &v)const
 {
 	v.getEnd().createVertice();
-	v.getDrawable()->apply();
+	v.getDrawable().apply();
 	v.getEnd().createVertice();
 }
 
