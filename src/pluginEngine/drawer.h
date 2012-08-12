@@ -53,7 +53,7 @@ public:
 	void firstPoint(wxMouseEvent &event);
 	void secondPoint(wxMouseEvent &event);
 
-	void leftClick(wxMouseEvent &event);
+	void addPoint(wxMouseEvent &event);
 	void moveMouse(wxMouseEvent &event);
 	void contextMenu(wxContextMenuEvent &event);
 	void render(void);

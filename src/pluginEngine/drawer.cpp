@@ -50,7 +50,7 @@ void Drawer::installEventManager(RenderWindow &target) throw()
 
 void Drawer::removeEventManager(void) throw()
 {
-	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
+	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::addPoint, this);
 	m_target->Unbind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 	m_target->push_back(std::unique_ptr<Render::Shape>(m_shape));
 	m_shape=nullptr;
@@ -61,18 +61,18 @@ void Drawer::firstPoint(wxMouseEvent &event)
 	createShape();
 	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::firstPoint, this);
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::secondPoint, this);
-	leftClick(event);
+	addPoint(event);
 }
 
 void Drawer::secondPoint(wxMouseEvent &event)
 {
 	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::secondPoint, this);
-	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
+	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::addPoint, this);
 	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
-	leftClick(event);
+	addPoint(event);
 }
 
-void Drawer::leftClick(wxMouseEvent &event)
+void Drawer::addPoint(wxMouseEvent &event)
 {
 	Render::Color c = m_target->getBorderColor(); ///\todo remove temp var
 	m_shape->push_back(Render::Vertex(Render::Point(event.GetX(),event.GetY(),0), &c, clone()));
