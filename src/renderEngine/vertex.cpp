@@ -28,8 +28,8 @@
 namespace Render
 {
 
-Vertex::Vertex(Point const &end, Drawable const *drawable, std::unique_ptr<Drawer> drawer) throw()
-	: m_drawable(), m_point(end), m_drawer(std::move(drawer))
+Vertex::Vertex(Point const &end, Drawable const *drawable, Drawer *drawer) throw()
+	: m_drawable(), m_point(end), m_drawer(drawer)
 {
 	m_drawable.reset(drawable->clone());
 	///\todo make it inline
@@ -45,22 +45,22 @@ Vertex::Vertex(Vertex const &other) throw()
 Vertex::~Vertex(void) throw()
 {
 	///\todo make it inline
-	m_drawer.reset(); //!\todo fix a crash which happens sometimes here (application closing)
-	// the crash could be caused by multiple deletion of the same drawer. Is the clone method alright?
+	assert(m_drawer);//m_drawer should NEVER be null
+	delete m_drawer;
 }
 
-void Vertex::set(Point const &end, Drawable const *drawable, std::unique_ptr<Drawer> drawer) throw()
+void Vertex::set(Point const &end, Drawable const *drawable, Drawer* drawer) throw()
 {
 	///\todo make it inline
 	m_drawable.reset(drawable->clone());
 	m_point = end;
-	m_drawer = std::move(drawer);
+	m_drawer = drawer;
 }
 
 Vertex &Vertex::operator=(Vertex const &v) throw()
 {
 	///\todo make it inline
-	set(v.m_point, v.m_drawable->clone(), std::unique_ptr<Drawer>(v.m_drawer->clone()));
+	set(v.m_point, v.m_drawable->clone(), v.m_drawer->clone());
 	return *this;
 }
 
@@ -82,16 +82,16 @@ void Vertex::render(Drawable const *drawable) const throw()
 	}
 }
 
-void Vertex::changeRender(std::unique_ptr<Drawer> newRender) throw()
+void Vertex::changeRender(Drawer* newRender) throw()
 {
 	///\todo make it inline
-	m_drawer = std::move(newRender);
+	m_drawer = newRender;
 }
 
 Vertex Vertex::clone(void)const
 {
 	///\todo make it inline
-	return Vertex(m_point, m_drawable->clone(), std::unique_ptr<Drawer>(m_drawer->clone()));
+	return Vertex(m_point, m_drawable->clone(), m_drawer->clone());
 }
 
 Drawable& Vertex::getDrawable(void)const throw()

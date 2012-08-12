@@ -44,7 +44,7 @@ public:
 	 *	\param drawer std::unique_ptr<Drawer>
 	 *	\throw nothing
 	 */
-	Vertex(Point const &end, Drawable const *drawable, std::unique_ptr<Drawer> drawer) throw();
+	Vertex(Point const &end, Drawable const *drawable, Drawer* drawer) throw();
 	/** \brief copy ctor
 	 *	\param const&other Vertex
 	 *	\throw nothing
@@ -58,7 +58,7 @@ public:
 	 *	\param drawer std::unique_ptr<Drawer> algorithm used to render the line which will end to the vertex
 	 *	\throw nothing
 	 */
-	void set(Point const &end, Drawable const *drawable, std::unique_ptr<Drawer> drawer) throw();
+	void set(Point const &end, Drawable const *drawable, Drawer* drawer) throw();
 	/** \brief copy another vertex
 	 *	\param const&v Vertex
 	 *	\return Vertex&
@@ -84,7 +84,7 @@ public:
 	 *	\param newRender std::unique_ptr<Drawer>
 	 *	\throw nothing
 	 */
-	void changeRender(std::unique_ptr<Drawer> newRender) throw();
+	void changeRender(Drawer* newRender) throw();
 
 	/** \brief clone a vertex
 	 *	this method is useful because unique_ptr are used internally
@@ -126,7 +126,7 @@ private:
 protected:
 	std::unique_ptr<Drawable> m_drawable;
 	Point m_point;
-	std::unique_ptr<Drawer> m_drawer;
+	Drawer* m_drawer;//!\todo use a reference instead of pointer: should never be null
 private:
 };
 
