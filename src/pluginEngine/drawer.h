@@ -43,11 +43,15 @@ class Drawer : public Plugin
 {
 	ID m_menuIds[3];
 	wxMenu *m_menu=nullptr;
+	Render::Shape *m_shape;
 public:
 	Drawer(void);
 	virtual ~Drawer(void)throw();
 	virtual void installEventManager(RenderWindow &target) throw() override;
 	virtual void removeEventManager(void) throw() override;
+
+	void firstPoint(wxMouseEvent &event);
+
 	void leftClick(wxMouseEvent &event);
 	void moveMouse(wxMouseEvent &event);
 	void contextMenu(wxContextMenuEvent &event);
@@ -62,9 +66,6 @@ protected:
 	void adder(wxCommandEvent &event);
 	void shifter(wxCommandEvent &event);
 	void createShape(void);
-private:
-	Render::Shape *m_shape;
-	bool m_mouseMoveInstalled=false;
 };
 
 #endif // DRAWER_H

@@ -44,24 +44,25 @@ void Drawer::installEventManager(RenderWindow &target) throw()
 {
 	m_target = &target;
 
-	createShape();
-	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
-	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
+	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::firstPoint, this);
 	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::finalizeShape, this, m_menuIds[0], m_menuIds[1]);
-//	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::finalizeShape, this, m_menuIds[1], m_menuIds[1]);
 }
 
 void Drawer::removeEventManager(void) throw()
 {
 	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Unbind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
-	if(m_mouseMoveInstalled)
-	{
-		m_target->Unbind(wxEVT_MOTION, &Drawer::moveMouse, this);
-		m_mouseMoveInstalled=false;
-	}
 	m_target->push_back(std::unique_ptr<Render::Shape>(m_shape));
 	m_shape=nullptr;
+}
+
+void Drawer::firstPoint(wxMouseEvent &event)
+{
+	createShape();
+	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::firstPoint, this);
+	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
+	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
+	leftClick(event);
 }
 
 void Drawer::leftClick(wxMouseEvent &event)
@@ -69,11 +70,6 @@ void Drawer::leftClick(wxMouseEvent &event)
 	Render::Color c = m_target->getBorderColor(); ///\todo remove temp var
 	m_shape->push_back(Render::Vertex(Render::Point(event.GetX(),event.GetY(),0), &c, clone()));
 	render();
-	if(!m_mouseMoveInstalled)
-	{
-		m_target->Bind(wxEVT_MOTION, &Drawer::moveMouse, this);//when a shape have a point, draw a line between it and the cursor
-		m_mouseMoveInstalled=true;
-	}
 }
 
 void Drawer::moveMouse(wxMouseEvent &event)
@@ -116,8 +112,12 @@ void Drawer::finalizeShape(wxCommandEvent &event)
 	if(event.GetId()==m_menuIds[1])//user asked for a closed shape
 		m_shape->close();
 	m_target->push_back(std::unique_ptr<Render::Shape>(m_shape));
-	createShape();
 	render();
+	m_shape=nullptr;
+
+	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::firstPoint, this);
+	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
+	m_target->Unbind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 }
 
 void Drawer::closer(wxCommandEvent &event)
@@ -138,12 +138,8 @@ void Drawer::shifter(wxCommandEvent &event)
 
 void Drawer::createShape(void)
 {
+	assert(nullptr==m_shape);
 	m_shape=new Render::Shape();
-	Render::Color c (m_target->getFillerColor()); ///\todo remove temp var (and maybe references to Color?)
+	Render::Color c(m_target->getFillerColor()); ///\todo remove temp var (and maybe references to Color?)
 	m_shape->setFiller(&c);
-	if(m_mouseMoveInstalled)
-	{
-		m_target->Unbind(wxEVT_MOTION, &Drawer::moveMouse, this);
-		m_mouseMoveInstalled=false;
-	}
 }
