@@ -60,7 +60,7 @@ void Vertex::set(Point const &end, Drawable const *drawable, std::unique_ptr<Dra
 Vertex &Vertex::operator=(Vertex const &v) throw()
 {
 	///\todo make it inline
-	set(v.m_point, v.m_drawable->clone(), v.m_drawer->clone());
+	set(v.m_point, v.m_drawable->clone(), std::unique_ptr<Drawer>(v.m_drawer->clone()));
 	return *this;
 }
 
@@ -91,7 +91,7 @@ void Vertex::changeRender(std::unique_ptr<Drawer> newRender) throw()
 Vertex Vertex::clone(void)const
 {
 	///\todo make it inline
-	return Vertex(m_point, m_drawable->clone(), m_drawer->clone());
+	return Vertex(m_point, m_drawable->clone(), std::unique_ptr<Drawer>(m_drawer->clone()));
 }
 
 Drawable& Vertex::getDrawable(void)const throw()

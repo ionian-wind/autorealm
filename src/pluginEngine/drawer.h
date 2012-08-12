@@ -65,7 +65,7 @@ public:
 	void finalizeShape(wxCommandEvent &event);
 
 	virtual void draw(Render::Vertex const &v)const = 0;
-	virtual std::unique_ptr<Drawer> clone(void)const = 0;
+	virtual Drawer* clone(void)const = 0;
 protected:
 	void createShape(void);
 };
