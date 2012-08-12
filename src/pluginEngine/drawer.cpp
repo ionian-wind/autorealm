@@ -97,8 +97,7 @@ void Drawer::addPoint(wxMouseEvent &event)
 
 void Drawer::addVertex(Render::Point p)
 {
-	Render::Color c = m_target->getBorderColor(); ///\todo remove temp var
-	m_shape->push_back(std::move(Render::Vertex(p,&c,clone())));
+	m_shape->push_back(Render::Vertex(p,m_target->getBorderColor(),*clone()));
 }
 
 void Drawer::finalizeShape(wxCommandEvent &event)

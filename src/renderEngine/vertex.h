@@ -21,8 +21,6 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-#include <memory>
-
 #include "point.h"
 #include "color.h"
 #include "drawable.h"
@@ -41,10 +39,10 @@ public:
 	/** \brief constructor with initialization
 	 *	\param end Point const&
 	 *	\param color Color const&
-	 *	\param drawer std::unique_ptr<Drawer>
+	 *	\param drawer Drawer*
 	 *	\throw nothing
 	 */
-	Vertex(Point const &end, Drawable const *drawable, Drawer* drawer) throw();
+	Vertex(Point const &end, Drawable const &drawable, Drawer &drawer) throw();
 	/** \brief copy ctor
 	 *	\param const&other Vertex
 	 *	\throw nothing
@@ -55,10 +53,10 @@ public:
 	/** \brief initialize the vertex with new values
 	 *	\param end Point const& coordinates of the last point of the vertex
 	 *	\param color Color const& color of the last point of the vertex
-	 *	\param drawer std::unique_ptr<Drawer> algorithm used to render the line which will end to the vertex
+	 *	\param drawer Drawer* algorithm used to render the line which will end to the vertex
 	 *	\throw nothing
 	 */
-	void set(Point const &end, Drawable const *drawable, Drawer* drawer) throw();
+	void set(Point const &end, Drawable const &drawable, Drawer const&drawer) throw();
 	/** \brief copy another vertex
 	 *	\param const&v Vertex
 	 *	\return Vertex&
@@ -79,19 +77,13 @@ public:
 	 *	\throw nothing
 	 *	\todo check if it is realistic to say Drawer::draw can not throw
 	 */
-	void render(Drawable const *drawable = nullptr)const throw();
+	void render(Drawable const &drawable)const throw();
+	void render(void)const throw();
 	/** \brief Change the algorithm used to render
-	 *	\param newRender std::unique_ptr<Drawer>
+	 *	\param newRender Drawer*
 	 *	\throw nothing
 	 */
-	void changeRender(Drawer* newRender) throw();
-
-	/** \brief clone a vertex
-	 *	this method is useful because unique_ptr are used internally
-	 *	\return Vertex copy of the vertex
-	 *	\todo make it throw()
-	 */
-	Vertex clone(void)const;
+	void changeRender(Drawer const &newRender) throw();
 
 	/** \brief get a copy of the drawable
 	 *	\return Drawable*
@@ -102,7 +94,7 @@ public:
 	 *	\param d Drawable const*
 	 *	\throw nothing
 	 */
-	void setDrawable(Drawable const *d) throw();
+	void setDrawable(Drawable const &d) throw();
 
 	/** \brief return (a copy of the) coordinates of the ending point
 	 *	\return Point
@@ -124,9 +116,9 @@ private:
 	}
 
 protected:
-	std::unique_ptr<Drawable> m_drawable;
+	Drawable *m_drawable;
 	Point m_point;
-	Drawer* m_drawer;//!\todo use a reference instead of pointer: should never be null
+	Drawer* m_drawer;
 private:
 };
 

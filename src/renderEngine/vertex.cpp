@@ -28,17 +28,16 @@
 namespace Render
 {
 
-Vertex::Vertex(Point const &end, Drawable const *drawable, Drawer *drawer) throw()
-	: m_drawable(), m_point(end), m_drawer(drawer)
+Vertex::Vertex(Point const &end, Drawable const &drawable, Drawer &drawer) throw()
+	: m_drawable(drawable.clone()), m_point(end), m_drawer(drawer.clone())
 {
-	m_drawable.reset(drawable->clone());
 	///\todo make it inline
 }
 
 Vertex::Vertex(Vertex const &other) throw()
 	: m_drawable(), m_point(other.m_point), m_drawer(other.m_drawer->clone())
 {
-	m_drawable.reset(other.m_drawable->clone());
+	m_drawable=(other.m_drawable->clone());
 	///\todo make it inline
 }
 
@@ -49,18 +48,19 @@ Vertex::~Vertex(void) throw()
 	delete m_drawer;
 }
 
-void Vertex::set(Point const &end, Drawable const *drawable, Drawer* drawer) throw()
+void Vertex::set(Point const &end, Drawable const &drawable, Drawer const &drawer) throw()
 {
 	///\todo make it inline
-	m_drawable.reset(drawable->clone());
+	m_drawable=drawable.clone();
 	m_point = end;
-	m_drawer = drawer;
+	m_drawer = drawer.clone();
 }
 
 Vertex &Vertex::operator=(Vertex const &v) throw()
 {
 	///\todo make it inline
-	set(v.m_point, v.m_drawable->clone(), v.m_drawer->clone());
+	Vertex vv(v);
+	std::swap(*this,vv);
 	return *this;
 }
 
@@ -70,28 +70,22 @@ bool Vertex::operator==(Vertex const &other)const throw()
 	return m_point == other.m_point;
 }
 
-void Vertex::render(Drawable const *drawable) const throw()
+void Vertex::render(void) const throw()
 {
-	if(!drawable)
-		m_drawer->draw(*this);
-	else
-	{
-		Vertex v = clone();
+	m_drawer->draw(*this);
+}
+
+void Vertex::render(Drawable const &drawable) const throw()
+{
+		Vertex v = Vertex(*this);
 		v.setDrawable(drawable);
 		m_drawer->draw(v);
-	}
 }
 
-void Vertex::changeRender(Drawer* newRender) throw()
+void Vertex::changeRender(Drawer const&newRender) throw()
 {
 	///\todo make it inline
-	m_drawer = newRender;
-}
-
-Vertex Vertex::clone(void)const
-{
-	///\todo make it inline
-	return Vertex(m_point, m_drawable->clone(), m_drawer->clone());
+	m_drawer = newRender.clone();
 }
 
 Drawable& Vertex::getDrawable(void)const throw()
@@ -100,10 +94,10 @@ Drawable& Vertex::getDrawable(void)const throw()
 	return *m_drawable;
 }
 
-void Vertex::setDrawable(Drawable const *d) throw()
+void Vertex::setDrawable(Drawable const &d) throw()
 {
 	///\todo make it inline
-	m_drawable.reset(d->clone());
+	m_drawable=d.clone();
 }
 
 Point Vertex::getEnd(void)const throw()

@@ -54,7 +54,7 @@ void Shape::draw(void)const throw()
 		m_filler->apply();
 
 		for(auto & i : m_children)
-			i.render(m_filler.get());
+			i.render(*m_filler);
 
 		glEnd();
 	}
