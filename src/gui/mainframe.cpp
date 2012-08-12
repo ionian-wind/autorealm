@@ -62,8 +62,8 @@ MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 
 MainFrame::~MainFrame(void)
 {
-	for(auto & i : m_plugins)
-		i.second.reset();
+	for(std::pair<ID,Plugin*> i : m_plugins)
+		delete i.second;
 
 	m_auiManager.UnInit();
 }
@@ -94,7 +94,7 @@ void MainFrame::loadRequestedPlugins(void)
 			if(nullptr != plugProvider)
 			{
 				ID tmp(m_buttonIDs[plugName]);// avoid searching twice in the map
-				m_plugins[tmp].reset(plugProvider->create());
+				m_plugins[tmp]=plugProvider->create();
 				i.setID(tmp);
 			}
 			else

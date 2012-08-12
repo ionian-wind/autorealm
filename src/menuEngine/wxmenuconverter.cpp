@@ -79,9 +79,9 @@ std::string MenuConverter::getHelp(void)const
 	return m_help;
 }
 
-void MenuConverter::loadConfiguration(std::unique_ptr<TextFile> &file)
+void MenuConverter::loadConfiguration(TextFile &file)
 {
-	m_help = file->readLine();
+	m_help = file.readLine();
 }
 
 void MenuConverter::setID(uint16_t id)

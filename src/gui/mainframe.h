@@ -51,7 +51,7 @@ class MainFrame : public wxFrame
 	static const long ID_NOTEBOOK;
 
 	std::map<std::string, ID> m_buttonIDs;	/// name of plugins are associated with an ID
-	std::map<ID, std::unique_ptr<Plugin>> m_plugins; /// IDs are associated with plugins
+	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins
 
 	std::vector<PluginProvider *> m_actionProviders;
 	pluma::Pluma m_actionPlugIn;
