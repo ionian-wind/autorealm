@@ -45,7 +45,9 @@ Vertex::~Vertex(void) throw()
 {
 	///\todo make it inline
 	assert(m_drawer);//m_drawer should NEVER be null
+	assert(m_drawable);
 	delete m_drawer;
+	delete m_drawable;
 }
 
 Vertex &Vertex::operator=(Vertex const &v) throw()
@@ -77,6 +79,7 @@ void Vertex::render(Drawable const &drawable) const throw()
 void Vertex::changeRender(Drawer const&newRender) throw()
 {
 	///\todo make it inline
+	delete m_drawer;
 	m_drawer = newRender.clone();
 }
 
@@ -89,6 +92,7 @@ Drawable& Vertex::getDrawable(void)const throw()
 void Vertex::setDrawable(Drawable const &d) throw()
 {
 	///\todo make it inline
+	delete m_drawable;
 	m_drawable=d.clone();
 }
 

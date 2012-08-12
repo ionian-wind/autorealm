@@ -24,7 +24,6 @@
 #include "object.h"
 
 #include <vector>
-#include <memory>
 
 namespace Render
 {
@@ -33,6 +32,7 @@ class Group : public Object
 {
 	friend class boost::serialization::access;
 public:
+	~Group(void)throw();
 	/** \brief default constructor
 	 *	\throw nothing
 	 */
@@ -52,14 +52,14 @@ public:
 
 	/** \brief move the given element into a new element of children
 	 *
-	 *	\param target std::unique_ptr<Object> pointer to data which will be transmitted
+	 *	\param target Object* pointer to data which will be transmitted
 	 *	\pre target must contain a valid pointer on an object
 	 *	\post target is no longer usable
 	 *	\post m_children size has increased
 	 *	\post last element of m_children contain the pointer target
 	 *	\throw can throw if there not enough memory to create the new element. If so, target is not changed and an exception is thrown to inform caller of the problem.
 	 */
-	void push_back(std::unique_ptr<Object> target);
+	void push_back(Object *target);
 
 	virtual void apply(void)const throw() override;
 	virtual Drawable* clone(void)const override;
@@ -72,7 +72,8 @@ private:
 
 public:
 protected:
-	std::vector<std::unique_ptr<Object>> m_children;
+	typedef std::vector<Object*> ObjectList;
+	 ObjectList m_children;
 private:
 };
 

@@ -27,25 +27,30 @@
 namespace Render
 {
 
+Group::~Group(void)throw()
+{
+	for(Object* i:m_children)
+		delete i;
+}
+
 void Group::accept(Mutator &v)
 {
 	///\todo find a solution to use std::for_each
 	v.visit(*this);
 
-	for(auto & i : m_children)
+	for(Object* i : m_children)
 		i->accept(v);
 }
 
 void Group::draw(void)const throw()
 {
-	for(auto it = m_children.rbegin(); it != m_children.rend(); ++it)
-		//		auto &i:m_children)
-		(*it)->draw();
+	for(auto rit=m_children.rbegin();m_children.rend()!=rit;++rit)
+		(*rit)->draw();
 }
 
-void Group::push_back(std::unique_ptr<Object> target)
+void Group::push_back(Object *target)
 {
-	m_children.push_back(std::move(target));
+	m_children.push_back(target);
 }
 
 void Group::apply(void)const throw()
@@ -61,8 +66,8 @@ Drawable* Group::clone(void)const
 Group::Group(Group const &g)
 	: m_children()
 {
-	for(auto & i : g.m_children)
-		m_children.push_back(std::unique_ptr<Group>(dynamic_cast<Group *>(i->clone())));
+	for(Object *i : g.m_children)
+		m_children.push_back(dynamic_cast<Object*>(i->clone()));
 }
 
 }

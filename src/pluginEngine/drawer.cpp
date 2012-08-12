@@ -105,7 +105,7 @@ void Drawer::finalizeShape(wxCommandEvent &event)
 	m_shape->pop();
 	if(event.GetId()==m_menuIds[1])//user asked for a closed shape
 		m_shape->close();
-	m_target->push_back(std::unique_ptr<Render::Shape>(m_shape));
+	m_target->push_back(m_shape);
 	render();
 	m_shape=nullptr;
 

@@ -31,6 +31,7 @@ namespace Render
 Shape::~Shape(void) throw()
 {
 	m_children.clear();
+	delete m_filler;
 }
 
 void Shape::accept(Mutator &v)
@@ -81,6 +82,7 @@ void Shape::pop(void)throw()
 
 void Shape::setFiller(Drawable const &d) throw()
 {
+	delete m_filler;
 	m_filler=d.clone();
 }
 

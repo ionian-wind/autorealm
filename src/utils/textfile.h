@@ -33,7 +33,7 @@ public:
 	/** \brief open an existing file
 	 *
 	 *	\param path boost::filesystem::path const& name of the file to open
-	 *	\return std::unique_ptr<TextFile> unique pointer to a TextFile object
+	 *	\return TextFile opened text file
 	 *	\pre given file exists
 	 *	\pre given file is a regular file
 	 *	\post file is open with cursor located at it's first byte
@@ -45,7 +45,7 @@ public:
 	/** \brief create and open an inexisting file
 	 *
 	 *	\param file boost::filesystem::path const& name of the file to open
-	 *	\return std::unique_ptr<TextFile> unique pointer to a TextFile object
+	 *	\return TextFile opened text file
 	 *	\pre file does not exists
 	 *	\post file is created
 	 *	\post file is open with cursor located at it's first byte
