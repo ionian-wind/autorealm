@@ -74,9 +74,14 @@ void Drawer::secondPoint(wxMouseEvent &event)
 
 void Drawer::addPoint(wxMouseEvent &event)
 {
-	Render::Color c = m_target->getBorderColor(); ///\todo remove temp var
-	m_shape->push_back(Render::Vertex(Render::Point(event.GetX(),event.GetY(),0), &c, clone()));
+	addVertex(Render::Point(event.GetX(),event.GetY(),0));
 	render();
+}
+
+void Drawer::addVertex(Render::Point p)
+{
+	Render::Color c = m_target->getBorderColor(); ///\todo remove temp var
+	m_shape->push_back(Render::Vertex(p, &c, clone()));
 }
 
 void Drawer::moveMouse(wxMouseEvent &event)
@@ -123,7 +128,7 @@ void Drawer::finalizeShape(wxCommandEvent &event)
 	m_shape=nullptr;
 
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::firstPoint, this);
-	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
+	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::addPoint, this);
 	m_target->Unbind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 }
 

@@ -29,6 +29,7 @@ namespace Render
 {
 	class Vertex;
 	class Shape;
+	class Point;
 }
 
 #include "plugin.h"
@@ -52,8 +53,10 @@ public:
 
 	void firstPoint(wxMouseEvent &event);
 	void secondPoint(wxMouseEvent &event);
-
 	void addPoint(wxMouseEvent &event);
+
+	void addVertex(Render::Point p);
+
 	void moveMouse(wxMouseEvent &event);
 	void contextMenu(wxContextMenuEvent &event);
 	void render(void);
