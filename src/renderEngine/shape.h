@@ -22,7 +22,6 @@
 #define SHAPE_H
 
 #include <vector>
-#include <memory>
 
 #include "object.h"
 #include "vertex.h"
@@ -64,11 +63,11 @@ public:
 	 *	\note a copy of the drawable is used
 	 *	\param d REDrawable const* drawable to use
 	 */
-	void setFiller(Drawable const *d) throw();
+	void setFiller(Drawable const&d) throw();
 	/** \brief retrieve a copy of the drawable used to fill the shape
 	 *	\return REDrawable* copy of the drawable used
 	 */
-	Drawable *getFiller(void)const throw();
+	Drawable& getFiller(void)const throw();
 
 	/** \brief retrieve an iterator on the first vertex
 	 *	\todo check if this method is really mandatory, because it breaks the encapsulation
@@ -99,7 +98,7 @@ private:
 
 protected:
 private:
-	std::unique_ptr<Drawable> m_filler;
+	Drawable* m_filler;
 	std::vector<Vertex> m_children;
 };
 

@@ -150,6 +150,5 @@ void Drawer::createShape(void)
 {
 	assert(nullptr==m_shape);
 	m_shape=new Render::Shape();
-	Render::Color c(m_target->getFillerColor()); ///\todo remove temp var (and maybe references to Color?)
-	m_shape->setFiller(&c);
+	m_shape->setFiller(m_target->getFillerColor());
 }

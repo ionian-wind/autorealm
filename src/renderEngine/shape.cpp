@@ -41,6 +41,7 @@ void Shape::accept(Mutator &v)
 
 void Shape::draw(void)const throw()
 {
+	//!\todo implement tesselation to manage concave polygons
 	glBegin(GL_LINE_STRIP);
 
 	for(auto & i : m_children)
@@ -78,14 +79,14 @@ void Shape::pop(void)throw()
 	m_children.pop_back();
 }
 
-void Shape::setFiller(Drawable const *d) throw()
+void Shape::setFiller(Drawable const &d) throw()
 {
-	m_filler.reset(d->clone());
+	m_filler=d.clone();
 }
 
-Drawable *Shape::getFiller(void)const throw()
+Drawable &Shape::getFiller(void)const throw()
 {
-	return m_filler->clone();
+	return *m_filler;
 }
 
 std::vector<Vertex>::iterator Shape::getFirstChild(void) throw()
@@ -115,9 +116,8 @@ Drawable* Shape::clone(void)const
 }
 
 Shape::Shape(Shape const &s)
-	: m_filler(), m_children(s.m_children)
+	: m_filler(s.m_filler->clone()), m_children(s.m_children)
 {
-	m_filler.reset(s.m_filler->clone());
 }
 
 }
