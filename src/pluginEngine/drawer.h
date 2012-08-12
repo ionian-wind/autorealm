@@ -44,7 +44,8 @@ class Drawer : public Plugin
 {
 	ID m_menuIds[3];
 	wxMenu *m_menu=nullptr;
-	Render::Shape *m_shape;
+	Render::Shape *m_shape=nullptr;
+	bool m_shape1stPoint=false;
 public:
 	Drawer(void);
 	virtual ~Drawer(void)throw();
