@@ -50,8 +50,8 @@ void Drawer::removeEventManager(void) throw()
 		m_target->Unbind(wxEVT_MOTION, &Drawer::moveMouse, this);
 		m_mouseMoveInstalled=false;
 	}
-	m_target->push_back(std::move(m_shape));
-	m_shape.reset();
+	m_target->push_back(std::unique_ptr<Render::Shape>(m_shape));
+	m_shape=nullptr;
 }
 
 void Drawer::leftClick(wxMouseEvent &event)
@@ -116,7 +116,7 @@ void Drawer::createClosedFigure(wxCommandEvent &event)
 
 void Drawer::createOpenedFigure(wxCommandEvent &event)
 {
-	m_target->push_back(std::move(m_shape));
+	m_target->push_back(std::unique_ptr<Render::Shape>(m_shape));
 	createShape();
 	render();
 }
@@ -139,7 +139,7 @@ void Drawer::shifter(wxCommandEvent &event)
 
 void Drawer::createShape(void)
 {
-	m_shape.reset(new Render::Shape());
+	m_shape=new Render::Shape();
 	Render::Color c (m_target->getFillerColor()); ///\todo remove temp var (and maybe references to Color?)
 	m_shape->setFiller(&c);
 	if(m_mouseMoveInstalled)

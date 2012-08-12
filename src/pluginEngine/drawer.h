@@ -54,7 +54,7 @@ protected:
 	void shifter(wxCommandEvent &event);
 	void createShape(void);
 private:
-	std::unique_ptr<Render::Shape> m_shape;
+	Render::Shape *m_shape;
 	bool m_mouseMoveInstalled=false;
 };
 
