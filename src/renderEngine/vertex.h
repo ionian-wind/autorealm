@@ -50,13 +50,6 @@ public:
 	Vertex(Vertex const &other) throw();
 	/** \brief destructor */
 	~Vertex(void) throw();
-	/** \brief initialize the vertex with new values
-	 *	\param end Point const& coordinates of the last point of the vertex
-	 *	\param color Color const& color of the last point of the vertex
-	 *	\param drawer Drawer* algorithm used to render the line which will end to the vertex
-	 *	\throw nothing
-	 */
-	void set(Point const &end, Drawable const &drawable, Drawer const&drawer) throw();
 	/** \brief copy another vertex
 	 *	\param const&v Vertex
 	 *	\return Vertex&

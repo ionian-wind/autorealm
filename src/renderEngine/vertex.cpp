@@ -48,14 +48,6 @@ Vertex::~Vertex(void) throw()
 	delete m_drawer;
 }
 
-void Vertex::set(Point const &end, Drawable const &drawable, Drawer const &drawer) throw()
-{
-	///\todo make it inline
-	m_drawable=drawable.clone();
-	m_point = end;
-	m_drawer = drawer.clone();
-}
-
 Vertex &Vertex::operator=(Vertex const &v) throw()
 {
 	///\todo make it inline
