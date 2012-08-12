@@ -60,6 +60,13 @@ void Drawer::firstPoint(wxMouseEvent &event)
 {
 	createShape();
 	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::firstPoint, this);
+	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::secondPoint, this);
+	leftClick(event);
+}
+
+void Drawer::secondPoint(wxMouseEvent &event)
+{
+	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::secondPoint, this);
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 	leftClick(event);

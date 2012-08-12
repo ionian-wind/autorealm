@@ -51,6 +51,7 @@ public:
 	virtual void removeEventManager(void) throw() override;
 
 	void firstPoint(wxMouseEvent &event);
+	void secondPoint(wxMouseEvent &event);
 
 	void leftClick(wxMouseEvent &event);
 	void moveMouse(wxMouseEvent &event);
