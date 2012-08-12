@@ -21,30 +21,33 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-//#include "component.h"
+template <class T>
+class Iterator
+{
+	friend Composite<T>;
+public:
+	Iterator &operator++(void);
+	bool operator!=(Iterator<T> const &other)const;
+	Iterator<T> &operator=(Iterator<T> const &other);
+	Iterator(Iterator<T> const &other);
 
-//template <class Compositor, class TComponent>
-//class Iterator
-//{
-//	friend Compositor;
-//public:
-//	Iterator& operator++(void);
-//	bool operator!=(Iterator<Compositor,TComponent> const&other)const;
-//
-//	Component<TComponent>* operator->(void);
-//	Component<TComponent>& operator*(void);
-//	bool isEndOfLevel(void)const;
-//protected:
-//	Iterator(Compositor *owner);
-//	Iterator(Compositor *owner, bool dumb);///\todo make Ctor private and create static methods to build begin/end iterators
-//	void goDeeper();
-//	void goUpper();
-//	bool isComposite(void)const;
-//private:
-//	Compositor *m_owner;
-//	typename Compositor::Components::iterator m_position;
-//	std::stack<std::pair<Compositor*,typename Compositor::Components::iterator>> m_ancestors;
-//};
-//
-//#include "iterator.cpp"
+	Component<T> *operator->(void);
+	Component<T> &operator*(void);
+	bool isEndOfLevel(void)const;
+protected:
+	void goDeeper();
+	void goUpper();
+	bool isComposite(void)const;
+private:
+	Iterator(Composite<T> *owner);
+	static Iterator<T> begin_of(Composite<T> *owner);
+	static Iterator<T> end_of(Composite<T> *owner);
+
+private:
+	Composite<T> *m_owner;
+	typename Composite<T>::Components::iterator m_position;
+	std::stack<std::pair<Composite<T>*, typename Composite<T>::Components::iterator>> m_ancestors;
+};
+
+#include "iterator.cpp"
 #endif // ITERATOR_H

@@ -35,6 +35,13 @@ Composite<T>::Composite(boost::filesystem::path const &location)
 }
 
 template <class T>
+Composite<T>::~Composite() throw()
+{
+	for(Component<T>* i:m_components)
+		delete i;
+}
+
+template <class T>
 boost::filesystem::path Composite<T>::findConfigurationFile(boost::filesystem::path const &location)
 {
 	boost::filesystem::path file(location.string() + "/" + location.filename().string());
@@ -55,15 +62,20 @@ void Composite<T>::buildMenu(boost::filesystem::path const &location)
 		if(toSkip == content->path())
 			continue;
 
-		m_components.push_back(std::unique_ptr<Component<T>>());
+//		m_components.push_back(Component<T>());
 
 		if(boost::filesystem::is_regular_file(content->path()))
-			m_components.back().reset(new Leaf<T>(TextFile::OpenFile(content->path())));
+		{
+//			m_components.back().reset(new Leaf<T>(TextFile::OpenFile(content->path())));
+//
+			m_components.push_back(new Leaf<T>(TextFile::OpenFile(content->path())));
+		}
 		else
 		{
 			Composite<T> *m(new Composite<T>(content->path()));
 			m->buildMenu(content->path());
-			m_components.back().reset(m);
+//			m_components.back().reset(m);
+			m_components.push_back(m);
 		}
 	}
 }
@@ -80,8 +92,8 @@ void Composite<T>::create(T *parent)
 	T::create(parent, Component<T>::getName());
 
 	for(auto & i : m_components)
-		if(typeid(*i.get()) == typeid(Composite<T>))
-			static_cast<Composite<T>*>(i.get())->create(this);
+		if(typeid(*i) == typeid(Composite<T>))
+			static_cast<Composite<T>*>(i)->create(this);
 		else
 			i->T::create(this, i->getName());
 }

@@ -79,7 +79,7 @@ Component<T> *Iterator<T>::operator->(void)
 template <class T>
 Component<T> &Iterator<T>::operator*(void)
 {
-	return *(m_position->get());
+	return **m_position;
 }
 
 template <class T>
@@ -93,7 +93,7 @@ void Iterator<T>::goDeeper(void)
 	else if(isComposite())
 	{
 		m_ancestors.push(std::make_pair(m_owner, m_position));
-		m_owner = static_cast<Composite<T>*>(m_position->get());
+		m_owner = static_cast<Composite<T>*>(*m_position);
 		m_position = m_owner->m_components.begin();
 		goDeeper();
 	}
@@ -115,7 +115,7 @@ void Iterator<T>::goUpper(void)
 template <class T>
 bool Iterator<T>::isComposite(void)const
 {
-	return typeid(*m_position->get()) == typeid(Composite<T>);
+	return typeid(**m_position) == typeid(Composite<T>);
 }
 
 template <class T>

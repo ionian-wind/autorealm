@@ -23,16 +23,19 @@
 
 #include <memory>
 
-//#include "component.h"
+template <class T>
+class Leaf : public Component<T>
+{
+	friend class Composite<T>;
+public:
+	virtual ~Leaf() throw() = default;
+protected:
+	Leaf(TextFile file)
+	{
+		Component<T>::loadConfiguration(file);
+	}
+};
 
-//template <class T>
-//class Leaf : public Component<T>
-//{
-//friend class Composite<T>;
-//public:
-//	virtual ~Leaf()=default;
-//protected:
-//	Leaf(std::unique_ptr<TextFile> file){loadConfiguration(file);}
-//};
+#include "leaf.cpp"
 
 #endif

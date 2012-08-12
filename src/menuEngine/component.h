@@ -23,23 +23,21 @@
 
 #include <string>
 
-//template <class T>
-//class Component: public T
-//{
-//	public:
-//		std::string getPluginName(void)const;
-//		virtual ~Component()=default;
-//		std::string getName(void)const;
-//		void disable(bool disable=true);
-//		bool isEnabled(void)const;
-//	protected:
-//		void virtual loadConfiguration(std::unique_ptr<TextFile> &file);
-//	private:
-//		std::string m_name;
-//		bool m_enable=true;
-//};
+template <class T>
+class Component: public T ///\todo change the relation to have something which behave more like STL containers
+{
+public:
+	std::string getPluginName(void)const;
+	virtual ~Component() throw() = default;
+	std::string getName(void)const;
+	void disable(bool disable = true);
+	bool isEnabled(void)const;
+protected:
+	void virtual loadConfiguration(TextFile &file);
+private:
+	std::string m_name;
+	bool m_enable = true;
+};
 
-//#include "component.cpp"
-//#include "composite.h"
-
+#include "component.cpp"
 #endif
