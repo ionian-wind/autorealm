@@ -31,14 +31,14 @@ namespace Render
 Vertex::Vertex(Point const &end, Drawable const *drawable, std::unique_ptr<Drawer> drawer) throw()
 	: m_drawable(), m_point(end), m_drawer(std::move(drawer))
 {
-	m_drawable = drawable->clone();
+	m_drawable.reset(drawable->clone());
 	///\todo make it inline
 }
 
 Vertex::Vertex(Vertex const &other) throw()
 	: m_drawable(), m_point(other.m_point), m_drawer(other.m_drawer->clone())
 {
-	m_drawable = other.m_drawable->clone();
+	m_drawable.reset(other.m_drawable->clone());
 	///\todo make it inline
 }
 
@@ -52,7 +52,7 @@ Vertex::~Vertex(void) throw()
 void Vertex::set(Point const &end, Drawable const *drawable, std::unique_ptr<Drawer> drawer) throw()
 {
 	///\todo make it inline
-	m_drawable = drawable->clone();
+	m_drawable.reset(drawable->clone());
 	m_point = end;
 	m_drawer = std::move(drawer);
 }
@@ -60,7 +60,7 @@ void Vertex::set(Point const &end, Drawable const *drawable, std::unique_ptr<Dra
 Vertex &Vertex::operator=(Vertex const &v) throw()
 {
 	///\todo make it inline
-	set(v.m_point, v.m_drawable->clone().get(), v.m_drawer->clone());
+	set(v.m_point, v.m_drawable->clone(), v.m_drawer->clone());
 	return *this;
 }
 
@@ -91,19 +91,19 @@ void Vertex::changeRender(std::unique_ptr<Drawer> newRender) throw()
 Vertex Vertex::clone(void)const
 {
 	///\todo make it inline
-	return Vertex(m_point, m_drawable->clone().get(), m_drawer->clone());
+	return Vertex(m_point, m_drawable->clone(), m_drawer->clone());
 }
 
 std::unique_ptr<Drawable> Vertex::getDrawable(void)const throw()
 {
 	///\todo make it inline
-	return m_drawable->clone();
+	return std::unique_ptr<Drawable>(m_drawable->clone());
 }
 
 void Vertex::setDrawable(Drawable const *d) throw()
 {
 	///\todo make it inline
-	m_drawable = d->clone();
+	m_drawable.reset(d->clone());
 }
 
 Point Vertex::getEnd(void)const throw()

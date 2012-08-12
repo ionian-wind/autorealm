@@ -36,10 +36,9 @@ void Color::apply(void)const throw()
 	glColor4d(m_red, m_green, m_blue, m_alpha);
 }
 
-std::unique_ptr<Drawable> Color::clone(void)const
+Drawable* Color::clone(void)const
 {
-	std::unique_ptr<Drawable> col(new Color(*this));
-	return col;
+	return new Color(*this);
 }
 
 }

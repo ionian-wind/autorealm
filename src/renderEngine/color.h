@@ -49,7 +49,7 @@ public:
 	 *	\throw nothing
 	 */
 	void apply(void)const throw() override;
-	virtual std::unique_ptr<Drawable> clone(void)const;
+	virtual Drawable* clone(void)const;
 	double m_red, m_green, m_blue, m_alpha;
 protected:
 private:

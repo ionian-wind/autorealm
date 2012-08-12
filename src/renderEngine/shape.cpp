@@ -80,12 +80,12 @@ void Shape::pop(void)throw()
 
 void Shape::setFiller(Drawable const *d) throw()
 {
-	m_filler = d->clone();
+	m_filler.reset(d->clone());
 }
 
 Drawable *Shape::getFiller(void)const throw()
 {
-	return m_filler->clone().get();
+	return m_filler->clone();
 }
 
 std::vector<Vertex>::iterator Shape::getFirstChild(void) throw()
@@ -109,16 +109,15 @@ void Shape::apply(void)const throw()
 	draw();
 }
 
-std::unique_ptr<Drawable> Shape::clone(void)const
+Drawable* Shape::clone(void)const
 {
-	std::unique_ptr<Drawable> shape(new Shape(*this));
-	return shape;
+	return new Shape(*this);
 }
 
 Shape::Shape(Shape const &s)
 	: m_filler(), m_children(s.m_children)
 {
-	m_filler = s.m_filler->clone();
+	m_filler.reset(s.m_filler->clone());
 }
 
 }

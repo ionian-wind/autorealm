@@ -62,7 +62,7 @@ public:
 	void push_back(std::unique_ptr<Object> target);
 
 	virtual void apply(void)const throw() override;
-	virtual std::unique_ptr<Drawable> clone(void)const override;
+	virtual Drawable* clone(void)const override;
 private:
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version)

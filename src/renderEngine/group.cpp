@@ -53,17 +53,16 @@ void Group::apply(void)const throw()
 	draw();
 }
 
-std::unique_ptr<Drawable> Group::clone(void)const
+Drawable* Group::clone(void)const
 {
-	std::unique_ptr<Drawable> group(new Group(*this));
-	return group;
+	return new Group(*this);
 }
 
 Group::Group(Group const &g)
 	: m_children()
 {
 	for(auto & i : g.m_children)
-		m_children.push_back(std::move(std::unique_ptr<Group>(dynamic_cast<Group *>(i->clone().get()))));
+		m_children.push_back(std::unique_ptr<Group>(dynamic_cast<Group *>(i->clone())));
 }
 
 }
