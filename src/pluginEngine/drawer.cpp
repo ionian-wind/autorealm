@@ -25,8 +25,18 @@
 
 #include <wx/menu.h>
 
+Drawer::Drawer(void)
+:m_menu(new wxMenu())
+{
+	m_menu->Append(m_menuIds[0], wxT("Create &Open Figure"));
+	m_menu->Append(m_menuIds[1], wxT("Create &Closed Figure"));
+	m_menu->AppendSeparator();
+	m_menu->Append(m_menuIds[2], wxT("Suppress this menu and use &Shift for Closed Figures"));
+}
+
 Drawer::~Drawer(void)throw()
 {
+	delete m_menu;
 	delete m_shape;
 }
 
@@ -37,8 +47,8 @@ void Drawer::installEventManager(RenderWindow &target) throw()
 	createShape();
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::leftClick, this);
 	m_target->Bind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
-	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createOpenedFigure, this, m_menuIds[0], m_menuIds[0]);
-	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::createClosedFigure, this, m_menuIds[1], m_menuIds[1]);
+	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::finalizeShape, this, m_menuIds[0], m_menuIds[1]);
+//	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::finalizeShape, this, m_menuIds[1], m_menuIds[1]);
 }
 
 void Drawer::removeEventManager(void) throw()
@@ -90,14 +100,7 @@ void Drawer::contextMenu(wxContextMenuEvent &event)
 	else
 		point = m_target->ScreenToClient(point);
 
-	wxMenu menu;
-
-	menu.Append(m_menuIds[0], wxT("Create &Open Figure"));
-	menu.Append(m_menuIds[1], wxT("Create &Closed Figure"));
-	menu.AppendSeparator();
-	menu.Append(m_menuIds[2], wxT("Suppress this menu and use &Shift for Closed Figures"));
-
-	m_target->PopupMenu(&menu, point);
+	m_target->PopupMenu(m_menu, point);
 }
 
 void Drawer::render(void)
@@ -108,14 +111,10 @@ void Drawer::render(void)
 	m_target->finalizeRendering();
 }
 
-void Drawer::createClosedFigure(wxCommandEvent &event)
+void Drawer::finalizeShape(wxCommandEvent &event)
 {
-	m_shape->close();
-	createOpenedFigure(event);
-}
-
-void Drawer::createOpenedFigure(wxCommandEvent &event)
-{
+	if(event.GetId()==m_menuIds[1])//user asked for a closed shape
+		m_shape->close();
 	m_target->push_back(std::unique_ptr<Render::Shape>(m_shape));
 	createShape();
 	render();

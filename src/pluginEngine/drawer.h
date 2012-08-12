@@ -37,12 +37,14 @@ class RenderWindow;
 class wxMouseEvent;
 class wxContextMenuEvent;
 class wxCommandEvent;
+class wxMenu;
 
 class Drawer : public Plugin
 {
 	ID m_menuIds[3];
+	wxMenu *m_menu=nullptr;
 public:
-	Drawer(void)=default;
+	Drawer(void);
 	virtual ~Drawer(void)throw();
 	virtual void installEventManager(RenderWindow &target) throw() override;
 	virtual void removeEventManager(void) throw() override;
@@ -51,8 +53,7 @@ public:
 	void contextMenu(wxContextMenuEvent &event);
 	void render(void);
 
-	void createClosedFigure(wxCommandEvent &event);
-	void createOpenedFigure(wxCommandEvent &event);
+	void finalizeShape(wxCommandEvent &event);
 
 	virtual void draw(Render::Vertex const &v)const = 0;
 	virtual std::unique_ptr<Drawer> clone(void)const = 0;
