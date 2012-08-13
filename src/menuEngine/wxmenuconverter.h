@@ -22,7 +22,6 @@
 #define WXMENUCONVERTER_H
 
 #include <string>
-#include <memory>
 
 class wxMenu;
 class wxMenuBar;

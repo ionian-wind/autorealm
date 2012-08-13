@@ -21,8 +21,6 @@
 #ifndef DRAWER_H
 #define DRAWER_H
 
-#include <memory>
-
 #include <gui/id.h>
 
 namespace Render
