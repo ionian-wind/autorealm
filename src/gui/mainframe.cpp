@@ -80,10 +80,10 @@ void MainFrame::changeSelectedPlugin(wxCommandEvent &event)
 
 void MainFrame::loadRequestedPlugins(void)
 {
-	for(auto & i : m_menuTree) //only browse leaves
+	for(Component<MenuConverter> &i : m_menuTree) //only browse leaves
 	{
 		std::string plugName = i.getPluginName();
-		auto jt = m_buttonIDs.find(plugName);
+		AssocIDs::iterator jt = m_buttonIDs.find(plugName);
 
 		if(jt == m_buttonIDs.end()) // plugin is not loaded? Try to load it.
 		{

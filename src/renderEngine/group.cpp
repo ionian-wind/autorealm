@@ -44,7 +44,7 @@ void Group::accept(Mutator &v)
 
 void Group::draw(void)const throw()
 {
-	for(auto rit=m_children.rbegin();m_children.rend()!=rit;++rit)
+	for(ObjectList::const_reverse_iterator rit=m_children.rbegin();m_children.rend()!=rit;++rit)
 		(*rit)->draw();
 }
 

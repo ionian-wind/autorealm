@@ -30,7 +30,7 @@ Composite<T>::Composite(boost::filesystem::path const &location)
 	if(!boost::filesystem::is_directory(location))
 		throw std::runtime_error("Given location is not a directory");
 
-	auto file = TextFile::OpenFile(findConfigurationFile(location));
+	TextFile file = TextFile::OpenFile(findConfigurationFile(location));
 	this->loadConfiguration(file);
 
 	const boost::filesystem::path toSkip(findConfigurationFile(location)); //skip the file with same name as directory
@@ -76,7 +76,7 @@ void Composite<T>::create(T *parent)
 {
 	T::create(parent, Component<T>::getName());
 
-	for(auto & i : m_components)
+	for(T* i : m_components)
 		if(typeid(*i) == typeid(Composite<T>))
 			static_cast<Composite<T>*>(i)->create(this);
 		else

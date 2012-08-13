@@ -45,7 +45,7 @@ void Shape::draw(void)const throw()
 	//!\todo implement tesselation to manage concave polygons
 	glBegin(GL_LINE_STRIP);
 
-	for(auto & i : m_children)
+	for(Vertex const &i : m_children)
 		i.render();
 
 	glEnd();
@@ -55,7 +55,7 @@ void Shape::draw(void)const throw()
 		glBegin(GL_POLYGON);
 		m_filler->apply();
 
-		for(auto & i : m_children)
+		for(Vertex const&i : m_children)
 			i.render(*m_filler);
 
 		glEnd();
