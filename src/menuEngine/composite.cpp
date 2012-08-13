@@ -32,8 +32,6 @@ Composite<T>::Composite(boost::filesystem::path const &location)
 	if(!boost::filesystem::is_directory(location))
 		throw std::runtime_error("Given location is not a directory");
 
-	TextFile file = TextFile::OpenFile(findConfigurationFile(location));
-	this->loadConfiguration(file);
 
 	const boost::filesystem::path toSkip(findConfigurationFile(location)); //skip the file with same name as directory
 
