@@ -32,6 +32,19 @@ Composite<T>::Composite(boost::filesystem::path const &location)
 
 	auto file = TextFile::OpenFile(findConfigurationFile(location));
 	this->loadConfiguration(file);
+
+	const boost::filesystem::path toSkip(findConfigurationFile(location)); //skip the file with same name as directory
+
+	for(auto content = boost::filesystem::directory_iterator(location); content != boost::filesystem::directory_iterator(); ++content)
+	{
+		if(toSkip == content->path())
+			continue;
+
+		if(boost::filesystem::is_regular_file(content->path()))
+			m_components.push_back(new Leaf<T>(TextFile::OpenFile(content->path())));
+		else
+			m_components.push_back(new Composite<T>(content->path()));
+	}
 }
 
 template <class T>
@@ -50,34 +63,6 @@ boost::filesystem::path Composite<T>::findConfigurationFile(boost::filesystem::p
 		throw std::runtime_error("configuration file is missing");
 
 	return file;
-}
-
-template <class T>
-void Composite<T>::buildMenu(boost::filesystem::path const &location)
-{
-	const boost::filesystem::path toSkip(findConfigurationFile(location)); //skip the file with same name as directory
-
-	for(auto content = boost::filesystem::directory_iterator(location); content != boost::filesystem::directory_iterator(); ++content)
-	{
-		if(toSkip == content->path())
-			continue;
-
-//		m_components.push_back(Component<T>());
-
-		if(boost::filesystem::is_regular_file(content->path()))
-		{
-//			m_components.back().reset(new Leaf<T>(TextFile::OpenFile(content->path())));
-//
-			m_components.push_back(new Leaf<T>(TextFile::OpenFile(content->path())));
-		}
-		else
-		{
-			Composite<T> *m(new Composite<T>(content->path()));
-			m->buildMenu(content->path());
-//			m_components.back().reset(m);
-			m_components.push_back(m);
-		}
-	}
 }
 
 template <class T>
