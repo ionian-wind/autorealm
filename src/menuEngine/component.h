@@ -34,7 +34,6 @@ public:
 	void disable(bool disable = true);
 	bool isEnabled(void)const;
 protected:
-	void virtual loadConfiguration(TextFile &file);
 private:
 	std::string m_name;
 	bool m_enable = true;

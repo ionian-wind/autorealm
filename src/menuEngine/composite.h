@@ -31,7 +31,6 @@ template <class T> class Composite;
 
 #include "component.h"
 #include "iterator.h"
-#include "leaf.h"
 
 template <class T>
 class Composite : public Component<T>

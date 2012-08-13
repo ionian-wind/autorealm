@@ -25,12 +25,6 @@ Component<T>::Component(boost::filesystem::path loc) throw()
 }
 
 template <class T>
-void Component<T>::loadConfiguration(TextFile &file)
-{
-	m_name = file.readLine();
-}
-
-template <class T>
 std::string Component<T>::getPluginName(void)const
 {
 	return getName();

@@ -69,14 +69,6 @@
 		<Unit filename="menuEngine/iterator.h">
 			<Option virtualFolder="header/" />
 		</Unit>
-		<Unit filename="menuEngine/leaf.cpp">
-			<Option compile="0" />
-			<Option link="0" />
-			<Option virtualFolder="source/" />
-		</Unit>
-		<Unit filename="menuEngine/leaf.h">
-			<Option virtualFolder="header/" />
-		</Unit>
 		<Unit filename="menuEngine/wxmenuconverter.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
