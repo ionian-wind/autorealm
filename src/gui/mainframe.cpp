@@ -53,7 +53,6 @@ MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 	m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Center());
 	m_auiManager.Update();
 	m_actionPlugIn.acceptProviderType<PluginProvider>();
-//	m_menuTree.buildMenu(boost::filesystem::path(AppConfig::buildPath(AppConfig::MENU)));
 	loadRequestedPlugins();
 	m_menuTree.create();
 	SetMenuBar(m_menuTree.getMenuBar());
