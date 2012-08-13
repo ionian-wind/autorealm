@@ -25,6 +25,7 @@
 #include <string>
 
 #include <wx/bitmap.h>
+#include <boost/filesystem.hpp>
 #include <Pluma/Pluma.hpp>
 
 #include "../gui/appconfig.h"
@@ -63,5 +64,6 @@ T *getProvider(pluma::Pluma &plumConf, std::string const &location, std::string 
 }
 
 std::string getPosixConfDir(void);
+boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
 
 #endif // UTILS_H

@@ -19,6 +19,12 @@
  **********************************************************************************/
 
 template <class T>
+Component<T>::Component(boost::filesystem::path loc) throw()
+:m_name(TextFile::OpenFile(loc).readLine())
+{
+}
+
+template <class T>
 void Component<T>::loadConfiguration(TextFile &file)
 {
 	m_name = file.readLine();

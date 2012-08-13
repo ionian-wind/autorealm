@@ -56,3 +56,14 @@ std::string getPosixConfDir(void)
 #endif
 	throw std::runtime_error("configuration not found");
 }
+
+boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location)
+{
+	boost::filesystem::path file(location.string() + "/" + location.filename().string());
+
+	if(!boost::filesystem::exists(file))
+		throw std::runtime_error("configuration file is missing");
+
+	return file;
+}
+

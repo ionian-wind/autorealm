@@ -18,9 +18,11 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
+#include <utils/utils.h>
+
 template <class T>
 Composite<T>::Composite(boost::filesystem::path const &location)
-	: m_components()
+:Component<T>(findConfigurationFile(location)), m_components()
 {
 	//!\pre location must exists
 	if(!boost::filesystem::exists(location))
@@ -41,7 +43,7 @@ Composite<T>::Composite(boost::filesystem::path const &location)
 			continue;
 
 		if(boost::filesystem::is_regular_file(content->path()))
-			m_components.push_back(new Leaf<T>(TextFile::OpenFile(content->path())));
+			m_components.push_back(new Component<T>(content->path()));
 		else
 			m_components.push_back(new Composite<T>(content->path()));
 	}
@@ -52,17 +54,6 @@ Composite<T>::~Composite() throw()
 {
 	for(Component<T>* i:m_components)
 		delete i;
-}
-
-template <class T>
-boost::filesystem::path Composite<T>::findConfigurationFile(boost::filesystem::path const &location)
-{
-	boost::filesystem::path file(location.string() + "/" + location.filename().string());
-
-	if(!boost::filesystem::exists(file))
-		throw std::runtime_error("configuration file is missing");
-
-	return file;
 }
 
 template <class T>

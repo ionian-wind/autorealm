@@ -51,7 +51,6 @@ public:
 	MenuIter begin(void);
 	MenuIter end(void);
 protected:
-	boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
 	virtual void create(T *parent);
 private:
 

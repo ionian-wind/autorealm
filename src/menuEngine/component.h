@@ -27,6 +27,7 @@ template <class T>
 class Component: public T ///\todo change the relation to have something which behave more like STL containers
 {
 public:
+	Component(boost::filesystem::path loc) throw();
 	std::string getPluginName(void)const;
 	virtual ~Component() throw() = default;
 	std::string getName(void)const;
