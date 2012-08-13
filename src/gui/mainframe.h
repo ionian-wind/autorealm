@@ -24,7 +24,6 @@
 
 #include <string>
 #include <vector>
-#include <memory>
 
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
