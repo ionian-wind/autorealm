@@ -33,6 +33,7 @@ namespace Render
 /** \brief Ancestor of Shape and Group. It only provides an interface for composite and visitor patterns */
 class Object: public Drawable
 {
+	friend class boost::serialization::access;
 public:
 	/** \brief apply an algorithm on the object
 	 *	\param v Mutator& algo to apply
@@ -45,7 +46,7 @@ public:
 	virtual ~Object(void) throw() = default;
 private:
 	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version);
+	void serialize(Archive &ar, const unsigned int version){};
 private:
 };
 

@@ -5,22 +5,26 @@
 		<Option title="menuEngine" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="source/;header/;" />
+		<Option virtualFolders="header/;source/;" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../bin/debug/menuEngine-d" prefix_auto="1" extension_auto="1" />
-				<Option object_output="../obj/debug/menuEngine" />
+				<Option output="../bin/debug/menuEngine" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../obj/debug" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
+					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="../bin/release/menuEngine" prefix_auto="1" extension_auto="1" />
-				<Option object_output="../obj/release/menuEngine" />
+				<Option object_output="../obj/release" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -34,10 +38,10 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-std=c++0x" />
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
-			<Add option="`wx-config --cppflags`" />
 			<Add option="-fPIC" />
+			<Add option="`wx-config --cppflags`" />
 			<Add directory="../src" />
 		</Compiler>
 		<Linker>
@@ -81,19 +85,5 @@
 		<Unit filename="menuEngine/wxtoolbarconverter.h">
 			<Option virtualFolder="header/" />
 		</Unit>
-		<Extensions>
-			<envvars />
-			<code_completion />
-			<debugger />
-			<DoxyBlocks>
-				<comment_style block="0" line="0" />
-				<doxyfile_project />
-				<doxyfile_build />
-				<doxyfile_warnings />
-				<doxyfile_output />
-				<doxyfile_dot />
-				<general />
-			</DoxyBlocks>
-		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

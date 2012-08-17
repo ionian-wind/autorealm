@@ -26,11 +26,8 @@
 class Serialization : public Plugin
 {
 public:
-	void installEventManager(RenderWindow &target) throw() {};
-	void removeEventManager(void) throw(){};
-	Serialization();
-protected:
-private:
+	void installEventManager(RenderWindow &target) throw();
+	void removeEventManager(void) throw();
 };
 
 PLUMA_INHERIT_PROVIDER(Serialization, Plugin);

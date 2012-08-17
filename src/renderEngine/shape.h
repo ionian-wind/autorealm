@@ -21,7 +21,8 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-#include <vector>
+//#include <vector>
+#include <boost/serialization/vector.hpp>
 
 #include "object.h"
 #include "vertex.h"

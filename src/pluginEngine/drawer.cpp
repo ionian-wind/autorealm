@@ -20,8 +20,8 @@
 
 #include "drawer.h"
 
-#include <shape.h>
-#include <renderwindow.h>
+#include <renderEngine/shape.h>
+#include <gui/renderwindow.h>
 
 #include <wx/menu.h>
 

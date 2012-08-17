@@ -23,7 +23,8 @@
 
 #include "object.h"
 
-#include <vector>
+//#include <vector>
+#include <boost/serialization/vector.hpp>
 
 namespace Render
 {

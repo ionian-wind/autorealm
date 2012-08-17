@@ -6,50 +6,43 @@
 		<Option pch_mode="2" />
 		<Option default_target="Release" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="sources/;headers/;" />
+		<Option virtualFolders="source/;header/;" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../../../bin/debug/plugin/Mover-d" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../bin/debug/plugin/Mover" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../../../bin/debug/plugin" />
 				<Option object_output="../../../obj/debug/plugin" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
-					<Add library="pluginEngine-d" />
 					<Add directory="../../../bin/debug" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../../../../bin/release/plugin/Mover" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../bin/release/plugin/Mover" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../../../../bin/release/plugin" />
 				<Option object_output="../../../../obj/release/plugin" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option host_application="autorealm" />
 				<Option run_host_application_in_terminal="0" />
-				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="pluginEngine" />
 					<Add directory="../../../bin/release" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-std=c++0x" />
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
-			<Add option="-fexceptions" />
 			<Add option="-fPIC" />
 			<Add directory="../../" />
 			<Add directory="../../../../pluma-fork/include" />
@@ -57,20 +50,16 @@
 		<Linker>
 			<Add library="pluma-d" />
 			<Add directory="../../../../pluma-fork/lib" />
+			<Add library="pluginEngine" />
 		</Linker>
 		<Unit filename="Mover/connector.cpp">
-			<Option virtualFolder="sources/" />
+			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="Mover/mover.cpp">
-			<Option virtualFolder="sources/" />
+			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="Mover/mover.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="header/" />
 		</Unit>
-		<Extensions>
-			<envvars />
-			<code_completion />
-			<debugger />
-		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

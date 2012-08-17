@@ -5,55 +5,46 @@
 		<Option title="autorealm" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="headers/;source/;" />
+		<Option virtualFolders="header/;source/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="../bin/debug/autorealm" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin/debug" />
 				<Option object_output="../obj/debug" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option use_console_runner="0" />
+				<Option use_console_runner="1" />
 				<Option projectLinkerOptionsRelation="2" />
+				<Option working_dir="../bin/debug" />
 				<Compiler>
-					<Add option="-std=c++0x" />
 					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
-					<Add library="renderEngine-d" />
-					<Add library="menuEngine-d" />
-					<Add library="pluginEngine-d" />
 					<Add directory="../bin/debug" />
 				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="../bin/release/autorealm" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin/release" />
-				<Option object_output="../obj/release/" />
+				<Option object_output="../obj/release" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
+				<Option working_dir="../bin/release" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add option="-std=c++0x" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="renderEngine" />
-					<Add library="pluginEngine" />
-					<Add library="menuEngine" />
 					<Add directory="../bin/release" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-std=c++0x" />
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="`wx-config --cppflags`" />
 			<Add directory="../src" />
-			<Add directory="renderEngine" />
 			<Add directory="../../pluma-fork/include" />
 		</Compiler>
 		<Linker>
@@ -64,72 +55,60 @@
 			<Add library="boost_system" />
 			<Add library="pluma-d" />
 			<Add directory="../../pluma-fork/lib" />
+			<Add library="renderEngine" />
+			<Add library="menuEngine" />
+			<Add library="pluginEngine" />
 		</Linker>
 		<Unit filename="gui/app.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="gui/app.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="gui/appconfig.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="gui/appconfig.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="gui/id.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="gui/id.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="gui/mainframe.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="gui/mainframe.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="gui/renderwindow.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="gui/renderwindow.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="gui/singleton.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="gui/splash.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="gui/splash.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="utils/textfile.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="utils/textfile.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="utils/utils.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="utils/utils.h">
-			<Option virtualFolder="headers/" />
+			<Option virtualFolder="header/" />
 		</Unit>
-		<Extensions>
-			<envvars />
-			<code_completion />
-			<lib_finder disable_auto="1" />
-			<debugger />
-			<DoxyBlocks>
-				<comment_style block="4" line="0" />
-				<doxyfile_project />
-				<doxyfile_build extract_all="1" extract_private="1" extract_static="1" />
-				<doxyfile_warnings warn_if_undocumented="1" />
-				<doxyfile_output />
-				<doxyfile_dot class_diagrams="1" have_dot="1" />
-				<general />
-			</DoxyBlocks>
-		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
