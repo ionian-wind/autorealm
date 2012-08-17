@@ -101,12 +101,7 @@ public:
 	void setEnd(Point const &p) throw();
 private:
 	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version)
-	{
-		ar &m_drawable;
-		ar &m_point;
-		ar &m_drawer;
-	}
+	void serialize(Archive &ar, const unsigned int version);
 
 protected:
 	Drawable *m_drawable;

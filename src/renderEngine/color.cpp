@@ -41,4 +41,13 @@ Drawable* Color::clone(void)const
 	return new Color(*this);
 }
 
+template<class Archive>
+void Color::serialize(Archive &ar, const unsigned int version)
+{
+	ar &m_red;
+	ar &m_green;
+	ar &m_blue;
+	ar &m_alpha;
+}
+
 }

@@ -70,4 +70,10 @@ Group::Group(Group const &g)
 		m_children.push_back(dynamic_cast<Object*>(i->clone()));
 }
 
+template<class Archive>
+void Group::serialize(Archive &ar, const unsigned int version)
+{
+	ar &m_children;
+}
+
 }

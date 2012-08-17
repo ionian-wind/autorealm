@@ -45,9 +45,8 @@ public:
 	virtual void draw(void)const throw() = 0;
 	virtual ~Object(void) throw() = default;
 private:
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version){};
-private:
+//	template<class Archive>
+//	void serialize(Archive &ar, const unsigned int version);
 };
 
 }

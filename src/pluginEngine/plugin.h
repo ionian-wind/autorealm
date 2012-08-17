@@ -33,7 +33,6 @@ public:
 	virtual void removeEventManager(void) throw() = 0;
 	virtual ~Plugin(void) = default;
 protected:
-	static const std::string m_configFileName;
 	RenderWindow *m_target;
 private:
 };

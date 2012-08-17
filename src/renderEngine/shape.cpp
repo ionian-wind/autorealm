@@ -122,4 +122,11 @@ Shape::Shape(Shape const &s)
 {
 }
 
+template<class Archive>
+void Shape::serialize(Archive &ar, const unsigned int version)
+{
+	ar &m_filler;
+	ar &m_children;
+}
+
 }

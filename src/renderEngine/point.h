@@ -58,12 +58,7 @@ public:
 protected:
 private:
 	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version)
-	{
-		ar &m_x;
-		ar &m_y;
-		ar &m_z;
-	}
+	void serialize(Archive &ar, const unsigned int version);
 
 };
 

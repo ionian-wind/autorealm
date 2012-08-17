@@ -108,4 +108,12 @@ void Vertex::setEnd(Point const &p) throw()
 	m_point = p;
 }
 
+template<class Archive>
+void Vertex::serialize(Archive &ar, const unsigned int version)
+{
+	ar &m_drawable;
+	ar &m_point;
+	ar &m_drawer;
+}
+
 }

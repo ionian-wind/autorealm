@@ -66,15 +66,12 @@ public:
 	virtual Drawable* clone(void)const override;
 private:
 	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version)
-	{
-		ar &m_children;
-	}
+	void serialize(Archive &ar, const unsigned int version);
 
 public:
 protected:
 	typedef std::vector<Object*> ObjectList;
-	 ObjectList m_children;
+	ObjectList m_children;
 private:
 };
 
