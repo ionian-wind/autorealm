@@ -72,11 +72,6 @@ public:
 	 */
 	void render(Drawable const &drawable)const throw();
 	void render(void)const throw();
-	/** \brief Change the algorithm used to render
-	 *	\param newRender Drawer*
-	 *	\throw nothing
-	 */
-	void changeRender(Drawer const &newRender) throw();
 
 	/** \brief get a copy of the drawable
 	 *	\return Drawable*

@@ -76,13 +76,6 @@ void Vertex::render(Drawable const &drawable) const throw()
 		m_drawer->draw(v);
 }
 
-void Vertex::changeRender(Drawer const&newRender) throw()
-{
-	///\todo make it inline
-	delete m_drawer;
-	m_drawer = newRender.clone();
-}
-
 Drawable& Vertex::getDrawable(void)const throw()
 {
 	///\todo make it inline
