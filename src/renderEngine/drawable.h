@@ -29,7 +29,7 @@ namespace Render
 class Drawable ///\todo rename it to simply Drawable and use namespaces
 {
 public:
-	virtual void apply(void)const throw() = 0;
+	virtual void draw(void)const throw() = 0;
 	virtual Drawable* clone(void)const = 0;
 	virtual ~Drawable(void) = default;
 };

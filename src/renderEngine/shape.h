@@ -85,7 +85,6 @@ public:
 	/** \brief close the shape */
 	void close(void) throw();
 
-	virtual void apply(void)const throw() override;
 	virtual Drawable* clone(void)const override;
 
 protected:

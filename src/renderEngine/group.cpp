@@ -53,11 +53,6 @@ void Group::push_back(Object *target)
 	m_children.push_back(target);
 }
 
-void Group::apply(void)const throw()
-{
-	draw();
-}
-
 Drawable* Group::clone(void)const
 {
 	return new Group(*this);

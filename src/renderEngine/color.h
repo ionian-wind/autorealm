@@ -48,7 +48,7 @@ public:
 	 *	this method simply call glColor4d. Its only use is encapsulation of openGL
 	 *	\throw nothing
 	 */
-	void apply(void)const throw() override;
+	void draw(void)const throw() override;
 	virtual Drawable* clone(void)const;
 	double m_red, m_green, m_blue, m_alpha;
 protected:

@@ -107,11 +107,6 @@ void Shape::close(void) throw()
 		m_children.push_back(m_children.front());
 }
 
-void Shape::apply(void)const throw()
-{
-	draw();
-}
-
 Drawable* Shape::clone(void)const
 {
 	return new Shape(*this);

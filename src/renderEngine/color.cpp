@@ -30,7 +30,7 @@ Color::Color(double red, double green, double blue, double alpha) throw()
 {
 }
 
-void Color::apply(void)const throw()
+void Color::draw(void)const throw()
 {
 	///\todo make this inline
 	glColor4d(m_red, m_green, m_blue, m_alpha);

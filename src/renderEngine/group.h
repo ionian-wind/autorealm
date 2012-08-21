@@ -62,7 +62,6 @@ public:
 	 */
 	void push_back(Object *target);
 
-	virtual void apply(void)const throw() override;
 	virtual Drawable* clone(void)const override;
 private:
 	template<class Archive>

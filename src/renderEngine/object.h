@@ -39,10 +39,6 @@ public:
 	 *	\param v Mutator& algo to apply
 	 */
 	virtual void accept(Mutator &v) = 0;
-	/** \brief draw the object
-	 *	\throw nothing
-	 */
-	virtual void draw(void)const throw() = 0;
 	virtual ~Object(void) throw() = default;
 private:
 //	template<class Archive>
