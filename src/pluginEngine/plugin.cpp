@@ -20,4 +20,9 @@
 
 #include "plugin.h"
 
+Plugin::Plugin(Plugin const& other) throw()
+:m_target(other.m_target)
+{
+}
+
 PLUMA_PROVIDER_SOURCE(Plugin, 1, 1)

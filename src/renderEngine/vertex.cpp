@@ -34,6 +34,11 @@ Vertex::Vertex(Point const &end) throw()
 	///\todo make it inline
 }
 
+Vertex::Vertex(Vertex const &other) throw()
+:Drawable(other),m_point(other.m_point)
+{
+}
+
 //Vertex &Vertex::operator=(Vertex const &v) throw()
 //{
 //	///\todo make it inline

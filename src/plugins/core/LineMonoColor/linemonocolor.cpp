@@ -23,8 +23,8 @@
 #include <renderEngine/vertex.h>
 
 LineMonoColor::LineMonoColor(LineMonoColor const &other)
+:GraphicPrimitive(other),m_color(other.m_color)
 {
-	m_target=other.m_target;
 }
 
 LineMonoColor::LineMonoColor(Render::Color const& color)

@@ -29,6 +29,8 @@ class RenderWindow;
 class Plugin
 {
 public:
+	Plugin(void) throw() =default;
+	Plugin(Plugin const& other) throw();
 	virtual void installEventManager(RenderWindow &target) throw() = 0;
 	virtual void removeEventManager(void) throw() = 0;
 	virtual ~Plugin(void) = default;

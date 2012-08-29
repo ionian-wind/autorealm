@@ -41,12 +41,13 @@ class wxMenu;
 
 class Drawer : public Plugin
 {
-	ID m_menuIds[3];
-	wxMenu *m_menu=nullptr;
+	static ID m_menuIds[3];
+	static wxMenu *m_menu;
 	Render::Shape *m_shape=nullptr;
 	bool m_shape1stPoint=false;
 public:
 	Drawer(void);
+	Drawer(Drawer const& other);
 	virtual ~Drawer(void)throw();
 	virtual void installEventManager(RenderWindow &target) throw() override;
 	virtual void removeEventManager(void) throw() override;

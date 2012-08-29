@@ -27,19 +27,33 @@
 
 #include "graphicprimitive.h"
 
+ID Drawer::m_menuIds[3];
+wxMenu *Drawer::m_menu(nullptr);
+
 Drawer::Drawer(void)
-:m_menu(new wxMenu())
 {
-	m_menu->Append(m_menuIds[0], wxT("Create &Open Figure"));
-	m_menu->Append(m_menuIds[1], wxT("Create &Closed Figure"));
-	m_menu->AppendSeparator();
-	m_menu->Append(m_menuIds[2], wxT("Suppress this menu and use &Shift for Closed Figures"));
+	if(!m_menu)
+	{
+		m_menu=new wxMenu();
+
+		m_menu->Append(m_menuIds[0], wxT("Create &Open Figure"));
+		m_menu->Append(m_menuIds[1], wxT("Create &Closed Figure"));
+		m_menu->AppendSeparator();
+		m_menu->Append(m_menuIds[2], wxT("Suppress this menu and use &Shift for Closed Figures"));
+	}
+}
+
+Drawer::Drawer(Drawer const& other)
+:Plugin(other),m_shape(dynamic_cast<Render::Shape*>(other.m_shape->clone())),m_shape1stPoint(other.m_shape1stPoint)
+{
 }
 
 Drawer::~Drawer(void)throw()
 {
 	removeEventManager();
-	delete m_menu;
+//!\note might be a memory leak=> this pointer is never deleted but it's\
+content is needed in all app's life
+//	delete m_menu;
 }
 
 void Drawer::installEventManager(RenderWindow &target) throw()
@@ -99,7 +113,9 @@ void Drawer::addPoint(wxMouseEvent &event)
 
 void Drawer::addVertex(Render::Point p)
 {
-	m_shape->push(*dynamic_cast<GraphicPrimitive*>(this));
+	Render::Vertex *v(dynamic_cast<Render::Vertex*>(this));
+	v->setEnd(p);
+	m_shape->push(*v);
 }
 
 void Drawer::finalizeShape(wxCommandEvent &event)
