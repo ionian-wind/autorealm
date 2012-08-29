@@ -44,13 +44,14 @@
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="-fPIC" />
+			<Add option="`wx-config --cxxflags`" />
 			<Add directory="../../" />
 			<Add directory="../../../../pluma-fork/include" />
 		</Compiler>
 		<Linker>
 			<Add library="pluma-d" />
-			<Add directory="../../../../pluma-fork/lib" />
 			<Add library="pluginEngine" />
+			<Add directory="../../../../pluma-fork/lib" />
 		</Linker>
 		<Unit filename="LineMonoColor/connector.cpp">
 			<Option virtualFolder="source/" />
@@ -61,5 +62,9 @@
 		<Unit filename="LineMonoColor/linemonocolor.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

@@ -27,8 +27,7 @@ class LineMonoColor : public GraphicPrimitive
 {
 	Render::Color m_color;
 public:
-	LineMonoColor(void)=default;
-	LineMonoColor(Render::Color const& color);
+	LineMonoColor(void);
 	LineMonoColor(LineMonoColor const &other);
 	virtual void draw(void)const throw() override;
 	virtual Render::Drawable* clone(void)const override;

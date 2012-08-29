@@ -20,15 +20,16 @@
 
 #include "linemonocolor.h"
 
+#include <gui/renderwindow.h>
 #include <renderEngine/vertex.h>
 
-LineMonoColor::LineMonoColor(LineMonoColor const &other)
-:GraphicPrimitive(other),m_color(other.m_color)
+LineMonoColor::LineMonoColor(void)
+:GraphicPrimitive(),m_color()
 {
 }
 
-LineMonoColor::LineMonoColor(Render::Color const& color)
-:m_color(color)
+LineMonoColor::LineMonoColor(LineMonoColor const &other)
+:GraphicPrimitive(other),m_color(other.m_color)
 {
 }
 
@@ -41,5 +42,7 @@ void LineMonoColor::draw(void)const throw()
 
 Render::Drawable* LineMonoColor::clone(void)const
 {
-	return static_cast<Render::Drawable*>(new LineMonoColor(*this));
+	LineMonoColor* tmp(new LineMonoColor(*this));
+	tmp->m_color=m_target->getFillerColor();
+	return static_cast<Render::Drawable*>(tmp);
 }
