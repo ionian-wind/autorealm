@@ -53,6 +53,8 @@ void Shape::draw(void)const throw()
 
 	for(Drawable const *i : m_children)
 		i->draw();
+	if(m_close)
+		m_children.front()->draw();
 
 	glEnd();
 
