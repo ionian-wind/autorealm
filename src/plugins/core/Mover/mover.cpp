@@ -32,17 +32,17 @@ void Mover::visit(Render::Group &v)
 
 void Mover::visit(Render::Shape &v)
 {
-	std::transform(
-		v.getFirstChild(),
-		v.getLastChild(),
-		v.getFirstChild(),
-		std::bind(std::mem_fun(&Mover::mover), this, std::placeholders::_1)
-	);
+//	std::transform(
+//		v.getFirstChild(),
+//		v.getLastChild(),
+//		v.getFirstChild(),
+//		std::bind(std::mem_fun(&Mover::mover), this, std::placeholders::_1)
+//	);
 }
 
-Render::Vertex Mover::mover(Render::Vertex const &v)
-{
-	Render::Vertex v1(v);
-	v1.setEnd(v1.getEnd() + m_distance);
-	return v1;
-}
+//Render::Vertex Mover::mover(Render::Drawable const &v)
+//{
+//	Render::Vertex v1(v);
+//	v1.setEnd(v1.getEnd() + m_distance);
+//	return v1;
+//}

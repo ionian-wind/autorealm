@@ -26,7 +26,7 @@
 
 namespace Render
 {
-class Vertex;
+	class Drawable;
 }
 
 class Mover : public Mutator
@@ -36,7 +36,7 @@ public:
 	void visit(Render::Shape &v) override;
 protected:
 private:
-	Render::Vertex mover(Render::Vertex const &v);
+//	Render::Drawable& mover(Render::Drawable const &v);
 };
 
 PLUMA_INHERIT_PROVIDER(Mover, Plugin);

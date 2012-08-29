@@ -53,6 +53,8 @@
 		<Unit filename="pluginEngine/drawer.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Unit filename="pluginEngine/graphicprimitive.cpp" />
+		<Unit filename="pluginEngine/graphicprimitive.h" />
 		<Unit filename="pluginEngine/mutator.h">
 			<Option virtualFolder="header/" />
 		</Unit>
@@ -62,5 +64,9 @@
 		<Unit filename="pluginEngine/plugin.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

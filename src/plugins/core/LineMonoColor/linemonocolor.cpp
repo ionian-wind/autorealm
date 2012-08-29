@@ -27,14 +27,19 @@ LineMonoColor::LineMonoColor(LineMonoColor const &other)
 	m_target=other.m_target;
 }
 
-void LineMonoColor::draw(Render::Vertex const &v)const
+LineMonoColor::LineMonoColor(Render::Color const& color)
+:m_color(color)
 {
-	v.getEnd().createVertice();
-	v.getDrawable().apply();
-	v.getEnd().createVertice();
 }
 
-Drawer* LineMonoColor::clone(void)const
+void LineMonoColor::draw(void)const throw()
 {
-	return new LineMonoColor(*this);
+	m_point.createVertice();
+	m_color.draw();
+	m_point.createVertice();
+}
+
+Render::Drawable* LineMonoColor::clone(void)const
+{
+	return static_cast<Render::Drawable*>(new LineMonoColor(*this));
 }

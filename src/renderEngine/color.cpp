@@ -36,7 +36,7 @@ void Color::draw(void)const throw()
 	glColor4d(m_red, m_green, m_blue, m_alpha);
 }
 
-Drawable* Color::clone(void)const
+Drawable* Color::clone(void) const
 {
 	return new Color(*this);
 }

@@ -32,6 +32,12 @@ namespace Render
 
 class Shape : public Object
 {
+	typedef std::vector<Drawable*> DrawableList;
+	DrawableList m_children;
+	Drawable* m_filler;
+	bool m_close=false;
+
+
 	friend class boost::serialization::access;
 public:
 	Shape(void) = default;
@@ -57,7 +63,7 @@ public:
 	 *	\note A copy of the vertex is made before adding it to the shape
 	 *	\param const&target Vertex vertex to add.
 	 */
-	void push_back(Vertex const &target);
+	void push(Drawable const &target);
 	void pop(void)throw();
 
 	/** \brief change the drawable used to fill the shape
@@ -74,13 +80,13 @@ public:
 	 *	\todo check if this method is really mandatory, because it breaks the encapsulation
 	 *	\return std::vector<Vertex>::iterator
 	 */
-	std::vector<Vertex>::iterator getFirstChild(void) throw();
+	Drawable& getFirstChild(void) throw();
 
 	/** \brief retrieve on iterator after the last vertex
 	 *	\todo check if this method is really mandatory, because it breaks the encapsulation
 	 *	\return std::vector<Vertex>::iterator
 	 */
-	std::vector<Vertex>::iterator getLastChild(void) throw();
+	Drawable& getLastChild(void) throw();
 
 	/** \brief close the shape */
 	void close(void) throw();
@@ -91,11 +97,7 @@ protected:
 private:
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version);
-
-protected:
-private:
-	Drawable* m_filler;
-	std::vector<Vertex> m_children;
+	inline void checkSize(void)const;
 };
 
 }

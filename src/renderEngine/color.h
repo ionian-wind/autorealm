@@ -28,7 +28,7 @@
 namespace Render
 {
 
-class Color: public Drawable
+class Color : public Drawable
 {
 	friend class boost::serialization::access;
 public:
@@ -49,7 +49,7 @@ public:
 	 *	\throw nothing
 	 */
 	void draw(void)const throw() override;
-	virtual Drawable* clone(void)const;
+	Drawable* clone(void) const override;
 	double m_red, m_green, m_blue, m_alpha;
 protected:
 private:

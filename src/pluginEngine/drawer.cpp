@@ -25,6 +25,8 @@
 
 #include <wx/menu.h>
 
+#include "graphicprimitive.h"
+
 Drawer::Drawer(void)
 :m_menu(new wxMenu())
 {
@@ -70,7 +72,7 @@ void Drawer::removeEventManager(void) throw()
 void Drawer::firstPoint(wxMouseEvent &event)
 {
 	createShape();
-	addPoint(event);
+	addVertex(Render::Point(event.GetX(),event.GetY(),0));
 	addPoint(event);
 
 	m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::firstPoint, this);
@@ -97,7 +99,7 @@ void Drawer::addPoint(wxMouseEvent &event)
 
 void Drawer::addVertex(Render::Point p)
 {
-	m_shape->push_back(Render::Vertex(p,m_target->getBorderColor(),*clone()));
+	m_shape->push(*dynamic_cast<GraphicPrimitive*>(this));
 }
 
 void Drawer::finalizeShape(wxCommandEvent &event)

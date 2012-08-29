@@ -23,6 +23,7 @@
 
 #include <gui/id.h>
 
+#include <renderEngine/drawable.h>
 namespace Render
 {
 	class Vertex;
@@ -62,8 +63,6 @@ public:
 
 	void finalizeShape(wxCommandEvent &event);
 
-	virtual void draw(Render::Vertex const &v)const = 0;
-	virtual Drawer* clone(void)const = 0;
 protected:
 	void createShape(void);
 };

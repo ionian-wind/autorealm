@@ -28,65 +28,24 @@
 namespace Render
 {
 
-Vertex::Vertex(Point const &end, Drawable const &drawable, Drawer &drawer) throw()
-	: m_drawable(drawable.clone()), m_point(end), m_drawer(drawer.clone())
+Vertex::Vertex(Point const &end) throw()
+	: m_point(end)
 {
 	///\todo make it inline
 }
 
-Vertex::Vertex(Vertex const &other) throw()
-	: m_drawable(), m_point(other.m_point), m_drawer(other.m_drawer->clone())
-{
-	m_drawable=(other.m_drawable->clone());
-	///\todo make it inline
-}
-
-Vertex::~Vertex(void) throw()
-{
-	///\todo make it inline
-	assert(m_drawer);//m_drawer should NEVER be null
-	assert(m_drawable);
-	delete m_drawer;
-	delete m_drawable;
-}
-
-Vertex &Vertex::operator=(Vertex const &v) throw()
-{
-	///\todo make it inline
-	Vertex vv(v);
-	std::swap(*this,vv);
-	return *this;
-}
-
+//Vertex &Vertex::operator=(Vertex const &v) throw()
+//{
+//	///\todo make it inline
+//	Vertex vv(v);
+//	std::swap(*this,vv);
+//	return *this;
+//}
+//
 bool Vertex::operator==(Vertex const &other)const throw()
 {
 	///\todo make it inline
 	return m_point == other.m_point;
-}
-
-void Vertex::render(void) const throw()
-{
-	m_drawer->draw(*this);
-}
-
-void Vertex::render(Drawable const &drawable) const throw()
-{
-		Vertex v = Vertex(*this);
-		v.setDrawable(drawable);
-		m_drawer->draw(v);
-}
-
-Drawable& Vertex::getDrawable(void)const throw()
-{
-	///\todo make it inline
-	return *m_drawable;
-}
-
-void Vertex::setDrawable(Drawable const &d) throw()
-{
-	///\todo make it inline
-	delete m_drawable;
-	m_drawable=d.clone();
 }
 
 Point Vertex::getEnd(void)const throw()
@@ -104,9 +63,7 @@ void Vertex::setEnd(Point const &p) throw()
 template<class Archive>
 void Vertex::serialize(Archive &ar, const unsigned int version)
 {
-	ar &m_drawable;
 	ar &m_point;
-	ar &m_drawer;
 }
 
 }

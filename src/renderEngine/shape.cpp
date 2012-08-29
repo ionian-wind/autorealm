@@ -21,6 +21,8 @@
 #include "shape.h"
 
 #include <algorithm>
+#include <stdexcept>
+
 #include <GL/gl.h>
 
 #include <pluginEngine/mutator.h>
@@ -30,6 +32,8 @@ namespace Render
 
 Shape::~Shape(void) throw()
 {
+	for(Drawable * i: m_children)
+		delete i;
 	m_children.clear();
 	delete m_filler;
 }
@@ -42,69 +46,84 @@ void Shape::accept(Mutator &v)
 
 void Shape::draw(void)const throw()
 {
+	checkSize();
+
 	//!\todo implement tesselation to manage concave polygons
 	glBegin(GL_LINE_STRIP);
 
-	for(Vertex const &i : m_children)
-		i.render();
+	for(Drawable const *i : m_children)
+		i->draw();
 
 	glEnd();
 
 	if(isClosed())
 	{
-		glBegin(GL_POLYGON);
-		m_filler->apply();
-
-		for(Vertex const&i : m_children)
-			i.render(*m_filler);
-
-		glEnd();
+//		throw std::logic_error("not implemented yet");
+//		glBegin(GL_POLYGON);
+//		m_filler->apply();
+//
+//		for(Drawable const *i : m_children)
+//			i->draw(*m_filler);
+//
+//		glEnd();
 	}
 }
 
 bool Shape::isClosed(void)const  throw()
 {
-	if(m_children.empty())
-		return false;
+//	if(m_children.empty())
+//		return false;
+//	checkSize();
 
-	return m_children.front() == m_children.back();
+	return m_close;
+//	Drawable &a=*m_children.front();
+//	Drawable &b=*m_children.back();
+//	return a==b;
+//	return (*m_children.front()) == (*m_children.back());
 }
 
-void Shape::push_back(Vertex const &target)
+void Shape::push(Drawable const &target)
 {
-	m_children.push_back(target);
+	m_children.push_back(target.clone());
 }
 
 void Shape::pop(void)throw()
 {
+	if(m_children.empty())
+		throw std::logic_error("Can not pop an element when container is empty");
+	delete m_children.back();
 	m_children.pop_back();
+
+//	checkSize();
 }
 
 void Shape::setFiller(Drawable const &d) throw()
 {
+	Drawable* tmp=d.clone();
 	delete m_filler;
-	m_filler=d.clone();
+	std::swap(tmp,m_filler);
 }
 
-Drawable &Shape::getFiller(void)const throw()
+Drawable& Shape::getFiller(void)const throw()
 {
 	return *m_filler;
 }
 
-std::vector<Vertex>::iterator Shape::getFirstChild(void) throw()
+Drawable& Shape::getFirstChild(void) throw()
 {
-	return m_children.begin();
+	return **m_children.begin();
 }
 
-std::vector<Vertex>::iterator Shape::getLastChild(void) throw()
+Drawable& Shape::getLastChild(void) throw()
 {
-	return m_children.end()--;
+	return **m_children.end()--;
 }
 
 void Shape::close(void) throw()
 {
-	if(!isClosed())
-		m_children.push_back(m_children.front());
+	m_close=true;
+//	if(!isClosed())
+//		m_children.push_back(m_children.front()->clone());
 }
 
 Drawable* Shape::clone(void)const
@@ -113,8 +132,11 @@ Drawable* Shape::clone(void)const
 }
 
 Shape::Shape(Shape const &s)
-	: m_filler(s.m_filler->clone()), m_children(s.m_children)
+	: m_filler(s.m_filler->clone())
 {
+	m_children.reserve(s.m_children.size());
+	for(Drawable *i: s.m_children)
+		m_children.push_back(i->clone());
 }
 
 template<class Archive>
@@ -122,6 +144,12 @@ void Shape::serialize(Archive &ar, const unsigned int version)
 {
 	ar &m_filler;
 	ar &m_children;
+}
+
+inline void Shape::checkSize(void)const
+{
+	if(2>m_children.size())
+		throw std::logic_error("Shape must always have at least two points");
 }
 
 }

@@ -25,12 +25,10 @@
 #include "color.h"
 #include "drawable.h"
 
-class Drawer;
-
 namespace Render
 {
 
-class Vertex
+class Vertex : public Drawable
 {
 	friend class boost::serialization::access;
 public:
@@ -42,20 +40,19 @@ public:
 	 *	\param drawer Drawer*
 	 *	\throw nothing
 	 */
-	Vertex(Point const &end, Drawable const &drawable, Drawer &drawer) throw();
+	Vertex(Point const &end) throw();
 	/** \brief copy ctor
 	 *	\param const&other Vertex
 	 *	\throw nothing
 	 */
 	Vertex(Vertex const &other) throw();
-	/** \brief destructor */
-	~Vertex(void) throw();
+
 	/** \brief copy another vertex
 	 *	\param const&v Vertex
 	 *	\return Vertex&
 	 *	\throw nothing
 	 */
-	Vertex &operator=(Vertex const &v) throw();
+//	Vertex &operator=(Vertex const &v) throw();
 	/** \brief test if two vertex are the same
 	 *	\note currently, only the position is used to compare two vertices
 	 *	\param const&other Vertex
@@ -63,26 +60,6 @@ public:
 	 *	\throw nothing
 	 */
 	bool operator==(Vertex const &other)const throw();
-	/** \brief render a vertex
-	 *	If drawable is set, the drawable is used instead of the drawable of the vertex.
-	 *	This is usefull to create shapes filled with a given drawable, by example.
-	 *	\param drawable=nullptr REDrawable const* drawable to use to render. If it is a nullptr, then the vertex's one is used
-	 *	\throw nothing
-	 *	\todo check if it is realistic to say Drawer::draw can not throw
-	 */
-	void render(Drawable const &drawable)const throw();
-	void render(void)const throw();
-
-	/** \brief get a copy of the drawable
-	 *	\return Drawable*
-	 *	\throw nothing
-	 */
-	Drawable& getDrawable(void)const throw();
-	/** \brief change the drawable to a copy of d
-	 *	\param d Drawable const*
-	 *	\throw nothing
-	 */
-	void setDrawable(Drawable const &d) throw();
 
 	/** \brief return (a copy of the) coordinates of the ending point
 	 *	\return Point
@@ -99,9 +76,7 @@ private:
 	void serialize(Archive &ar, const unsigned int version);
 
 protected:
-	Drawable *m_drawable;
 	Point m_point;
-	Drawer* m_drawer;
 private:
 };
 
