@@ -21,16 +21,17 @@
 #ifndef VertexMONOCOLOR_H
 #define VertexMONOCOLOR_H
 
-#include <pluginEngine/graphicprimitive.h>
+#include <pluginEngine/drawer.h>
+#include <renderEngine/color.h>
 
-class LineMonoColor : public GraphicPrimitive
+class LineMonoColor : public Drawer
 {
 	Render::Color m_color;
 public:
 	LineMonoColor(void);
 	LineMonoColor(LineMonoColor const &other);
 	virtual void draw(void)const throw() override;
-	virtual Render::Drawable* clone(void)const override;
+	virtual Drawer* clone(void)const override;
 };
 
 PLUMA_INHERIT_PROVIDER(LineMonoColor, Plugin);

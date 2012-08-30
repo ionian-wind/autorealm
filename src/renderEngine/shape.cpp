@@ -30,14 +30,6 @@
 namespace Render
 {
 
-Shape::~Shape(void) throw()
-{
-	for(Drawable * i: m_children)
-		delete i;
-	m_children.clear();
-	delete m_filler;
-}
-
 void Shape::accept(Mutator &v)
 {
 	///\todo find a solution to use std::for_each
@@ -51,49 +43,42 @@ void Shape::draw(void)const throw()
 	//!\todo implement tesselation to manage concave polygons
 	glBegin(GL_LINE_STRIP);
 
-	for(Drawable const *i : m_children)
-		i->draw();
+	for(auto &i : m_children)
+		i.draw();
 	if(m_close)
-		m_children.front()->draw();
+		m_children.front().draw();
 
 	glEnd();
 
 	if(isClosed())
 	{
 //		throw std::logic_error("not implemented yet");
-//		glBegin(GL_POLYGON);
-//		m_filler->apply();
-//
-//		for(Drawable const *i : m_children)
-//			i->draw(*m_filler);
-//
-//		glEnd();
+		glBegin(GL_POLYGON);
+		m_filler->draw();
+
+		for(auto &i : m_children)
+			i.getEnd().createVertice();
+		if(m_close)
+			m_children.front().getEnd().createVertice();
+
+		glEnd();
 	}
 }
 
 bool Shape::isClosed(void)const  throw()
 {
-//	if(m_children.empty())
-//		return false;
-//	checkSize();
-
 	return m_close;
-//	Drawable &a=*m_children.front();
-//	Drawable &b=*m_children.back();
-//	return a==b;
-//	return (*m_children.front()) == (*m_children.back());
 }
 
-void Shape::push(Drawable const &target)
+void Shape::push(Vertex const & target)
 {
-	m_children.push_back(target.clone());
+	m_children.push_back(target);
 }
 
 void Shape::pop(void)throw()
 {
 	if(m_children.empty())
 		throw std::logic_error("Can not pop an element when container is empty");
-	delete m_children.back();
 	m_children.pop_back();
 
 //	checkSize();
@@ -101,44 +86,32 @@ void Shape::pop(void)throw()
 
 void Shape::setFiller(Drawable const &d) throw()
 {
-	Drawable* tmp=d.clone();
-	delete m_filler;
-	std::swap(tmp,m_filler);
+	m_filler=d;
 }
 
-Drawable& Shape::getFiller(void)const throw()
+clone_ptr<Drawable> Shape::getFiller(void)const throw()
 {
-	return *m_filler;
+	return m_filler;
 }
 
-Drawable& Shape::getFirstChild(void) throw()
+Vertex& Shape::getFirstChild(void) throw()
 {
-	return **m_children.begin();
+	return *m_children.begin();
 }
 
-Drawable& Shape::getLastChild(void) throw()
+Vertex& Shape::getLastChild(void) throw()
 {
-	return **m_children.end()--;
+	return *m_children.end()--;
 }
 
 void Shape::close(void) throw()
 {
 	m_close=true;
-//	if(!isClosed())
-//		m_children.push_back(m_children.front()->clone());
 }
 
 Drawable* Shape::clone(void)const
 {
 	return new Shape(*this);
-}
-
-Shape::Shape(Shape const &s)
-	: m_filler(s.m_filler->clone())
-{
-	m_children.reserve(s.m_children.size());
-	for(Drawable *i: s.m_children)
-		m_children.push_back(i->clone());
 }
 
 template<class Archive>

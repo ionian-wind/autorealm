@@ -63,7 +63,8 @@ public:
 	void render(void);
 
 	void finalizeShape(wxCommandEvent &event);
-
+	virtual Drawer* clone(void)const=0;
+	virtual void draw(void)const throw()=0;
 protected:
 	void createShape(void);
 };

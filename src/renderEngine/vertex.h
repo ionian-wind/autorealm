@@ -21,38 +21,17 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
+#include <pluginEngine/drawer.h>
 #include "point.h"
-#include "color.h"
-#include "drawable.h"
+#include <utils/clone_ptr.h>
 
 namespace Render
 {
 
-class Vertex : public Drawable
+class Vertex
 {
 	friend class boost::serialization::access;
 public:
-	/** \brief default constructor */
-	Vertex(void) throw() = default;
-	/** \brief constructor with initialization
-	 *	\param end Point const&
-	 *	\param color Color const&
-	 *	\param drawer Drawer*
-	 *	\throw nothing
-	 */
-	Vertex(Point const &end) throw();
-	/** \brief copy ctor
-	 *	\param const&other Vertex
-	 *	\throw nothing
-	 */
-	Vertex(Vertex const &other) throw();
-
-	/** \brief copy another vertex
-	 *	\param const&v Vertex
-	 *	\return Vertex&
-	 *	\throw nothing
-	 */
-//	Vertex &operator=(Vertex const &v) throw();
 	/** \brief test if two vertex are the same
 	 *	\note currently, only the position is used to compare two vertices
 	 *	\param const&other Vertex
@@ -71,12 +50,15 @@ public:
 	 *	\throw nothing
 	 */
 	void setEnd(Point const &p) throw();
+	void draw(void)const;
+	void setDrawer(Drawer const& next);
 private:
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version);
 
 protected:
 	Point m_point;
+	clone_ptr<Drawer> m_renderer;
 private:
 };
 

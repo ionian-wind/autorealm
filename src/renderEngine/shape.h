@@ -32,18 +32,15 @@ namespace Render
 
 class Shape : public Object
 {
-	typedef std::vector<Drawable*> DrawableList;
+	typedef std::vector<Vertex> DrawableList;
+	typedef Vertex& DrawableRef;
 	DrawableList m_children;
-	Drawable* m_filler;
+	clone_ptr<Drawable> m_filler;
 	bool m_close=false;
 
-
 	friend class boost::serialization::access;
+
 public:
-	Shape(void) = default;
-	Shape(Shape const &s);
-	/** Destructor */
-	~Shape(void) throw();
 	/** \brief Apply an algorithm on itself
 	 * \param v Mutator& algorithm to apply
 	 */
@@ -63,7 +60,7 @@ public:
 	 *	\note A copy of the vertex is made before adding it to the shape
 	 *	\param const&target Vertex vertex to add.
 	 */
-	void push(Drawable const &target);
+	void push(Vertex const & target);
 	void pop(void)throw();
 
 	/** \brief change the drawable used to fill the shape
@@ -74,19 +71,19 @@ public:
 	/** \brief retrieve a copy of the drawable used to fill the shape
 	 *	\return REDrawable* copy of the drawable used
 	 */
-	Drawable& getFiller(void)const throw();
+	clone_ptr<Drawable> getFiller(void)const throw();
 
 	/** \brief retrieve an iterator on the first vertex
 	 *	\todo check if this method is really mandatory, because it breaks the encapsulation
 	 *	\return std::vector<Vertex>::iterator
 	 */
-	Drawable& getFirstChild(void) throw();
+	Vertex& getFirstChild(void) throw();
 
 	/** \brief retrieve on iterator after the last vertex
 	 *	\todo check if this method is really mandatory, because it breaks the encapsulation
 	 *	\return std::vector<Vertex>::iterator
 	 */
-	Drawable& getLastChild(void) throw();
+	Vertex& getLastChild(void) throw();
 
 	/** \brief close the shape */
 	void close(void) throw();

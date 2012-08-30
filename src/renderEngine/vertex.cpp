@@ -22,31 +22,11 @@
 
 #include <assert.h>
 
-#include "shape.h"
 #include <pluginEngine/drawer.h>
 
 namespace Render
 {
 
-Vertex::Vertex(Point const &end) throw()
-	: m_point(end)
-{
-	///\todo make it inline
-}
-
-Vertex::Vertex(Vertex const &other) throw()
-:Drawable(other),m_point(other.m_point)
-{
-}
-
-//Vertex &Vertex::operator=(Vertex const &v) throw()
-//{
-//	///\todo make it inline
-//	Vertex vv(v);
-//	std::swap(*this,vv);
-//	return *this;
-//}
-//
 bool Vertex::operator==(Vertex const &other)const throw()
 {
 	///\todo make it inline
@@ -63,6 +43,18 @@ void Vertex::setEnd(Point const &p) throw()
 {
 	///\todo make it inline
 	m_point = p;
+}
+
+void Vertex::draw(void)const
+{
+	m_point.createVertice();
+	m_renderer->draw();
+	m_point.createVertice();
+}
+
+void Vertex::setDrawer(Drawer const& next)
+{
+	m_renderer=next;
 }
 
 template<class Archive>

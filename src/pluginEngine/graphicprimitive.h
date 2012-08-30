@@ -5,7 +5,7 @@
 #include "drawer.h"
 
 
-class GraphicPrimitive : public Drawer, public Render::Vertex
+class GraphicPrimitive : public Drawer
 {
 	public:
 		GraphicPrimitive(void)=default;//!\todo remove this ctor needed because of Pluma's macros

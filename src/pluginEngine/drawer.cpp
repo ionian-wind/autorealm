@@ -31,6 +31,7 @@ ID Drawer::m_menuIds[3];
 wxMenu *Drawer::m_menu(nullptr);
 
 Drawer::Drawer(void)
+:Plugin()
 {
 	if(!m_menu)
 	{
@@ -113,8 +114,9 @@ void Drawer::addPoint(wxMouseEvent &event)
 
 void Drawer::addVertex(Render::Point p)
 {
-	Render::Vertex *v(dynamic_cast<Render::Vertex*>(this));
+	Render::Vertex *v(new Render::Vertex());
 	v->setEnd(p);
+	v->setDrawer(*this);
 	m_shape->push(*v);
 }
 

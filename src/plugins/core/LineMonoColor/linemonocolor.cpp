@@ -24,25 +24,24 @@
 #include <renderEngine/vertex.h>
 
 LineMonoColor::LineMonoColor(void)
-:GraphicPrimitive(),m_color()
+:Drawer(),m_color()
 {
 }
 
 LineMonoColor::LineMonoColor(LineMonoColor const &other)
-:GraphicPrimitive(other),m_color(other.m_color)
+:Drawer(other),m_color(other.m_color)
 {
 }
 
 void LineMonoColor::draw(void)const throw()
 {
-	m_point.createVertice();
 	m_color.draw();
-	m_point.createVertice();
 }
 
-Render::Drawable* LineMonoColor::clone(void)const
+Drawer* LineMonoColor::clone(void)const
 {
-	LineMonoColor* tmp(new LineMonoColor(*this));
-	tmp->m_color=m_target->getFillerColor();
-	return static_cast<Render::Drawable*>(tmp);
+//	LineMonoColor* tmp(new LineMonoColor(*this));
+//	tmp->m_color=m_target->getFillerColor();
+//	return static_cast<Render::Drawable*>(tmp);
+	return new LineMonoColor(*this);
 }
