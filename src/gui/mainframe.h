@@ -54,7 +54,6 @@ class MainFrame : public wxFrame
 	AssocIDs m_buttonIDs;	/// name of plugins are associated with an ID
 	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins
 
-	std::vector<PluginProvider *> m_actionProviders;
 	pluma::Pluma m_actionPlugIn;
 
 public:
