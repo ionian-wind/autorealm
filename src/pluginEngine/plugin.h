@@ -22,7 +22,6 @@
 #define PLUGIN_H
 
 #include <string>
-#include <Pluma/Pluma.hpp>
 
 class RenderWindow;
 
@@ -37,19 +36,6 @@ public:
 protected:
 	RenderWindow *m_target;
 private:
-};
-
-class PluginProvider: public pluma::Provider
-{
-private:
-	friend class pluma::Pluma;
-	static const unsigned int PLUMA_INTERFACE_VERSION;
-	static const unsigned int PLUMA_INTERFACE_LOWEST_VERSION;
-	static const std::string PLUMA_PROVIDER_TYPE;
-	std::string plumaGetType() const{ return PLUMA_PROVIDER_TYPE; }
-public:
-	unsigned int getVersion() const{ return PLUMA_INTERFACE_VERSION; }
-	virtual Plugin* create(RenderWindow*w) const = 0;
 };
 
 #endif // PLUGIN_H

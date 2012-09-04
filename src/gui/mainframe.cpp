@@ -27,6 +27,7 @@
 
 #include <utils/utils.h>
 #include <renderEngine/shape.h>
+#include <renderEngine/color.h>
 
 #include "renderwindow.h"
 #include "id.h"

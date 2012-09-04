@@ -31,7 +31,7 @@
 #include <menuEngine/composite.h>
 #include <menuEngine/wxmenuconverter.h>
 #include <pluginEngine/plugin.h>
-#include <renderEngine/color.h>
+#include <pluginEngine/pluginprovider.h>
 
 typedef Composite<MenuConverter> Menu;
 class RenderWindow;

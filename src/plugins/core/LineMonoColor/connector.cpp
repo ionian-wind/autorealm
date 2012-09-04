@@ -19,6 +19,7 @@
  **********************************************************************************/
 
 #include <Pluma/Connector.hpp>
+#include <pluginEngine/pluginprovider.h>
 #include <pluginEngine/tprovider.h>
 
 #include "linemonocolor.h"
@@ -26,6 +27,6 @@
 PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
-	host.add(new TPluginProvider<LineMonoColor, Plugin, TInterfaceProvider<Plugin,1,1>>());
+	host.add(new TPluginProvider<LineMonoColor, Plugin, PluginProvider>());
 	return true;
 }

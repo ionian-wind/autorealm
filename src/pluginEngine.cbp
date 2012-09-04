@@ -68,6 +68,12 @@
 		<Unit filename="pluginEngine/plugin.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Unit filename="pluginEngine/pluginprovider.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="pluginEngine/pluginprovider.h">
+			<Option virtualFolder="header/" />
+		</Unit>
 		<Unit filename="pluginEngine/tprovider.h">
 			<Option virtualFolder="header/" />
 		</Unit>
