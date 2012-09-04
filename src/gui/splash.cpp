@@ -42,4 +42,6 @@ Splash::Splash()
 		BoxSizer1->Fit(this);
 		Show();
 	}
+	else
+		throw std::runtime_error("unable to find splash screen image which should be located at "+AppConfig::buildPath(AppConfig::GRP_RES) + "splash/splash.png");
 }

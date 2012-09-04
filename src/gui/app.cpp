@@ -39,6 +39,13 @@ bool App::OnInit()
 		{
 			Splash *s = new Splash();
 			m_app = new MainFrame(0);
+#ifdef TEST_SPLASH
+			time_t start, end;
+			time(&start);
+			time(&end);
+			while(difftime(end,start)<10.0)
+				time(&end);
+#endif
 			delete s;
 			m_app->Show();
 			SetTopWindow(m_app);

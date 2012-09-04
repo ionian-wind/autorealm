@@ -32,7 +32,7 @@ class AppConfig: public Singleton<AppConfig>
 {
 	std::vector<std::string> m_datas;
 public:
-	enum INFO {GRP_RES = 0, PLUGINS = 1, SPLASH = 2, MENU = 3, LASTINDEX};
+	enum INFO {GRP_RES = 0, PLUGINS, MENU, LASTINDEX};
 	/** \brief retrieve data from a configuration file */
 	AppConfig();
 	/**	\brief retrieve the needed path from stored datas
