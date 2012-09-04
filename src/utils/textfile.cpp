@@ -53,7 +53,7 @@ std::string TextFile::readLine(void) throw()
 
 	do
 		result.push_back((c=fgetc(m_file)));
-	while(!feof(m_file) && c != '\n' && c != '\r'); //!\note should be fine on MacOS and Linux. Problems could happens with MS Windows, because EoL uses both.
+	while(!feof(m_file) && c != '\n' && c != '\r'); ///\note should be fine on MacOS and Linux. Problems could happens with MS Windows, because EoL uses both.
 
 	result.resize(result.size() - 1);
 	return result;

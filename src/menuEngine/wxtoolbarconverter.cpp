@@ -26,11 +26,11 @@
 //void ToolbarConverter::create(ToolbarConverter *parent,std::string const &title)
 //{
 //	///\todo find a way to check at compilation that (*this) is of the good type.
-//	//!\pre type of *this is Menu or Item
+//	///\pre type of *this is Menu or Item
 //	assert(typeid(*this)==typeid(Composite<ToolbarConverter>) || typeid(*this)==typeid(Leaf<ToolbarConverter>));//, "(*this)'s type can only be Menu or Item");
-//	//!\pre parent must be a Menu
+//	///\pre parent must be a Menu
 //	assert(parent==nullptr || typeid(*parent)==typeid(Composite<ToolbarConverter>));//, "(*parent)'s type can only be Menu");
-//	//!\pre Item can not be added to a menubar
+//	///\pre Item can not be added to a menubar
 //	assert(typeid(*this)==typeid(Composite<ToolbarConverter>) || (parent!=nullptr && false==parent->m_isMenuBar));//, "Item can not be added to a root Menu (aka: menubar. WxWidget's limitation)");
 //
 //	m_isMenuBar=false; ///\todo this flag should have been set at constructor. Why is it not?

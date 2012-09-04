@@ -24,11 +24,11 @@ template <class T>
 Composite<T>::Composite(boost::filesystem::path const &location)
 :Component<T>(findConfigurationFile(location)), m_components()
 {
-	//!\pre location must exists
+	///\pre location must exists
 	if(!boost::filesystem::exists(location))
 		throw std::runtime_error("Given location does not exists");
 
-	//!\pre location is a directory
+	///\pre location is a directory
 	if(!boost::filesystem::is_directory(location))
 		throw std::runtime_error("Given location is not a directory");
 

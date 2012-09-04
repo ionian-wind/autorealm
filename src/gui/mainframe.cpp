@@ -87,7 +87,7 @@ void MainFrame::loadRequestedPlugins(void)
 
 		if(jt == m_buttonIDs.end()) // plugin is not loaded? Try to load it.
 		{
-			assert(!m_actionPlugIn.isLoaded(plugName));//!\note should never load twice the same plugin. Could be in pluma...
+			assert(!m_actionPlugIn.isLoaded(plugName));///\note should never load twice the same plugin. Could be in pluma...
 			PluginProvider *plugProvider = getProvider<PluginProvider>(m_actionPlugIn, AppConfig::buildPath(AppConfig::PLUGINS), plugName);
 
 			if(nullptr != plugProvider)

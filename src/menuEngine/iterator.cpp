@@ -85,9 +85,9 @@ Component<T> &Iterator<T>::operator*(void)
 template <class T>
 void Iterator<T>::goDeeper(void)
 {
-	//!\pre m_owner is a valid Composite<T>
-	//!\post m_position refer to a leaf or Iterator is set to end()
-	//!\post m_owner is a valid Composite<T> but might have changed
+	///\pre m_owner is a valid Composite<T>
+	///\post m_position refer to a leaf or Iterator is set to end()
+	///\post m_owner is a valid Composite<T> but might have changed
 	if(m_owner->m_components.empty() || isEndOfLevel())
 		goUpper();
 	else if(isComposite())

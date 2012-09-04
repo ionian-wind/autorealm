@@ -145,7 +145,7 @@ void Drawer::contextMenu(wxContextMenuEvent &event)
 	{
 		assert(0);
 		///\todo implement popup's menu's position when user use the context menu key
-		//!\fixme it seem assert(0) is never executed. Guess that it is because I did not used the application pointer?
+		///\fixme it seem assert(0) is never executed. Guess that it is because I did not used the application pointer?
 	}
 	else
 		point = m_target->ScreenToClient(point);

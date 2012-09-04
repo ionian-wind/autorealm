@@ -39,9 +39,9 @@ void Shape::accept(Mutator &v)
 void Shape::draw(void)const throw()
 {
 //	checkSize();
-	//!\todo reinsert checkSize
+	///\todo reinsert checkSize
 
-	//!\todo implement tesselation to manage concave polygons
+	///\todo implement tesselation to manage concave polygons
 	glBegin(GL_LINE_STRIP);
 
 	for(auto &i : m_children)
@@ -82,7 +82,7 @@ void Shape::pop(void)throw()
 	m_children.pop_back();
 
 //	checkSize();
-	//!\todo reinsert checkSize
+	///\todo reinsert checkSize
 }
 
 void Shape::setFiller(Drawable const &d) throw()
