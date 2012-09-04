@@ -40,8 +40,5 @@ void LineMonoColor::draw(void)const throw()
 
 Drawer* LineMonoColor::clone(void)const
 {
-//	LineMonoColor* tmp(new LineMonoColor(*this));
-//	tmp->m_color=m_target->getFillerColor();
-//	return static_cast<Render::Drawable*>(tmp);
 	return new LineMonoColor(*this);
 }
