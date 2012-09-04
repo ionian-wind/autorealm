@@ -39,6 +39,7 @@ void Shape::accept(Mutator &v)
 void Shape::draw(void)const throw()
 {
 //	checkSize();
+	//!\todo reinsert checkSize
 
 	//!\todo implement tesselation to manage concave polygons
 	glBegin(GL_LINE_STRIP);
@@ -52,7 +53,6 @@ void Shape::draw(void)const throw()
 
 	if(isClosed())
 	{
-//		throw std::logic_error("not implemented yet");
 		glBegin(GL_POLYGON);
 		m_filler->draw();
 
@@ -82,6 +82,7 @@ void Shape::pop(void)throw()
 	m_children.pop_back();
 
 //	checkSize();
+	//!\todo reinsert checkSize
 }
 
 void Shape::setFiller(Drawable const &d) throw()

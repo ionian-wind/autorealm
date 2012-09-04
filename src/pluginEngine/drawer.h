@@ -41,8 +41,8 @@ class wxMenu;
 
 class Drawer : public Plugin
 {
-	static ID m_menuIds[3];
-	static wxMenu *m_menu;
+	static ID m_menuIds[3];//!\todo move in gui module instead of pluginEngine
+	static wxMenu *m_menu; //!\todo move in gui module instead of pluginEngine
 	Render::Shape *m_shape=nullptr;
 	bool m_shape1stPoint=false;
 public:

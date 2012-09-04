@@ -52,9 +52,6 @@ Drawer::Drawer(Drawer const& other)
 Drawer::~Drawer(void)throw()
 {
 	removeEventManager();
-//!\note might be a memory leak=> this pointer is never deleted but it's\
-content is needed in all app's life
-//	delete m_menu;
 }
 
 void Drawer::installEventManager(void) throw()

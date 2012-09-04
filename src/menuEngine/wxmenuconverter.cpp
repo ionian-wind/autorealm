@@ -30,11 +30,11 @@ void MenuConverter::create(MenuConverter *parent, std::string const &title)
 {
 	///\todo find a way to check at compilation that (*this) is of the good type.
 	//!\pre type of *this is Menu or Item
-	assert(typeid(*this) == typeid(Composite<MenuConverter>) || typeid(*this) == typeid(Component<MenuConverter>)); //, "(*this)'s type can only be Menu or Item");
+	assert(typeid(*this) == typeid(Composite<MenuConverter>) || typeid(*this) == typeid(Component<MenuConverter>)); //, "(*this)'s type can only be Menu or Item"
 	//!\pre parent must be a Menu
-	assert(parent == nullptr || typeid(*parent) == typeid(Composite<MenuConverter>)); //, "(*parent)'s type can only be Menu");
+	assert(parent == nullptr || typeid(*parent) == typeid(Composite<MenuConverter>)); //, "(*parent)'s type can only be Menu"
 	//!\pre Item can not be added to a menubar
-	assert(typeid(*this) == typeid(Composite<MenuConverter>) || (parent != nullptr && false == parent->m_isMenuBar)); //, "Item can not be added to a root Menu (aka: menubar. WxWidget's limitation)");
+	assert(typeid(*this) == typeid(Composite<MenuConverter>) || (parent != nullptr && false == parent->m_isMenuBar)); //, "Item can not be added to a root Menu (aka: menubar. WxWidget's limitation)"
 
 	m_isMenuBar = false; ///\todo this flag should have been set at constructor. Why is it not?
 
