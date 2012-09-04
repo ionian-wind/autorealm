@@ -2,7 +2,7 @@
 #define TPROVIDER_H
 
 template <typename Provided, typename Interface, typename Provider>
-class TProvider: public Provider
+class TPluginProvider: public Provider
 {
 public:
 	Interface * create(RenderWindow*w) const{ return new Provided(w); }

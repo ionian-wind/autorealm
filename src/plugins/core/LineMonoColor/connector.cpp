@@ -26,6 +26,6 @@
 PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
-	host.add(new TProvider<LineMonoColor, Plugin, PluginProvider>());
+	host.add(new TPluginProvider<LineMonoColor, Plugin, PluginProvider>());
 	return true;
 }
