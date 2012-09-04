@@ -34,10 +34,4 @@ public:
 	virtual Drawer* clone(void)const override;
 };
 
-class LineMonoColorProvider: public PluginProvider
-{
-public:
-	Plugin * create(RenderWindow*w) const{ return new LineMonoColor(w); }
-};
-
 #endif

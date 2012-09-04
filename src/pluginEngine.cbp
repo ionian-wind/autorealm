@@ -68,6 +68,9 @@
 		<Unit filename="pluginEngine/plugin.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Unit filename="pluginEngine/tprovider.h">
+			<Option virtualFolder="header/" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />

@@ -19,11 +19,13 @@
  **********************************************************************************/
 
 #include <Pluma/Connector.hpp>
+#include <pluginEngine/tprovider.h>
+
 #include "mover.h"
 
 PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
-	host.add(new MoverProvider());
+	host.add(new TProvider<Mover, Plugin, PluginProvider>());
 	return true;
 }

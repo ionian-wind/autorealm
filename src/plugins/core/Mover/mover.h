@@ -40,10 +40,4 @@ private:
 //	Render::Drawable& mover(Render::Drawable const &v);
 };
 
-class MoverProvider: public PluginProvider
-{
-public:
-	Plugin * create(RenderWindow*w) const{ return new Mover(w); }
-};
-
 #endif // MOVER_H
