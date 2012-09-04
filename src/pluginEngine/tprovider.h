@@ -8,6 +8,4 @@ public:
 	Interface * create(RenderWindow*w) const{ return new Provided(w); }
 };
 
-#include "tprovider.tpp"
-
 #endif // TPROVIDER_H
