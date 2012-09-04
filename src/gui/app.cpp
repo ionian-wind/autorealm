@@ -37,16 +37,18 @@ bool App::OnInit()
 
 		if(wxsOK)    ///\todo understand that test and probably remove it
 		{
-			wxBitmap bitmap;
-			bitmap.LoadFile(AppConfig::buildPath(AppConfig::GRP_RES) + "splash/splash.png", wxBITMAP_TYPE_PNG);
-			wxSplashScreen* splash = new wxSplashScreen(bitmap,wxSPLASH_NO_CENTRE|wxSPLASH_NO_TIMEOUT,0, NULL, -1);
+			wxImage image;
+			image.LoadFile(AppConfig::buildPath(AppConfig::GRP_RES) + "splash/splash.png");
 
+			wxSplashScreen* splash = new wxSplashScreen(image, wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT, 0,NULL,wxID_ANY);
+			wxAppConsole::Yield(true);
 			m_app = new MainFrame(0);
+
 #ifdef TEST_SPLASH
 			time_t start, end;
 			time(&start);
 			time(&end);
-			while(difftime(end,start)<3.0)
+			while(difftime(end,start)<10.0)
 				time(&end);
 #endif
 			delete splash;

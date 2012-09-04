@@ -43,7 +43,6 @@
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="`wx-config --cppflags`" />
-			<Add option="-DTEST_SPLASH" />
 			<Add directory="../src" />
 			<Add directory="../../pluma-fork/include" />
 		</Compiler>
@@ -90,12 +89,6 @@
 			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="gui/singleton.h">
-			<Option virtualFolder="header/" />
-		</Unit>
-		<Unit filename="gui/splash.cpp">
-			<Option virtualFolder="source/" />
-		</Unit>
-		<Unit filename="gui/splash.h">
 			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="utils/clone_ptr.h">
