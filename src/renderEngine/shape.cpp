@@ -38,7 +38,7 @@ void Shape::accept(Mutator &v)
 
 void Shape::draw(void)const throw()
 {
-	checkSize();
+//	checkSize();
 
 	//!\todo implement tesselation to manage concave polygons
 	glBegin(GL_LINE_STRIP);
