@@ -46,7 +46,7 @@ bool App::OnInit()
 	}
 	catch(std::exception &e)
 	{
-		wxsOK = false;
+		wxsOK = true;
 		wxMessageBox(e.what(), "Fatal exception");
 	}
 
