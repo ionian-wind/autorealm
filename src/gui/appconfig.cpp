@@ -29,9 +29,10 @@ AppConfig::AppConfig()
 	// guess the directory where configuration is stored
 	TextFile rootConfigFile(TextFile::OpenFile(getPosixConfDir(), "config"));
 
-	///\todo support incomplete file
-	for(uint8_t i = GRP_RES; i < LASTINDEX && !rootConfigFile.eofReached(); ++i)
+	for(uint8_t i = GRP_RES; LASTINDEX>i && !rootConfigFile.eofReached(); ++i)
 		m_datas.push_back(rootConfigFile.readLine());
+	if(LASTINDEX>i)
+		throw std::runtime_error("Configuration file "+rootConfigFile.getFileName()+" corrupted");
 }
 
 std::string AppConfig::buildPath(INFO info)

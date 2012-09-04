@@ -55,7 +55,7 @@ T *getProvider(pluma::Pluma &plumConf, std::string const &location, std::string 
 		//Locate the provider newly loaded
 		while(i < actualProviders.size() && prevProviders.end() != std::find(prevProviders.begin(), prevProviders.end(), actualProviders[i]))
 			++i;
-
+		// if it was found, return it.
 		if(i <= actualProviders.size())
 			return actualProviders[i];
 	}
