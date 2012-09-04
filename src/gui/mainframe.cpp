@@ -44,7 +44,7 @@ MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 	RenderWindow *first =
 		new RenderWindow((wxFrame *)m_auiNotebookWorkspace,
 						 args,
-						 Render::Color(0, 0, 0, 1),
+						 Render::Color(1, 1, 0, 1),
 						 Render::Color(0, 1, 0, 1) ///\todo remove those constants. Maybe use a config file entry?
 						);
 	m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
