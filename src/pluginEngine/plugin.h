@@ -29,9 +29,9 @@ class RenderWindow;
 class Plugin
 {
 public:
-	Plugin(void) throw() =default;
+	Plugin(RenderWindow *window) throw();
 	Plugin(Plugin const& other) throw();
-	virtual void installEventManager(RenderWindow &target) throw() = 0;
+	virtual void installEventManager(void) throw() = 0;
 	virtual void removeEventManager(void) throw() = 0;
 	virtual ~Plugin(void) = default;
 protected:
@@ -39,6 +39,17 @@ protected:
 private:
 };
 
-PLUMA_PROVIDER_HEADER(Plugin)
+class PluginProvider: public pluma::Provider
+{
+private:
+	friend class pluma::Pluma;
+	static const unsigned int PLUMA_INTERFACE_VERSION;
+	static const unsigned int PLUMA_INTERFACE_LOWEST_VERSION;
+	static const std::string PLUMA_PROVIDER_TYPE;
+	std::string plumaGetType() const{ return PLUMA_PROVIDER_TYPE; }
+public:
+	unsigned int getVersion() const{ return PLUMA_INTERFACE_VERSION; }
+	virtual Plugin* create(RenderWindow*w) const = 0;
+};
 
 #endif // PLUGIN_H

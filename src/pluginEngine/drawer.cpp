@@ -30,8 +30,8 @@
 ID Drawer::m_menuIds[3];
 wxMenu *Drawer::m_menu(nullptr);
 
-Drawer::Drawer(void)
-:Plugin()
+Drawer::Drawer(RenderWindow *window)
+:Plugin(window)
 {
 	if(!m_menu)
 	{
@@ -57,10 +57,8 @@ content is needed in all app's life
 //	delete m_menu;
 }
 
-void Drawer::installEventManager(RenderWindow &target) throw()
+void Drawer::installEventManager(void) throw()
 {
-	m_target = &target;
-
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::firstPoint, this);
 	m_target->Bind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::finalizeShape, this, m_menuIds[0], m_menuIds[1]);
 }

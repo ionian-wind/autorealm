@@ -32,6 +32,7 @@ namespace Render
 class Mover : public Mutator
 {
 public:
+	Mover(RenderWindow*w):Mutator(w){}
 	void visit(Render::Group &v) override;
 	void visit(Render::Shape &v) override;
 protected:
@@ -39,6 +40,10 @@ private:
 //	Render::Drawable& mover(Render::Drawable const &v);
 };
 
-PLUMA_INHERIT_PROVIDER(Mover, Plugin);
+class MoverProvider: public PluginProvider
+{
+public:
+	Plugin * create(RenderWindow*w) const{ return new Mover(w); }
+};
 
 #endif // MOVER_H

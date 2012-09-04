@@ -35,7 +35,8 @@ class Shape;
 class Mutator: public Plugin
 {
 public:
-	virtual void installEventManager(RenderWindow &target) throw() override
+	Mutator(RenderWindow*w):Plugin(w){}
+	virtual void installEventManager(void) throw() override
 	{
 		assert(0);
 	};

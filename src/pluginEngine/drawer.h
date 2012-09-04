@@ -46,10 +46,10 @@ class Drawer : public Plugin
 	Render::Shape *m_shape=nullptr;
 	bool m_shape1stPoint=false;
 public:
-	Drawer(void);
+	Drawer(RenderWindow *window);
 	Drawer(Drawer const& other);
 	virtual ~Drawer(void)throw();
-	virtual void installEventManager(RenderWindow &target) throw() override;
+	virtual void installEventManager(void) throw() override;
 	virtual void removeEventManager(void) throw() override;
 
 	void firstPoint(wxMouseEvent &event);

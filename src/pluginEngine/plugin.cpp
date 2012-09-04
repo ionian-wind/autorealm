@@ -20,9 +20,16 @@
 
 #include "plugin.h"
 
+Plugin::Plugin(RenderWindow *window) throw()
+:m_target(window)
+{
+}
+
 Plugin::Plugin(Plugin const& other) throw()
 :m_target(other.m_target)
 {
 }
 
-PLUMA_PROVIDER_SOURCE(Plugin, 1, 1)
+const std::string PluginProvider::PLUMA_PROVIDER_TYPE = PLUMA_2STRING( Plugin );
+const unsigned int PluginProvider::PLUMA_INTERFACE_VERSION = 1;
+const unsigned int PluginProvider::PLUMA_INTERFACE_LOWEST_VERSION = 1;

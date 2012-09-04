@@ -28,12 +28,16 @@ class LineMonoColor : public Drawer
 {
 	Render::Color m_color;
 public:
-	LineMonoColor(void);
+	LineMonoColor(RenderWindow *window);
 	LineMonoColor(LineMonoColor const &other);
 	virtual void draw(void)const throw() override;
 	virtual Drawer* clone(void)const override;
 };
 
-PLUMA_INHERIT_PROVIDER(LineMonoColor, Plugin);
+class LineMonoColorProvider: public PluginProvider
+{
+public:
+	Plugin * create(RenderWindow*w) const{ return new LineMonoColor(w); }
+};
 
 #endif

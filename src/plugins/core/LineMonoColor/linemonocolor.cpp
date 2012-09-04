@@ -23,8 +23,8 @@
 #include <gui/renderwindow.h>
 #include <renderEngine/vertex.h>
 
-LineMonoColor::LineMonoColor(void)
-:Drawer(),m_color()
+LineMonoColor::LineMonoColor(RenderWindow *window)
+:Drawer(window),m_color(window->getBorderColor())
 {
 }
 

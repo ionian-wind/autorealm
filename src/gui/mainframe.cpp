@@ -75,7 +75,7 @@ void MainFrame::changeSelectedPlugin(wxCommandEvent &event)
 		m_plugins[oldId]->removeEventManager();
 
 	oldId = event.GetId();
-	m_plugins[oldId]->installEventManager(**m_active);
+	m_plugins[oldId]->installEventManager();
 }
 
 void MainFrame::loadRequestedPlugins(void)
@@ -93,7 +93,7 @@ void MainFrame::loadRequestedPlugins(void)
 			if(nullptr != plugProvider)
 			{
 				ID tmp(m_buttonIDs[plugName]);// avoid searching twice in the map
-				m_plugins[tmp]=plugProvider->create();
+				m_plugins[tmp]=plugProvider->create(*m_active);
 				i.setID(tmp);
 			}
 			else
