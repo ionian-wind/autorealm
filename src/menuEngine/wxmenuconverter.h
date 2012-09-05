@@ -34,7 +34,7 @@ class MenuConverter
 {
 	friend class Composite<MenuConverter>; ///\todo find why this declaration is needed and correct the problem!
 public:
-	virtual ~MenuConverter() = default;
+	virtual ~MenuConverter()throw();
 	wxMenuBar *getMenuBar(void)const;
 	virtual bool isEnabled(void)const = 0;
 	void setID(uint16_t id);

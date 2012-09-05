@@ -32,7 +32,7 @@ public:
 	Plugin(Plugin const& other) throw();
 	virtual void installEventManager(void) throw() = 0;
 	virtual void removeEventManager(void) throw() = 0;
-	virtual ~Plugin(void) = default;
+	virtual ~Plugin(void)throw();
 protected:
 	RenderWindow *m_target;
 private:

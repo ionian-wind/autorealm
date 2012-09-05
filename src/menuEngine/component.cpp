@@ -31,6 +31,9 @@ std::string Component<T>::getPluginName(void)const
 }
 
 template <class T>
+Component<T>::~Component() throw() = default;
+
+template <class T>
 void Component<T>::disable(bool disable)
 {
 	m_enable = !disable;

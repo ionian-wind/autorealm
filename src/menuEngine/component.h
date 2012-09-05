@@ -29,7 +29,7 @@ class Component: public T ///\todo change the relation to have something which b
 public:
 	Component(boost::filesystem::path loc) throw();
 	std::string getPluginName(void)const;
-	virtual ~Component() throw() = default;
+	virtual ~Component() throw();
 	std::string getName(void)const;
 	void disable(bool disable = true);
 	bool isEnabled(void)const;

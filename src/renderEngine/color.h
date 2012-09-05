@@ -33,7 +33,7 @@ class Color : public Drawable
 	friend class boost::serialization::access;
 public:
 	/** \brief default constructor */
-	Color() = default;
+	Color();
 	/** \brief constructor with initialization
 	 *
 	 *	\param red double

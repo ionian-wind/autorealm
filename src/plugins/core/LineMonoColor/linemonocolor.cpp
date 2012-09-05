@@ -28,10 +28,7 @@ LineMonoColor::LineMonoColor(RenderWindow *window)
 {
 }
 
-LineMonoColor::LineMonoColor(LineMonoColor const &other)
-:Drawer(other),m_color(other.m_color)
-{
-}
+LineMonoColor::LineMonoColor(LineMonoColor const &other)=default
 
 void LineMonoColor::draw(void)const throw()
 {
@@ -42,3 +39,5 @@ Drawer* LineMonoColor::clone(void)const
 {
 	return new LineMonoColor(*this);
 }
+
+LineMonoColor::~LineMonoColor(void)throw()=default;

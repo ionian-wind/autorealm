@@ -32,7 +32,7 @@ class Point
 public:
 	double m_x, m_y, m_z;
 	/** \brief default Ctor */
-	Point() throw() = default;
+	Point() throw();
 	/** \brief Constructor with initialization of coordinates
 	 *	\param x double
 	 *	\param y double

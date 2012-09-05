@@ -32,6 +32,7 @@ public:
 	LineMonoColor(LineMonoColor const &other);
 	virtual void draw(void)const throw() override;
 	virtual Drawer* clone(void)const override;
+	~LineMonoColor(void)throw();
 };
 
 #endif

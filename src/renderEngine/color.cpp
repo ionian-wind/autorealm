@@ -24,6 +24,7 @@
 
 namespace Render
 {
+Color::Color() = default;
 
 Color::Color(double red, double green, double blue, double alpha) throw()
 	: m_red(red), m_green(green), m_blue(blue), m_alpha(alpha)

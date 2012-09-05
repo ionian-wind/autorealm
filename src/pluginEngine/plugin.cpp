@@ -25,7 +25,6 @@ Plugin::Plugin(RenderWindow *window) throw()
 {
 }
 
-Plugin::Plugin(Plugin const& other) throw()
-:m_target(other.m_target)
-{
-}
+Plugin::Plugin(Plugin const& other) throw()=default;
+
+Plugin::~Plugin(void)throw()=default;

@@ -54,7 +54,7 @@ void Vertex::draw(void)const
 
 void Vertex::setDrawer(Drawer const& next)
 {
-	m_renderer=next;
+	m_renderer=std::move(next);
 }
 
 template<class Archive>
@@ -62,5 +62,7 @@ void Vertex::serialize(Archive &ar, const unsigned int version)
 {
 	ar &m_point;
 }
+
+Vertex::~Vertex(void)throw()=default
 
 }

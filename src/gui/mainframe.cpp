@@ -62,6 +62,11 @@ MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 
 MainFrame::~MainFrame(void)
 {
+	//event manager cleanup
+	wxCommandEvent e;
+	e.SetId(0);
+	changeSelectedPlugin(e);
+
 	for(std::pair<ID,Plugin*> i : m_plugins)
 		delete i.second;
 
@@ -72,11 +77,12 @@ void MainFrame::changeSelectedPlugin(wxCommandEvent &event)
 {
 	static int oldId = 0;
 
-	if(oldId)///\todo and what if it was the first plugin loaded?
+	if(oldId)
 		m_plugins[oldId]->removeEventManager();
 
 	oldId = event.GetId();
-	m_plugins[oldId]->installEventManager();
+	if(oldId)
+		m_plugins[oldId]->installEventManager();
 }
 
 void MainFrame::loadRequestedPlugins(void)

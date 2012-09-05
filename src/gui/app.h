@@ -30,6 +30,6 @@ class App : public wxApp
 	MainFrame *m_app;
 public:
 	virtual bool OnInit();
-	App(void) = default;
+	App(void);
 };
 #endif

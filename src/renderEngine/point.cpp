@@ -25,6 +25,7 @@
 namespace Render
 {
 
+Point::Point() throw() = default;
 Point::Point(double x, double y, double z) throw()
 	: m_x(x), m_y(y), m_z(z)
 {

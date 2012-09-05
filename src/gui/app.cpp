@@ -35,7 +35,7 @@ bool App::OnInit()
 	{
 		wxInitAllImageHandlers();
 
-		if(wxsOK)    ///\todo understand that test and probably remove it
+		if(wxsOK)
 		{
 			wxImage image;
 			image.LoadFile(AppConfig::buildPath(AppConfig::GRP_RES) + "splash/splash.png");
@@ -64,3 +64,5 @@ bool App::OnInit()
 
 	return wxsOK;
 }
+
+App::App(void) = default;

@@ -52,6 +52,8 @@ public:
 	void setEnd(Point const &p) throw();
 	void draw(void)const;
 	void setDrawer(Drawer const& next);
+
+	~Vertex(void)throw();
 private:
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version);

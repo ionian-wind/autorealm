@@ -26,6 +26,8 @@
 #include <utils/textfile.h>
 #include <assert.h>
 
+MenuConverter::~MenuConverter()throw() = default;
+
 void MenuConverter::create(MenuConverter *parent, std::string const &title)
 {
 	///\todo find a way to check at compilation that (*this) is of the good type.
