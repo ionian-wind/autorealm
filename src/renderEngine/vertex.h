@@ -21,9 +21,10 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-#include <pluginEngine/drawer.h>
+#include <memory>
 #include "point.h"
-#include <utils/clone_ptr.h>
+
+class Drawer;
 
 namespace Render
 {
@@ -32,6 +33,8 @@ class Vertex
 {
 	friend class boost::serialization::access;
 public:
+	Vertex(void);
+	Vertex(Vertex const& other);
 	/** \brief test if two vertex are the same
 	 *	\note currently, only the position is used to compare two vertices
 	 *	\param const&other Vertex
@@ -60,7 +63,7 @@ private:
 
 protected:
 	Point m_point;
-	clone_ptr<Drawer> m_renderer;
+	std::unique_ptr<Drawer> m_renderer;
 private:
 };
 

@@ -27,6 +27,13 @@
 namespace Render
 {
 
+Vertex::Vertex(void)=default;
+
+Vertex::Vertex(Vertex const& other)
+:m_point(other.m_point),m_renderer(other.m_renderer->clone())
+{
+}
+
 inline bool Vertex::operator==(Vertex const &other)const throw()
 {
 	return m_point == other.m_point;
@@ -51,7 +58,7 @@ void Vertex::draw(void)const
 
 void Vertex::setDrawer(Drawer const& next)
 {
-	m_renderer=next;
+	m_renderer.reset(next.clone());
 }
 
 template<class Archive>
@@ -60,6 +67,9 @@ void Vertex::serialize(Archive &ar, const unsigned int version)
 	ar &m_point;
 }
 
-Vertex::~Vertex(void)throw()=default;
+Vertex::~Vertex(void)throw()
+{
+	m_renderer.reset();
+}
 
 }
