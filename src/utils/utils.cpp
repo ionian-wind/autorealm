@@ -42,7 +42,7 @@ wxBitmap loadImage(std::string const &fileName)
 std::string getPosixConfDir(void)
 {
 	///\todo find a better solution to follow freeDesktop.org's recommmandations
-	std::string homepath(getenv("HOME"));
+	std::string homepath(getenv("HOME"));///\note flawfinder say I should use getenv with care
 
 	if(boost::filesystem::exists(homepath + "/.autorealm"))
 		return boost::filesystem::path(homepath + ".autorealm/").string();

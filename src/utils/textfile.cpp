@@ -52,7 +52,7 @@ std::string TextFile::readLine(void) throw()
 	char c;
 
 	do
-		result.push_back((c=fgetc(m_file)));
+		result.push_back((c=fgetc(m_file)));///\note flawfinder issue
 	while(!feof(m_file) && c != '\n' && c != '\r'); ///\note should be fine on MacOS and Linux. Problems could happens with MS Windows, because EoL uses both.
 
 	result.resize(result.size() - 1);
@@ -93,9 +93,9 @@ TextFile::TextFile(boost::filesystem::path const &file, bool create)
 	: m_filePath(file)
 {
 	if(create)
-		m_file = fopen(m_filePath.string().c_str(), "w");
+		m_file = fopen(m_filePath.string().c_str(), "w");///\note flawfinder issue
 
-	m_file = fopen(m_filePath.string().c_str(), "r");
+	m_file = fopen(m_filePath.string().c_str(), "r");///\note flawfinder issue
 
 	if(!m_file)
 		throw std::runtime_error("could not open file " + m_filePath.string());

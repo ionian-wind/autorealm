@@ -40,6 +40,7 @@ public:
 	 */
 	virtual void accept(Mutator &v) = 0;
 	virtual ~Object(void) throw() = default;
+	virtual Object* clone(void)const override =0;
 private:
 //	template<class Archive>
 //	void serialize(Archive &ar, const unsigned int version);

@@ -110,7 +110,7 @@ void Shape::close(void) throw()
 	m_close=true;
 }
 
-Drawable* Shape::clone(void)const
+Object* Shape::clone(void)const
 {
 	return new Shape(*this);
 }

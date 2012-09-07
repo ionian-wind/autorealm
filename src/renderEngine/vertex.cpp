@@ -27,21 +27,18 @@
 namespace Render
 {
 
-bool Vertex::operator==(Vertex const &other)const throw()
+inline bool Vertex::operator==(Vertex const &other)const throw()
 {
-	///\todo make it inline
 	return m_point == other.m_point;
 }
 
-Point Vertex::getEnd(void)const throw()
+Point Vertex::getEnd(void)const throw() ///\todo make inline
 {
-	///\todo make it inline
 	return m_point;
 }
 
-void Vertex::setEnd(Point const &p) throw()
+void Vertex::setEnd(Point const &p) throw() ///\todo make inline
 {
-	///\todo make it inline
 	m_point = p;
 }
 
@@ -54,7 +51,7 @@ void Vertex::draw(void)const
 
 void Vertex::setDrawer(Drawer const& next)
 {
-	m_renderer=std::move(next);
+	m_renderer=next;
 }
 
 template<class Archive>
@@ -63,6 +60,6 @@ void Vertex::serialize(Archive &ar, const unsigned int version)
 	ar &m_point;
 }
 
-Vertex::~Vertex(void)throw()=default
+Vertex::~Vertex(void)throw()=default;
 
 }

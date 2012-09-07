@@ -28,7 +28,7 @@ LineMonoColor::LineMonoColor(RenderWindow *window)
 {
 }
 
-LineMonoColor::LineMonoColor(LineMonoColor const &other)=default
+LineMonoColor::LineMonoColor(LineMonoColor const &other)=default;
 
 void LineMonoColor::draw(void)const throw()
 {
