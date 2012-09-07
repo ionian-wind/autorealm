@@ -69,18 +69,6 @@ public:
 	 */
 	void setFiller(Drawable const&d) throw();
 
-	/** \brief retrieve an iterator on the first vertex
-	 *	\todo check if this method is really mandatory, because it breaks the encapsulation
-	 *	\return std::vector<Vertex>::iterator
-	 */
-	Vertex& getFirstChild(void) throw();
-
-	/** \brief retrieve on iterator after the last vertex
-	 *	\todo check if this method is really mandatory, because it breaks the encapsulation
-	 *	\return std::vector<Vertex>::iterator
-	 */
-	Vertex& getLastChild(void) throw();
-
 	/** \brief close the shape */
 	void close(void) throw();
 

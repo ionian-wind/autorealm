@@ -100,16 +100,6 @@ void Shape::setFiller(Drawable const &d) throw()
 	m_filler.reset(d.clone());
 }
 
-Vertex& Shape::getFirstChild(void) throw()
-{
-	return *m_children.begin();
-}
-
-Vertex& Shape::getLastChild(void) throw()
-{
-	return *m_children.end()--;
-}
-
 void Shape::close(void) throw()
 {
 	m_close=true;
