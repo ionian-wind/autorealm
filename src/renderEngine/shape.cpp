@@ -30,6 +30,16 @@
 namespace Render
 {
 
+Shape::Shape(void)=default;
+
+Shape::Shape(Shape const& other)
+:Object(other)
+,m_children(other.m_children)
+,m_filler(other.m_filler->clone())
+,m_close(other.m_close)
+{
+}
+
 void Shape::accept(Mutator &v)
 {
 	///\todo find a solution to use std::for_each
@@ -90,11 +100,6 @@ void Shape::setFiller(Drawable const &d) throw()
 	m_filler=d;
 }
 
-clone_ptr<Drawable> Shape::getFiller(void)const throw()
-{
-	return m_filler;
-}
-
 Vertex& Shape::getFirstChild(void) throw()
 {
 	return *m_children.begin();
@@ -110,7 +115,7 @@ void Shape::close(void) throw()
 	m_close=true;
 }
 
-Object* Shape::clone(void)const
+Shape* Shape::clone(void)const
 {
 	return new Shape(*this);
 }
@@ -126,6 +131,16 @@ inline void Shape::checkSize(void)const
 {
 	if(2>m_children.size())
 		throw std::logic_error("Shape must always have at least two points");
+}
+
+bool Shape::empty(void)const throw()
+{
+	return m_children.empty();
+}
+
+void Shape::clear(void)throw()
+{
+	m_children.clear();
 }
 
 }

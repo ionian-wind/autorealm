@@ -21,7 +21,6 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-//#include <vector>
 #include <boost/serialization/vector.hpp>
 
 #include "object.h"
@@ -33,14 +32,15 @@ namespace Render
 class Shape : public Object
 {
 	typedef std::vector<Vertex> DrawableList;
-	typedef Vertex& DrawableRef;
 	DrawableList m_children;
-	clone_ptr<Drawable> m_filler;
+	std::unique_ptr<Drawable> m_filler;
 	bool m_close=false;
 
 	friend class boost::serialization::access;
 
 public:
+	Shape(void);
+	Shape(Shape const& other);
 	/** \brief Apply an algorithm on itself
 	 * \param v Mutator& algorithm to apply
 	 */
@@ -68,10 +68,6 @@ public:
 	 *	\param d REDrawable const* drawable to use
 	 */
 	void setFiller(Drawable const&d) throw();
-	/** \brief retrieve a copy of the drawable used to fill the shape
-	 *	\return REDrawable* copy of the drawable used
-	 */
-	clone_ptr<Drawable> getFiller(void)const throw();
 
 	/** \brief retrieve an iterator on the first vertex
 	 *	\todo check if this method is really mandatory, because it breaks the encapsulation
@@ -88,7 +84,9 @@ public:
 	/** \brief close the shape */
 	void close(void) throw();
 
-	virtual Object* clone(void)const override;
+	virtual Shape* clone(void)const override;
+	bool empty(void)const throw();
+	void clear(void)throw();
 
 protected:
 private:
