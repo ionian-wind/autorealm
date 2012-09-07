@@ -57,6 +57,7 @@ public:
 	void setDrawer(Drawer const& next);
 
 	~Vertex(void)throw();
+	void place(void)const throw();
 private:
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version);

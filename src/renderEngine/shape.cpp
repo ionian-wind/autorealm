@@ -67,9 +67,9 @@ void Shape::draw(void)const throw()
 		m_filler->draw();
 
 		for(auto &i : m_children)
-			i.getEnd().createVertice();
+			i.place();
 		if(m_close)
-			m_children.front().getEnd().createVertice();
+			m_children.front().place();
 
 		glEnd();
 	}

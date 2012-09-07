@@ -72,4 +72,9 @@ Vertex::~Vertex(void)throw()
 	m_renderer.reset();
 }
 
+void Vertex::place(void)const throw()
+{
+	m_point.createVertice();
+}
+
 }
