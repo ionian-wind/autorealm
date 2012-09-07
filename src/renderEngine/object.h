@@ -46,6 +46,16 @@ private:
 //	void serialize(Archive &ar, const unsigned int version);
 };
 
+inline Object* new_clone( const Object& r )
+{
+	return r.clone();//should assert that typeid(*r.clone())==typeid(r)
+}
+
+inline Object* new_clone( const Object* r )
+{
+	return r ? r->clone() : 0;
+}
+
 }
 
 #endif // OBJECT_H
