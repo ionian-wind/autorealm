@@ -97,7 +97,7 @@ void Shape::pop(void)throw()
 
 void Shape::setFiller(Drawable const &d) throw()
 {
-	m_filler=d;
+	m_filler.reset(d.clone());
 }
 
 Vertex& Shape::getFirstChild(void) throw()
