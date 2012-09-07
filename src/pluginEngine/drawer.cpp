@@ -25,13 +25,11 @@
 
 #include <wx/menu.h>
 
-#include "graphicprimitive.h"
-
 ID Drawer::m_menuIds[3];
 wxMenu *Drawer::m_menu(nullptr);
 
 Drawer::Drawer(RenderWindow *window)
-:Plugin(window)
+:Plugin(window),m_shape1stPoint(false)
 {
 	if(!m_menu)
 	{
@@ -45,7 +43,9 @@ Drawer::Drawer(RenderWindow *window)
 }
 
 Drawer::Drawer(Drawer const& other)
-:Plugin(other),m_shape(dynamic_cast<Render::Shape*>(other.m_shape->clone())),m_shape1stPoint(other.m_shape1stPoint)
+:Plugin(other)
+,m_shape(other.m_shape)
+,m_shape1stPoint(other.m_shape1stPoint)
 {
 }
 
@@ -62,8 +62,7 @@ void Drawer::installEventManager(void) throw()
 
 void Drawer::removeEventManager(void) throw()
 {
-	if(nullptr==m_shape)
-
+	if(!m_shape.empty())
 		m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::firstPoint, this);
 	else
 	{
@@ -74,7 +73,6 @@ void Drawer::removeEventManager(void) throw()
 			m_target->Unbind(wxEVT_LEFT_DOWN, &Drawer::addPoint, this);
 			m_target->Unbind(wxEVT_CONTEXT_MENU, &Drawer::contextMenu, this);
 		m_shape1stPoint=false;
-		delete m_shape;// really useful? I do not think so
 	}
 	m_target->Unbind(wxEVT_COMMAND_MENU_SELECTED, &Drawer::finalizeShape, this, m_menuIds[0], m_menuIds[1]);
 }
@@ -112,17 +110,17 @@ void Drawer::addVertex(Render::Point p)
 	Render::Vertex *v(new Render::Vertex());
 	v->setEnd(p);
 	v->setDrawer(*this);
-	m_shape->push(*v);
+	m_shape.push(*v);
 }
 
 void Drawer::finalizeShape(wxCommandEvent &event)
 {
-	m_shape->pop();
+	m_shape.pop();
 	if(event.GetId()==m_menuIds[1])//user asked for a closed shape
-		m_shape->close();
+		m_shape.close();
 	m_target->push_back(m_shape);
 	render();
-	m_shape=nullptr;
+	m_shape.clear();
 
 	m_target->Bind(wxEVT_LEFT_DOWN, &Drawer::firstPoint, this);
 
@@ -133,7 +131,7 @@ void Drawer::finalizeShape(wxCommandEvent &event)
 
 void Drawer::moveMouse(wxMouseEvent &event)
 {
-	m_shape->pop();
+	m_shape.pop();
 	addPoint(event);
 }
 
@@ -156,14 +154,13 @@ void Drawer::contextMenu(wxContextMenuEvent &event)
 void Drawer::render(void)
 {
 	m_target->startRendering();
-	m_shape->draw();
+	m_shape.draw();
 	m_target->draw();
 	m_target->finalizeRendering();
 }
 
 void Drawer::createShape(void)
 {
-	assert(nullptr==m_shape);
-	m_shape=new Render::Shape();
-	m_shape->setFiller(m_target->getFillerColor());
+	assert(m_shape.empty());
+	m_shape.setFiller(m_target->getFillerColor());
 }

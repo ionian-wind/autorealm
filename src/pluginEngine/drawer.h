@@ -24,6 +24,7 @@
 #include <gui/id.h>
 
 #include <renderEngine/drawable.h>
+#include <renderEngine/shape.h>
 namespace Render
 {
 	class Vertex;
@@ -43,7 +44,7 @@ class Drawer : public Plugin
 {
 	static ID m_menuIds[3];///\todo move in gui module instead of pluginEngine
 	static wxMenu *m_menu; ///\todo move in gui module instead of pluginEngine
-	Render::Shape *m_shape=nullptr;
+	Render::Shape m_shape;
 	bool m_shape1stPoint=false;
 public:
 	Drawer(RenderWindow *window);

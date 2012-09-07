@@ -65,7 +65,7 @@ public:
 	{
 		return m_borderColor;
 	}
-	Render::Color const& getFillerColor(void)const throw()
+	Render::Color getFillerColor(void)const throw()
 	{
 		return m_fillerColor;
 	}
