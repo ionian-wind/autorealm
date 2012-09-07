@@ -30,6 +30,4 @@ public:
 	void removeEventManager(void) throw();
 };
 
-PLUMA_INHERIT_PROVIDER(Serialization, Plugin);
-
 #endif // SERIALIZATION_H
