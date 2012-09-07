@@ -27,42 +27,31 @@
 namespace Render
 {
 
-Group::~Group(void)throw()
-{
-	for(Object* i:m_children)
-		delete i;
-}
+Group::~Group(void)throw()=default;
 
 void Group::accept(Mutator &v)
 {
 	///\todo find a solution to use std::for_each
 	v.visit(*this);
 
-	for(Object* i : m_children)
-		i->accept(v);
+	for(auto &i : m_children)
+		i.accept(v);
 }
 
 void Group::draw(void)const throw()
 {
 	for(ObjectList::const_reverse_iterator rit=m_children.rbegin();m_children.rend()!=rit;++rit)
-		(*rit)->draw();
+		rit->draw();
 }
 
-void Group::push_back(Object *target)
+void Group::push_back(Object const& target)
 {
-	m_children.push_back(target);
+	m_children.push_back(target.clone());
 }
 
-Drawable* Group::clone(void)const
+Object* Group::clone(void)const
 {
 	return new Group(*this);
-}
-
-Group::Group(Group const &g)
-	: m_children()
-{
-	for(Object *i : g.m_children)
-		m_children.push_back(dynamic_cast<Object*>(i->clone()));
 }
 
 template<class Archive>
