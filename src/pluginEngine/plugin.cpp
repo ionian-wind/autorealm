@@ -20,7 +20,10 @@
 
 #include "plugin.h"
 
-Plugin::Plugin(RenderWindow *window) throw()=default;
+Plugin::Plugin(RenderWindow *window) throw()
+:m_target(window)
+{
+}
 
 Plugin::Plugin(Plugin const& other) throw()=default;
 
