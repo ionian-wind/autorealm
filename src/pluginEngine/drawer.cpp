@@ -112,7 +112,7 @@ void Drawer::addPoint(wxMouseEvent &event)
 
 void Drawer::addVertex(Render::Point p)
 {
-	m_shape.addVertex(p, *m_selectedRenderer);//is it a recursive, infinite cloninng?
+	m_shape.addVertex(p, *m_selectedRenderer);
 }
 
 void Drawer::finalizeShape(wxCommandEvent &event)
