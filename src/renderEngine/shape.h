@@ -56,11 +56,8 @@ public:
 	 *	\throw nothing
 	 */
 	bool isClosed(void)const throw();
-	/** \brief add a new point to the shape
-	 *	\note A copy of the vertex is made before adding it to the shape
-	 *	\param const&target Vertex vertex to add.
-	 */
-	void push(Vertex const & target);
+
+	void addVertex(Point const& p, Drawer const& d);
 	void pop(void)throw();
 
 	/** \brief change the drawable used to fill the shape

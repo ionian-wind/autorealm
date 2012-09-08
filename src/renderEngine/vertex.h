@@ -35,6 +35,7 @@ class Vertex
 public:
 	Vertex(void);
 	Vertex(Vertex const& other);
+	Vertex(Point const& p, Drawer const& d);
 	/** \brief test if two vertex are the same
 	 *	\note currently, only the position is used to compare two vertices
 	 *	\param const&other Vertex

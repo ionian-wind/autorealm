@@ -29,7 +29,9 @@ ID Drawer::m_menuIds[3];
 wxMenu *Drawer::m_menu(nullptr);
 
 Drawer::Drawer(RenderWindow *window)
-:Plugin(window),m_shape1stPoint(false)
+:Plugin(window)
+,m_shape()
+,m_shape1stPoint(false)
 {
 	if(!m_menu)
 	{
@@ -107,10 +109,7 @@ void Drawer::addPoint(wxMouseEvent &event)
 
 void Drawer::addVertex(Render::Point p)
 {
-	Render::Vertex *v(new Render::Vertex());
-	v->setEnd(p);
-	v->setDrawer(*this);
-	m_shape.push(*v);
+	m_shape.addVertex(p, *this);//is it a recursive, infinite cloninng?
 }
 
 void Drawer::finalizeShape(wxCommandEvent &event)

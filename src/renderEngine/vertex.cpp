@@ -34,6 +34,12 @@ Vertex::Vertex(Vertex const& other)
 {
 }
 
+Vertex::Vertex(Point const& p, Drawer const& d)
+:m_point(p)
+,m_renderer(d.clone())
+{
+}
+
 inline bool Vertex::operator==(Vertex const &other)const throw()
 {
 	return m_point == other.m_point;
