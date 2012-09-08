@@ -82,7 +82,6 @@ bool Shape::isClosed(void)const  throw()
 
 void Shape::addVertex(Point const& p, Drawer const& d)
 {
-//	m_children.push_back(target);
 	m_children.push_back(Vertex(p,d));
 }
 

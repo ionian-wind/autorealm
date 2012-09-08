@@ -27,7 +27,6 @@
 #include <renderEngine/shape.h>
 namespace Render
 {
-	class Vertex;
 	class Shape;
 	class Point;
 }
