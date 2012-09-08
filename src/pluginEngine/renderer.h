@@ -18,57 +18,14 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef VERTEX_H
-#define VERTEX_H
+#ifndef RENDERER_H
+#define RENDERER_H
 
-#include <memory>
-#include "point.h"
-
-class Renderer;
-
-namespace Render
+class Renderer
 {
-
-class Vertex
-{
-	friend class boost::serialization::access;
 public:
-	Vertex(void);
-	Vertex(Vertex const& other);
-	Vertex(Point const& p, Renderer const& r);
-	/** \brief test if two vertex are the same
-	 *	\note currently, only the position is used to compare two vertices
-	 *	\param const&other Vertex
-	 *	\return bool true if vertices are the same
-	 *	\throw nothing
-	 */
-	bool operator==(Vertex const &other)const throw();
-
-	/** \brief return (a copy of the) coordinates of the ending point
-	 *	\return Point
-	 *	\throw nothing
-	 */
-	Point getEnd(void)const throw();
-	/** \brief use (a copy of) p as new ending coordinates
-	 *	\param p Point const&
-	 *	\throw nothing
-	 */
-	void setEnd(Point const &p) throw();
-	void draw(void)const;
-	void setRenderer(Renderer const& next);
-
-	~Vertex(void)throw();
-	void place(void)const throw();
-private:
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version);
-
-protected:
-	Point m_point;
-	std::unique_ptr<Renderer> m_renderer;
-private:
+	virtual void render(void)const throw()=0;
+	virtual Renderer* clone(void)const=0;
 };
 
-}
-
-#endif // VERTEX_H
+#endif

@@ -22,7 +22,7 @@
 
 #include <assert.h>
 
-#include <pluginEngine/drawer.h>
+#include <pluginEngine/renderer.h>
 
 namespace Render
 {
@@ -34,9 +34,9 @@ Vertex::Vertex(Vertex const& other)
 {
 }
 
-Vertex::Vertex(Point const& p, Drawer const& d)
+Vertex::Vertex(Point const& p, Renderer const& r)
 :m_point(p)
-,m_renderer(d.clone())
+,m_renderer(r.clone())
 {
 }
 
@@ -58,11 +58,11 @@ void Vertex::setEnd(Point const &p) throw() ///\todo make inline
 void Vertex::draw(void)const
 {
 	m_point.createVertice();
-	m_renderer->draw();
+	m_renderer->render();
 	m_point.createVertice();
 }
 
-void Vertex::setDrawer(Drawer const& next)
+void Vertex::setRenderer(Renderer const& next)
 {
 	m_renderer.reset(next.clone());
 }

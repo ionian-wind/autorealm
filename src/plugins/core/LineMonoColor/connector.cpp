@@ -21,12 +21,20 @@
 #include <Pluma/Connector.hpp>
 #include <pluginEngine/pluginprovider.h>
 #include <pluginEngine/tprovider.h>
+#include <pluginEngine/drawer.h>
 
 #include "linemonocolor.h"
+
+template <typename Interface, typename Provider, typename Renderer>
+class TDrawerProvider: public Provider
+{
+public:
+	Interface * create(RenderWindow*w) const{ return new Drawer(w, std::unique_ptr<Renderer>(new Renderer())); }
+};
 
 PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
-	host.add(new TPluginProvider<LineMonoColor, Plugin, PluginProvider>());
+	host.add(new TDrawerProvider<Plugin, PluginProvider, LineMonoColor>());
 	return true;
 }

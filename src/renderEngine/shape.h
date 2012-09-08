@@ -26,6 +26,8 @@
 #include "object.h"
 #include "vertex.h"
 
+class Renderer;
+
 namespace Render
 {
 
@@ -57,7 +59,7 @@ public:
 	 */
 	bool isClosed(void)const throw();
 
-	void addVertex(Point const& p, Drawer const& d);
+	void addVertex(Point const& p, Renderer const& r);
 	void pop(void)throw();
 
 	/** \brief change the drawable used to fill the shape

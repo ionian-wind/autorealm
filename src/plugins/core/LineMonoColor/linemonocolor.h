@@ -21,18 +21,18 @@
 #ifndef VertexMONOCOLOR_H
 #define VertexMONOCOLOR_H
 
-#include <pluginEngine/drawer.h>
+#include <pluginEngine/renderer.h>
 #include <renderEngine/color.h>
 
-class LineMonoColor : public Drawer
+class LineMonoColor : public Renderer
 {
 	Render::Color m_color;
 public:
-	LineMonoColor(RenderWindow *window);
-	LineMonoColor(LineMonoColor const &other);
-	virtual void draw(void)const throw() override;
-	virtual Drawer* clone(void)const override;
-	~LineMonoColor(void)throw();
+//	LineMonoColor(RenderWindow *window);
+//	LineMonoColor(LineMonoColor const &other);
+	virtual void render(void)const throw() override;
+	virtual LineMonoColor* clone(void)const override;
+//	~LineMonoColor(void)throw();
 };
 
 #endif

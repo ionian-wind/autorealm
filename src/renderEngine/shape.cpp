@@ -80,9 +80,9 @@ bool Shape::isClosed(void)const  throw()
 	return m_close;
 }
 
-void Shape::addVertex(Point const& p, Drawer const& d)
+void Shape::addVertex(Point const& p, Renderer const& r)
 {
-	m_children.push_back(Vertex(p,d));
+	m_children.push_back(Vertex(p,r));
 }
 
 void Shape::pop(void)throw()

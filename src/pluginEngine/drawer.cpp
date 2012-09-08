@@ -22,16 +22,18 @@
 
 #include <renderEngine/shape.h>
 #include <gui/renderwindow.h>
+#include <pluginEngine/renderer.h>
 
 #include <wx/menu.h>
 
 ID Drawer::m_menuIds[3];
 wxMenu *Drawer::m_menu(nullptr);
 
-Drawer::Drawer(RenderWindow *window)
+Drawer::Drawer(RenderWindow *window, std::unique_ptr<Renderer> r)
 :Plugin(window)
 ,m_shape()
 ,m_shape1stPoint(false)
+,m_selectedRenderer(std::move(r))
 {
 	if(!m_menu)
 	{
@@ -48,6 +50,7 @@ Drawer::Drawer(Drawer const& other)
 :Plugin(other)
 ,m_shape(other.m_shape)
 ,m_shape1stPoint(other.m_shape1stPoint)
+,m_selectedRenderer(other.m_selectedRenderer->clone())
 {
 }
 
@@ -109,7 +112,7 @@ void Drawer::addPoint(wxMouseEvent &event)
 
 void Drawer::addVertex(Render::Point p)
 {
-	m_shape.addVertex(p, *this);//is it a recursive, infinite cloninng?
+	m_shape.addVertex(p, *m_selectedRenderer);//is it a recursive, infinite cloninng?
 }
 
 void Drawer::finalizeShape(wxCommandEvent &event)

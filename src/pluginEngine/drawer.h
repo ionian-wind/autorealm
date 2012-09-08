@@ -45,8 +45,9 @@ class Drawer : public Plugin
 	static wxMenu *m_menu; ///\todo move in gui module instead of pluginEngine
 	Render::Shape m_shape;
 	bool m_shape1stPoint=false;
+	std::unique_ptr<Renderer> m_selectedRenderer;
 public:
-	Drawer(RenderWindow *window);
+	Drawer(RenderWindow *window, std::unique_ptr<Renderer> r);
 	Drawer(Drawer const& other);
 	virtual ~Drawer(void)throw();
 	virtual void installEventManager(void) throw() override;
@@ -63,8 +64,8 @@ public:
 	void render(void);
 
 	void finalizeShape(wxCommandEvent &event);
-	virtual Drawer* clone(void)const=0;
-	virtual void draw(void)const throw()=0;
+//	virtual Drawer* clone(void)const=0;
+//	virtual void draw(void)const throw()=0;
 protected:
 	void createShape(void);
 };
