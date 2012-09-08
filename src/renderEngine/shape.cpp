@@ -130,6 +130,8 @@ bool Shape::empty(void)const throw()
 
 void Shape::clear(void)throw()
 {
+	m_close=false;
+	m_filler.reset();
 	m_children.clear();
 }
 
