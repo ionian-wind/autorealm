@@ -26,7 +26,8 @@
 class Serialization : public Plugin
 {
 public:
-	void installEventManager(RenderWindow &target) throw();
+	Serialization(RenderWindow *);
+	void installEventManager(void) throw();
 	void removeEventManager(void) throw();
 };
 

@@ -28,7 +28,12 @@
 #include <renderEngine/shape.h>
 #include <renderEngine/group.h>
 
-void Serialization::installEventManager(RenderWindow & target) throw()
+Serialization::Serialization(RenderWindow *r)
+:Plugin(r)
+{
+}
+
+void Serialization::installEventManager(void) throw()
 {
 	wxFileDialog openFile(nullptr, _("Open text file as autorealm map"),"","","text files (*.txt)|*.txt",wxFD_OPEN|wxFD_FILE_MUST_EXIST);
 	if(wxID_CANCEL==openFile.ShowModal())
