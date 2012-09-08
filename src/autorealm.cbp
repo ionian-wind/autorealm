@@ -91,9 +91,6 @@
 		<Unit filename="gui/singleton.h">
 			<Option virtualFolder="header/" />
 		</Unit>
-		<Unit filename="utils/clone_ptr.h">
-			<Option virtualFolder="header/" />
-		</Unit>
 		<Unit filename="utils/textfile.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
