@@ -164,5 +164,5 @@ void Drawer::render(void)
 void Drawer::createShape(void)
 {
 	assert(m_shape.empty());
-	m_shape.setFiller(m_target->getFillerColor());
+	m_shape.setFiller(m_target->getFiller());
 }

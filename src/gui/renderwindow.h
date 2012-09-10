@@ -61,11 +61,11 @@ public:
 	/** \brief apply the drawing and clean OpenGL buffers */
 	void finalizeRendering(void);
 
-	Render::Color getBorderColor(void)const throw()
+	Render::Color getBorder(void)const throw()
 	{
 		return m_borderColor;
 	}
-	Render::Color getFillerColor(void)const throw()
+	Render::Color getFiller(void)const throw()
 	{
 		return m_fillerColor;
 	}
