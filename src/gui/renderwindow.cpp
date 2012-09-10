@@ -37,7 +37,7 @@ void RenderWindow::onDraw(wxEvent &ev)
 
 RenderWindow::RenderWindow(wxFrame *parent, int *args, Render::Color const &border, Render::Color const &filler)
 	: wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
-	, m_borderColor(border), m_fillerColor(filler)
+	, m_border(border), m_filler(filler)
 {
 	m_context = new wxGLContext(this);
 	// To avoid flashing on MSW

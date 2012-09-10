@@ -33,8 +33,8 @@ class RenderWindow : public Render::Group, public wxGLCanvas
 	friend class boost::serialization::access;
 
 	wxGLContext *m_context;
-	Render::Color m_borderColor;
-	Render::Color m_fillerColor;
+	Render::Color m_border;
+	Render::Color m_filler;
 	GLdouble m_xo = 0, m_yo = 0; //! origin for x and y axes
 	GLdouble m_xm, m_ym;//! maximum for x and y axes
 
@@ -63,11 +63,11 @@ public:
 
 	Render::Color getBorder(void)const throw()
 	{
-		return m_borderColor;
+		return m_border;
 	}
 	Render::Color getFiller(void)const throw()
 	{
-		return m_fillerColor;
+		return m_filler;
 	}
 private:
 	template<class Archive>
@@ -78,8 +78,8 @@ private:
 	 */
 	void serialize(Archive &ar, const unsigned int version)
 	{
-		ar &m_borderColor;
-		ar &m_fillerColor;
+		ar &m_border;
+		ar &m_filler;
 	}
 
 };
