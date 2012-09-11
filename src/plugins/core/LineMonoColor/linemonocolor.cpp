@@ -23,13 +23,6 @@
 #include <gui/renderwindow.h>
 #include <renderEngine/vertex.h>
 
-//LineMonoColor::LineMonoColor(RenderWindow *window)
-//:Drawer(window),m_color(window->getBorderColor())
-//{
-//}
-//
-//LineMonoColor::LineMonoColor(LineMonoColor const &other)=default;
-
 void LineMonoColor::render(void)const throw()
 {
 	m_color.draw();
@@ -39,5 +32,3 @@ LineMonoColor* LineMonoColor::clone(void)const
 {
 	return new LineMonoColor(*this);
 }
-
-//LineMonoColor::~LineMonoColor(void)throw()=default;

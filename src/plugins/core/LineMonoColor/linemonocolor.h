@@ -26,13 +26,10 @@
 
 class LineMonoColor : public Renderer
 {
-	Render::Color m_color;
 public:
-//	LineMonoColor(RenderWindow *window);
-//	LineMonoColor(LineMonoColor const &other);
+	Render::Color m_color;
 	virtual void render(void)const throw() override;
 	virtual LineMonoColor* clone(void)const override;
-//	~LineMonoColor(void)throw();
 };
 
 #endif
