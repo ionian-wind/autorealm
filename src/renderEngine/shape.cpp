@@ -26,6 +26,7 @@
 #include <GL/gl.h>
 
 #include <pluginEngine/mutator.h>
+#include <pluginEngine/renderer.h>
 
 namespace Render
 {
@@ -64,7 +65,7 @@ void Shape::draw(void)const throw()
 	if(isClosed())
 	{
 		glBegin(GL_POLYGON);
-		m_filler->draw();
+		m_filler->render();
 
 		for(auto &i : m_children)
 			i.place();
@@ -95,7 +96,7 @@ void Shape::pop(void)throw()
 	///\todo reinsert checkSize
 }
 
-void Shape::setFiller(Drawable const &d) throw()
+void Shape::setFiller(Renderer const &d) throw()
 {
 	m_filler.reset(d.clone());
 }

@@ -35,7 +35,7 @@ class Shape : public Object
 {
 	typedef std::vector<Vertex> DrawableList;
 	DrawableList m_children;
-	std::unique_ptr<Drawable> m_filler;
+	std::unique_ptr<Renderer> m_filler;
 	bool m_close=false;
 
 	friend class boost::serialization::access;
@@ -66,7 +66,7 @@ public:
 	 *	\note a copy of the drawable is used
 	 *	\param d REDrawable const* drawable to use
 	 */
-	void setFiller(Drawable const&d) throw();
+	void setFiller(Renderer const&d) throw();
 
 	/** \brief close the shape */
 	void close(void) throw();
