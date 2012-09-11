@@ -58,6 +58,8 @@ public:
 	 */
 	std::string readLine(void) throw();
 
+	uint16_t readInt(void);
+
 	/** \brief indicate if eof has been reached
 	 *
 	 * \return bool true is EoF reached
@@ -67,7 +69,7 @@ public:
 	bool eofReached(void) const;
 
 	/** \brief Dtor. Close file correctly. */
-	~TextFile();
+	~TextFile()throw();
 
 	/** \brief return name of opened file */
 	std::string getFileName(void)const throw();

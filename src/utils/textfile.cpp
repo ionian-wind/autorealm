@@ -59,6 +59,14 @@ std::string TextFile::readLine(void) throw()
 	return result;
 }
 
+uint16_t TextFile::readInt(void)
+{
+	uint16_t val=0;
+	if(1!=fscanf(m_file,"%hu",&val))
+		throw std::runtime_error("Can not read integer value in file "+getFileName());
+	return val;
+}
+
 bool TextFile::eofReached(void) const
 {
 	/**
@@ -79,7 +87,7 @@ bool TextFile::eofReached(void) const
 	return result;
 }
 
-TextFile::~TextFile()
+TextFile::~TextFile()throw()
 {
 	fclose(m_file);
 }
