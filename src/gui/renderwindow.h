@@ -26,15 +26,15 @@
 #include <wx/glcanvas.h>
 
 #include <renderEngine/group.h>
-#include <renderEngine/drawable.h>
+#include <pluginEngine/renderer.h>
 
 class RenderWindow : public Render::Group, public wxGLCanvas
 {
 	friend class boost::serialization::access;
 
 	wxGLContext *m_context;
-	std::unique_ptr<Render::Drawable> m_border;
-	std::unique_ptr<Render::Drawable> m_filler;
+	std::unique_ptr<Renderer> m_border;
+	std::unique_ptr<Renderer> m_filler;
 	GLdouble m_xo = 0, m_yo = 0; //! origin for x and y axes
 	GLdouble m_xm, m_ym;//! maximum for x and y axes
 
@@ -51,7 +51,7 @@ public:
 	 * \param border Color const&
 	 * \param filler Color const&
 	 */
-	RenderWindow(wxFrame *parent, int *args, Render::Drawable const &border, Render::Drawable const &filler);
+	RenderWindow(wxFrame *parent, int *args);
 
 	/** Destructor */
 	~RenderWindow(void) throw();
@@ -61,13 +61,22 @@ public:
 	/** \brief apply the drawing and clean OpenGL buffers */
 	void finalizeRendering(void);
 
-	Render::Drawable const& getBorder(void)const throw()
+	Renderer const& getBorder(void)const throw()
 	{
 		return *m_border;
 	}
-	Render::Drawable const& getFiller(void)const throw()
+	Renderer const& getFiller(void)const throw()
 	{
 		return *m_filler;
+	}
+
+	void setBorder(Renderer const&border)
+	{
+		m_border.reset(border.clone());
+	}
+	void setFiller(Renderer const&filler)
+	{
+		m_filler.reset(filler.clone());
 	}
 private:
 	template<class Archive>

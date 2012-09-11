@@ -35,9 +35,8 @@ void RenderWindow::onDraw(wxEvent &ev)
 	finalizeRendering();
 }
 
-RenderWindow::RenderWindow(wxFrame *parent, int *args, Render::Drawable const &border, Render::Drawable const &filler)
-	: wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
-	, m_border(border.clone()), m_filler(filler.clone())
+RenderWindow::RenderWindow(wxFrame *parent, int *args)
+: wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
 {
 	m_context = new wxGLContext(this);
 	// To avoid flashing on MSW
