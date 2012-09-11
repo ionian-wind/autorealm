@@ -64,7 +64,7 @@ private:
 
 public:
 protected:
-	typedef boost::ptr_vector<Object> ObjectList;
+	typedef boost::ptr_vector<Object> ObjectList;///\todo check if objects are freed
 	ObjectList m_children;
 private:
 };
