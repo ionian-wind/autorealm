@@ -29,11 +29,12 @@
 ID Drawer::m_menuIds[3];
 wxMenu *Drawer::m_menu(nullptr);
 
-Drawer::Drawer(RenderWindow *window, std::unique_ptr<Renderer> r)
+Drawer::Drawer(RenderWindow *window, std::unique_ptr<Renderer> r, TagList const &tags)
 :Plugin(window)
 ,m_shape()
 ,m_shape1stPoint(false)
 ,m_selectedRenderer(std::move(r))
+,m_tagList(tags)
 {
 	if(!m_menu)
 	{

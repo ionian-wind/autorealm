@@ -46,8 +46,10 @@ class Drawer : public Plugin
 	Render::Shape m_shape;
 	bool m_shape1stPoint=false;
 	std::unique_ptr<Renderer> m_selectedRenderer;
+	typedef std::vector<std::string> TagList;
+	TagList m_tagList;
 public:
-	Drawer(RenderWindow *window, std::unique_ptr<Renderer> r);
+	Drawer(RenderWindow *window, std::unique_ptr<Renderer> r, TagList const &tags);
 	Drawer(Drawer const& other);
 	virtual ~Drawer(void)throw();
 	virtual void installEventManager(void) throw() override;

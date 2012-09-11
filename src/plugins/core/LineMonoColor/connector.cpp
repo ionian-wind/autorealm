@@ -29,12 +29,23 @@ template <typename Interface, typename Provider, typename Renderer>
 class TDrawerProvider: public Provider
 {
 public:
-	Interface * create(RenderWindow*w) const{ return new Drawer(w, std::unique_ptr<Renderer>(new Renderer())); }
-};
+	typedef std::vector<std::string> TagList;
+	TagList m_tagList;
+
+	Interface * create(RenderWindow*w) const
+	{
+		return new Drawer	(w
+							, std::unique_ptr<Renderer>(new Renderer())
+							, m_tagList;
+							); }
+};///\todo send this template in Drawer's file or it's own
 
 PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
+	TDrawerProvider<Plugin, PluginProvider, LineMonoColor> drawP
+		=new TDrawerProvider<Plugin, PluginProvider, LineMonoColor>();
+	drawP.m_tagList.push_back(std::string("color"));
 	host.add(new TDrawerProvider<Plugin, PluginProvider, LineMonoColor>());
 	return true;
 }
