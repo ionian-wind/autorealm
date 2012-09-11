@@ -24,22 +24,27 @@
 #include <string>
 #include <vector>
 
-class TextFile;
-
 #include "singleton.h"
+#include "id.h"
+#include <utils/textfile.h>
 
 class AppConfig: public Singleton<AppConfig>
 {
 	std::vector<std::string> m_datas;
+	static const uint16_t sc_nbDefaultRenderers=2; ///\note 2 for filler and border
+	std::string m_defaultRendererTags[sc_nbDefaultRenderers];
+	TextFile m_rootConfigFile;
 public:
 	enum INFO {GRP_RES = 0, PLUGINS, MENU, LASTINDEX};
 	/** \brief retrieve data from a configuration file */
-	AppConfig();
+	AppConfig(void);
 	/**	\brief retrieve the needed path from stored datas
 	 *	Stored datas are read from file config. It's location depends on your OS
 	 *	\param INFO name of the data to retrieve
 	 */
 	static std::string buildPath(INFO info);
+private:
+	std::string throwCorrupted(void)const throw();
 };
 
 #endif // APPCONFIG_H

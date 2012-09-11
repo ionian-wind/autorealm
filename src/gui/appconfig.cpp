@@ -24,19 +24,28 @@
 
 #include "utils/utils.h"
 
-AppConfig::AppConfig()
+AppConfig::AppConfig(void)
+:m_datas(),m_defaultRendererTags(),m_rootConfigFile(TextFile::OpenFile(getPosixConfDir(), "config"))
 {
-	// guess the directory where configuration is stored
-	TextFile rootConfigFile(TextFile::OpenFile(getPosixConfDir(), "config"));
-
 	uint8_t i;
-	for(i = GRP_RES; LASTINDEX>i && !rootConfigFile.eofReached(); ++i)
-		m_datas.push_back(rootConfigFile.readLine());
+	for(i = GRP_RES; LASTINDEX>i && !m_rootConfigFile.eofReached(); ++i)
+		m_datas.push_back(m_rootConfigFile.readLine());
 	if(LASTINDEX>i)
-		throw std::runtime_error("Configuration file "+rootConfigFile.getFileName()+" corrupted");
+		throw std::runtime_error(throwCorrupted());
+
+	for(i = 0; sc_nbDefaultRenderers>i && !m_rootConfigFile.eofReached();++i)
+		m_defaultRendererTags[i]=m_rootConfigFile.readLine();
+
+	if(sc_nbDefaultRenderers>i)
+		throw std::runtime_error(throwCorrupted());
 }
 
 std::string AppConfig::buildPath(INFO info)
 {
 	return GetInstance().m_datas[info];
+}
+
+std::string AppConfig::throwCorrupted(void)const throw()
+{
+	return std::string("Configuration file "+m_rootConfigFile.getFileName()+" corrupted");
 }
