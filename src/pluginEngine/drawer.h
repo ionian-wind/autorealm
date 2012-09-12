@@ -68,6 +68,8 @@ public:
 	void finalizeShape(wxCommandEvent &event);
 //	virtual Drawer* clone(void)const=0;
 //	virtual void draw(void)const throw()=0;
+	operator Renderer&(void);
+	bool operator==(TagList const& tag);
 protected:
 	void createShape(void);
 };

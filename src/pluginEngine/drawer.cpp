@@ -162,6 +162,16 @@ void Drawer::render(void)
 	m_target->finalizeRendering();
 }
 
+Drawer::operator Renderer&(void)
+{
+	return *m_selectedRenderer;
+}
+
+bool Drawer::operator==(TagList const& tag)
+{
+	return tag==m_tagList;
+}
+
 void Drawer::createShape(void)
 {
 	assert(m_shape.empty());
