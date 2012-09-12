@@ -37,6 +37,7 @@ typedef Composite<MenuConverter> Menu;
 class RenderWindow;
 
 class ID;
+class Drawer;
 
 class MainFrame : public wxFrame
 {
@@ -52,7 +53,8 @@ class MainFrame : public wxFrame
 
 	typedef std::map<std::string, ID> AssocIDs;
 	AssocIDs m_buttonIDs;	/// name of plugins are associated with an ID
-	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins
+	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins \todo replace with a ptr_vector
+	std::vector<Drawer*> m_drawerList;///\todo replace with a ptr_list
 
 	pluma::Pluma m_actionPlugIn;
 
@@ -81,8 +83,11 @@ public:
 
 protected:
 private:
+	void createFirstPage(void);
 	/** \brief load plugins used by BUI and bind them to needed GUI elements */
 	void loadRequestedPlugins(void);
+	void initialize(void);
+	void setDefaultRenderers(void);
 };
 
 #endif

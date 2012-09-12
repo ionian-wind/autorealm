@@ -28,6 +28,7 @@
 #include <utils/utils.h>
 #include <renderEngine/shape.h>
 #include <renderEngine/color.h>
+#include <pluginEngine/drawer.h>
 
 #include "renderwindow.h"
 #include "id.h"
@@ -38,25 +39,11 @@ MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 	: wxFrame(parent, id, title)
 	, m_menuTree(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)))
 {
-	m_auiManager.SetManagedWindow(this);
-	m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
-	//add first page to notebook
-	int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
-	RenderWindow *first =
-		new RenderWindow((wxFrame *)m_auiNotebookWorkspace,
-						 args,
-						 Render::Color(1, 1, 0, 1),
-						 Render::Color(0, 1, 0, 1) ///\todo remove those constants. Maybe use a config file entry?
-						);
-	m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
-	m_plans.push_back(first);
-	m_active = m_plans.begin();
-	m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Center());
-	m_auiManager.Update();
-	m_actionPlugIn.acceptProviderType<PluginProvider>();
+	initialize();
+//create the notebook and add it an empty page
+	createFirstPage();
 	loadRequestedPlugins();
-	m_menuTree.create();
-	SetMenuBar(m_menuTree.getMenuBar());
+	setDefaultRenderers();
 	m_auiManager.Update();
 }
 
@@ -85,6 +72,25 @@ void MainFrame::changeSelectedPlugin(wxCommandEvent &event)
 		m_plugins[oldId]->installEventManager();
 }
 
+void MainFrame::createFirstPage(void)
+{
+	int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
+	RenderWindow *first =
+		new RenderWindow((wxFrame *)m_auiNotebookWorkspace,
+						 args
+						);
+	m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
+
+	/*
+	find the good Drawer in m_drawerList thanks to its TagList (contained in AppConfig)
+	use it to generate a Renderer
+	assign that Renderer to the correct "color" : border or filler
+	*/
+//	first->setBorder(AppConfig::getRenderer());
+	m_plans.push_back(first);
+	m_active = m_plans.begin();
+}
+
 void MainFrame::loadRequestedPlugins(void)
 {
 	for(Component<MenuConverter> &i : m_menuTree) //only browse leaves
@@ -99,9 +105,12 @@ void MainFrame::loadRequestedPlugins(void)
 
 			if(nullptr != plugProvider)
 			{
-				ID tmp(m_buttonIDs[plugName]);// avoid searching twice in the map
-				m_plugins[tmp]=plugProvider->create(*m_active);
-				i.setID(tmp);
+				ID tmpid(m_buttonIDs[plugName]);// avoid searching twice in the map
+				Plugin* tmpplug=plugProvider->create(*m_active);
+				m_plugins[tmpid]=tmpplug;
+				i.setID(tmpid);
+				if(Drawer* tmpDrawer=dynamic_cast<Drawer*>(tmpplug))
+					m_drawerList.push_back(tmpDrawer);
 			}
 			else
 				i.disable();
@@ -114,5 +123,26 @@ void MainFrame::loadRequestedPlugins(void)
 			if(jt != m_buttonIDs.end()) // plugin loaded? Bind it.
 				Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::changeSelectedPlugin, this, jt->second, jt->second);
 		}
+	}
+}
+
+void MainFrame::initialize(void)
+{
+	m_auiManager.SetManagedWindow(this);
+	m_actionPlugIn.acceptProviderType<PluginProvider>();
+	m_menuTree.create();
+	SetMenuBar(m_menuTree.getMenuBar());
+	m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
+	m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Center());
+}
+
+void MainFrame::setDefaultRenderers(void)
+{
+	for(Drawer *i:m_drawerList)
+	{
+		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::BORDER))
+			(*m_active)->setBorder(*i);
+		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::FILLER))
+			(*m_active)->setBorder(*i);
 	}
 }
