@@ -78,6 +78,7 @@ public:
 	{
 		m_filler.reset(filler.clone());
 	}
+	void checkDefaultRenderers(void) const;
 private:
 	template<class Archive>
 	/** \brief allow the object to be serialized
