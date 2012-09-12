@@ -34,7 +34,7 @@ AppConfig::AppConfig(void)
 		throw std::runtime_error(throwCorrupted());
 
 	for(i = 0; sc_nbDefaultRenderers>i && !m_rootConfigFile.eofReached();++i)
-		m_defaultRendererTags[i]=m_rootConfigFile.readLine();
+		m_defaultRendererTags[i]=makeTagList(m_rootConfigFile.readLine());
 
 	if(sc_nbDefaultRenderers>i)
 		throw std::runtime_error(throwCorrupted());
@@ -46,7 +46,7 @@ std::string AppConfig::buildPath(INFO info)
 	return GetInstance().m_datas[info];
 }
 
-static TagList getRenderer(RENDERER renderer)
+TagList AppConfig::getRenderer(RENDERER renderer)
 {
 	assert(LASTRENDERER>renderer);
 	return GetInstance().m_defaultRendererTags[renderer];

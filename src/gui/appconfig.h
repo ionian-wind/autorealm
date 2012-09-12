@@ -23,17 +23,19 @@
 
 #include <string>
 #include <vector>
+#include <utils/utils.h>
+#include <utils/textfile.h>
 
 #include "singleton.h"
 #include "id.h"
-#include <utils/textfile.h>
+
+typedef std::vector<std::string> TagList;///\todo remove double definition from utils.h
 
 class AppConfig: public Singleton<AppConfig>
 {
-public:
-	typedef std::vector<std::string> TagList;
 private:
-	std::string m_datas;
+	typedef std::vector<std::string> PathList;
+	PathList m_datas;
 	static const uint16_t sc_nbDefaultRenderers=2; ///\note 2 for filler and border
 	TagList m_defaultRendererTags[sc_nbDefaultRenderers];
 	TextFile m_rootConfigFile;
