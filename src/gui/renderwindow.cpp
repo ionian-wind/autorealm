@@ -90,5 +90,5 @@ void RenderWindow::checkDefaultRenderers(void)const
 	if(!m_filler)
 		except+="Default filler was not found.\n";
 	if(!except.empty())
-		throw std::runtime_error(std::string("Fatal error:\n"+except);
+		throw std::runtime_error(std::string("Fatal error:\n"+except));
 }
