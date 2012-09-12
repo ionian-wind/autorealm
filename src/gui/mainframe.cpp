@@ -39,11 +39,22 @@ MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 	: wxFrame(parent, id, title)
 	, m_menuTree(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)))
 {
-	initialize();
+	m_auiManager.SetManagedWindow(this);
+	m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
+	int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
+	RenderWindow *first = new RenderWindow((wxFrame *)m_auiNotebookWorkspace, args );
+	m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
+	m_plans.push_back(first);
+	m_active = m_plans.begin();
+	m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Center());
+	m_actionPlugIn.acceptProviderType<PluginProvider>();
+
 //create the notebook and add it an empty page
-	createFirstPage();
 	loadRequestedPlugins();
 	setDefaultRenderers();
+
+	m_menuTree.create();
+	SetMenuBar(m_menuTree.getMenuBar());
 	m_auiManager.Update();
 }
 
@@ -70,25 +81,6 @@ void MainFrame::changeSelectedPlugin(wxCommandEvent &event)
 	oldId = event.GetId();
 	if(oldId)
 		m_plugins[oldId]->installEventManager();
-}
-
-void MainFrame::createFirstPage(void)
-{
-	int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
-	RenderWindow *first =
-		new RenderWindow((wxFrame *)m_auiNotebookWorkspace,
-						 args
-						);
-	m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
-
-	/*
-	find the good Drawer in m_drawerList thanks to its TagList (contained in AppConfig)
-	use it to generate a Renderer
-	assign that Renderer to the correct "color" : border or filler
-	*/
-//	first->setBorder(AppConfig::getRenderer());
-	m_plans.push_back(first);
-	m_active = m_plans.begin();
 }
 
 void MainFrame::loadRequestedPlugins(void)
@@ -126,16 +118,6 @@ void MainFrame::loadRequestedPlugins(void)
 	}
 }
 
-void MainFrame::initialize(void)
-{
-	m_auiManager.SetManagedWindow(this);
-	m_actionPlugIn.acceptProviderType<PluginProvider>();
-	m_menuTree.create();
-	SetMenuBar(m_menuTree.getMenuBar());
-	m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
-	m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Center());
-}
-
 void MainFrame::setDefaultRenderers(void)
 {
 	for(Drawer *i:m_drawerList)
@@ -143,6 +125,8 @@ void MainFrame::setDefaultRenderers(void)
 		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::BORDER))
 			(*m_active)->setBorder(*i);
 		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::FILLER))
-			(*m_active)->setBorder(*i);
+			(*m_active)->setFiller(*i);
 	}
+
+	(*m_active)->checkDefaultRenderers();
 }

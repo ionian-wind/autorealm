@@ -83,10 +83,8 @@ public:
 
 protected:
 private:
-	void createFirstPage(void);
 	/** \brief load plugins used by BUI and bind them to needed GUI elements */
 	void loadRequestedPlugins(void);
-	void initialize(void);
 	void setDefaultRenderers(void);
 };
 
