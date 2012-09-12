@@ -44,7 +44,6 @@
 			<Add option="-Wall" />
 			<Add option="`wx-config --cppflags`" />
 			<Add directory="../src" />
-			<Add directory="../../pluma-fork/include" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs aui gl adv core base `" />
@@ -56,7 +55,6 @@
 			<Add library="renderEngine" />
 			<Add library="menuEngine" />
 			<Add library="pluginEngine" />
-			<Add directory="../../pluma-fork/lib" />
 		</Linker>
 		<Unit filename="gui/app.cpp">
 			<Option virtualFolder="source/" />

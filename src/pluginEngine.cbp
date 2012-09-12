@@ -42,11 +42,7 @@
 			<Add option="-fPIC" />
 			<Add option="`wx-config --cppflags`" />
 			<Add directory="../src" />
-			<Add directory="../../pluma-fork/include" />
 		</Compiler>
-		<Linker>
-			<Add directory="../../prj/Pluma-1.0/lib" />
-		</Linker>
 		<Unit filename="pluginEngine/drawer.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>

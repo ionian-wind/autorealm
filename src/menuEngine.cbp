@@ -85,5 +85,9 @@
 		<Unit filename="menuEngine/wxtoolbarconverter.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

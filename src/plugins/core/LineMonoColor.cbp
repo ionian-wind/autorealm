@@ -46,12 +46,9 @@
 			<Add option="-fPIC" />
 			<Add option="`wx-config --cxxflags`" />
 			<Add directory="../../" />
-			<Add directory="../../../../pluma-fork/include" />
 		</Compiler>
 		<Linker>
-			<Add library="pluma-d" />
 			<Add library="pluginEngine" />
-			<Add directory="../../../../pluma-fork/lib" />
 		</Linker>
 		<Unit filename="LineMonoColor/connector.cpp">
 			<Option virtualFolder="source/" />
