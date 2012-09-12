@@ -42,7 +42,14 @@ AppConfig::AppConfig(void)
 
 std::string AppConfig::buildPath(INFO info)
 {
+	assert(LASTINDEX>info);
 	return GetInstance().m_datas[info];
+}
+
+static TagList getRenderer(RENDERER renderer)
+{
+	assert(LASTRENDERER>renderer);
+	return GetInstance().m_defaultRendererTags[renderer];
 }
 
 std::string AppConfig::throwCorrupted(void)const throw()

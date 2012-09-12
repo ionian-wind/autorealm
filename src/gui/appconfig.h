@@ -30,11 +30,15 @@
 
 class AppConfig: public Singleton<AppConfig>
 {
-	std::vector<std::string> m_datas;
+public:
+	typedef std::vector<std::string> TagList;
+private:
+	std::string m_datas;
 	static const uint16_t sc_nbDefaultRenderers=2; ///\note 2 for filler and border
-	std::string m_defaultRendererTags[sc_nbDefaultRenderers];
+	TagList m_defaultRendererTags[sc_nbDefaultRenderers];
 	TextFile m_rootConfigFile;
 public:
+	enum RENDERER {BORDER=0, FILLER, LASTRENDERER};
 	enum INFO {GRP_RES = 0, PLUGINS, MENU, LASTINDEX};
 	/** \brief retrieve data from a configuration file */
 	AppConfig(void);
@@ -43,6 +47,7 @@ public:
 	 *	\param INFO name of the data to retrieve
 	 */
 	static std::string buildPath(INFO info);
+	static TagList getRenderer(RENDERER renderer);
 private:
 	std::string throwCorrupted(void)const throw();
 };
