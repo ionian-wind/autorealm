@@ -67,3 +67,10 @@ boost::filesystem::path findConfigurationFile(boost::filesystem::path const &loc
 	return file;
 }
 
+///\todo implement it fully
+TagList makeTagList(std::string const& line)
+{
+	TagList t;
+	t.push_back(line);
+	return t;
+}

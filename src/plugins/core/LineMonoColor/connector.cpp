@@ -36,16 +36,17 @@ public:
 	{
 		return new Drawer	(w
 							, std::unique_ptr<Renderer>(new Renderer())
-							, m_tagList;
-							); }
+							, m_tagList
+							);
+	}
 };///\todo send this template in Drawer's file or it's own
 
 PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
-	TDrawerProvider<Plugin, PluginProvider, LineMonoColor> drawP
+	TDrawerProvider<Plugin, PluginProvider, LineMonoColor>* drawP
 		=new TDrawerProvider<Plugin, PluginProvider, LineMonoColor>();
-	drawP.m_tagList.push_back(std::string("color"));
+	drawP->m_tagList.push_back(std::string("color"));
 	host.add(new TDrawerProvider<Plugin, PluginProvider, LineMonoColor>());
 	return true;
 }
