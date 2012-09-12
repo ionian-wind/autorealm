@@ -47,6 +47,6 @@ bool connect(pluma::Host &host)
 	TDrawerProvider<Plugin, PluginProvider, LineMonoColor>* drawP
 		=new TDrawerProvider<Plugin, PluginProvider, LineMonoColor>();
 	drawP->m_tagList.push_back(std::string("color"));
-	host.add(new TDrawerProvider<Plugin, PluginProvider, LineMonoColor>());
+	host.add(drawP);
 	return true;
 }
