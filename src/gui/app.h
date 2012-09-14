@@ -21,15 +21,41 @@
 #ifndef APP_H
 #define APP_H
 
+#include <memory>
+
 #include <wx/app.h>
 
+#include <menuEngine/composite.h>
+#include <menuEngine/wxmenuconverter.h>
+
+typedef Composite<MenuConverter> Menu;
 class MainFrame;
+class Drawer;
+class ID;
 
 class App : public wxApp
 {
+	typedef std::map<std::string, ID> AssocIDs;
+	AssocIDs m_buttonIDs;	/// name of plugins are associated with an ID
+	std::unique_ptr<Menu> m_menuTree;	/// contain all menus and submenus of the menubar
+	pluma::Pluma m_actionPlugIn;
+	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins \todo replace with a ptr_container
+	std::vector<Drawer*> m_drawerList;///\todo replace with a ptr_list
 	MainFrame *m_app;
+private:
+	/** \brief load plugins used by BUI and bind them to needed GUI elements */
+	void loadRequestedPlugins(void);
 public:
 	virtual bool OnInit();
 	App(void);
+	/** \brief change the current used plugin
+	 *	This method ask to currently (if existing) used plugin to remove it's event
+	 *	managers. After this, it register the new plugin to use and asks it to
+	 *	do what it needs.
+	 *	Plugins often need to register event managers by example.
+	 *	The method give to the plugin a reference of the active RenderWindow.
+	 * \param event wxCommandEvent& event to process
+	 */
+	void changeSelectedPlugin(wxCommandEvent &event);
 };
 #endif

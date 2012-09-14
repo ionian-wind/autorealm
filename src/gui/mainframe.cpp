@@ -20,100 +20,28 @@
 
 #include "mainframe.h"
 
-#include <functional>
-#include <algorithm>
-
-#include <boost/filesystem.hpp>
-
-#include <utils/utils.h>
-#include <renderEngine/shape.h>
-#include <renderEngine/color.h>
-#include <pluginEngine/drawer.h>
-
 #include "renderwindow.h"
-#include "id.h"
-
-const long MainFrame::ID_NOTEBOOK = wxNewId();
 
 MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
-	: wxFrame(parent, id, title)
-	, m_menuTree(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU)))
+: wxFrame(parent, id, title)
 {
 	m_auiManager.SetManagedWindow(this);
-	m_auiNotebookWorkspace = new wxAuiNotebook(this, ID_NOTEBOOK);
+	m_auiNotebookWorkspace = new wxAuiNotebook(this);
 	int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
 	RenderWindow *first = new RenderWindow((wxFrame *)m_auiNotebookWorkspace, args );
 	m_auiNotebookWorkspace->AddPage(first, "Map 1", true);
 	m_plans.push_back(first);
 	m_active = m_plans.begin();
 	m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Center());
-	m_actionPlugIn.acceptProviderType<PluginProvider>();
-
-//create the notebook and add it an empty page
-	loadRequestedPlugins();
-	(*m_active)->setDefaultRenderers(m_drawerList);
-
-	m_menuTree.create();
-	SetMenuBar(m_menuTree.getMenuBar());
 	m_auiManager.Update();
 }
 
 MainFrame::~MainFrame(void)
 {
-	//event manager cleanup
-	wxCommandEvent e;
-	e.SetId(0);
-	changeSelectedPlugin(e);
-
-	for(std::pair<ID,Plugin*> i : m_plugins)
-		delete i.second;
-
 	m_auiManager.UnInit();
 }
 
-void MainFrame::changeSelectedPlugin(wxCommandEvent &event)
+RenderWindow* MainFrame::getActive(void)const
 {
-	static int oldId = 0;
-
-	if(oldId)
-		m_plugins[oldId]->removeEventManager();
-
-	oldId = event.GetId();
-	if(oldId)
-		m_plugins[oldId]->installEventManager();
-}
-
-void MainFrame::loadRequestedPlugins(void)
-{
-	for(Component<MenuConverter> &i : m_menuTree) //only browse leaves
-	{
-		std::string plugName = i.getPluginName();
-		AssocIDs::iterator jt = m_buttonIDs.find(plugName);
-
-		if(jt == m_buttonIDs.end()) // plugin is not loaded? Try to load it.
-		{
-			assert(!m_actionPlugIn.isLoaded(plugName));///\note should never load twice the same plugin. Could be in pluma...
-			PluginProvider *plugProvider = getProvider<PluginProvider>(m_actionPlugIn, AppConfig::buildPath(AppConfig::PLUGINS), plugName);
-
-			if(nullptr != plugProvider)
-			{
-				ID tmpid(m_buttonIDs[plugName]);// avoid searching twice in the map
-				Plugin* tmpplug=plugProvider->create(*m_active);
-				m_plugins[tmpid]=tmpplug;
-				i.setID(tmpid);
-				if(Drawer* tmpDrawer=dynamic_cast<Drawer*>(tmpplug))
-					m_drawerList.push_back(tmpDrawer);
-			}
-			else
-				i.disable();
-		}
-
-		if(i.isEnabled())
-		{
-			jt = m_buttonIDs.find(plugName);
-
-			if(jt != m_buttonIDs.end()) // plugin loaded? Bind it.
-				Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::changeSelectedPlugin, this, jt->second, jt->second);
-		}
-	}
+	return *m_active;
 }

@@ -21,43 +21,22 @@
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
 
-
 #include <string>
 #include <vector>
 
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 
-#include <menuEngine/composite.h>
-#include <menuEngine/wxmenuconverter.h>
-#include <pluginEngine/plugin.h>
-#include <pluginEngine/pluginprovider.h>
-
-typedef Composite<MenuConverter> Menu;
 class RenderWindow;
-
-class ID;
-class Drawer;
 
 class MainFrame : public wxFrame
 {
-	Menu m_menuTree;	/// contain all menus and submenus of the menubar
 	///\todo avoid the use of pointers
 	typedef std::vector<RenderWindow*> MapList;
 	MapList m_plans;	/// list of plans. Aka: drawing sheets
 	MapList::iterator m_active;	/// iterator on the currently active plan
 	wxAuiManager m_auiManager;	/// internal "window manager" of wxWidgets
 	wxAuiNotebook *m_auiNotebookWorkspace;	/// contain plans'windows
-
-	static const long ID_NOTEBOOK;
-
-	typedef std::map<std::string, ID> AssocIDs;
-	AssocIDs m_buttonIDs;	/// name of plugins are associated with an ID
-	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins \todo replace with a ptr_container
-	std::vector<Drawer*> m_drawerList;///\todo replace with a ptr_list
-
-	pluma::Pluma m_actionPlugIn;
-
 public:
 	/** \brief build the GUI and load plugins
 	 *
@@ -71,20 +50,7 @@ public:
 	/** \brief default Ctor */
 	~MainFrame(void);
 
-	/** \brief change the current used plugin
-	 *	This method ask to currently (if existing) used plugin to remove it's event
-	 *	managers. After this, it register the new plugin to use and asks it to
-	 *	do what it needs.
-	 *	Plugins often need to register event managers by example.
-	 *	The method give to the plugin a reference of the active RenderWindow.
-	 * \param event wxCommandEvent& event to process
-	 */
-	void changeSelectedPlugin(wxCommandEvent &event);
-
-protected:
-private:
-	/** \brief load plugins used by BUI and bind them to needed GUI elements */
-	void loadRequestedPlugins(void);
+	RenderWindow* getActive(void)const;
 };
 
 #endif
