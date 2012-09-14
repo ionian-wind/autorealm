@@ -59,15 +59,13 @@ public:
 	void secondPoint(wxMouseEvent &event);
 	void addPoint(wxMouseEvent &event);
 
-	void addVertex(Render::Point p);
+	void addVertex(Render::Point const &p);
 
 	void moveMouse(wxMouseEvent &event);
 	void contextMenu(wxContextMenuEvent &event);
 	void render(void);
 
 	void finalizeShape(wxCommandEvent &event);
-//	virtual Drawer* clone(void)const=0;
-//	virtual void draw(void)const throw()=0;
 	operator Renderer&(void);
 	bool operator==(TagList const& tag);
 protected:

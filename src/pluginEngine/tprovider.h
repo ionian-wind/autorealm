@@ -6,7 +6,6 @@ class TPluginProvider: public Provider
 {
 public:
 	Interface * create(RenderWindow*w) const{ return new Provided(w); }
-//	Interface * create(void) const{ return new Provided(); }
 };
 
 #endif // TPROVIDER_H

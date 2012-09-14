@@ -53,7 +53,7 @@ class MainFrame : public wxFrame
 
 	typedef std::map<std::string, ID> AssocIDs;
 	AssocIDs m_buttonIDs;	/// name of plugins are associated with an ID
-	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins \todo replace with a ptr_vector
+	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins \todo replace with a ptr_container
 	std::vector<Drawer*> m_drawerList;///\todo replace with a ptr_list
 
 	pluma::Pluma m_actionPlugIn;

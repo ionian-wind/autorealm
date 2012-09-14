@@ -111,7 +111,7 @@ void Drawer::addPoint(wxMouseEvent &event)
 	render();
 }
 
-void Drawer::addVertex(Render::Point p)
+void Drawer::addVertex(Render::Point const &p)
 {
 	m_shape.addVertex(p, *m_selectedRenderer);
 }
