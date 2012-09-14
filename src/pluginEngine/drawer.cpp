@@ -113,7 +113,7 @@ void Drawer::addPoint(wxMouseEvent &event)
 
 void Drawer::addVertex(Render::Point const &p)
 {
-	m_shape.addVertex(p, *m_selectedRenderer);
+	m_shape.addVertex(p, *m_selectedRenderer);///\warning is the correct renderer used for Border?
 }
 
 void Drawer::finalizeShape(wxCommandEvent &event)

@@ -85,7 +85,6 @@ protected:
 private:
 	/** \brief load plugins used by BUI and bind them to needed GUI elements */
 	void loadRequestedPlugins(void);
-	void setDefaultRenderers(void);
 };
 
 #endif

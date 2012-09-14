@@ -51,7 +51,7 @@ MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 
 //create the notebook and add it an empty page
 	loadRequestedPlugins();
-	setDefaultRenderers();
+	(*m_active)->setDefaultRenderers(m_drawerList);
 
 	m_menuTree.create();
 	SetMenuBar(m_menuTree.getMenuBar());
@@ -116,17 +116,4 @@ void MainFrame::loadRequestedPlugins(void)
 				Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::changeSelectedPlugin, this, jt->second, jt->second);
 		}
 	}
-}
-
-void MainFrame::setDefaultRenderers(void)
-{
-	for(Drawer *i:m_drawerList)
-	{
-		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::BORDER))
-			(*m_active)->setBorder(*i);
-		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::FILLER))
-			(*m_active)->setFiller(*i);
-	}
-
-	(*m_active)->checkDefaultRenderers();
 }

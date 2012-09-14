@@ -28,6 +28,9 @@
 #include <renderEngine/vertex.h>
 #include <renderEngine/shape.h>
 
+#include <pluginEngine/drawer.h>
+#include "appconfig.h"
+
 void RenderWindow::onDraw(wxEvent &ev)
 {
 	startRendering();
@@ -80,6 +83,19 @@ void RenderWindow::finalizeRendering(void)
 {
 	glFlush();
 	SwapBuffers();
+}
+
+void RenderWindow::setDefaultRenderers(std::vector<Drawer*> const &drawerList)
+{
+	for(Drawer *i:drawerList)
+	{
+		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::BORDER))
+			setBorder(*i);
+		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::FILLER))
+			setFiller(*i);
+	}
+
+	checkDefaultRenderers();
 }
 
 void RenderWindow::checkDefaultRenderers(void)const

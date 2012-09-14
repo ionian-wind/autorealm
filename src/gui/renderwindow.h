@@ -25,6 +25,8 @@
 
 #include <wx/glcanvas.h>
 
+class Drawer;
+
 #include <renderEngine/group.h>
 #include <pluginEngine/renderer.h>
 
@@ -78,8 +80,10 @@ public:
 	{
 		m_filler.reset(filler.clone());
 	}
-	void checkDefaultRenderers(void) const;
+	void setDefaultRenderers(std::vector<Drawer*> const &drawerList);
+
 private:
+	void checkDefaultRenderers(void) const;
 	template<class Archive>
 	/** \brief allow the object to be serialized
 	 *	\note is it really interesting to restore last selected colors?
