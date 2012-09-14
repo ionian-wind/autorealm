@@ -38,7 +38,7 @@ void RenderWindow::onDraw(wxEvent &ev)
 RenderWindow::RenderWindow(wxFrame *parent, int *args)
 : wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
 {
-	m_context.reset(new wxGLContext(this));
+	m_context = new wxGLContext(this);
 	// To avoid flashing on MSW
 	SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 	Bind(wxEVT_PAINT, &RenderWindow::onDraw, this);
@@ -46,6 +46,7 @@ RenderWindow::RenderWindow(wxFrame *parent, int *args)
 
 RenderWindow::~RenderWindow(void) throw()
 {
+	delete m_context;
 }
 
 void RenderWindow::startRendering(void)
