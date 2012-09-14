@@ -29,14 +29,14 @@ class Drawer;
 
 #include <renderEngine/group.h>
 #include <pluginEngine/renderer.h>
+#include "appconfig.h"
 
 class RenderWindow : public Render::Group, public wxGLCanvas
 {
 	friend class boost::serialization::access;
 
 	wxGLContext *m_context;
-	std::unique_ptr<Renderer> m_border;
-	std::unique_ptr<Renderer> m_filler;
+	std::unique_ptr<Renderer> m_defaultRenderers[AppConfig::RENDERER::LASTRENDERER];
 	double m_xo = 0, m_yo = 0; //! origin for x and y axes
 	double m_xm, m_ym;//! maximum for x and y axes
 
@@ -63,38 +63,21 @@ public:
 	/** \brief apply the drawing and clean OpenGL buffers */
 	void finalizeRendering(void);
 
-	Renderer const& getBorder(void)const throw()
-	{
-		return *m_border;
-	}
-	Renderer const& getFiller(void)const throw()
-	{
-		return *m_filler;
-	}
+	Renderer const& getBorder(void)const throw();
+	Renderer const& getFiller(void)const throw();
 
-	void setBorder(Renderer const&border)
-	{
-		m_border.reset(border.clone());
-	}
-	void setFiller(Renderer const&filler)
-	{
-		m_filler.reset(filler.clone());
-	}
-//	void setDefaultRenderers(std::vector<Drawer*> const &drawerList);
+	void setBorder(Renderer const&border);
+	void setFiller(Renderer const&filler);
 
 	void checkDefaultRenderers(void) const;
 private:
-	template<class Archive>
 	/** \brief allow the object to be serialized
 	 *	\note is it really interesting to restore last selected colors?
 	 *	\param ar Archive&
 	 *	\param version const unsignedint
 	 */
-	void serialize(Archive &ar, const unsigned int version)
-	{
-		ar &m_border;
-		ar &m_filler;
-	}
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version);
 
 };
 #endif

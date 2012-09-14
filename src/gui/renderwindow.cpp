@@ -85,13 +85,36 @@ void RenderWindow::finalizeRendering(void)
 	SwapBuffers();
 }
 
+Renderer const& RenderWindow::getBorder(void)const throw()
+{
+	return *m_defaultRenderers[AppConfig::RENDERER::BORDER];
+}
+Renderer const& RenderWindow::getFiller(void)const throw()
+{
+	return *m_defaultRenderers[AppConfig::RENDERER::FILLER];
+}
+void RenderWindow::setBorder(Renderer const&border)
+{
+	m_defaultRenderers[AppConfig::RENDERER::BORDER].reset(border.clone());
+}
+void RenderWindow::setFiller(Renderer const&filler)
+{
+	m_defaultRenderers[AppConfig::RENDERER::FILLER].reset(filler.clone());
+}
 void RenderWindow::checkDefaultRenderers(void)const
 {
 	std::string except;
-	if(!m_border)
+	if(!m_defaultRenderers[AppConfig::RENDERER::BORDER])
 		except+="Default border was not found.\n";
-	if(!m_filler)
+	if(!m_defaultRenderers[AppConfig::RENDERER::FILLER])
 		except+="Default filler was not found.\n";
 	if(!except.empty())
 		throw std::runtime_error(std::string("Fatal error:\n"+except));
+}
+
+template<class Archive>
+void RenderWindow::serialize(Archive &ar, const unsigned int version)
+{
+	for(size_t i=0;i<AppConfig::RENDERER::LASTRENDERER;++i)
+		ar &m_defaultRenderers[i];
 }
