@@ -33,10 +33,10 @@ AppConfig::AppConfig(void)
 	if(LASTINDEX>i)
 		throw std::runtime_error(throwCorrupted());
 
-	for(i = 0; sc_nbDefaultRenderers>i && !m_rootConfigFile.eofReached();++i)
+	for(i = 0; LASTRENDERER>i && !m_rootConfigFile.eofReached();++i)
 		m_defaultRendererTags[i]=makeTagList(m_rootConfigFile.readLine());
 
-	if(sc_nbDefaultRenderers>i)
+	if(LASTRENDERER>i)
 		throw std::runtime_error(throwCorrupted());
 }
 

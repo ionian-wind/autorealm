@@ -33,12 +33,6 @@ typedef std::vector<std::string> TagList;///\todo remove double definition from 
 
 class AppConfig: public Singleton<AppConfig>
 {
-private:
-	typedef std::vector<std::string> PathList;
-	PathList m_datas;
-	static const uint16_t sc_nbDefaultRenderers=2; ///\note 2 for filler and border
-	TagList m_defaultRendererTags[sc_nbDefaultRenderers];
-	TextFile m_rootConfigFile;
 public:
 	enum RENDERER {BORDER=0, FILLER, LASTRENDERER};
 	enum INFO {GRP_RES = 0, PLUGINS, MENU, LASTINDEX};
@@ -52,6 +46,11 @@ public:
 	static TagList getRenderer(RENDERER renderer);
 private:
 	std::string throwCorrupted(void)const throw();
+private:
+	typedef std::vector<std::string> PathList;
+	PathList m_datas;
+	TagList m_defaultRendererTags[LASTRENDERER];
+	TextFile m_rootConfigFile;
 };
 
 #endif // APPCONFIG_H
