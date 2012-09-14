@@ -37,8 +37,8 @@ class RenderWindow : public Render::Group, public wxGLCanvas
 	wxGLContext *m_context;
 	std::unique_ptr<Renderer> m_border;
 	std::unique_ptr<Renderer> m_filler;
-	GLdouble m_xo = 0, m_yo = 0; //! origin for x and y axes
-	GLdouble m_xm, m_ym;//! maximum for x and y axes
+	double m_xo = 0, m_yo = 0; //! origin for x and y axes
+	double m_xm, m_ym;//! maximum for x and y axes
 
 public:
 	/** \brief event manager for drawing requests
@@ -80,10 +80,10 @@ public:
 	{
 		m_filler.reset(filler.clone());
 	}
-	void setDefaultRenderers(std::vector<Drawer*> const &drawerList);
+//	void setDefaultRenderers(std::vector<Drawer*> const &drawerList);
 
-private:
 	void checkDefaultRenderers(void) const;
+private:
 	template<class Archive>
 	/** \brief allow the object to be serialized
 	 *	\note is it really interesting to restore last selected colors?

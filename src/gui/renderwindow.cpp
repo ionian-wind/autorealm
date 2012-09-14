@@ -85,19 +85,6 @@ void RenderWindow::finalizeRendering(void)
 	SwapBuffers();
 }
 
-void RenderWindow::setDefaultRenderers(std::vector<Drawer*> const &drawerList)
-{
-	for(Drawer *i:drawerList)
-	{
-		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::BORDER))
-			setBorder(*i);
-		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::FILLER))
-			setFiller(*i);
-	}
-
-	checkDefaultRenderers();
-}
-
 void RenderWindow::checkDefaultRenderers(void)const
 {
 	std::string except;

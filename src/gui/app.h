@@ -57,5 +57,6 @@ public:
 	 * \param event wxCommandEvent& event to process
 	 */
 	void changeSelectedPlugin(wxCommandEvent &event);
+	void setDefaultRenderers(void);
 };
 #endif

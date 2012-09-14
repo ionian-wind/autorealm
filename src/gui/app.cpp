@@ -53,10 +53,9 @@ bool App::OnInit()
 
 			m_menuTree.reset(new Menu(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU))));
 			m_actionPlugIn.acceptProviderType<PluginProvider>();
-		//create the notebook and add it an empty page
+			//create the notebook and add it an empty page
 			loadRequestedPlugins();
-			m_app->getActive()->setDefaultRenderers(m_drawerList);
-
+			setDefaultRenderers();
 			m_menuTree->create();
 			m_app->SetMenuBar(m_menuTree->getMenuBar());
 
@@ -136,4 +135,18 @@ void App::changeSelectedPlugin(wxCommandEvent &event)
 	oldId = event.GetId();
 	if(oldId)
 		m_plugins[oldId]->installEventManager();
+}
+
+void App::setDefaultRenderers(void)
+{
+	RenderWindow *tmp=m_app->getActive();
+	for(Drawer *i:m_drawerList)
+	{
+		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::BORDER))
+			tmp->setBorder(*i);
+		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::FILLER))
+			tmp->setFiller(*i);
+	}
+
+	tmp->checkDefaultRenderers();
 }
