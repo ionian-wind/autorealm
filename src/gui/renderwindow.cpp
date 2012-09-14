@@ -24,12 +24,7 @@
 #include <GL/glu.h>
 #include <wx/dcclient.h>
 
-#include <renderEngine/point.h>
-#include <renderEngine/vertex.h>
-#include <renderEngine/shape.h>
-
-#include <pluginEngine/drawer.h>
-#include "appconfig.h"
+#include <pluginEngine/renderer.h>
 
 void RenderWindow::onDraw(wxEvent &ev)
 {
@@ -89,18 +84,22 @@ Renderer const& RenderWindow::getBorder(void)const throw()
 {
 	return *m_defaultRenderers[AppConfig::RENDERER::BORDER];
 }
+
 Renderer const& RenderWindow::getFiller(void)const throw()
 {
 	return *m_defaultRenderers[AppConfig::RENDERER::FILLER];
 }
+
 void RenderWindow::setBorder(Renderer const&border)
 {
 	m_defaultRenderers[AppConfig::RENDERER::BORDER].reset(border.clone());
 }
+
 void RenderWindow::setFiller(Renderer const&filler)
 {
 	m_defaultRenderers[AppConfig::RENDERER::FILLER].reset(filler.clone());
 }
+
 void RenderWindow::checkDefaultRenderers(void)const
 {
 	std::string except;

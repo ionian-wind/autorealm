@@ -21,15 +21,12 @@
 #ifndef RENDERWINDOW_H
 #define RENDERWINDOW_H
 
-#include <vector>
-
 #include <wx/glcanvas.h>
-
-class Drawer;
-
 #include <renderEngine/group.h>
-#include <pluginEngine/renderer.h>
+
 #include "appconfig.h"
+
+class Renderer;
 
 class RenderWindow : public Render::Group, public wxGLCanvas
 {
