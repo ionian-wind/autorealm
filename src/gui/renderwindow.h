@@ -32,7 +32,7 @@ class RenderWindow : public Render::Group, public wxGLCanvas
 {
 	friend class boost::serialization::access;
 
-	wxGLContext *m_context;
+	std::unique_ptr<wxGLContext> m_context;
 	std::unique_ptr<Renderer> m_border;
 	std::unique_ptr<Renderer> m_filler;
 	GLdouble m_xo = 0, m_yo = 0; //! origin for x and y axes
