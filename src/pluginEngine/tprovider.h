@@ -1,11 +1,13 @@
 #ifndef TPROVIDER_H
 #define TPROVIDER_H
 
-template <typename Provided, typename Interface, typename Provider>
-class TPluginProvider: public Provider
+#include <pluginEngine/pluginprovider.h>
+
+template <typename Provided>
+class TPluginProvider: public PluginProvider
 {
 public:
-	Interface * create(RenderWindow*w) const{ return new Provided(w); }
+	Plugin * create(RenderWindow*w) const{ return new Provided(w); }
 };
 
 #endif // TPROVIDER_H

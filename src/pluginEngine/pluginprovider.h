@@ -2,6 +2,7 @@
 #define PLUGINPROVIDER_H
 
 #include <Pluma/Pluma.hpp>
+#include <Pluma/Connector.hpp>
 
 #include "plugin.h"
 

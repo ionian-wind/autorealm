@@ -18,34 +18,14 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include <Pluma/Connector.hpp>
-#include <pluginEngine/pluginprovider.h>
-#include <pluginEngine/tprovider.h>
-#include <pluginEngine/drawer.h>
+#include <pluginEngine/tdrawerprovider.h>
 
 #include "linemonocolor.h"
-
-template <typename Interface, typename Provider, typename Renderer>
-class TDrawerProvider: public Provider
-{
-public:
-	typedef std::vector<std::string> TagList;
-	TagList m_tagList;
-
-	Interface * create(RenderWindow*w) const
-	{
-		return new Drawer	(w
-							, std::unique_ptr<Renderer>(new Renderer())
-							, m_tagList
-							);
-	}
-};///\todo send this template in Drawer's file or it's own
 
 PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
-	TDrawerProvider<Plugin, PluginProvider, LineMonoColor>* drawP
-		=new TDrawerProvider<Plugin, PluginProvider, LineMonoColor>();
+	TDrawerProvider<LineMonoColor>* drawP=new TDrawerProvider<LineMonoColor>();
 	drawP->m_tagList.push_back(std::string("color"));
 	host.add(drawP);
 	return true;

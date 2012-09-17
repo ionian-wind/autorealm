@@ -18,8 +18,6 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include <Pluma/Connector.hpp>
-#include <pluginEngine/pluginprovider.h>
 #include <pluginEngine/tprovider.h>
 
 #include "mover.h"
@@ -27,6 +25,6 @@
 PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
-	host.add(new TPluginProvider<Mover, Plugin, PluginProvider>());
+	host.add(new TPluginProvider<Mover>());
 	return true;
 }
