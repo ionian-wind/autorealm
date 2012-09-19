@@ -2,14 +2,14 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="serialization" />
+		<Option title="load" />
 		<Option pch_mode="2" />
 		<Option default_target="Release" />
 		<Option compiler="gcc" />
 		<Option virtualFolders="source/;header/;" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../../../bin/debug/plugin/serialization" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../bin/debug/plugin/load" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../../../bin/debug/plugin" />
 				<Option object_output="../../../obj/debug/plugin" />
 				<Option type="3" />
@@ -24,7 +24,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../../../bin/release/plugin/serialization" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../bin/release/plugin/load" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../../../../bin/release/plugin" />
 				<Option object_output="../../../../obj/release/plugin" />
 				<Option type="3" />
@@ -52,17 +52,22 @@
 			<Add option="`wx-config --libs aui gl adv core base `" />
 			<Add library="pluma-d" />
 			<Add library="boost_serialization" />
-			<Add directory="../../../../pluma-fork/lib" />
 			<Add library="pluginEngine" />
+			<Add library="renderEngine" />
+			<Add directory="../../../../pluma-fork/lib" />
 		</Linker>
-		<Unit filename="serialization/connector.cpp">
+		<Unit filename="load/connector.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
-		<Unit filename="serialization/serialization.cpp">
+		<Unit filename="load/load.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
-		<Unit filename="serialization/serialization.h">
+		<Unit filename="load/load.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

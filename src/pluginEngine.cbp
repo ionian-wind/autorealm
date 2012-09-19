@@ -64,6 +64,9 @@
 		<Unit filename="pluginEngine/pluginprovider.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Unit filename="pluginEngine/tdrawerprovider.h">
+			<Option virtualFolder="header/" />
+		</Unit>
 		<Unit filename="pluginEngine/tprovider.h">
 			<Option virtualFolder="header/" />
 		</Unit>

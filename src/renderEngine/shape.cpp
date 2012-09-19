@@ -111,13 +111,6 @@ Shape* Shape::clone(void)const
 	return new Shape(*this);
 }
 
-template<class Archive>
-void Shape::serialize(Archive &ar, const unsigned int version)
-{
-	ar &m_filler;
-	ar &m_children;
-}
-
 inline void Shape::checkSize(void)const
 {
 	if(2>m_children.size())

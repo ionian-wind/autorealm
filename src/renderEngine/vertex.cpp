@@ -67,12 +67,6 @@ void Vertex::setRenderer(Renderer const& next)
 	m_renderer.reset(next.clone());
 }
 
-template<class Archive>
-void Vertex::serialize(Archive &ar, const unsigned int version)
-{
-	ar &m_point;
-}
-
 Vertex::~Vertex(void)throw()
 {
 	m_renderer.reset();

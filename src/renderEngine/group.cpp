@@ -54,10 +54,4 @@ Object* Group::clone(void)const
 	return new Group(*this);
 }
 
-template<class Archive>
-void Group::serialize(Archive &ar, const unsigned int version)
-{
-	ar &m_children;
-}
-
 }

@@ -31,7 +31,6 @@ namespace Render
 
 class Vertex
 {
-	friend class boost::serialization::access;
 public:
 	Vertex(void);
 	Vertex(Vertex const& other);
@@ -59,9 +58,6 @@ public:
 
 	~Vertex(void)throw();
 	void place(void)const throw();
-private:
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version);
 
 protected:
 	Point m_point;

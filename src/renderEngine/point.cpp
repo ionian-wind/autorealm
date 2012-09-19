@@ -55,12 +55,4 @@ Point operator+(Point const &p1, Point const &p2) throw()
 	p += p2;
 	return p;
 }
-
-template<class Archive>
-void Point::serialize(Archive &ar, const unsigned int version)
-{
-	ar &m_x;
-	ar &m_y;
-	ar &m_z;
-}
 }

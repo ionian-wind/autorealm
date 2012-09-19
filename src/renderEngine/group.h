@@ -24,14 +24,12 @@
 #include "object.h"
 
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/serialization/vector.hpp>
 
 namespace Render
 {
 
 class Group : public Object
 {
-	friend class boost::serialization::access;
 public:
 	~Group(void)throw();
 
@@ -58,9 +56,6 @@ public:
 	void push_back(Object const& target);
 
 	virtual Object* clone(void)const override;
-private:
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version);
 
 public:
 protected:

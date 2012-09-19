@@ -13,7 +13,8 @@
 		<Project filename="src/menuEngine.cbp" />
 		<Project filename="src/plugins/core/Mover.cbp" />
 		<Project filename="src/plugins/core/LineMonoColor.cbp" />
-		<Project filename="src/plugins/core/serialization.cbp" />
 		<Project filename="../pluma-fork/build/gcc/pluma.cbp" />
+		<Project filename="src/plugins/core/load.cbp" />
+		<Project filename="src/plugins/core/save.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

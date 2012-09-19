@@ -18,17 +18,17 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef SERIALIZATION_H
-#define SERIALIZATION_H
+#ifndef LOAD_H
+#define LOAD_H
 
 #include <pluginEngine/plugin.h>
 
-class Serialization : public Plugin
+class Load : public Plugin
 {
 public:
-	Serialization(RenderWindow *);
+	Load(RenderWindow *);
 	void installEventManager(void) throw();
 	void removeEventManager(void) throw();
 };
 
-#endif // SERIALIZATION_H
+#endif 

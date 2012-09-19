@@ -20,11 +20,11 @@
 
 #include <pluginEngine/tprovider.h>
 
-#include "serialization.h"
+#include "load.h"
 
 PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
-	host.add(new TPluginProvider<Serialization>());
+	host.add(new TPluginProvider<Load>());
 	return true;
 }

@@ -18,65 +18,13 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef SHAPE_H
-#define SHAPE_H
+#include <pluginEngine/tprovider.h>
 
-#include <vector>
-#include "object.h"
-#include "vertex.h"
+#include "save.h"
 
-class Renderer;
-
-namespace Render
+PLUMA_CONNECTOR
+bool connect(pluma::Host &host)
 {
-
-class Shape : public Object
-{
-	typedef std::vector<Vertex> DrawableList;
-	DrawableList m_children;
-	std::unique_ptr<Renderer> m_filler;
-	bool m_close=false;
-
-public:
-	Shape(void);
-	Shape(Shape const& other);
-	/** \brief Apply an algorithm on itself
-	 * \param v Mutator& algorithm to apply
-	 */
-	void accept(Mutator &v);
-	/** \brief draw the shape
-	 *	\throw nothing
-	 *	\todo check if it is possible and realistic to avoid Vertex throwing
-	 */
-	void draw(void)const throw();
-
-	/** \brief test if the Shape is closed or opened figure
-	 *	\return bool true if the shape is closed
-	 *	\throw nothing
-	 */
-	bool isClosed(void)const throw();
-
-	void addVertex(Point const& p, Renderer const& r);
-	void pop(void)throw();
-
-	/** \brief change the drawable used to fill the shape
-	 *	\note a copy of the drawable is used
-	 *	\param d REDrawable const* drawable to use
-	 */
-	void setFiller(Renderer const&d) throw();
-
-	/** \brief close the shape */
-	void close(void) throw();
-
-	virtual Shape* clone(void)const override;
-	bool empty(void)const throw();
-	void clear(void)throw();
-
-protected:
-private:
-	inline void checkSize(void)const;
-};
-
+	host.add(new TPluginProvider<Save>());
+	return true;
 }
-
-#endif // SHAPE_H

@@ -30,8 +30,6 @@ class Renderer;
 
 class RenderWindow : public Render::Group, public wxGLCanvas
 {
-	friend class boost::serialization::access;
-
 	wxGLContext *m_context;
 	std::unique_ptr<Renderer> m_defaultRenderers[AppConfig::RENDERER::LASTRENDERER];
 	double m_xo = 0, m_yo = 0; //! origin for x and y axes
@@ -67,14 +65,5 @@ public:
 	void setFiller(Renderer const&filler);
 
 	void checkDefaultRenderers(void) const;
-private:
-	/** \brief allow the object to be serialized
-	 *	\note is it really interesting to restore last selected colors?
-	 *	\param ar Archive&
-	 *	\param version const unsignedint
-	 */
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version);
-
 };
 #endif

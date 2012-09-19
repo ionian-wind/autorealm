@@ -110,10 +110,3 @@ void RenderWindow::checkDefaultRenderers(void)const
 	if(!except.empty())
 		throw std::runtime_error(std::string("Fatal error:\n"+except));
 }
-
-template<class Archive>
-void RenderWindow::serialize(Archive &ar, const unsigned int version)
-{
-	for(size_t i=0;i<AppConfig::RENDERER::LASTRENDERER;++i)
-		ar &m_defaultRenderers[i];
-}

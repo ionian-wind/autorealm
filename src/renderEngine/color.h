@@ -21,8 +21,6 @@
 #ifndef COLOR_H
 #define COLOR_H
 
-#include <boost/serialization/access.hpp>
-
 #include "drawable.h"
 
 namespace Render
@@ -30,7 +28,6 @@ namespace Render
 
 class Color : public Drawable
 {
-	friend class boost::serialization::access;
 public:
 	/** \brief default constructor */
 	Color();
@@ -51,11 +48,6 @@ public:
 	void draw(void)const throw() override;
 	Drawable* clone(void) const override;
 	double m_red=0, m_green=0, m_blue=0, m_alpha=1;
-protected:
-private:
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version);
-
 };
 
 }
