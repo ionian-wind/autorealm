@@ -124,6 +124,16 @@ void Color::serialize(Archive &ar, const unsigned int version)
 	ar &m_blue;
 	ar &m_alpha;
 }
+
+//////////////////////////////////////
+//              Object              //
+//////////////////////////////////////
+template<class Archive>
+void Object::serialize(Archive &ar, const unsigned int version)
+{
+	ar & boost::serialization::base_object<Drawable>(*this);
+}
+
 }
 
 #endif
