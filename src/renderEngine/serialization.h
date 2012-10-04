@@ -6,34 +6,59 @@
 #include "vertex.h"
 #include "color.h"
 
-//template<typename Archive>
-//void Renderer::serialize(Archive & ar, const unsigned int version)
-//{
-//	Render::Drawable *tmp=m_drawable. get();
-//	ar & tmp;
-//	m_drawable.reset(tmp);
-//}
+#define SERIALIZATION_WITHOUT_RENDERER
+
+#ifndef SERIALIZATION_WITHOUT_RENDERER
+//////////////////////////////////////
+//              Renderer            //
+//////////////////////////////////////
+template<typename Archive>
+void Renderer::serialize(Archive & ar, const unsigned int version)
+{
+	Render::Drawable *tmp=m_drawable. get();
+	ar & tmp;
+	m_drawable.reset(tmp);
+}
+#endif
 
 namespace Render
 {
 
+//////////////////////////////////////
+//              Drawable            //
+//////////////////////////////////////
+template<typename Archive>
+void Drawable::serialize(Archive & ar, const unsigned int version)
+{
+}
+
+//////////////////////////////////////
+//              Vertex              //
+//////////////////////////////////////
 template<class Archive>
 void Vertex::save(Archive &ar, const unsigned int version)const
 {
+#ifndef SERIALIZATION_WITHOUT_RENDERER
 	Renderer *tmp=m_renderer.get();
-	ar & m_point;
 	ar & tmp;
+#endif
+	ar & m_point;
 }
 
 template<class Archive>
 void Vertex::load(Archive &ar, const unsigned int version)
 {
+#ifndef SERIALIZATION_WITHOUT_RENDERER
 	Renderer *tmp;
-	ar & m_point;
 	ar & tmp;
 	m_renderer.reset(tmp);
+#endif
+	ar & m_point;
 }
 
+//////////////////////////////////////
+//              Group               //
+//////////////////////////////////////
 template<class Archive>
 void Group::serialize(Archive &ar, const unsigned int version)
 {
@@ -43,27 +68,37 @@ void Group::serialize(Archive &ar, const unsigned int version)
 	ar &m_children;
 }
 
+//////////////////////////////////////
+//              Shape               //
+//////////////////////////////////////
 template<class Archive>
 void Shape::save(Archive &ar, const unsigned int version) const
 {
-	Renderer *tmp=m_filler.get();
+#ifndef SERIALIZATION_WITHOUT_RENDERER
+	Renderer *tmp=m_renderer.get();
+	ar & tmp;
+#endif
 	ar & ::boost::serialization::base_object<Object>( *this );
 	ar & m_children;
-	ar & tmp;
 	ar & m_close;
 }
 
 template<class Archive>
 void Shape::load(Archive &ar, const unsigned int version)
 {
+#ifndef SERIALIZATION_WITHOUT_RENDERER
 	Renderer *tmp;
+	ar & tmp;
+	m_renderer.reset(tmp);
+#endif
 	ar & ::boost::serialization::base_object<Object>( *this );
 	ar & m_children;
-	ar & tmp;
 	ar & m_close;
-	m_filler.reset(tmp);
 }
 
+//////////////////////////////////////
+//              Point               //
+//////////////////////////////////////
 template<class Archive>
 void Point::serialize(Archive &ar, const unsigned int version)
 {
@@ -72,6 +107,9 @@ void Point::serialize(Archive &ar, const unsigned int version)
 	ar &m_z;
 }
 
+//////////////////////////////////////
+//              Color               //
+//////////////////////////////////////
 template<class Archive>
 void Color::serialize(Archive &ar, const unsigned int version)
 {
