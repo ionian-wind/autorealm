@@ -27,6 +27,7 @@
 #include <gui/renderwindow.h>
 #include <renderEngine/shape.h>
 #include <renderEngine/group.h>
+#include <renderEngine/serialization.h>
 
 Save::Save(RenderWindow *r)
 :Plugin(r)
@@ -35,13 +36,13 @@ Save::Save(RenderWindow *r)
 
 void Save::installEventManager(void) throw()
 {
-	wxFileDialog openFile(nullptr, _("Open text file as autorealm map"),"","","text files (*.txt)|*.txt",wxFD_OPEN|wxFD_FILE_MUST_EXIST);
+	wxFileDialog openFile(nullptr, _("Save text file as autorealm map"),"","","text files (*.txt)|*.txt",wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
 	if(wxID_CANCEL==openFile.ShowModal())
 		return;
 
 	std::string filename(openFile.GetPath());
-	std::ofstream ifs(filename);
-	boost::archive::text_oarchive oa(ifs);
+	std::ofstream ofs(filename);
+	boost::archive::text_oarchive oa(ofs);
 
 	Render::Group* g=static_cast<Render::Group*>(m_target);
 	oa << (*g);
