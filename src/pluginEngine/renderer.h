@@ -21,8 +21,13 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include <boost/serialization/access.hpp>
+
 class Renderer
 {
+	friend class ::boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive & ar, const unsigned int version);
 public:
 	virtual void render(void)const throw()=0;
 	virtual Renderer* clone(void)const=0;
