@@ -72,6 +72,7 @@
 		<Unit filename="renderEngine/point.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Unit filename="renderEngine/serialization.h" />
 		<Unit filename="renderEngine/shape.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
