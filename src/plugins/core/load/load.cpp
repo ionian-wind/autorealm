@@ -22,6 +22,8 @@
 
 #include <fstream>
 #include <wx/filedlg.h>
+#include <wx/msgdlg.h>
+
 #include <boost/archive/text_iarchive.hpp>
 
 #include <renderEngine/serialization.h>
@@ -44,7 +46,14 @@ void Load::installEventManager(void) throw()
 	boost::archive::text_iarchive ia(ifs);
 
 	Render::Group* g=static_cast<Render::Group*>(m_target);
-	ia >> (*g);
+	try
+	{
+		ia >> (*g);
+	}
+	catch(std::exception &e)
+	{
+		wxMessageBox(e.what());
+	}
 }
 
 void Load::removeEventManager(void) throw()

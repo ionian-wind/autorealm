@@ -22,6 +22,8 @@
 
 #include <fstream>
 #include <wx/filedlg.h>
+#include <wx/msgdlg.h>
+
 #include <boost/archive/text_oarchive.hpp>
 
 #include <renderEngine/serialization.h>
@@ -44,7 +46,14 @@ void Save::installEventManager(void) throw()
 	boost::archive::text_oarchive oa(ofs);
 
 	Render::Group* g=static_cast<Render::Group*>(m_target);
-	oa << (*g);
+	try
+	{
+		oa << (*g);
+	}
+	catch(std::exception &e)
+	{
+		wxMessageBox(e.what());
+	}
 }
 
 void Save::removeEventManager(void) throw()
