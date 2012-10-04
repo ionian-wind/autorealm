@@ -12,7 +12,7 @@ BOOST_CLASS_EXPORT(Render::Group);
 BOOST_CLASS_EXPORT(Render::Shape);
 BOOST_CLASS_EXPORT(Render::Object);
 
-#define SERIALIZATION_WITHOUT_RENDERER
+//#define SERIALIZATION_WITHOUT_RENDERER
 
 #ifndef SERIALIZATION_WITHOUT_RENDERER
 //////////////////////////////////////
@@ -21,9 +21,6 @@ BOOST_CLASS_EXPORT(Render::Object);
 template<typename Archive>
 void Renderer::serialize(Archive & ar, const unsigned int version)
 {
-	Render::Drawable *tmp=m_drawable. get();
-	ar & tmp;
-	m_drawable.reset(tmp);
 }
 #endif
 
@@ -81,7 +78,7 @@ template<class Archive>
 void Shape::save(Archive &ar, const unsigned int version) const
 {
 #ifndef SERIALIZATION_WITHOUT_RENDERER
-	Renderer *tmp=m_renderer.get();
+	Renderer *tmp=m_filler.get();
 	ar & tmp;
 #endif
 	ar & ::boost::serialization::base_object<Object>( *this );
@@ -95,7 +92,7 @@ void Shape::load(Archive &ar, const unsigned int version)
 #ifndef SERIALIZATION_WITHOUT_RENDERER
 	Renderer *tmp;
 	ar & tmp;
-	m_renderer.reset(tmp);
+	m_filler.reset(tmp);
 #endif
 	ar & ::boost::serialization::base_object<Object>( *this );
 	ar & m_children;
