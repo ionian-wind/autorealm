@@ -23,13 +23,15 @@
 
 #include "object.h"
 
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/ptr_container/serialize_ptr_vector.hpp>
 
 namespace Render
 {
-
 class Group : public Object
 {
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar,const unsigned int version);
 public:
 	~Group(void)throw();
 

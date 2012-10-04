@@ -21,7 +21,9 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-#include <vector>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/string.hpp>
+
 #include "object.h"
 #include "vertex.h"
 
@@ -36,6 +38,15 @@ class Shape : public Object
 	DrawableList m_children;
 	std::unique_ptr<Renderer> m_filler;
 	bool m_close=false;
+
+	friend class ::boost::serialization::access;
+	BOOST_SERIALIZATION_SPLIT_MEMBER();
+
+	template<class Archive>
+	void save(Archive &ar, const unsigned int version)const;
+
+	template<class Archive>
+	void load(Archive &ar, const unsigned int version);
 
 public:
 	Shape(void);

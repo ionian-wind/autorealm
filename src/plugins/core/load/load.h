@@ -31,4 +31,4 @@ public:
 	void removeEventManager(void) throw();
 };
 
-#endif 
+#endif

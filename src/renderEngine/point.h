@@ -21,11 +21,17 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <boost/serialization/access.hpp>
+
 namespace Render
 {
 
 class Point
 {
+	friend class ::boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version);
+
 public:
 	double m_x, m_y, m_z;
 	/** \brief default Ctor */

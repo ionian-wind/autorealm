@@ -22,6 +22,7 @@
 #define VERTEX_H
 
 #include <memory>
+#include <boost/serialization/split_member.hpp>
 #include "point.h"
 
 class Renderer;
@@ -31,6 +32,12 @@ namespace Render
 
 class Vertex
 {
+	friend class ::boost::serialization::access;
+    BOOST_SERIALIZATION_SPLIT_MEMBER();
+	template<class Archive>
+	void save(Archive &ar, const unsigned int version)const;
+	template<class Archive>
+	void load(Archive &ar, const unsigned int version);
 public:
 	Vertex(void);
 	Vertex(Vertex const& other);

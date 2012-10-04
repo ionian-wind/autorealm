@@ -23,6 +23,9 @@
 
 class Mutator;
 
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/base_object.hpp>
+
 #include "drawable.h"
 
 namespace Render
@@ -31,6 +34,12 @@ namespace Render
 /** \brief Ancestor of Shape and Group. It only provides an interface for composite and visitor patterns */
 class Object: public Drawable
 {
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version)
+	{
+		ar & boost::serialization::base_object<Drawable>(*this);
+	}
 public:
 	/** \brief apply an algorithm on the object
 	 *	\param v Mutator& algo to apply
@@ -50,6 +59,7 @@ inline Object* new_clone( const Object* r )
 	return r ? r->clone() : 0;
 }
 
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Object);
 }
 
 #endif // OBJECT_H
