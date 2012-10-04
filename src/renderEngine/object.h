@@ -36,10 +36,7 @@ class Object: public Drawable
 {
 	friend class boost::serialization::access;
 	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version)
-	{
-		ar & boost::serialization::base_object<Drawable>(*this);
-	}
+	void serialize(Archive &ar, const unsigned int version);
 public:
 	/** \brief apply an algorithm on the object
 	 *	\param v Mutator& algo to apply
