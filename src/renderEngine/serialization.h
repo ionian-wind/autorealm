@@ -3,16 +3,22 @@
 
 #include <pluginEngine/renderer.h>
 
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/base_object.hpp>
+
 #include "group.h"
 #include "shape.h"
 #include "vertex.h"
 #include "color.h"
 
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Render::Object);
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Renderer);
+
 BOOST_CLASS_EXPORT(Render::Group);
 BOOST_CLASS_EXPORT(Render::Shape);
 BOOST_CLASS_EXPORT(Render::Object);
 
-//#define SERIALIZATION_WITHOUT_RENDERER
+#define SERIALIZATION_WITHOUT_RENDERER
 
 #ifndef SERIALIZATION_WITHOUT_RENDERER
 //////////////////////////////////////
@@ -42,6 +48,7 @@ template<class Archive>
 void Vertex::save(Archive &ar, const unsigned int version)const
 {
 #ifndef SERIALIZATION_WITHOUT_RENDERER
+	ar.register_type(static_cast<Renderer*>(nullptr));
 	Renderer *tmp=m_renderer.get();
 	ar & tmp;
 #endif
@@ -52,6 +59,7 @@ template<class Archive>
 void Vertex::load(Archive &ar, const unsigned int version)
 {
 #ifndef SERIALIZATION_WITHOUT_RENDERER
+	ar.register_type(static_cast<Renderer*>(nullptr));
 	Renderer *tmp;
 	ar & tmp;
 	m_renderer.reset(tmp);
@@ -78,6 +86,7 @@ template<class Archive>
 void Shape::save(Archive &ar, const unsigned int version) const
 {
 #ifndef SERIALIZATION_WITHOUT_RENDERER
+	ar.register_type(static_cast<Renderer*>(nullptr));
 	Renderer *tmp=m_filler.get();
 	ar & tmp;
 #endif
@@ -90,6 +99,7 @@ template<class Archive>
 void Shape::load(Archive &ar, const unsigned int version)
 {
 #ifndef SERIALIZATION_WITHOUT_RENDERER
+	ar.register_type(static_cast<Renderer*>(nullptr));
 	Renderer *tmp;
 	ar & tmp;
 	m_filler.reset(tmp);

@@ -23,9 +23,6 @@
 
 class Mutator;
 
-#include <boost/serialization/export.hpp>
-#include <boost/serialization/base_object.hpp>
-
 #include "drawable.h"
 
 namespace Render
@@ -56,7 +53,6 @@ inline Object* new_clone( const Object* r )
 	return r ? r->clone() : 0;
 }
 
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(Object);
 }
 
 #endif // OBJECT_H
