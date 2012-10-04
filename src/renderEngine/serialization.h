@@ -1,10 +1,16 @@
 #ifndef SERIALIZATION_H
 #define SERIALIZATION_H
 
+#include <pluginEngine/renderer.h>
+
 #include "group.h"
 #include "shape.h"
 #include "vertex.h"
 #include "color.h"
+
+BOOST_CLASS_EXPORT(Render::Group);
+BOOST_CLASS_EXPORT(Render::Shape);
+BOOST_CLASS_EXPORT(Render::Object);
 
 #define SERIALIZATION_WITHOUT_RENDERER
 

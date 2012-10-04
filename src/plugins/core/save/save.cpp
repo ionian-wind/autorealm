@@ -24,14 +24,9 @@
 #include <wx/filedlg.h>
 #include <boost/archive/text_oarchive.hpp>
 
-#include <gui/renderwindow.h>
-#include <renderEngine/shape.h>
-#include <renderEngine/group.h>
-#include <pluginEngine/renderer.h>
+#include <renderEngine/serialization.h>
 
-BOOST_CLASS_EXPORT(Render::Group);
-BOOST_CLASS_EXPORT(Render::Shape);
-BOOST_CLASS_EXPORT(Render::Object);
+#include <gui/renderwindow.h>
 
 Save::Save(RenderWindow *r)
 :Plugin(r)
@@ -55,5 +50,3 @@ void Save::installEventManager(void) throw()
 void Save::removeEventManager(void) throw()
 {
 }
-
-#include <renderEngine/serialization.h>
