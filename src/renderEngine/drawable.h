@@ -31,9 +31,7 @@ class Drawable ///\todo rename it to simply Drawable and use namespaces
 {
 	friend class boost::serialization::access;
 	template<typename Archive>
-	void serialize(Archive & ar, const unsigned int version)
-	{
-	}
+	void serialize(Archive & ar, const unsigned int version);
 public:
 	virtual void draw(void)const throw() = 0;
 	virtual Drawable* clone(void)const = 0;
