@@ -37,7 +37,7 @@ Save::Save(RenderWindow *r)
 
 void Save::installEventManager(void) throw()
 {
-	wxFileDialog openFile(nullptr, _("Save text file as autorealm map"),"","","text files (*.txt)|*.txt",wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+	wxFileDialog openFile(nullptr, _("Save text file as autorealm map"),"","","text files (*.txt)|*.txt",wxFD_SAVE| (m_mustConfirm?wxFD_OVERWRITE_PROMPT:0));
 	if(wxID_CANCEL==openFile.ShowModal())
 		return;
 

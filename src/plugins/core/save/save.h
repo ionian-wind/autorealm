@@ -25,10 +25,11 @@
 
 class Save : public Plugin
 {
+	bool m_mustConfirm=false;
 public:
 	Save(RenderWindow *);
 	void installEventManager(void) throw();
 	void removeEventManager(void) throw();
 };
 
-#endif 
+#endif
