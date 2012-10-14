@@ -2,6 +2,8 @@
 #define SERIALIZATION_H
 
 #include <pluginEngine/renderer.h>
+#include <pluginEngine/drawerlist.h>
+
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/base_object.hpp>
@@ -28,23 +30,27 @@ template<typename Archive>
 void serializeRenderer(Archive &ar, std::unique_ptr<Renderer> &object)
 {
 #ifndef SERIALIZATION_WITHOUT_RENDERER
-	//old style
-//	ar.register_type(static_cast<Renderer*>(nullptr));
-//	Renderer *tmp=object.release();
-//	ar & tmp;
-//	object.reset(tmp);
-
-	//new style
 	//save
-	std::string str=*object;
+	if(!object)///\todo refactor this code to avoid using a dumb Renderer instance
+		/**currently, this dumb instance is needed because I choosed to use a function
+		instead of the boost::serialization true system for Renderer. The Boost
+		system would have allowed me to split the save/load work for Renderer but
+		it does not (or I did not find how to) allow to serialize stuff unknown by
+		the serializer/deserializer
+		**/
+	{
+		Renderer &tmp=(*DrawerList::GetInstance().m_drawerList[0]);
+		Renderer *tmp2=tmp.clone();
+		object.reset(tmp2);
+	}
+	std::string str=static_cast<std::string>(*object);
 	ar & str;
 
 	size_t p1(str.find_first_of('(')),p2(str.find_last_of(')'));
 	std::string tag=str.substr(0,p1);
-	std::string data=str.substr(p1,p2-p1);///\todo implement checks
-//	object.reset(App::m_drawerList[tag].create(data));
+	std::string data=str.substr(p1+1,p2-p1);///\todo implement checks
 
-	for(Drawer *i:App::m_drawerList)
+	for(Drawer *i:DrawerList::GetInstance().m_drawerList)
 	{
 		if((*i)==tag)
 			object.reset(i->create(data));
@@ -74,19 +80,6 @@ void Vertex::serialize(Archive &ar, const unsigned int version)
 	ar & m_point;
 }
 
-//void Vertex::save(Archive &ar, const unsigned int version)const
-//{
-//	serializeRenderer(ar,m_renderer);
-//	ar & m_point;
-//}
-//
-//template<class Archive>
-//void Vertex::load(Archive &ar, const unsigned int version)
-//{
-//	serializeRenderer(ar,m_renderer);
-//	ar & m_point;
-//}
-
 //////////////////////////////////////
 //              Group               //
 //////////////////////////////////////
@@ -110,23 +103,6 @@ void Shape::serialize(Archive &ar, const unsigned int version)
 	serializeRenderer(ar,m_filler);
 	ar & m_close;
 }
-
-//void Shape::save(Archive &ar, const unsigned int version) const
-//{
-//	serializeRenderer(ar,m_filler);
-//	ar & ::boost::serialization::base_object<Object>( *this );
-//	ar & m_children;
-//	ar & m_close;
-//}
-//
-//template<class Archive>
-//void Shape::load(Archive &ar, const unsigned int version)
-//{
-//	serializeRenderer(ar,m_filler);
-//	ar & ::boost::serialization::base_object<Object>( *this );
-//	ar & m_children;
-//	ar & m_close;
-//}
 
 //////////////////////////////////////
 //              Point               //
