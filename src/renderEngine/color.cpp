@@ -61,7 +61,7 @@ Color::operator std::string(void)const
 {
 	char strColors[9];
 	uint32_t color=(m_red<<(3*8))+(m_green<<(2*8))+(m_blue<<(1*8))+(m_alpha<<(0*8));
-	sprintf(strColors,"%x",color);
+	sprintf(strColors,"%08x",color);
 	return strColors;
 }
 
