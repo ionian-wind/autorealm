@@ -25,11 +25,10 @@
 #include <vector>
 #include <utils/utils.h>
 #include <utils/textfile.h>
+#include <renderEngine/taglist.h>
 
 #include "singleton.h"
 #include "id.h"
-
-typedef std::vector<std::string> TagList;///\todo remove double definition from utils.h
 
 class AppConfig: public Singleton<AppConfig>
 {
@@ -43,13 +42,13 @@ public:
 	 *	\param INFO name of the data to retrieve
 	 */
 	static std::string buildPath(INFO info);
-	static TagList getRenderer(RENDERER renderer);
+	static Render::TagList getRenderer(RENDERER renderer);
 private:
 	std::string throwCorrupted(void)const throw();
 private:
 	typedef std::vector<std::string> PathList;
 	PathList m_datas;
-	TagList m_defaultRendererTags[LASTRENDERER];
+	Render::TagList m_defaultRendererTags[LASTRENDERER];
 	TextFile m_rootConfigFile;
 };
 

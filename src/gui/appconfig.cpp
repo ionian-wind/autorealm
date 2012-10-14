@@ -46,7 +46,7 @@ std::string AppConfig::buildPath(INFO info)
 	return GetInstance().m_datas[info];
 }
 
-TagList AppConfig::getRenderer(RENDERER renderer)
+Render::TagList AppConfig::getRenderer(RENDERER renderer)
 {
 	assert(LASTRENDERER>=renderer);
 	return GetInstance().m_defaultRendererTags[renderer];

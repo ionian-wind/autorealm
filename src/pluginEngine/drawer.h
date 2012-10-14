@@ -25,6 +25,7 @@
 
 #include <renderEngine/drawable.h>
 #include <renderEngine/shape.h>
+#include <renderEngine/taglist.h>
 namespace Render
 {
 	class Shape;
@@ -46,10 +47,9 @@ class Drawer : public Plugin
 	Render::Shape m_shape;
 	bool m_shape1stPoint=false;
 	std::unique_ptr<Renderer> m_selectedRenderer;
-	typedef std::vector<std::string> TagList;
-	TagList m_tagList;
+	Render::TagList m_tagList;
 public:
-	Drawer(RenderWindow *window, std::unique_ptr<Renderer> r, TagList const &tags);
+	Drawer(RenderWindow *window, std::unique_ptr<Renderer> r, Render::TagList const &tags);
 	Drawer(Drawer const& other);
 	virtual ~Drawer(void)throw();
 	virtual void installEventManager(void) throw() override;
@@ -67,7 +67,7 @@ public:
 
 	void finalizeShape(wxCommandEvent &event);
 	operator Renderer&(void);
-	bool operator==(TagList const& tag);
+	bool operator==(Render::TagList const& tag)const;
 protected:
 	void createShape(void);
 };
