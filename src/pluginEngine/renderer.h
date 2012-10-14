@@ -39,6 +39,10 @@ public:
 	virtual Renderer* clone(void)const=0;
 	operator std::string(void)const
 	{
+		#ifndef NDEBUG
+		if(!m_parent)
+			throw std::logic_error("Can not cast a Renderer to a string if it does not know it's parent.");
+		#endif
 		return std::string(m_parent->getTags())+"("+getData()+")";
 	}
 };
