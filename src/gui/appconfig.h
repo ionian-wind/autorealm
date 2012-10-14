@@ -25,6 +25,7 @@
 #include <vector>
 #include <utils/utils.h>
 #include <utils/textfile.h>
+#include <renderEngine/taglist.h>
 
 #include "singleton.h"
 #include "id.h"
@@ -41,13 +42,14 @@ public:
 	 *	\param INFO name of the data to retrieve
 	 */
 	static std::string buildPath(INFO info);
-	static std::string getRenderer(RENDERER renderer);
+	static Render::TagList getRenderer(RENDERER renderer);
 private:
-	std::string throwCorrupted(void)const throw();
+	template <typename LIST, typename INDEX>
+	void fillList(LIST &list,INDEX min, INDEX max);
 private:
-	typedef std::vector<std::string> PathList;
-	PathList m_datas;
-	std::string m_defaultRendererTags[LASTRENDERER];
+	typedef std::string PathList;
+	PathList m_datas[LASTINDEX+1];
+	Render::TagList m_defaultRendererTags[LASTRENDERER+1];
 	TextFile m_rootConfigFile;
 };
 

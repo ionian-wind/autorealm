@@ -29,7 +29,7 @@
 ID Drawer::m_menuIds[3];
 wxMenu *Drawer::m_menu(nullptr);
 
-Drawer::Drawer(RenderWindow *window, std::unique_ptr<Renderer> r, std::string const &tags)
+Drawer::Drawer(RenderWindow *window, std::unique_ptr<Renderer> r, Render::TagList const &tags)
 :Plugin(window)
 ,m_shape()
 ,m_shape1stPoint(false)
@@ -167,7 +167,7 @@ Drawer::operator Renderer&(void)
 	return *m_selectedRenderer;
 }
 
-bool Drawer::operator==(std::string const& tag)
+bool Drawer::operator==(Render::TagList const& tag)const
 {
 	return tag==m_tagList;
 }
@@ -178,14 +178,14 @@ void Drawer::createShape(void)
 	m_shape.setFiller(m_target->getFiller());
 }
 
-std::string const Drawer::getTags(void)const
+Render::TagList const Drawer::getTags(void)const
 {
 	return m_tagList;
 }
 
-Renderer *Drawer::create(std::string const& str)const
+Renderer *Drawer::create(Render::TagList const& tag)const
 {
 	Renderer *tmp=m_selectedRenderer->clone();
-	tmp->init(str);
+	tmp->init(tag);
 	return tmp;
 }

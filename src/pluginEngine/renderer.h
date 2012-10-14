@@ -39,7 +39,7 @@ public:
 	virtual Renderer* clone(void)const=0;
 	operator std::string(void)const
 	{
-		return m_parent->getTags()+"("+getData()+")";
+		return std::string(m_parent->getTags())+"("+getData()+")";
 	}
 };
 

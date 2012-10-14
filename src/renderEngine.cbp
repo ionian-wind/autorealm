@@ -72,11 +72,19 @@
 		<Unit filename="renderEngine/point.h">
 			<Option virtualFolder="header/" />
 		</Unit>
-		<Unit filename="renderEngine/serialization.h" />
+		<Unit filename="renderEngine/serialization.h">
+			<Option virtualFolder="header/" />
+		</Unit>
 		<Unit filename="renderEngine/shape.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="renderEngine/shape.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="renderEngine/taglist.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="renderEngine/taglist.h">
 			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="renderEngine/vertex.cpp">

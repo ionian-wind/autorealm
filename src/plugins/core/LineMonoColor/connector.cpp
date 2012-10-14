@@ -26,7 +26,7 @@ PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
 	TDrawerProvider<LineMonoColor>* drawP=new TDrawerProvider<LineMonoColor>();
-	drawP->m_tagList="color";
+	drawP->m_tagList+="color";
 	host.add(drawP);
 	return true;
 }

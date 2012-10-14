@@ -27,17 +27,8 @@
 AppConfig::AppConfig(void)
 :m_datas(),m_defaultRendererTags(),m_rootConfigFile(TextFile::OpenFile(getPosixConfDir(), "config"))
 {
-	uint8_t i;
-	for(i = GRP_RES; LASTINDEX>=i && !m_rootConfigFile.eofReached(); ++i)
-		m_datas.push_back(m_rootConfigFile.readLine());
-	if(LASTINDEX>i)
-		throw std::runtime_error(throwCorrupted());
-
-	for(i = 0; LASTRENDERER>=i && !m_rootConfigFile.eofReached();++i)
-		m_defaultRendererTags[i]=m_rootConfigFile.readLine();
-
-	if(LASTRENDERER>=i)
-		throw std::runtime_error(throwCorrupted());
+	fillList(m_datas,GRP_RES, LASTINDEX);
+	fillList(m_defaultRendererTags,BORDER, LASTRENDERER);
 }
 
 std::string AppConfig::buildPath(INFO info)
@@ -46,13 +37,18 @@ std::string AppConfig::buildPath(INFO info)
 	return GetInstance().m_datas[info];
 }
 
-std::string AppConfig::getRenderer(RENDERER renderer)
+Render::TagList AppConfig::getRenderer(RENDERER renderer)
 {
 	assert(LASTRENDERER>=renderer);
 	return GetInstance().m_defaultRendererTags[renderer];
 }
 
-std::string AppConfig::throwCorrupted(void)const throw()
+template <typename LIST, typename INDEX>
+void AppConfig::fillList(LIST &list,INDEX min, INDEX max)
 {
-	return std::string("Configuration file "+m_rootConfigFile.getFileName()+" corrupted");
+	uint8_t i=min;
+	for(;max>=i && !m_rootConfigFile.eofReached();++i)
+		list[i]=m_rootConfigFile.readLine();
+	if(max>=i)
+		throw std::runtime_error("Configuration file "+m_rootConfigFile.getFileName()+" corrupted");
 }

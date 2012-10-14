@@ -28,7 +28,8 @@
 #include <boost/filesystem.hpp>
 #include <Pluma/Pluma.hpp>
 
-#include "../gui/appconfig.h"
+#include <gui/appconfig.h>
+#include <renderEngine/taglist.h>
 
 /** \brief open an image from disk if it exists
  *
