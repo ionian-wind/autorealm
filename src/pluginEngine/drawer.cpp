@@ -23,6 +23,7 @@
 #include <renderEngine/shape.h>
 #include <gui/renderwindow.h>
 #include <pluginEngine/renderer.h>
+#include <pluginEngine/drawerlist.h>
 
 #include <wx/menu.h>
 
@@ -36,6 +37,7 @@ Drawer::Drawer(RenderWindow *window, std::unique_ptr<Renderer> r, Render::TagLis
 ,m_selectedRenderer(std::move(r))
 ,m_tagList(tags)
 {
+	m_selectedRenderer->m_parent=this;
 	if(!m_menu)
 	{
 		m_menu=new wxMenu();
@@ -45,6 +47,7 @@ Drawer::Drawer(RenderWindow *window, std::unique_ptr<Renderer> r, Render::TagLis
 		m_menu->AppendSeparator();
 		m_menu->Append(m_menuIds[2], wxT("Suppress this menu and use &Shift for Closed Figures"));
 	}
+	DrawerList::GetInstance().m_drawerList.push_back(this);///\todo fix the situation of unloaded plug-in. Not an emergency, because it is currently not possible to do such stuff
 }
 
 Drawer::Drawer(Drawer const& other)

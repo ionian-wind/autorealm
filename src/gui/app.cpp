@@ -32,8 +32,6 @@
 #include "mainframe.h"
 #include "renderwindow.h"
 
-std::vector<Drawer*> App::m_drawerList;///\todo replace with a ptr_list
-
 IMPLEMENT_APP(App)
 
 bool App::OnInit()
@@ -110,8 +108,6 @@ void App::loadRequestedPlugins(void)
 				Plugin* tmpplug=plugProvider->create(m_app->getActive());
 				m_plugins[tmpid]=tmpplug;
 				i.setID(tmpid);
-				if(Drawer* tmpDrawer=dynamic_cast<Drawer*>(tmpplug))
-					m_drawerList.push_back(tmpDrawer);
 			}
 			else
 				i.disable();
@@ -139,10 +135,12 @@ void App::changeSelectedPlugin(wxCommandEvent &event)
 		m_plugins[oldId]->installEventManager();
 }
 
+#include <pluginEngine/drawerlist.h>
+
 void App::setDefaultRenderers(void)
 {
 	RenderWindow *tmp=m_app->getActive();
-	for(Drawer *i:m_drawerList)
+	for(Drawer *i:DrawerList::GetInstance().m_drawerList)
 	{
 		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::BORDER))
 			tmp->setBorder(*i);

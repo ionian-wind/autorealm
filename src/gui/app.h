@@ -40,8 +40,6 @@ class App : public wxApp
 	std::unique_ptr<Menu> m_menuTree;	/// contain all menus and submenus of the menubar
 	pluma::Pluma m_actionPlugIn;
 	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins \todo replace with a ptr_container
-public:
-	static std::vector<Drawer*> m_drawerList;///\todo replace with a ptr_list
 private:
 	MainFrame *m_app;
 private:

@@ -49,6 +49,9 @@
 		<Unit filename="pluginEngine/drawer.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Unit filename="pluginEngine/drawerlist.h">
+			<Option virtualFolder="header/" />
+		</Unit>
 		<Unit filename="pluginEngine/mutator.h">
 			<Option virtualFolder="header/" />
 		</Unit>
