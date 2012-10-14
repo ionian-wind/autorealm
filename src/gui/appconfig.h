@@ -44,7 +44,6 @@ public:
 	static std::string buildPath(INFO info);
 	static Render::TagList getRenderer(RENDERER renderer);
 private:
-	std::string throwCorrupted(void)const throw();
 	template <typename LIST, typename INDEX>
 	void fillList(LIST &list,INDEX min, INDEX max);
 private:

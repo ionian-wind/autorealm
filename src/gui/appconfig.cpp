@@ -43,11 +43,6 @@ Render::TagList AppConfig::getRenderer(RENDERER renderer)
 	return GetInstance().m_defaultRendererTags[renderer];
 }
 
-std::string AppConfig::throwCorrupted(void)const throw()
-{
-	return std::string("Configuration file "+m_rootConfigFile.getFileName()+" corrupted");
-}
-
 template <typename LIST, typename INDEX>
 void AppConfig::fillList(LIST &list,INDEX min, INDEX max)
 {
@@ -55,5 +50,5 @@ void AppConfig::fillList(LIST &list,INDEX min, INDEX max)
 	for(;max>=i && !m_rootConfigFile.eofReached();++i)
 		list[i]=m_rootConfigFile.readLine();
 	if(max>=i)
-		throw std::runtime_error(throwCorrupted());
+		throw std::runtime_error("Configuration file "+m_rootConfigFile.getFileName()+" corrupted");
 }
