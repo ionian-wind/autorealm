@@ -45,10 +45,12 @@ public:
 	static Render::TagList getRenderer(RENDERER renderer);
 private:
 	std::string throwCorrupted(void)const throw();
+	template <typename LIST, typename INDEX>
+	void fillList(LIST &list,INDEX min, INDEX max);
 private:
-	typedef std::vector<std::string> PathList;
-	PathList m_datas;
-	Render::TagList m_defaultRendererTags[LASTRENDERER];
+	typedef std::string PathList;
+	PathList m_datas[LASTINDEX+1];
+	Render::TagList m_defaultRendererTags[LASTRENDERER+1];
 	TextFile m_rootConfigFile;
 };
 
