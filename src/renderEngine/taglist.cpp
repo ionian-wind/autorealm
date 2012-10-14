@@ -11,7 +11,10 @@ TagList::TagList(std::string const& str)
 
 TagList& TagList::operator+=(std::string const & newTag)
 {
-	m_tags+=" "+newTag;
+	if(m_tags.empty())
+		m_tags=newTag;
+	else
+		m_tags+=" "+newTag;
 	return *this;
 }
 
