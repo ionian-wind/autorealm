@@ -22,4 +22,9 @@ bool TagList::operator==(TagList const& other)const
 {
 	return m_tags==other.m_tags;
 }
+
+TagList::operator std::string(void)const
+{
+	return m_tags;
+}
 }

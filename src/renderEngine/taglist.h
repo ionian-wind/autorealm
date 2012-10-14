@@ -13,6 +13,7 @@ public:
 	TagList(std::string const& str);
 	TagList& operator+=(std::string const & newTag);
 	bool operator==(TagList const& other)const;
+	operator std::string(void)const;
 protected:
 private:
 };
