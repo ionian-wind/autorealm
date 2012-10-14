@@ -30,7 +30,7 @@ AppConfig::AppConfig(void)
 	uint8_t i;
 	for(i = GRP_RES; LASTINDEX>=i && !m_rootConfigFile.eofReached(); ++i)
 		m_datas.push_back(m_rootConfigFile.readLine());
-	if(LASTINDEX>i)
+	if(LASTINDEX>=i)
 		throw std::runtime_error(throwCorrupted());
 
 	for(i = 0; LASTRENDERER>=i && !m_rootConfigFile.eofReached();++i)
