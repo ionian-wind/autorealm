@@ -27,13 +27,29 @@ namespace Render
 Color::Color() = default;
 
 Color::Color(double red, double green, double blue, double alpha) throw()
+	: m_red(red*255), m_green(green*255), m_blue(blue*255), m_alpha(alpha*255)
+{
+}
+
+Color::Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) throw()
 	: m_red(red), m_green(green), m_blue(blue), m_alpha(alpha)
 {
 }
 
+Color::Color(std::string const& str)
+{
+	uint32_t color;
+	if(1!=sscanf(str.c_str(),"%8x",&color))
+		throw std::runtime_error("Unable to parse color string \""+str+"\"");
+	m_red	=(color & (0xFF << (3*8)))>>(3*8);
+	m_green	=(color & (0xFF << (2*8)))>>(2*8);
+	m_blue	=(color & (0xFF << (1*8)))>>(1*8);
+	m_alpha	=(color & (0xFF << (0*8)))>>(0*8);
+}
+
 inline void Color::draw(void)const throw()
 {
-	glColor4d(m_red, m_green, m_blue, m_alpha);
+	glColor4b(m_red, m_green, m_blue, m_alpha);
 }
 
 Drawable* Color::clone(void) const
@@ -41,4 +57,27 @@ Drawable* Color::clone(void) const
 	return new Color(*this);
 }
 
+Color::operator std::string(void)const
+{
+	char strColors[9];
+	uint32_t color=(m_red<<(3*8))+(m_green<<(2*8))+(m_blue<<(1*8))+(m_alpha<<(0*8));
+	sprintf(strColors,"%x",color);
+	return strColors;
+}
+
+void Color::set(double r, double g, double b, double a)
+{
+	m_red=255*r;
+	m_green=255*g;
+	m_blue=255*b;
+	m_alpha=255*a;
+}
+
+void Color::set(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+{
+	m_red=r;
+	m_green=g;
+	m_blue=b;
+	m_alpha=a;
+}
 }

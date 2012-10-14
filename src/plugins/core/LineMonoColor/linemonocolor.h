@@ -30,6 +30,8 @@ public:
 	Render::Color m_color;
 	virtual void render(void)const throw() override;
 	virtual LineMonoColor* clone(void)const override;
+	virtual std::string const getData(void)const override;
+	virtual void init(std::string const& str)override;
 };
 
 #endif

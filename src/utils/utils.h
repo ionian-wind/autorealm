@@ -64,8 +64,4 @@ T *getProvider(pluma::Pluma &plumConf, std::string const &location, std::string 
 std::string getPosixConfDir(void);
 boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
 
-
-typedef std::vector<std::string> TagList;
-TagList makeTagList(std::string const& line);
-
 #endif // UTILS_H

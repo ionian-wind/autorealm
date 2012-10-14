@@ -32,6 +32,8 @@
 #include "mainframe.h"
 #include "renderwindow.h"
 
+std::vector<Drawer*> App::m_drawerList;///\todo replace with a ptr_list
+
 IMPLEMENT_APP(App)
 
 bool App::OnInit()

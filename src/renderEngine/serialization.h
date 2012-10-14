@@ -10,25 +10,48 @@
 #include "shape.h"
 #include "vertex.h"
 #include "color.h"
+#include <gui/app.h>
 
 BOOST_SERIALIZATION_ASSUME_ABSTRACT(Render::Object);
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(Renderer);
 
 BOOST_CLASS_EXPORT(Render::Group);
 BOOST_CLASS_EXPORT(Render::Shape);
 BOOST_CLASS_EXPORT(Render::Object);
 
-#define SERIALIZATION_WITHOUT_RENDERER
+//#define SERIALIZATION_WITHOUT_RENDERER
 
-#ifndef SERIALIZATION_WITHOUT_RENDERER
 //////////////////////////////////////
 //              Renderer            //
 //////////////////////////////////////
+
 template<typename Archive>
-void Renderer::serialize(Archive & ar, const unsigned int version)
+void serializeRenderer(Archive &ar, std::unique_ptr<Renderer> &object)
 {
-}
+#ifndef SERIALIZATION_WITHOUT_RENDERER
+	//old style
+//	ar.register_type(static_cast<Renderer*>(nullptr));
+//	Renderer *tmp=object.release();
+//	ar & tmp;
+//	object.reset(tmp);
+
+	//new style
+	//save
+	std::string str=*object;
+	ar & str;
+
+	size_t p1(str.find_first_of('(')),p2(str.find_last_of(')'));
+	std::string tag=str.substr(0,p1);
+	std::string data=str.substr(p1,p2-p1);///\todo implement checks
+//	object.reset(App::m_drawerList[tag].create(data));
+
+	for(Drawer *i:App::m_drawerList)
+	{
+		if((*i)==tag)
+			object.reset(i->create(data));
+	}
+
 #endif
+}
 
 namespace Render
 {
@@ -45,27 +68,24 @@ void Drawable::serialize(Archive & ar, const unsigned int version)
 //              Vertex              //
 //////////////////////////////////////
 template<class Archive>
-void Vertex::save(Archive &ar, const unsigned int version)const
+void Vertex::serialize(Archive &ar, const unsigned int version)
 {
-#ifndef SERIALIZATION_WITHOUT_RENDERER
-	ar.register_type(static_cast<Renderer*>(nullptr));
-	Renderer *tmp=m_renderer.get();
-	ar & tmp;
-#endif
+	serializeRenderer(ar,m_renderer);
 	ar & m_point;
 }
 
-template<class Archive>
-void Vertex::load(Archive &ar, const unsigned int version)
-{
-#ifndef SERIALIZATION_WITHOUT_RENDERER
-	ar.register_type(static_cast<Renderer*>(nullptr));
-	Renderer *tmp;
-	ar & tmp;
-	m_renderer.reset(tmp);
-#endif
-	ar & m_point;
-}
+//void Vertex::save(Archive &ar, const unsigned int version)const
+//{
+//	serializeRenderer(ar,m_renderer);
+//	ar & m_point;
+//}
+//
+//template<class Archive>
+//void Vertex::load(Archive &ar, const unsigned int version)
+//{
+//	serializeRenderer(ar,m_renderer);
+//	ar & m_point;
+//}
 
 //////////////////////////////////////
 //              Group               //
@@ -83,31 +103,30 @@ void Group::serialize(Archive &ar, const unsigned int version)
 //              Shape               //
 //////////////////////////////////////
 template<class Archive>
-void Shape::save(Archive &ar, const unsigned int version) const
+void Shape::serialize(Archive &ar, const unsigned int version)
 {
-#ifndef SERIALIZATION_WITHOUT_RENDERER
-	ar.register_type(static_cast<Renderer*>(nullptr));
-	Renderer *tmp=m_filler.get();
-	ar & tmp;
-#endif
 	ar & ::boost::serialization::base_object<Object>( *this );
 	ar & m_children;
+	serializeRenderer(ar,m_filler);
 	ar & m_close;
 }
 
-template<class Archive>
-void Shape::load(Archive &ar, const unsigned int version)
-{
-#ifndef SERIALIZATION_WITHOUT_RENDERER
-	ar.register_type(static_cast<Renderer*>(nullptr));
-	Renderer *tmp;
-	ar & tmp;
-	m_filler.reset(tmp);
-#endif
-	ar & ::boost::serialization::base_object<Object>( *this );
-	ar & m_children;
-	ar & m_close;
-}
+//void Shape::save(Archive &ar, const unsigned int version) const
+//{
+//	serializeRenderer(ar,m_filler);
+//	ar & ::boost::serialization::base_object<Object>( *this );
+//	ar & m_children;
+//	ar & m_close;
+//}
+//
+//template<class Archive>
+//void Shape::load(Archive &ar, const unsigned int version)
+//{
+//	serializeRenderer(ar,m_filler);
+//	ar & ::boost::serialization::base_object<Object>( *this );
+//	ar & m_children;
+//	ar & m_close;
+//}
 
 //////////////////////////////////////
 //              Point               //

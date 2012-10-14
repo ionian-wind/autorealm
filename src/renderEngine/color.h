@@ -33,6 +33,7 @@ class Color : public Drawable
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version);
+	uint8_t m_red=0, m_green=255, m_blue=0, m_alpha=255;
 
 public:
 	/** \brief default constructor */
@@ -46,6 +47,8 @@ public:
 	 *	\throw nothing
 	 */
 	Color(double red, double green, double blue, double alpha) throw();
+	Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) throw();
+	Color(std::string const& str);
 
 	/** \brief apply the color resulting of the combination
 	 *	this method simply call glColor4d. Its only use is encapsulation of openGL
@@ -53,7 +56,9 @@ public:
 	 */
 	void draw(void)const throw() override;
 	Drawable* clone(void) const override;
-	double m_red=0, m_green=0, m_blue=0, m_alpha=1;
+	operator std::string(void)const;
+	void set(double r, double g, double b, double a);
+	void set(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 };
 
 }

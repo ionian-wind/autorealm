@@ -31,8 +31,7 @@ template <typename Renderer>
 class TDrawerProvider: public PluginProvider
 {
 public:
-	typedef std::vector<std::string> TagList;
-	TagList m_tagList;
+	std::string m_tagList;
 
 	Plugin * create(RenderWindow*w) const
 	{

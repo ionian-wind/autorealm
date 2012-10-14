@@ -40,13 +40,15 @@ class Shape : public Object
 	bool m_close=false;
 
 	friend class ::boost::serialization::access;
-	BOOST_SERIALIZATION_SPLIT_MEMBER();
-
+//	BOOST_SERIALIZATION_SPLIT_MEMBER();
+//
+//	template<class Archive>
+//	void save(Archive &ar, const unsigned int version)const;
+//
+//	template<class Archive>
+//	void load(Archive &ar, const unsigned int version);
 	template<class Archive>
-	void save(Archive &ar, const unsigned int version)const;
-
-	template<class Archive>
-	void load(Archive &ar, const unsigned int version);
+	void serialize(Archive &ar, const unsigned int version);
 
 public:
 	Shape(void);

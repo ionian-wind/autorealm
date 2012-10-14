@@ -25,6 +25,7 @@
 
 #include <renderEngine/drawable.h>
 #include <renderEngine/shape.h>
+
 namespace Render
 {
 	class Shape;
@@ -41,15 +42,16 @@ class wxMenu;
 
 class Drawer : public Plugin
 {
+public:
+private:
 	static ID m_menuIds[3];///\todo move in gui module instead of pluginEngine
 	static wxMenu *m_menu; ///\todo move in gui module instead of pluginEngine
 	Render::Shape m_shape;
 	bool m_shape1stPoint=false;
 	std::unique_ptr<Renderer> m_selectedRenderer;
-	typedef std::vector<std::string> TagList;
-	TagList m_tagList;
+	std::string m_tagList;
 public:
-	Drawer(RenderWindow *window, std::unique_ptr<Renderer> r, TagList const &tags);
+	Drawer(RenderWindow *window, std::unique_ptr<Renderer> r, std::string const &tags);
 	Drawer(Drawer const& other);
 	virtual ~Drawer(void)throw();
 	virtual void installEventManager(void) throw() override;
@@ -66,8 +68,11 @@ public:
 	void render(void);
 
 	void finalizeShape(wxCommandEvent &event);
+
 	operator Renderer&(void);
-	bool operator==(TagList const& tag);
+	bool operator==(std::string const& tag);
+	std::string const getTags(void)const;
+	Renderer *create(std::string const& str)const;
 protected:
 	void createShape(void);
 };

@@ -32,3 +32,14 @@ LineMonoColor* LineMonoColor::clone(void)const
 {
 	return new LineMonoColor(*this);
 }
+
+std::string const LineMonoColor::getData(void)const
+{
+	return m_color;
+}
+
+void LineMonoColor::init(std::string const& str)
+{
+	Render::Color c(str);
+	std::swap(m_color,c);
+}

@@ -22,15 +22,25 @@
 #define RENDERER_H
 
 #include <boost/serialization/access.hpp>
+#include "drawer.h"
 
 class Renderer
 {
 	friend class ::boost::serialization::access;
 	template<typename Archive>
 	void serialize(Archive & ar, const unsigned int version);
+	virtual std::string const getData(void)const=0;
 public:
+	Drawer *m_parent=nullptr; ///associated parent (for tags)
+	Renderer(void)throw()=default;
+
+	virtual void init(std::string const& str)=0;
 	virtual void render(void)const throw()=0;
 	virtual Renderer* clone(void)const=0;
+	operator std::string(void)const
+	{
+		return m_parent->getTags()+"("+getData()+")";
+	}
 };
 
 #endif

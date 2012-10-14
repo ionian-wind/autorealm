@@ -29,13 +29,11 @@
 #include "singleton.h"
 #include "id.h"
 
-typedef std::vector<std::string> TagList;///\todo remove double definition from utils.h
-
 class AppConfig: public Singleton<AppConfig>
 {
 public:
-	enum RENDERER {BORDER=0, FILLER, LASTRENDERER};
-	enum INFO {GRP_RES = 0, PLUGINS, MENU, LASTINDEX};
+	enum RENDERER {BORDER=0, FILLER, LASTRENDERER=FILLER};
+	enum INFO {GRP_RES = 0, PLUGINS, MENU, LASTINDEX=MENU};
 	/** \brief retrieve data from a configuration file */
 	AppConfig(void);
 	/**	\brief retrieve the needed path from stored datas
@@ -43,13 +41,13 @@ public:
 	 *	\param INFO name of the data to retrieve
 	 */
 	static std::string buildPath(INFO info);
-	static TagList getRenderer(RENDERER renderer);
+	static std::string getRenderer(RENDERER renderer);
 private:
 	std::string throwCorrupted(void)const throw();
 private:
 	typedef std::vector<std::string> PathList;
 	PathList m_datas;
-	TagList m_defaultRendererTags[LASTRENDERER];
+	std::string m_defaultRendererTags[LASTRENDERER];
 	TextFile m_rootConfigFile;
 };
 
