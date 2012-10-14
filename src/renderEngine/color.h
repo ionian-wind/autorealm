@@ -33,7 +33,7 @@ class Color : public Drawable
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version);
-	uint8_t m_red=0, m_green=255, m_blue=0, m_alpha=255;
+	uint8_t m_red=0, m_green=0, m_blue=0, m_alpha=255;
 
 public:
 	/** \brief default constructor */

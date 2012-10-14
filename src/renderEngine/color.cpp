@@ -49,7 +49,7 @@ Color::Color(std::string const& str)
 
 inline void Color::draw(void)const throw()
 {
-	glColor4b(m_red, m_green, m_blue, m_alpha);
+	glColor4ub(m_red, m_green, m_blue, m_alpha);
 }
 
 Drawable* Color::clone(void) const
