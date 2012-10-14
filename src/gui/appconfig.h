@@ -34,8 +34,8 @@ typedef std::vector<std::string> TagList;///\todo remove double definition from 
 class AppConfig: public Singleton<AppConfig>
 {
 public:
-	enum RENDERER {BORDER=0, FILLER, LASTRENDERER};
-	enum INFO {GRP_RES = 0, PLUGINS, MENU, LASTINDEX};
+	enum RENDERER {BORDER=0, FILLER, LASTRENDERER=FILLER};
+	enum INFO {GRP_RES = 0, PLUGINS, MENU, LASTINDEX=MENU};
 	/** \brief retrieve data from a configuration file */
 	AppConfig(void);
 	/**	\brief retrieve the needed path from stored datas

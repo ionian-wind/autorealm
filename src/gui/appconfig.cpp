@@ -28,27 +28,27 @@ AppConfig::AppConfig(void)
 :m_datas(),m_defaultRendererTags(),m_rootConfigFile(TextFile::OpenFile(getPosixConfDir(), "config"))
 {
 	uint8_t i;
-	for(i = GRP_RES; LASTINDEX>i && !m_rootConfigFile.eofReached(); ++i)
+	for(i = GRP_RES; LASTINDEX>=i && !m_rootConfigFile.eofReached(); ++i)
 		m_datas.push_back(m_rootConfigFile.readLine());
 	if(LASTINDEX>i)
 		throw std::runtime_error(throwCorrupted());
 
-	for(i = 0; LASTRENDERER>i && !m_rootConfigFile.eofReached();++i)
+	for(i = 0; LASTRENDERER>=i && !m_rootConfigFile.eofReached();++i)
 		m_defaultRendererTags[i]=makeTagList(m_rootConfigFile.readLine());
 
-	if(LASTRENDERER>i)
+	if(LASTRENDERER>=i)
 		throw std::runtime_error(throwCorrupted());
 }
 
 std::string AppConfig::buildPath(INFO info)
 {
-	assert(LASTINDEX>info);
+ 	assert(LASTINDEX>=info);
 	return GetInstance().m_datas[info];
 }
 
 TagList AppConfig::getRenderer(RENDERER renderer)
 {
-	assert(LASTRENDERER>renderer);
+	assert(LASTRENDERER>=renderer);
 	return GetInstance().m_defaultRendererTags[renderer];
 }
 
