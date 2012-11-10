@@ -15,10 +15,18 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 SET(SRC "${CMAKE_SOURCE_DIR}/src")
 INCLUDE_DIRECTORIES(${SRC})
 SUBDIRS(${SRC})
+SET(CONFIG "${CMAKE_SOURCE_DIR}/config/autorealm")
 
 SET(EXECUTABLE_OUTPUT_PATH
 	${CMAKE_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH
 	${CMAKE_SOURCE_DIR}/bin)
 
-INSTALL(FILES ${CMAKE_SOURCE_DIR}/bin/libLineMonoColor.so ${CMAKE_SOURCE_DIR}/bin/libMover.so ${CMAKE_SOURCE_DIR}/bin/libload.so ${CMAKE_SOURCE_DIR}/bin/libsave.so DESTINATION ${CMAKE_SOURCE_DIR}/bin/debug/plugin/)
+
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/bin/libLineMonoColor.so ${CMAKE_SOURCE_DIR}/bin/libMover.so ${CMAKE_SOURCE_DIR}/bin/libload.so ${CMAKE_SOURCE_DIR}/bin/libsave.so DESTINATION /usr/local/etc/autorealm/bin/debug/plugin/)
+
+
+INSTALL(FILES ${CONFIG}/config DESTINATION /usr/local/etc/autorealm/)
+FILE(INSTALL ${CONFIG}/menubar DESTINATION /usr/local/etc/autorealm/)
+FILE(INSTALL ${CONFIG}/png_files DESTINATION /usr/local/etc/autorealm/)
+

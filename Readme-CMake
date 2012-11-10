@@ -11,6 +11,9 @@ The executable can be found in autorealm/bin
 
 Currently, AutoREALM 3 is not able to generate itself it's configuration, and is not able to run without it, so you must install it yourself before run it. There are multiple ways to do that, the standard one and the xdg compliant version for linux users. Also, it is split in 2 parts:
 
+EDIT: using CMake scripts AutoREALM 3 generates its configuration
+ and puts it in /usr/local/etc/autorealm
+
     *copying the files *adapting configuration for your use
 
 Copying files 
@@ -42,4 +45,4 @@ WARNING: system-wide configuration, is NOT recommended, for some reasons:
 
 Adapting configuration to your system 
 
-Edit the file autorealm/config/autorealm/config and replace occurrences of "/home/berenger" or "/root/" with the right path. 
+Edit the file autorealm/config/autorealm/config and replace occurrences with the right path. 
