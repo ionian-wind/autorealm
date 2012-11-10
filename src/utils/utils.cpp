@@ -50,8 +50,8 @@ std::string getPosixConfDir(void)
 		return boost::filesystem::path(homepath + "/.config/autorealm/").string();
 
 #ifndef WIN32
-	else if(boost::filesystem::exists("/etc/autorealm"))
-		return boost::filesystem::path("/etc/autorealm").string();
+	else if(boost::filesystem::exists("/usr/local/etc/autorealm"))
+		return boost::filesystem::path("/usr/local/etc/autorealm").string();
 
 #endif
 	throw std::runtime_error("configuration not found");
