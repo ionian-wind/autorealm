@@ -155,25 +155,6 @@ void App::setDefaultRenderers(void)
 	catch(std::runtime_error &e)
 	{
 		std::string tmp(e.what());
-		bool borderPb=false, fillerPb=false;
-
-		borderPb=std::string::npos!=tmp.find("border");
-		fillerPb=std::string::npos!=tmp.find("filler");
-
-		tmp="";
-		if(borderPb)
-		{
-			tmp+="Default border drawer (";
-			tmp+=AppConfig::getRenderer(AppConfig::RENDERER::BORDER);
-			tmp+=") not found.\n";
-		}
-		if(fillerPb)
-		{
-			tmp+="Default filler drawer (";
-			tmp+=AppConfig::getRenderer(AppConfig::RENDERER::FILLER);
-			tmp+=") not found.\n";
-		}
-
 		tmp+="Plug-ins were searched in: ";
 		tmp+=AppConfig::buildPath(AppConfig::INFO::PLUGINS);
 		tmp+="\n";

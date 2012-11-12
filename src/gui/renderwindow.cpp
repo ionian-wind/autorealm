@@ -103,10 +103,16 @@ void RenderWindow::setFiller(Renderer const&filler)
 void RenderWindow::checkDefaultRenderers(void)const
 {
 	std::string except;
-	if(!m_defaultRenderers[AppConfig::RENDERER::BORDER])
-		except+="Default border was not found.\n";
-	if(!m_defaultRenderers[AppConfig::RENDERER::FILLER])
-		except+="Default filler was not found.\n";
+
+	for(size_t i=AppConfig::FIRSTRENDERER;i<AppConfig::LASTRENDERER;++i)
+	{
+		if(!m_defaultRenderers[i])
+		{
+			except+="Default drawer \"";
+			except+=AppConfig::getRenderer(AppConfig::RENDERER::BORDER);
+			except+="\" was not found.\n";
+		}
+	}
 	if(!except.empty())
 		throw std::runtime_error(std::string("Fatal error:\n"+except));
 }

@@ -33,7 +33,7 @@
 class AppConfig: public Singleton<AppConfig>
 {
 public:
-	enum RENDERER {BORDER=0, FILLER, LASTRENDERER=FILLER};
+	enum RENDERER {BORDER=0, FIRSTRENDERER=BORDER, FILLER, LASTRENDERER=FILLER};
 	enum INFO {GRP_RES = 0, PLUGINS, MENU, LASTINDEX=MENU};
 	/** \brief retrieve data from a configuration file */
 	AppConfig(void);
