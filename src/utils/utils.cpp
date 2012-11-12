@@ -45,13 +45,13 @@ std::string getPosixConfDir(void)
 	std::string homepath(getenv("HOME"));///\note flawfinder say I should use getenv with care
 
 	if(boost::filesystem::exists(homepath + "/.autorealm"))
-		return boost::filesystem::path(homepath + ".autorealm/").string();
+		return boost::filesystem::path(homepath + "/.autorealm/").string();
 	else if(boost::filesystem::exists(homepath + "/.config/autorealm"))
 		return boost::filesystem::path(homepath + "/.config/autorealm/").string();
 
 #ifndef WIN32
-	else if(boost::filesystem::exists("/etc/autorealm"))
-		return boost::filesystem::path("/etc/autorealm").string();
+	else if(boost::filesystem::exists("/usr/local/etc/autorealm/"))
+		return boost::filesystem::path("/usr/local/etc/autorealm/").string();
 
 #endif
 	throw std::runtime_error("configuration not found");

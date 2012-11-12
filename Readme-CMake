@@ -1,0 +1,48 @@
+cmake 
+
+go into autorealm/build (create the folder if it does not exists) and then enter those commands:
+
+    *"$cmake .." *"$make" (note: if you have a multi-core/thread processor, using "j x" where x is how many cores/threads you have +1 will speed up compilation process, if you have enough RAM. By example, if you have 2 cores with 2 threads, "-j 5" is a good idea.
+    *"$make install"
+running 
+installing configuration 
+
+The executable can be found in autorealm/bin
+
+Currently, AutoREALM 3 is not able to generate itself it's configuration, and is not able to run without it, so you must install it yourself before run it. There are multiple ways to do that, the standard one and the xdg compliant version for linux users. Also, it is split in 2 parts:
+
+EDIT: using CMake scripts AutoREALM 3 generates its configuration
+ and puts it in /usr/local/etc/autorealm
+
+    *copying the files *adapting configuration for your use
+
+Copying files 
+Windows 
+
+Again, windows is less powerful here (but not because it is my choice: it's filesystems are just lacking possibilities): you can only copy (or move) the folder "autorealm/config/autorealm" in "%HOMEPATH%/.autorealm" be sure to rename the folder with a ".".
+Other OS 
+
+On POSIX operating systems, you have many solutions:
+
+    * classic configuration:: 
+
+        $ln autorealm/config/autorealm ~/.autorealm -s
+
+    * xdg configuration:: 
+
+        $ln autorealm/config/autorealm ~/.config/autorealm -s
+
+    * system-wide configuration:: 
+
+        $ln autorealm/config/autorealm /etc/autorealm -s
+
+WARNING: system-wide configuration, is NOT recommended, for some reasons:
+
+    * AutoREALM 3 is still in heavy development, and so it can break your system if installed widely
+    * system-wide configuration should only be made by package managers, to avoid wrong manipulations which can destroy your system
+    * you will need to manually move/link all files in correct destinations (/usr/bin and /usr/share) each time you change something in code.
+    * you will have to take care of right management 
+
+Adapting configuration to your system 
+
+Edit the file autorealm/config/autorealm/config and replace occurrences with the right path. 
