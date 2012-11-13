@@ -18,18 +18,18 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#ifndef VertexMONOCOLOR_H
-#define VertexMONOCOLOR_H
+#ifndef POLYLINE_H
+#define POLYLINE_H
 
 #include <pluginEngine/renderer.h>
 #include <renderEngine/color.h>
 
-class LineMonoColor : public Renderer
+class PolyLine : public Renderer
 {
 public:
 	Render::Color m_color;
 	virtual void render(void)const throw() override;
-	virtual LineMonoColor* clone(void)const override;
+	virtual PolyLine* clone(void)const override;
 	virtual std::string const getData(void)const override;
 	virtual void init(std::string const& str)override;
 };

@@ -23,22 +23,22 @@
 #include <gui/renderwindow.h>
 #include <renderEngine/vertex.h>
 
-void LineMonoColor::render(void)const throw()
+void PolyLine::render(void)const throw()
 {
 	m_color.draw();
 }
 
-LineMonoColor* LineMonoColor::clone(void)const
+PolyLine* PolyLine::clone(void)const
 {
-	return new LineMonoColor(*this);
+	return new PolyLine(*this);
 }
 
-std::string const LineMonoColor::getData(void)const
+std::string const PolyLine::getData(void)const
 {
 	return m_color;
 }
 
-void LineMonoColor::init(std::string const& str)
+void PolyLine::init(std::string const& str)
 {
 	Render::Color c(str);
 	std::swap(m_color,c);

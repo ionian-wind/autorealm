@@ -23,7 +23,7 @@ SET(LIBRARY_OUTPUT_PATH
 	${CMAKE_SOURCE_DIR}/bin)
 
 
-INSTALL(FILES ${CMAKE_SOURCE_DIR}/bin/libLineMonoColor.so ${CMAKE_SOURCE_DIR}/bin/libMover.so ${CMAKE_SOURCE_DIR}/bin/libload.so ${CMAKE_SOURCE_DIR}/bin/libsave.so DESTINATION /usr/local/etc/autorealm/bin/debug/plugin/)
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/bin/libpolyline.so ${CMAKE_SOURCE_DIR}/bin/libMover.so ${CMAKE_SOURCE_DIR}/bin/libload.so ${CMAKE_SOURCE_DIR}/bin/libsave.so DESTINATION /usr/local/etc/autorealm/bin/debug/plugin/)
 
 
 INSTALL(FILES ${CONFIG}/config DESTINATION /usr/local/etc/autorealm/)
