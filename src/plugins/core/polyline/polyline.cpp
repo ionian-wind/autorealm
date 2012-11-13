@@ -18,7 +18,7 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
-#include "linemonocolor.h"
+#include "polyline.h"
 
 #include <gui/renderwindow.h>
 #include <renderEngine/vertex.h>

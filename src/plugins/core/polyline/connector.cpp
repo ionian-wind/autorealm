@@ -20,13 +20,13 @@
 
 #include <pluginEngine/tdrawerprovider.h>
 
-#include "linemonocolor.h"
+#include "polyline.h"
 
 PLUMA_CONNECTOR
 bool connect(pluma::Host &host)
 {
 	TDrawerProvider<LineMonoColor>* drawP=new TDrawerProvider<LineMonoColor>();
-	drawP->m_tagList+="color";
+	drawP->m_tagList+="polyline";
 	host.add(drawP);
 	return true;
 }

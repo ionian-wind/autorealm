@@ -7,12 +7,14 @@
 			<Depends filename="src/renderEngine.cbp" />
 			<Depends filename="src/menuEngine.cbp" />
 			<Depends filename="src/plugins/core/Mover.cbp" />
-			<Depends filename="src/plugins/core/LineMonoColor.cbp" />
+			<Depends filename="src/plugins/core/polyline.cbp" />
+			<Depends filename="src/plugins/core/load.cbp" />
+			<Depends filename="src/plugins/core/save.cbp" />
 		</Project>
 		<Project filename="src/renderEngine.cbp" />
 		<Project filename="src/menuEngine.cbp" />
 		<Project filename="src/plugins/core/Mover.cbp" />
-		<Project filename="src/plugins/core/LineMonoColor.cbp" />
+		<Project filename="src/plugins/core/polyline.cbp" />
 		<Project filename="../pluma-fork/build/gcc/pluma.cbp" />
 		<Project filename="src/plugins/core/load.cbp" />
 		<Project filename="src/plugins/core/save.cbp" />
