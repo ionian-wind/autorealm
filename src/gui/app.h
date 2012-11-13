@@ -32,6 +32,7 @@ typedef Composite<MenuConverter> Menu;
 class MainFrame;
 class Drawer;
 class ID;
+class Plugin;
 
 class App : public wxApp
 {

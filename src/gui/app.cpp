@@ -18,17 +18,14 @@
  *    along with autorealm.  If not, see <http://www.gnu.org/licenses/>.          *
  **********************************************************************************/
 
+#include "app.h"
+
 #include <exception>
-
 #include <wx/splash.h>
-
 #include <boost/filesystem.hpp>
 
-#include <pluginEngine/plugin.h>
-#include <pluginEngine/drawer.h>
 #include <pluginEngine/pluginprovider.h>
 
-#include "app.h"
 #include "mainframe.h"
 #include "renderwindow.h"
 
