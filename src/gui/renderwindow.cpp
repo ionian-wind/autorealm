@@ -25,6 +25,7 @@
 #include <wx/dcclient.h>
 
 #include <pluginEngine/renderer.h>
+#include <pluginEngine/drawerlist.h>
 
 void RenderWindow::onDraw(wxEvent &ev)
 {
@@ -90,15 +91,15 @@ Renderer const& RenderWindow::getFiller(void)const throw()
 	return *m_defaultRenderers[AppConfig::RENDERER::FILLER];
 }
 
-void RenderWindow::setBorder(Renderer const&border)
-{
-	m_defaultRenderers[AppConfig::RENDERER::BORDER].reset(border.clone());
-}
-
-void RenderWindow::setFiller(Renderer const&filler)
-{
-	m_defaultRenderers[AppConfig::RENDERER::FILLER].reset(filler.clone());
-}
+//void RenderWindow::setBorder(Renderer const&border)
+//{
+//	m_defaultRenderers[AppConfig::RENDERER::BORDER].reset(border.clone());
+//}
+//
+//void RenderWindow::setFiller(Renderer const&filler)
+//{
+//	m_defaultRenderers[AppConfig::RENDERER::FILLER].reset(filler.clone());
+//}
 
 void RenderWindow::checkDefaultRenderers(void)const
 {
@@ -115,4 +116,38 @@ void RenderWindow::checkDefaultRenderers(void)const
 	}
 	if(!except.empty())
 		throw std::runtime_error(std::string("Fatal error:\n"+except));
+}
+
+void RenderWindow::setDefaultRenderers(void)
+{
+	DrawerList const&drawers(DrawerList::GetInstance());
+	for(Drawer *i:drawers.m_drawerList)
+	{
+		Renderer const&r(*i);
+		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::BORDER))
+			m_defaultRenderers[AppConfig::RENDERER::BORDER].reset(r.clone());
+		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::FILLER))
+			m_defaultRenderers[AppConfig::RENDERER::FILLER].reset(r.clone());
+	}
+
+	try
+	{
+		checkDefaultRenderers();
+	}
+	catch(std::runtime_error &e)
+	{
+		std::string tmp(e.what());
+		tmp+="Plug-ins were searched in: ";
+		tmp+=AppConfig::buildPath(AppConfig::INFO::PLUGINS);
+		tmp+="\n";
+
+		tmp+="\ndrawers found:\n\t";
+		for(Drawer* plugin: drawers.m_drawerList)
+		{
+			tmp+=plugin->getTags();
+			tmp+="\n\t";
+		}
+
+		throw std::runtime_error(tmp);
+	}
 }

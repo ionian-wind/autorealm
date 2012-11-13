@@ -61,9 +61,10 @@ public:
 	Renderer const& getBorder(void)const throw();
 	Renderer const& getFiller(void)const throw();
 
-	void setBorder(Renderer const&border);
-	void setFiller(Renderer const&filler);
+//	void setBorder(Renderer const&border);
+//	void setFiller(Renderer const&filler);
 
 	void checkDefaultRenderers(void) const;
+	void setDefaultRenderers(void);
 };
 #endif

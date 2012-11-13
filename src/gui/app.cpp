@@ -55,7 +55,7 @@ bool App::OnInit()
 			m_actionPlugIn.acceptProviderType<PluginProvider>();
 			//create the notebook and add it an empty page
 			loadRequestedPlugins();
-			setDefaultRenderers();
+			m_app->getActive()->setDefaultRenderers();
 			m_menuTree->create();
 			m_app->SetMenuBar(m_menuTree->getMenuBar());
 
@@ -133,39 +133,4 @@ void App::changeSelectedPlugin(wxCommandEvent &event)
 	oldId = event.GetId();
 	if(oldId)
 		m_plugins[oldId]->installEventManager();
-}
-
-#include <pluginEngine/drawerlist.h>
-
-void App::setDefaultRenderers(void)
-{
-	RenderWindow *tmp=m_app->getActive();
-	for(Drawer *i:DrawerList::GetInstance().m_drawerList)
-	{
-		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::BORDER))
-			tmp->setBorder(*i);
-		if((*i)==AppConfig::getRenderer(AppConfig::RENDERER::FILLER))
-			tmp->setFiller(*i);
-	}
-
-	try
-	{
-		tmp->checkDefaultRenderers();
-	}
-	catch(std::runtime_error &e)
-	{
-		std::string tmp(e.what());
-		tmp+="Plug-ins were searched in: ";
-		tmp+=AppConfig::buildPath(AppConfig::INFO::PLUGINS);
-		tmp+="\n";
-
-		tmp+="\ndrawers found:\n\t";
-		for(Drawer* plugin: DrawerList::GetInstance().m_drawerList)
-		{
-			tmp+=plugin->getTags();
-			tmp+="\n\t";
-		}
-
-		throw std::runtime_error(tmp);
-	}
 }
