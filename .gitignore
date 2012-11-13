@@ -5,3 +5,4 @@ obj
 *.layout
 *.html
 src/.cccc
+build
