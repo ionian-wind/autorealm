@@ -20,15 +20,78 @@
 
 #include "appconfig.h"
 
-#include <utils/textfile.h>
-
+#include "app.h"
 #include "utils/utils.h"
+#include <boost/program_options.hpp>
+#include <fstream>
+#include <stdexcept>
+
+namespace po=boost::program_options;
 
 AppConfig::AppConfig(void)
-:m_datas(),m_defaultRendererTags(),m_rootConfigFile(TextFile::OpenFile(getPosixConfDir(), "config"))
+:m_datas(),m_defaultRendererTags()
 {
-	fillList(m_datas,GRP_RES, LASTINDEX);
-	fillList(m_defaultRendererTags,BORDER, LASTRENDERER);
+	char **argv=App::GetInstance()->argv;
+	int argc=App::GetInstance()->argc;
+	//no decent default values?
+	std::string config_filename(getPosixConfDir());///\todo make it possible to use a combination of system and configuration files instead of only one of them
+	config_filename+="/config";
+	///\todo check licence compatibility of code snippet from boost (should be ok but checking is never bad)
+	//commandline only
+	po::options_description generic("Generic options");
+	generic.add_options()
+		("version,v","print version string")
+		("help,h","produce help message")
+		("config,c",po::value<std::string>(&config_filename)->default_value(config_filename),
+			"name of a configuration file");
+
+	std::string filler,border,menu,graphics,plugins;
+	//option provided by files or command-line
+	po::options_description config_file("User configuration");
+	config_file.add_options()
+		("border",po::value<std::string>(&border),"default taglist to identify drawer used for borders and lines")
+		("filler",po::value<std::string>(&filler),"default taglist to identify drawer used for filling shapes")
+		("menubar", po::value<std::string>(&menu),"folder to look for menubar description")
+		("graphics", po::value<std::string>(&graphics),"folder to look for graphical resources")
+		("plugins", po::value<std::string>(&plugins),"folder to look for plug-ins");
+		("input-file", po::value<std::vector<std::string>>(), "files to open at start-up");
+
+	//command-line declaration and settings
+	po::options_description cmdline_options;
+	cmdline_options.add(generic).add(config_file);
+
+	//user configuration file declaration and settings
+	po::options_description conf_file;
+	conf_file.add(config_file);
+
+	po::positional_options_description p;
+	p.add("input-file",-1);
+	po::variables_map vm;
+
+	//parse command line
+	store(po::command_line_parser(argc,argv).
+		options(cmdline_options).positional(p).run(),vm);
+	notify(vm);
+
+	//parse configuration file
+	std::ifstream ifs(config_filename.c_str());
+	if(!ifs)
+		throw std::runtime_error("unable to find configuration file");///\todo enhance this exception's text
+
+	store(parse_config_file(ifs,conf_file),vm);
+	notify(vm);
+
+	if(vm.count("version"))
+		; ///\todo
+
+	if(vm.count("help"))
+		std::cout << cmdline_options;
+
+	m_defaultRendererTags[BORDER]=border;
+	m_defaultRendererTags[FILLER]=filler;
+	m_datas[MENU]=menu;
+	m_datas[GRP_RES]=graphics;
+	m_datas[PLUGINS]=plugins;
 }
 
 std::string AppConfig::buildPath(INFO info)
@@ -41,14 +104,4 @@ Render::TagList AppConfig::getRenderer(RENDERER renderer)
 {
 	assert(LASTRENDERER>=renderer);
 	return GetInstance().m_defaultRendererTags[renderer];
-}
-
-template <typename LIST, typename INDEX>
-void AppConfig::fillList(LIST &list,INDEX min, INDEX max)
-{
-	uint8_t i=min;
-	for(;max>=i && !m_rootConfigFile.eofReached();++i)
-		list[i]=m_rootConfigFile.readLine();
-	if(max>=i)
-		throw std::runtime_error("Configuration file "+m_rootConfigFile.getFileName()+" corrupted");
 }

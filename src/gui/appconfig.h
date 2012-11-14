@@ -22,13 +22,9 @@
 #define APPCONFIG_H
 
 #include <string>
-#include <vector>
-#include <utils/utils.h>
-#include <utils/textfile.h>
 #include <renderEngine/taglist.h>
 
 #include "singleton.h"
-#include "id.h"
 
 class AppConfig: public Singleton<AppConfig>
 {
@@ -44,13 +40,9 @@ public:
 	static std::string buildPath(INFO info);
 	static Render::TagList getRenderer(RENDERER renderer);
 private:
-	template <typename LIST, typename INDEX>
-	void fillList(LIST &list,INDEX min, INDEX max);
-private:
 	typedef std::string PathList;
 	PathList m_datas[LASTINDEX+1];
 	Render::TagList m_defaultRendererTags[LASTRENDERER+1];
-	TextFile m_rootConfigFile;
 };
 
 #endif // APPCONFIG_H

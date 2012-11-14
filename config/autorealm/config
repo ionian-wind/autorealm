@@ -1,5 +1,5 @@
-/home/berenger/autorealm/config/autorealm/png_files/
-/home/berenger/autorealm/bin/debug/plugin/
-/home/berenger/.config/autorealm/menubar
-polyline
-polyline
+graphics = /home/berenger/autorealm/config/autorealm/png_files/
+plugins = /home/berenger/autorealm/bin/debug/plugin/
+menubar = /home/berenger/.config/autorealm/menubar
+border = polyline
+filler = polyline

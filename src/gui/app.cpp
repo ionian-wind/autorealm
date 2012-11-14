@@ -26,6 +26,7 @@
 
 #include <pluginEngine/pluginprovider.h>
 
+#include "id.h"
 #include "mainframe.h"
 #include "renderwindow.h"
 
