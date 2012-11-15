@@ -23,6 +23,7 @@
 
 #include <string>
 #include <renderEngine/taglist.h>
+#include <boost/program_options.hpp>
 
 #include "singleton.h"
 
@@ -43,6 +44,7 @@ private:
 	typedef std::string PathList;
 	PathList m_datas[LASTINDEX+1];
 	Render::TagList m_defaultRendererTags[LASTRENDERER+1];
+	void readConfFile(std::string const& file, boost::program_options::variables_map &vm,boost::program_options::options_description const& optionSet);
 };
 
 #endif // APPCONFIG_H

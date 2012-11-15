@@ -34,7 +34,7 @@ AppConfig::AppConfig(void)
 	char **argv=App::GetInstance()->argv;
 	int argc=App::GetInstance()->argc;
 	//no decent default values?
-	std::string config_filename(getPosixConfDir());///\todo make it possible to use a combination of system and configuration files instead of only one of them
+	std::string config_filename(getUserConfigDir());///\todo make it possible to use a combination of system and configuration files instead of only one of them
 	config_filename+="/config";
 	///\todo check licence compatibility of code snippet from boost (should be ok but checking is never bad)
 	//commandline only
@@ -73,13 +73,13 @@ AppConfig::AppConfig(void)
 		options(cmdline_options).positional(p).run(),vm);
 	notify(vm);
 
-	//parse configuration file
-	std::ifstream ifs(config_filename.c_str());
-	if(!ifs)
-		throw std::runtime_error("unable to find configuration file");///\todo enhance this exception's text
+	//parse user configuration file
+	readConfFile(config_filename,vm,config_file);
 
-	store(parse_config_file(ifs,conf_file),vm);
-	notify(vm);
+	//parse system configuration file
+	config_filename=getSystemConfigDir();
+	config_filename+="/config";
+	readConfFile(config_filename,vm,config_file);
 
 	if(vm.count("version"))
 		; ///\todo
@@ -104,4 +104,14 @@ Render::TagList AppConfig::getRenderer(RENDERER renderer)
 {
 	assert(LASTRENDERER>=renderer);
 	return GetInstance().m_defaultRendererTags[renderer];
+}
+
+void AppConfig::readConfFile(std::string const& file, boost::program_options::variables_map &vm,boost::program_options::options_description const& optionSet)
+{
+	std::ifstream ifs(file);
+	if(!ifs)
+		throw std::runtime_error("unable to find configuration file: "+file);///\todo enhance this exception's text
+
+	store(parse_config_file(ifs,optionSet),vm);
+	notify(vm);
 }

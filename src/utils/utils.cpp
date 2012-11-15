@@ -70,8 +70,8 @@ std::string getSystemConfigDir(void)
 		throw std::logic_error("System configuration folder detection unimplemented on Windows");
 	#endif
 
-	if(boost::filesystem::exists("/usr/local/etc/autorealm/"))
-		return boost::filesystem::path("/usr/local/etc/autorealm/").string();
+	if(boost::filesystem::exists("/usr/local/etc/autorealm"))
+		return boost::filesystem::path("/usr/local/etc/autorealm").string();
 	return std::string();
 }
 
