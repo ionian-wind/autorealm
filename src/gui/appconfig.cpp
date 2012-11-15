@@ -34,7 +34,7 @@ AppConfig::AppConfig(void)
 	char **argv=App::GetInstance()->argv;
 	int argc=App::GetInstance()->argc;
 	//no decent default values?
-	std::string config_filename(getUserConfigDir());///\todo make it possible to use a combination of system and configuration files instead of only one of them
+	std::string config_filename(getUserConfigDir());
 	config_filename+="/config";
 	///\todo check licence compatibility of code snippet from boost (should be ok but checking is never bad)
 	//commandline only
@@ -110,7 +110,7 @@ void AppConfig::readConfFile(std::string const& file, boost::program_options::va
 {
 	std::ifstream ifs(file);
 	if(!ifs)
-		throw std::runtime_error("unable to find configuration file: "+file);///\todo enhance this exception's text
+		throw std::runtime_error("unable to find configuration file: "+file);
 
 	store(parse_config_file(ifs,optionSet),vm);
 	notify(vm);
