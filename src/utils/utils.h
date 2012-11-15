@@ -65,4 +65,7 @@ T *getProvider(pluma::Pluma &plumConf, std::string const &location, std::string 
 std::string getPosixConfDir(void);
 boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location);
 
+std::string getUserConfigDir(void);
+std::string getSystemConfigDir(void);
+
 #endif // UTILS_H

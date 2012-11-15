@@ -41,6 +41,19 @@ wxBitmap loadImage(std::string const &fileName)
 
 std::string getPosixConfDir(void)
 {
+	std::string path(getUserConfigDir());
+
+	if(path.empty())
+		path=getSystemConfigDir();
+
+	if(path.empty())
+		throw std::runtime_error("configuration not found");
+
+	return path;
+}
+
+std::string getUserConfigDir(void)
+{
 	///\todo find a better solution to follow freeDesktop.org's recommmandations
 	std::string homepath(getenv("HOME"));///\note flawfinder say I should use getenv with care
 
@@ -48,13 +61,18 @@ std::string getPosixConfDir(void)
 		return boost::filesystem::path(homepath + "/.autorealm/").string();
 	else if(boost::filesystem::exists(homepath + "/.config/autorealm"))
 		return boost::filesystem::path(homepath + "/.config/autorealm/").string();
+	return std::string();
+}
 
-#ifndef WIN32
-	else if(boost::filesystem::exists("/usr/local/etc/autorealm/"))
+std::string getSystemConfigDir(void)
+{
+	#ifdef WIN32
+		throw std::logic_error("System configuration folder detection unimplemented on Windows");
+	#endif
+
+	if(boost::filesystem::exists("/usr/local/etc/autorealm/"))
 		return boost::filesystem::path("/usr/local/etc/autorealm/").string();
-
-#endif
-	throw std::runtime_error("configuration not found");
+	return std::string();
 }
 
 boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location)
