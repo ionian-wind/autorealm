@@ -22,13 +22,12 @@
 #define APP_H
 
 #include <memory>
+#include <map>
 
 #include <wx/app.h>
+#include <Pluma/Pluma.hpp>
 
-#include <menuEngine/composite.h>
-#include <menuEngine/wxmenuconverter.h>
-
-typedef Composite<MenuConverter> Menu;
+#include "menuitemconfig.h"
 class MainFrame;
 class Drawer;
 class ID;
@@ -36,16 +35,13 @@ class Plugin;
 
 class App : public wxApp
 {
-	typedef std::map<std::string, ID> AssocIDs;
-	AssocIDs m_buttonIDs;	/// name of plugins are associated with an ID
-	std::unique_ptr<Menu> m_menuTree;	/// contain all menus and submenus of the menubar
 	pluma::Pluma m_actionPlugIn;
 	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins \todo replace with a ptr_container
 private:
 	MainFrame *m_app;
 private:
 	/** \brief load plugins used by BUI and bind them to needed GUI elements */
-	void loadRequestedPlugins(void);
+	void loadRequestedPlugins(_Folder & tree);
 public:
 	virtual bool OnInit();
 	App(void);

@@ -53,7 +53,6 @@
 			<Add library="boost_system" />
 			<Add library="pluma-d" />
 			<Add library="renderEngine" />
-			<Add library="menuEngine" />
 			<Add library="pluginEngine" />
 			<Add library="boost_program_options" />
 		</Linker>
@@ -79,6 +78,12 @@
 			<Option virtualFolder="source/" />
 		</Unit>
 		<Unit filename="gui/mainframe.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="gui/menuitemconfig.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/menuitemconfig.h">
 			<Option virtualFolder="header/" />
 		</Unit>
 		<Unit filename="gui/renderwindow.cpp">

@@ -29,6 +29,8 @@
 #include "id.h"
 #include "mainframe.h"
 #include "renderwindow.h"
+#include "menuitemconfig.h"
+#include "utils/utils.h"
 
 IMPLEMENT_APP(App)
 
@@ -45,18 +47,18 @@ bool App::OnInit()
 			wxImage image;
 			image.LoadFile(AppConfig::buildPath(AppConfig::GRP_RES) + "splash/splash.png");
 
-			wxSplashScreen* splash = new wxSplashScreen(image, wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT, 0,NULL,wxID_ANY);
+			std::unique_ptr<wxSplashScreen> splash (new wxSplashScreen(image, wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT, 0,NULL,wxID_ANY));
 			wxAppConsole::Yield(true);
 			m_app = new MainFrame(0);
 
-			m_menuTree.reset(new Menu(boost::filesystem::path(AppConfig::buildPath(AppConfig::INFO::MENU))));
 			m_actionPlugIn.acceptProviderType<PluginProvider>();
 			//create the notebook and add it an empty page
-			loadRequestedPlugins();
-			m_app->getActive()->setDefaultRenderers();
-			m_menuTree->create();
-			m_app->SetMenuBar(m_menuTree->getMenuBar());
+			_Folder tmp(createTree(AppConfig::buildPath(AppConfig::INFO::MENU)));
+			loadRequestedPlugins(tmp);
+			m_app->SetMenuBar(createMenuFromFolder(tmp));
 
+			//enable default configuration
+			m_app->getActive()->setDefaultRenderers();
 #ifdef TEST_SPLASH
 			time_t start, end;
 			time(&start);
@@ -64,7 +66,7 @@ bool App::OnInit()
 			while(difftime(end,start)<10.0)
 				time(&end);
 #endif
-			delete splash;
+			splash.reset();
 			m_app->Show();
 			SetTopWindow(m_app);
 		}
@@ -88,34 +90,38 @@ App::App(void)
 	changeSelectedPlugin(e);
 }
 
-void App::loadRequestedPlugins(void)
+void App::loadRequestedPlugins(_Folder &tree)
 {
-	for(Component<MenuConverter> &i : *m_menuTree) //only browse leaves
+	typedef std::map<std::string, ID> AssocIDs;
+	AssocIDs buttonIDs;	/// name of plugins are associated with an ID
+	for(_Folder::iterator it=tree.begin();it!=tree.end();++it)
 	{
-		std::string plugName = i.getPluginName();
-		AssocIDs::iterator jt = m_buttonIDs.find(plugName);
-
-		if(jt == m_buttonIDs.end()) // plugin is not loaded? Try to load it.
+		if(it.isNode())
+			loadRequestedPlugins(dynamic_cast<_Folder&>(*it));
+		else
 		{
-			assert(!m_actionPlugIn.isLoaded(plugName));///\note should never load twice the same plugin. Could be in pluma...
-			PluginProvider *plugProvider = getProvider<PluginProvider>(m_actionPlugIn, AppConfig::buildPath(AppConfig::PLUGINS), plugName);
+			std::string plugName = it->get().plugin();
+			if(plugName.empty())
+				continue;
+			AssocIDs::iterator jt = buttonIDs.find(plugName);
 
-			if(nullptr != plugProvider)
+			if(jt == buttonIDs.end()) // plugin is not loaded? Try to load it.
 			{
-				ID tmpid(m_buttonIDs[plugName]);// avoid searching twice in the map
-				Plugin* tmpplug=plugProvider->create(m_app->getActive());
-				m_plugins[tmpid]=tmpplug;
-				i.setID(tmpid);
+				assert(!m_actionPlugIn.isLoaded(plugName));///\note should never load twice the same plugin. Could be in pluma...
+				PluginProvider *plugProvider = getProvider<PluginProvider>(m_actionPlugIn, AppConfig::buildPath(AppConfig::PLUGINS), plugName);
+
+				if(nullptr != plugProvider)
+				{
+					ID tmpid(buttonIDs[plugName]);// avoid searching twice in the map
+					Plugin* tmpplug=plugProvider->create(m_app->getActive());
+					m_plugins[tmpid]=tmpplug;
+					it->get().setId(tmpid);
+				}
 			}
-			else
-				i.disable();
-		}
 
-		if(i.isEnabled())
-		{
-			jt = m_buttonIDs.find(plugName);
+			jt = buttonIDs.find(plugName);
 
-			if(jt != m_buttonIDs.end()) // plugin loaded? Bind it.
+			if(jt != buttonIDs.end()) // plugin loaded? Bind it.
 				Bind(wxEVT_COMMAND_MENU_SELECTED, &App::changeSelectedPlugin, this, jt->second, jt->second);
 		}
 	}
