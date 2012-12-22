@@ -46,7 +46,6 @@
 			<Add option="`wx-config --cppflags`" />
 			<Add option="-fPIC" />
 			<Add directory="../../" />
-			<Add directory="../../../../pluma-fork/include" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs aui gl adv core base `" />
@@ -54,7 +53,6 @@
 			<Add library="boost_serialization" />
 			<Add library="pluginEngine" />
 			<Add library="renderEngine" />
-			<Add directory="../../../../pluma-fork/lib" />
 		</Linker>
 		<Unit filename="save/connector.cpp">
 			<Option virtualFolder="source/" />
@@ -68,6 +66,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
