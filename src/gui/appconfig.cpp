@@ -36,7 +36,7 @@ AppConfig::AppConfig(void)
 	//no decent default values?
 	std::string config_filename(getUserConfigDir());
 	config_filename+="/config";
-	///\todo check licence compatibility of code snippet from boost (should be ok but checking is never bad)
+
 	//commandline only
 	po::options_description generic("Generic options");
 	generic.add_options()
@@ -45,13 +45,14 @@ AppConfig::AppConfig(void)
 		("config,c",po::value<std::string>(&config_filename)->default_value(config_filename),
 			"name of a configuration file");
 
-	std::string filler,border,menu,graphics,plugins;
+	std::string filler,border,menu,graphics,plugins,toolbars;
 	//option provided by files or command-line
 	po::options_description config_file("User configuration");
 	config_file.add_options()
 		("border",po::value<std::string>(&border),"default taglist to identify drawer used for borders and lines")
 		("filler",po::value<std::string>(&filler),"default taglist to identify drawer used for filling shapes")
 		("menubar", po::value<std::string>(&menu),"folder to look for menubar description")
+		("toolbars", po::value<std::string>(&toolbars),"folder to look for toolbars description")
 		("graphics", po::value<std::string>(&graphics),"folder to look for graphical resources")
 		("plugins", po::value<std::string>(&plugins),"folder to look for plug-ins");
 		("input-file", po::value<std::vector<std::string>>(), "files to open at start-up");
@@ -90,6 +91,7 @@ AppConfig::AppConfig(void)
 	m_defaultRendererTags[BORDER]=border;
 	m_defaultRendererTags[FILLER]=filler;
 	m_datas[MENU]=menu;
+	m_datas[TOOLBARS]=toolbars;
 	m_datas[GRP_RES]=graphics;
 	m_datas[PLUGINS]=plugins;
 }

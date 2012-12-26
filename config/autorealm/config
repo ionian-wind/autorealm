@@ -1,5 +1,6 @@
 graphics = /usr/local/share/autorealm/png_files/
 plugins = /usr/local/lib/autorealm/plugin/
 menubar = /usr/local/etc/autorealm/menubar
+toolbars = /usr/local/etc/autorealm/toolbars
 border = polyline
 filler = polyline
