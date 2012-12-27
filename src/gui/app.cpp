@@ -53,7 +53,7 @@ bool App::OnInit()
 
 			m_actionPlugIn.acceptProviderType<PluginProvider>();
 			//create the notebook and add it an empty page
-			_Folder tmp(createTree(AppConfig::buildPath(AppConfig::INFO::MENU)));
+			Node<MenuItemConfig> tmp(createTree<MenuItemConfig>(AppConfig::buildPath(AppConfig::INFO::MENU)));
 			loadRequestedPlugins(tmp);
 			m_app->SetMenuBar(createMenuFromFolder(tmp));
 
@@ -90,14 +90,14 @@ App::App(void)
 	changeSelectedPlugin(e);
 }
 
-void App::loadRequestedPlugins(_Folder &tree)
+void App::loadRequestedPlugins(Node<MenuItemConfig> &tree)
 {
 	typedef std::map<std::string, ID> AssocIDs;
 	AssocIDs buttonIDs;	/// name of plugins are associated with an ID
-	for(_Folder::iterator it=tree.begin();it!=tree.end();++it)
+	for(Node<MenuItemConfig>::iterator it=tree.begin();it!=tree.end();++it)
 	{
 		if(it.isNode())
-			loadRequestedPlugins(dynamic_cast<_Folder&>(*it));
+			loadRequestedPlugins(dynamic_cast<Node<MenuItemConfig>&>(*it));
 		else
 		{
 			std::string plugName = it->get().plugin();

@@ -21,6 +21,8 @@
 #include "mainframe.h"
 
 #include "renderwindow.h"
+#include <tree.h>
+#include "toolbaritemconfig.h"
 
 MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 : wxFrame(parent, id, title)
@@ -33,6 +35,9 @@ MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 	m_plans.push_back(first);
 	m_active = m_plans.begin();
 	m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Center());
+
+	Node<ToolbarItemConfig> tmp(createTree<ToolbarItemConfig>(AppConfig::buildPath(AppConfig::INFO::TOOLBARS)));
+	buildToolbars(m_auiManager,tmp,this);
 	m_auiManager.Update();
 }
 

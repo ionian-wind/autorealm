@@ -1,2 +1,5 @@
-polyline
-toolbars/shape/tool-polyline.png
+label=polyline
+bitmap=toolbars/shape/tool-polyline.png
+description= fooicon for foobar feature!
+plugin=libpolyline
+kind=normal

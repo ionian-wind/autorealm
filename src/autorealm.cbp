@@ -95,6 +95,18 @@
 		<Unit filename="gui/singleton.h">
 			<Option virtualFolder="header/" />
 		</Unit>
+		<Unit filename="gui/toolbaritemconfig.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/toolbaritemconfig.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="gui/wxadapter.cpp">
+			<Option virtualFolder="source/" />
+		</Unit>
+		<Unit filename="gui/wxadapter.h">
+			<Option virtualFolder="header/" />
+		</Unit>
 		<Unit filename="utils/textfile.cpp">
 			<Option virtualFolder="source/" />
 		</Unit>

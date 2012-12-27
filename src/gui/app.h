@@ -41,7 +41,7 @@ private:
 	MainFrame *m_app;
 private:
 	/** \brief load plugins used by BUI and bind them to needed GUI elements */
-	void loadRequestedPlugins(_Folder & tree);
+	void loadRequestedPlugins(Node<MenuItemConfig> & tree);
 public:
 	virtual bool OnInit();
 	App(void);
