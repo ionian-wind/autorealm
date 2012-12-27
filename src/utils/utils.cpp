@@ -70,9 +70,10 @@ std::string getSystemConfigDir(void)
 		throw std::logic_error("System configuration folder detection unimplemented on Windows");
 	#endif
 
-	if(boost::filesystem::exists("/usr/local/etc/autorealm"))
-		return boost::filesystem::path("/usr/local/etc/autorealm").string();
-	return std::string();
+	const std::string systemConfFile="/usr/local/etc/autorealm"; ///\todo make this constant a #define to allow compile-time definition
+	if(! boost::filesystem::exists(systemConfFile))
+		throw std::runtime_error("Unable to find system-wide configuration file:\n\""+systemConfFile+"\"");
+	return boost::filesystem::path(systemConfFile).string();
 }
 
 boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location)
