@@ -28,8 +28,9 @@
 #define HOME "HOME"
 #endif
 
-
 #include <boost/filesystem.hpp>
+
+namespace fs=boost::filesystem;
 
 wxBitmap loadImage(std::string const &fileName)
 {
@@ -39,28 +40,19 @@ wxBitmap loadImage(std::string const &fileName)
 	return wxBitmap(wxImage(AppConfig::buildPath(AppConfig::INFO::GRP_RES) + fileName));
 }
 
-std::string getPosixConfDir(void)
-{
-	std::string path(getUserConfigDir());
-
-	if(path.empty())
-		path=getSystemConfigDir();
-
-	if(path.empty())
-		throw std::runtime_error("configuration not found");
-
-	return path;
-}
-
 std::string getUserConfigDir(void)
 {
 	///\todo find a better solution to follow freeDesktop.org's recommmandations
 	std::string homepath(getenv(HOME));///\note flawfinder say I should use getenv with care
 
-	if(boost::filesystem::exists(homepath + "/.autorealm"))
-		return boost::filesystem::path(homepath + "/.autorealm/").string();
-	else if(boost::filesystem::exists(homepath + "/.config/autorealm"))
-		return boost::filesystem::path(homepath + "/.config/autorealm/").string();
+
+	const fs::path usualUserConfig(homepath + "/.autorealm/config");
+	if(fs::exists(usualUserConfig))
+		return usualUserConfig.string();
+
+	const fs::path xdgUserConfig(homepath + "/.config/autorealm/config");
+	if(fs::exists(xdgUserConfig))
+		return xdgUserConfig.string();
 	return std::string();
 }
 
@@ -70,18 +62,8 @@ std::string getSystemConfigDir(void)
 		throw std::logic_error("System configuration folder detection unimplemented on Windows");
 	#endif
 
-	const std::string systemConfFile="/usr/local/etc/autorealm"; ///\todo make this constant a #define to allow compile-time definition
-	if(! boost::filesystem::exists(systemConfFile))
-		throw std::runtime_error("Unable to find system-wide configuration file:\n\""+systemConfFile+"\"");
-	return boost::filesystem::path(systemConfFile).string();
-}
-
-boost::filesystem::path findConfigurationFile(boost::filesystem::path const &location)
-{
-	boost::filesystem::path file(location.string() + "/" + location.filename().string());
-
-	if(!boost::filesystem::exists(file))
-		throw std::runtime_error("configuration file is missing");
-
-	return file;
+	const fs::path systemConfFile="/usr/local/etc/autorealm/config"; ///\todo make this constant a #define to allow compile-time definition
+	if(fs::exists(systemConfFile))
+		return systemConfFile.string();
+	throw std::runtime_error("Unable to find system-wide configuration file:\n\""+systemConfFile.string()+"\"");
 }

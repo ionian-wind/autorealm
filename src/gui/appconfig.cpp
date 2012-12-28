@@ -25,6 +25,7 @@
 #include <boost/program_options.hpp>
 #include <fstream>
 #include <stdexcept>
+#include <wx/msgdlg.h>
 
 namespace po=boost::program_options;
 
@@ -35,7 +36,6 @@ AppConfig::AppConfig(void)
 	int argc=App::GetInstance()->argc;
 	//no decent default values?
 	std::string config_filename(getUserConfigDir());
-	config_filename+="/config";
 
 	//commandline only
 	po::options_description generic("Generic options");
@@ -45,16 +45,16 @@ AppConfig::AppConfig(void)
 		("config,c",po::value<std::string>(&config_filename)->default_value(config_filename),
 			"name of a configuration file");
 
-	std::string filler,border,menu,graphics,plugins,toolbars;
+	std::string filler,border; ///\todo remove those temp vars
 	//option provided by files or command-line
 	po::options_description config_file("User configuration");
 	config_file.add_options()
 		("border",po::value<std::string>(&border),"default taglist to identify drawer used for borders and lines")
 		("filler",po::value<std::string>(&filler),"default taglist to identify drawer used for filling shapes")
-		("menubar", po::value<std::string>(&menu),"folder to look for menubar description")
-		("toolbars", po::value<std::string>(&toolbars),"folder to look for toolbars description")
-		("graphics", po::value<std::string>(&graphics),"folder to look for graphical resources")
-		("plugins", po::value<std::string>(&plugins),"folder to look for plug-ins");
+		("menubar", po::value<std::string>(&m_datas[MENU]),"folder to look for menubar description")
+		("toolbars", po::value<std::string>(&m_datas[TOOLBARS]),"folder to look for toolbars description")
+		("graphics", po::value<std::string>(&m_datas[GRP_RES]),"folder to look for graphical resources")
+		("plugins", po::value<std::string>(&m_datas[PLUGINS]),"folder to look for plug-ins");
 		("input-file", po::value<std::vector<std::string>>(), "files to open at start-up");
 
 	//command-line declaration and settings
@@ -75,11 +75,17 @@ AppConfig::AppConfig(void)
 	notify(vm);
 
 	//parse user configuration file
-	readConfFile(config_filename,vm,config_file);
+	if(!config_filename.empty())
+		readConfFile(config_filename,vm,config_file);
 
-	//parse system configuration file
-	config_filename=getSystemConfigDir();
-	config_filename+="/config";
+	try
+	{
+		//parse system configuration file
+		config_filename=getSystemConfigDir();
+	}catch(std::runtime_error &e)
+	{
+		wxMessageBox(std::string("An exception has occured.\nAutoREALM might recover from it, or might crash latter. Here is the error:\n")+e.what(), "Non-fatal exception");
+	}
 	readConfFile(config_filename,vm,config_file);
 
 	if(vm.count("version"))
@@ -90,10 +96,17 @@ AppConfig::AppConfig(void)
 
 	m_defaultRendererTags[BORDER]=border;
 	m_defaultRendererTags[FILLER]=filler;
-	m_datas[MENU]=menu;
-	m_datas[TOOLBARS]=toolbars;
-	m_datas[GRP_RES]=graphics;
-	m_datas[PLUGINS]=plugins;
+
+	std::string configErrors; ///\todo improve those error messages
+	for(std::string s:m_defaultRendererTags)
+		if(s.empty())
+			configErrors+="A configuration field for renderers is empty.";
+	for(std::string s:m_datas)
+		if(s.empty())
+			configErrors+="A configuration field for paths is empty.";
+	if(!configErrors.empty())
+		throw std::runtime_error(configErrors);
+
 }
 
 std::string AppConfig::buildPath(INFO info)
