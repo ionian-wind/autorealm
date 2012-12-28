@@ -26,17 +26,36 @@
 
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
+#include <Pluma/Pluma.hpp>
+
+#include "menuitemconfig.h"
+#include "toolbaritemconfig.h"
+
+class Drawer;
+class ID;
+class Plugin;
 
 class RenderWindow;
 
 class MainFrame : public wxFrame
 {
+	typedef std::map<std::string, ID> AssocIDs;
+	AssocIDs m_buttonIDs;	/// name of plugins are associated with an ID
+	pluma::Pluma m_actionPlugIn;
+	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins \todo replace with a ptr_container
 	///\todo avoid the use of pointers
 	typedef std::vector<RenderWindow*> MapList;
 	MapList m_plans;	/// list of plans. Aka: drawing sheets
 	MapList::iterator m_active;	/// iterator on the currently active plan
 	wxAuiManager m_auiManager;	/// internal "window manager" of wxWidgets
 	wxAuiNotebook *m_auiNotebookWorkspace;	/// contain plans'windows
+
+	void loadRequestedPlugins(Node<MenuItemConfig> &tree);
+	void changeSelectedPlugin(wxCommandEvent &event);
+
+	void buildToolbars(wxAuiManager &mgr,Node<ToolbarItemConfig> & origin);
+	wxAuiToolBar* buildPaneComponents(Node<ToolbarItemConfig> &data);
+
 public:
 	/** \brief build the GUI and load plugins
 	 *

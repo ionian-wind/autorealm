@@ -80,38 +80,6 @@ void ToolbarItemConfig::setId(uint16_t id)
 	m_id=id;
 }
 
-void buildToolbars(wxAuiManager &mgr,Node<ToolbarItemConfig> & origin, wxWindow *parent)
-{
-	for(auto it=origin.begin();it!=origin.end();++it)
-	{
-		if(it.isNode())
-			mgr.AddPane(buildPaneComponents(dynamic_cast<Node<ToolbarItemConfig>&>(*it),parent),buildPaneInfo(*it));
-		else
-			throw std::runtime_error("root toolbar folder should only contain directories");
-	}
-	mgr.Update();
-}
-
-wxAuiToolBar* buildPaneComponents(Node<ToolbarItemConfig> &data, wxWindow *parent)
-{
-int id=-1;///\todo bind a true id
-	wxAuiToolBar *ret=new wxAuiToolBar(parent);
-	for(auto it=data.begin();it!=data.end();++it)
-//		if(it.isNode())
-			ret->AddTool(
-				id,
-				it->get().label(),
-				wxBitmap(wxImage(AppConfig::buildPath(AppConfig::GRP_RES) +it->get().bmp())),
-				it->get().desc(),
-				static_cast<wxItemKind>(it->get().kind())
-			);
-//		else
-//			throw std::runtime_error("toolbar children folders should only contain files");
-
-	ret->Realize();
-	return ret;
-}
-
 wxAuiPaneInfo buildPaneInfo(Leaf<ToolbarItemConfig> &data)
 {
 	return wxAuiPaneInfo();

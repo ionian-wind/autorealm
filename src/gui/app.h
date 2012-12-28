@@ -25,35 +25,16 @@
 #include <map>
 
 #include <wx/app.h>
-#include <Pluma/Pluma.hpp>
 
-#include "menuitemconfig.h"
 class MainFrame;
-class Drawer;
-class ID;
-class Plugin;
 
 class App : public wxApp
 {
-	pluma::Pluma m_actionPlugIn;
-	std::map<ID, Plugin*> m_plugins; /// IDs are associated with plugins \todo replace with a ptr_container
 private:
 	MainFrame *m_app;
 private:
 	/** \brief load plugins used by BUI and bind them to needed GUI elements */
-	void loadRequestedPlugins(Node<MenuItemConfig> & tree);
 public:
 	virtual bool OnInit();
-	App(void);
-	/** \brief change the current used plugin
-	 *	This method ask to currently (if existing) used plugin to remove it's event
-	 *	managers. After this, it register the new plugin to use and asks it to
-	 *	do what it needs.
-	 *	Plugins often need to register event managers by example.
-	 *	The method give to the plugin a reference of the active RenderWindow.
-	 * \param event wxCommandEvent& event to process
-	 */
-	void changeSelectedPlugin(wxCommandEvent &event);
-	void setDefaultRenderers(void);
 };
 #endif

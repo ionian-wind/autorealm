@@ -23,6 +23,12 @@
 #include "renderwindow.h"
 #include <tree.h>
 #include "toolbaritemconfig.h"
+#include <pluginEngine/pluginprovider.h>
+
+#include "id.h"
+#include "renderwindow.h"
+#include "menuitemconfig.h"
+#include "utils/utils.h"
 
 MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 : wxFrame(parent, id, title)
@@ -36,17 +42,114 @@ MainFrame::MainFrame(wxWindow *parent, wxWindowID id, std::string const &title)
 	m_active = m_plans.begin();
 	m_auiManager.AddPane(m_auiNotebookWorkspace, wxAuiPaneInfo().Center());
 
-	Node<ToolbarItemConfig> tmp(createTree<ToolbarItemConfig>(AppConfig::buildPath(AppConfig::INFO::TOOLBARS)));
-	buildToolbars(m_auiManager,tmp,this);
-	m_auiManager.Update();
+	//create menus
+		m_actionPlugIn.acceptProviderType<PluginProvider>();
+		//create the notebook and add it an empty page
+		Node<MenuItemConfig> tmp2(createTree<MenuItemConfig>(AppConfig::buildPath(AppConfig::INFO::MENU)));
+		loadRequestedPlugins(tmp2);
+		SetMenuBar(createMenuFromFolder(tmp2));
+
+	//create toolbars
+		Node<ToolbarItemConfig> tmp(createTree<ToolbarItemConfig>(AppConfig::buildPath(AppConfig::INFO::TOOLBARS)));
+		buildToolbars(m_auiManager,tmp);
+		m_auiManager.Update();
+
+	//enable default configuration
+		getActive()->setDefaultRenderers();
 }
 
 MainFrame::~MainFrame(void)
 {
 	m_auiManager.UnInit();
+
+//	for(std::pair<ID,Plugin*> i : m_plugins)
+//		delete i.second;
+
+	wxCommandEvent e;
+	e.SetId(0);
+	changeSelectedPlugin(e);
 }
 
 RenderWindow* MainFrame::getActive(void)const
 {
 	return *m_active;
+}
+
+void MainFrame::loadRequestedPlugins(Node<MenuItemConfig> &tree)
+{
+	for(Node<MenuItemConfig>::iterator it=tree.begin();it!=tree.end();++it)
+	{
+		if(it.isNode())
+			loadRequestedPlugins(dynamic_cast<Node<MenuItemConfig>&>(*it));
+		else
+		{
+			std::string plugName = it->get().plugin();
+			if(plugName.empty())
+				continue;
+			AssocIDs::iterator jt = m_buttonIDs.find(plugName);
+
+			if(jt == m_buttonIDs.end()) // plugin is not loaded? Try to load it.
+			{
+				assert(!m_actionPlugIn.isLoaded(plugName));///\note should never load twice the same plugin. Could be in pluma...
+				PluginProvider *plugProvider = getProvider<PluginProvider>(m_actionPlugIn, AppConfig::buildPath(AppConfig::PLUGINS), plugName);
+
+				if(nullptr != plugProvider)
+				{
+					ID tmpid(m_buttonIDs[plugName]);// avoid searching twice in the map
+					Plugin* tmpplug=plugProvider->create(getActive());
+					m_plugins[tmpid]=tmpplug;
+					it->get().setId(tmpid);
+				}
+			}
+
+			jt = m_buttonIDs.find(plugName);
+
+			if(jt != m_buttonIDs.end()) // plugin loaded? Bind it.
+				Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::changeSelectedPlugin, this, jt->second, jt->second);
+		}
+	}
+}
+
+void MainFrame::changeSelectedPlugin(wxCommandEvent &event)
+{
+	static int oldId = 0;
+
+	if(oldId)
+		m_plugins[oldId]->removeEventManager();
+
+	oldId = event.GetId();
+	if(oldId)
+		m_plugins[oldId]->installEventManager();
+}
+
+void MainFrame::buildToolbars(wxAuiManager &mgr,Node<ToolbarItemConfig> & origin)
+{
+	for(auto it=origin.begin();it!=origin.end();++it)
+	{
+		if(it.isNode())
+			mgr.AddPane(buildPaneComponents(dynamic_cast<Node<ToolbarItemConfig>&>(*it)),buildPaneInfo(*it));
+		else
+			throw std::runtime_error("root toolbar folder should only contain directories");
+	}
+	mgr.Update();
+}
+
+
+wxAuiToolBar* MainFrame::buildPaneComponents(Node<ToolbarItemConfig> &data)
+{
+	wxAuiToolBar *ret=new wxAuiToolBar(this);
+	for(auto it=data.begin();it!=data.end();++it)
+//		if(it.isNode())
+			ret->AddTool(
+				m_buttonIDs[it->get().plugin()],
+				it->get().label(),
+				wxBitmap(wxImage(AppConfig::buildPath(AppConfig::GRP_RES) +it->get().bmp())),
+				it->get().desc(),
+				static_cast<wxItemKind>(it->get().kind())
+			);
+//		else
+//			throw std::runtime_error("toolbar children folders should only contain files");
+
+	ret->Realize();
+	return ret;
 }

@@ -42,8 +42,6 @@ public:
 #include <wx/aui/auibar.h>
 #include <wx/aui/framemanager.h>
 
-void buildToolbars(wxAuiManager &mgr,Node<ToolbarItemConfig> & origin, wxWindow *parent);
-wxAuiToolBar* buildPaneComponents(Node<ToolbarItemConfig> &data, wxWindow *parent);
 wxAuiPaneInfo buildPaneInfo(Leaf<ToolbarItemConfig> &data);
 
 #endif
