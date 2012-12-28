@@ -73,6 +73,11 @@ AppConfig::AppConfig(void)
 	store(po::command_line_parser(argc,argv).
 		options(cmdline_options).positional(p).run(),vm);
 	notify(vm);
+	if(vm.count("version"))
+		; ///\todo
+	if(vm.count("help"))
+		std::cout << cmdline_options;
+
 
 	//parse user configuration file
 	if(!config_filename.empty())
@@ -88,15 +93,10 @@ AppConfig::AppConfig(void)
 	}
 	readConfFile(config_filename,vm,config_file);
 
-	if(vm.count("version"))
-		; ///\todo
-
-	if(vm.count("help"))
-		std::cout << cmdline_options;
-
 	m_defaultRendererTags[BORDER]=border;
 	m_defaultRendererTags[FILLER]=filler;
 
+	// check for errors
 	std::string configErrors; ///\todo improve those error messages
 	for(std::string s:m_defaultRendererTags)
 		if(s.empty())
