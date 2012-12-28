@@ -1,5 +1,6 @@
 #include "toolbaritemconfig.h"
 #include "id.h"
+#include "appconfig.h"
 
 ToolbarItemConfig::ToolbarItemConfig(fs::path const& rootDir)
 :m_path(rootDir)
@@ -96,11 +97,11 @@ wxAuiToolBar* buildPaneComponents(Node<ToolbarItemConfig> &data, wxWindow *paren
 int id=-1;///\todo bind a true id
 	wxAuiToolBar *ret=new wxAuiToolBar(parent);
 	for(auto it=data.begin();it!=data.end();++it)
-		if(it.isNode())
+//		if(it.isNode())
 			ret->AddTool(
 				id,
 				it->get().label(),
-				wxBitmap(wxImage(it->get().bmp())),
+				wxBitmap(wxImage(AppConfig::buildPath(AppConfig::GRP_RES) +it->get().bmp())),
 				it->get().desc(),
 				static_cast<wxItemKind>(it->get().kind())
 			);
